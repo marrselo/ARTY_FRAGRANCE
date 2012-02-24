@@ -18,7 +18,6 @@ class Application_Model_Idioma extends ZExtraLib_Model {
     }
 
     public function getIdiomaDefault() {
-
         if (!($result = $this->_cache->load('listaIdiomaDefault'))) {
             $flag = 1;
             $result = $this->_idioma->select()->where('FlagDefaultIdioma = ? ', 
