@@ -1,0 +1,10 @@
+[11-Dec-2011 17:06:01] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/DniExist.php on line 3
+[11-Dec-2011 17:06:01] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/TipoPublicacionExist.php on line 3
+[11-Dec-2011 17:06:01] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/UsuarioMailExist.php on line 3
+[11-Dec-2011 17:06:03] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/MailExist.php on line 3
+[11-Dec-2011 17:06:03] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/NumberWordsAllowed.php on line 2
+[12-Dec-2011 06:24:36] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/DniExist.php on line 3
+[12-Dec-2011 06:29:52] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/MailExist.php on line 3
+[12-Dec-2011 06:33:43] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/UsuarioMailExist.php on line 3
+[12-Dec-2011 06:36:16] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/NumberWordsAllowed.php on line 2
+[12-Dec-2011 06:38:48] PHP Fatal error:  Class 'Zend_Validate_Abstract' not found in /home/delivery/public_html/library/ZExtraLib/Validate/TipoPublicacionExist.php on line 3

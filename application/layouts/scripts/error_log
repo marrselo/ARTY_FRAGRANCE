@@ -1,0 +1,6 @@
+[11-Dec-2011 17:06:03] PHP Fatal error:  Using $this when not in object context in /home/delivery/public_html/application/layouts/scripts/layout.phtml on line 4
+[11-Dec-2011 17:06:03] PHP Fatal error:  Using $this when not in object context in /home/delivery/public_html/application/layouts/scripts/layoutadmin.phtml on line 1
+[11-Dec-2011 17:06:03] PHP Fatal error:  Using $this when not in object context in /home/delivery/public_html/application/layouts/scripts/layoutlogin.phtml on line 1
+[12-Dec-2011 06:27:31] PHP Fatal error:  Using $this when not in object context in /home/delivery/public_html/application/layouts/scripts/layout.phtml on line 4
+[12-Dec-2011 06:31:10] PHP Fatal error:  Using $this when not in object context in /home/delivery/public_html/application/layouts/scripts/layoutadmin.phtml on line 1
+[12-Dec-2011 06:32:25] PHP Fatal error:  Using $this when not in object context in /home/delivery/public_html/application/layouts/scripts/layoutlogin.phtml on line 1
