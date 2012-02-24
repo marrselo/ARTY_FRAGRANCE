@@ -6,9 +6,10 @@
         <?php echo $this->headLink() ?>
         <?php echo $this->headStyle() ?>
     </head>
+    <?php echo $this->render('frontmenu.phtml');?>
     <body id="index">
         <?php echo $this->layout()->content ?>
-
+    <?php echo $this->render('frontfooter.phtml');?>    
     </body>
 
 </html>
