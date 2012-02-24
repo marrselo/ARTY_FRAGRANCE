@@ -7,7 +7,7 @@ class Default_IndexController extends ZExtraLib_Controller_Action
     }
     public function indexAction()
     {
-
+        
     }
 }
 
