@@ -1,6 +1,6 @@
 <?php
 
-class Default_PresseControllerController extends ZExtraLib_Controller_Action
+class Default_PresseController extends ZExtraLib_Controller_Action
 {
     public function init() {
         parent::init();
