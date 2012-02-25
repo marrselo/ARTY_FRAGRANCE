@@ -11,7 +11,11 @@ class Application_Model_Idioma extends ZExtraLib_Model {
 
     public function getIdiomas() {
         if (!($result = $this->_cache->load('listaIdiomas'))) {
-            $result = $this->_idioma->select();
+            $result = $this->_idioma
+                    ->getAdapter()
+                    ->fetchPairs($this->_idioma->select()
+                            ->from($this->_idioma->getName(),
+                                    array('PrefIdioma','NombreIdioma')));
             $this->_cache->save($result, 'listaIdiomas');
         }
         return $result;

@@ -9,11 +9,13 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     protected $_identity;
     protected $_moduleName;
     protected $_controllerName;
+    protected $_params;
 
     public function init() {
         parent::init();
         $this->headMeta();
         $this->setAtributes();
+        $this->loadMenuIdioma($this->_params['lang']);
         //echo APPLICATION_PATH.'/../library/ZExtraLib/Editor/license/phphtmledit.lic';
         $this->initView();
         if ($this->_moduleName == 'admin') {
@@ -29,7 +31,14 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         }
     }
 
+    protected function loadMenuIdioma($idioma){
+       $modelMenu = new Application_Model_Menu();
+       $response = $modelMenu->listarMenuPorIdioma($idioma);
+       print_r($response);
+       return $response;
+    }
     private function setAtributes() {
+        $this->_params = $this->_getAllParams();
         $this->session = (!isset($this->session)) ? new Zend_Session_Namespace('dojo') : null;
         $this->_identity = Zend_Auth::getInstance()->getIdentity();
         $this->view->identity = $this->_identity;
@@ -43,7 +52,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     protected function setLayout($layout) {
         Zend_Layout::getMvcInstance()->setLayout($layout);
     }
-
+    
     private function headMeta() {
         $this->view->doctype(Zend_View_Helper_Doctype::XHTML1_RDFA);
         $this->view->headMeta()->setProperty('og:title', 'Delivery Premium');

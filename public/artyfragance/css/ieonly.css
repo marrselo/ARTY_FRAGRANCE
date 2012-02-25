@@ -1,0 +1,17 @@
+﻿.ie7 #nav ul li a{float: left;}
+.ie7 .cnt_contact{}
+
+/* Potafolio */
+.ie7 .lyt_portafolio .col{padding: 0 0 50px 0;}
+
+/* Clientes */
+.ie7 .lyt_clientes .cnt_item_cliente{padding: 0 0 30px 0;}
+.ie8 .lyt_clientes .item_cliente img, .ie7 .lyt_clientes .item_cliente img{ filter:alpha(opacity=70);}
+.ie6 .lyt_clientes .item_cliente .item_descripcion,
+.ie7 .lyt_clientes .item_cliente .item_descripcion { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6494949, endColorstr=#E6494949);}
+.ie8 .lyt_clientes .item_cliente .item_descripcion { -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6494949, endColorstr=#E6494949)";}
+.ie8 .lyt_clientes .item_cliente:hover img, .ie7 .lyt_clientes .item_cliente:hover img{ filter:alpha(opacity=100);}
+
+
+/* Portafolio Packing */
+.ie7 .lyt_portafolio_packing .col{padding: 0 0 50px 0;}
