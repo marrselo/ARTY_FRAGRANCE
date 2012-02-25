@@ -15,25 +15,17 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         parent::init();
         $this->headMeta();
         $this->setAtributes();
-        $this->loadMenuIdioma($this->_params['lang']);
-        //echo APPLICATION_PATH.'/../library/ZExtraLib/Editor/license/phphtmledit.lic';
+        if($this->getRequest()->getModuleName()=='default')
+        $this->loadMenuIdioma($this->_params['lang'],1);
         $this->initView();
         if ($this->_moduleName == 'admin') {
             $this->setLayout('layoutadmin');
-           // $this->view->headLink()->appendStylesheet("/css/style.css")
-                   // ->appendStylesheet("/css/custom.css")
-                   // ->appendStylesheet("/css/defaults.css")
-             //       ->appendStylesheet("/css/print.css", array("media" => "print"));
-            $this->view->headScript()
-                    ->setIndent('      ')
-                    ->prependFile("/css/fix-ie.css", 'text/css', 
-                            array("media" => "screen", "conditional" => "lt IE 7"));
         }
     }
 
-    protected function loadMenuIdioma($idioma){
+    protected function loadMenuIdioma($idioma,$modulo){
        $modelMenu = new Application_Model_Menu();
-       $response = $modelMenu->listarMenuPorIdioma($idioma);
+       $response = $modelMenu->listarMenuPorIdioma($idioma,$modulo);
        print_r($response);
        return $response;
     }
