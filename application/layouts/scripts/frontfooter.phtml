@@ -1,7 +1,7 @@
 <ul>
-    <li>uno</li>
-    <li>uno</li>
-    <li>uno</li>
-    <li>uno</li>
-    <li>uno</li>
+<?php
+foreach($this->menuFooter as $index=>$value):
+?>
+    <li><?php echo $value['nombreMenu'] ?></li>
+<?php endforeach; ?>
 </ul>

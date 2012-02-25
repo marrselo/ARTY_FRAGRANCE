@@ -6,10 +6,15 @@
         <?php echo $this->headLink() ?>
         <?php echo $this->headStyle() ?>
     </head>
-    <?php echo $this->render('frontmenu.phtml');?>
+    
     <body id="index">
-        <?php echo $this->layout()->content ?>
-    <?php echo $this->render('frontfooter.phtml');?>    
+        
+    <?php echo $this->render('frontmenu.phtml',array('menuSup'=>$this->menuSup));?>
+        
+    <?php echo $this->layout()->content ?>
+        
+    <?php echo $this->render('frontfooter.phtml',array('menuFooter'=>$this->menuFooter));?>    
+        
     </body>
 
 </html>
