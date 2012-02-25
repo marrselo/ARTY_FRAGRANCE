@@ -2,6 +2,6 @@
 <?php
 foreach($this->menuFooter as $index=>$value):
 ?>
-    <li><?php echo $value['nombreMenu'] ?></li>
+    <a href="<?php echo $value['nombreMenu'] ?>"><?php echo $value['nombreMenu'] ?></a>
 <?php endforeach; ?>
 </ul>

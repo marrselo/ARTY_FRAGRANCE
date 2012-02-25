@@ -15,9 +15,13 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         parent::init();
         $this->headMeta();
         $this->setAtributes();
-        if($this->getRequest()->getModuleName()=='default'){
-        $this->view->menuSup = $this->loadMenuIdioma($this->_params['lang'],1);
-        $this->view->menuFooter = $this->loadMenuIdioma($this->_params['lang'],2);
+        if ($this->getRequest()->getModuleName() == 'default') {
+            if ($this->getRequest()->getControllerName() != 'index') {
+                $this->view->menuSup = $this->loadMenuIdioma($this->_params['lang'], 1);
+                $this->view->menuFooter = $this->loadMenuIdioma($this->_params['lang'], 2);
+            } else {
+                $this->setLayout('layout-index');
+            }
         }
         $this->initView();
         if ($this->_moduleName == 'admin') {
@@ -25,11 +29,12 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         }
     }
 
-    protected function loadMenuIdioma($idioma,$modulo){
-       $modelMenu = new Application_Model_Menu();
-       $response = $modelMenu->listarMenuPorIdioma($idioma,$modulo);
-       return $response;
+    protected function loadMenuIdioma($idioma, $modulo) {
+        $modelMenu = new Application_Model_Menu();
+        $response = $modelMenu->listarMenuPorIdioma($idioma, $modulo);
+        return $response;
     }
+
     private function setAtributes() {
         $this->_params = $this->_getAllParams();
         $this->session = (!isset($this->session)) ? new Zend_Session_Namespace('dojo') : null;
@@ -45,7 +50,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     protected function setLayout($layout) {
         Zend_Layout::getMvcInstance()->setLayout($layout);
     }
-    
+
     private function headMeta() {
         $this->view->doctype(Zend_View_Helper_Doctype::XHTML1_RDFA);
         $this->view->headMeta()->setProperty('og:title', 'Delivery Premium');
