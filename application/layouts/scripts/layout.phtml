@@ -63,9 +63,8 @@
 				
 					</div>
 				</div>
-				
-
-				<div id="main_slide" class=" layout_fluid">
+                            <?php echo $this->placeholder('main_slide') ?>
+<!--				<div id="main_slide" class=" layout_fluid">
 					<div id="slide" class="item layout_fluid_inner" >	
 						<div class="overview">
 							<div id="" class="item_slide">
@@ -77,7 +76,7 @@
 						
 						</div>
 					</div>		
-				</div> 
+				</div> -->
 				
 				
 				
@@ -85,61 +84,7 @@
 				
 				
 				<div id="main_content" class="layout_fluid ">
-					<div id="content" class="layout_fluid_inner">
-						<div class="inside cf">
-												
-							<div class="box box_item_home">
-								<h2>
-									<span>Nouveautés</span>
-								</h2>
-								<div class="cf">	
-									<div class="box_l">
-										<img src="/f/img/temp/img_item_home_1.jpg" />
-									</div>
-									<div class="box_r">
-										<h3>Coffret Saint Valentin</h3>
-										<p>Du portugais « barocco », le terme baroque désigne la forme irrégulière d’une perle.
-										Dès la fin de la Renaissance, il décrit un contraste artistique fort, mêlant l’ombre à la
-										lumière. En sculpture, peinture, littérature mais surtout en musique, l’art baroque est 
-										fait de paradoxes et d’exubérance.</p>
-									</div>
-									
-								</div>
-								<div class="box_b">
-									<a href="#">+ En savoir plus</a>								
-								</div>
-							</div>
-							
-							<div class="box box_item_home last">
-								<h2>
-									<span>Actualités</span>
-								</h2>
-								<div class="cf">							
-									<div class="box_l">
-										<img src="/f/img/temp/img_item_home_2.jpg" />
-									</div>
-									<div class="box_r">
-										<h3>Marchés de Noël 2011 à Versailles</h3>
-										<p>Venez découvrir nos collections au Marché de Noël  à Versailles</p>
-										<ul>
-											<li>Lieu</li>
-											<li>Trianon Palace</li>
-											<li>1 boulevard de la Reine</li>
-											<li>78000 Versailles </li>
-										</ul>
-										<p>Du 03 au 24 décembre 2011 inclus - De 14H00 à 20H00 
-										Les mercredis, samedis et dimanches et le vendredi 23 </p>									
-										
-									</div>
-								</div>	
-								<div class="box_b">									
-									<a href="#">+ Lire la suite</a>	
-								</div>
-							</div>
-							
-						</div>
-				
-					</div>
+					<?php echo $this->layout()->content ?>
 				</div>
 				
 				<div id="main_footer" class="layout_fluid">
@@ -148,19 +93,25 @@
 							© Arty Fragrance  2011 Tous droits réservés
 						</p>
                                             
-						<ul class="lst_footer lst_recommend">
+                                        
+<!--						<ul class="lst_footer lst_recommend">
 							<li><a class="fb first" href="#"></a></li>
 							<li><a class="selected" href="#">Blog</a></li>
 							<li><a href="#">Recommander le site</a></li>
-						</ul>
-						<ul class="lst_footer lst_credits">
+						</ul>-->
+                                                <?php echo $this->render('frontfooter1.phtml',array('menuFooter1'=>$this->menuFooter1));?>            
+                                                
+                                                <?php echo $this->render('frontfooter2.phtml',array('menuFooter2'=>$this->menuFooter2));?>            
+<!--						<ul class="lst_footer lst_credits">
 							<li><a href="#">Liens amis </a></li>
 							<li><a href="#">Crédits </a></li>
 							<li><a href="#">Mentions légales</a></li>
 						</ul>
+-->
 						<ul class="lst_footer lst_language">
 							<li><a href="#">English version</a></li>
 						</ul>
+
 						
 						
 					</footer>
@@ -176,6 +127,6 @@
 </html>
         
         
-    <?php //echo $this->layout()->content ?>
+    
         
     <?php //echo $this->render('frontfooter.phtml',array('menuFooter'=>$this->menuFooter));?>    

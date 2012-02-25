@@ -1,28 +1,34 @@
 <div class="inner">
-				<h1 class="logo"><a href="#">ARTY Fragance</a></h1>
-				<form id ="" class="frm_language"  action="/">
-					<fieldset>
-						<label>Choisissez une langue / <span>Choose your language</span></label>
-						<select class="whitegradient float_left cbox_language">
-							<option>Francais</option>
-						</select>
-						<input type="submit" value="ENTER" class="whitegradient float_left btn" />
-					</fieldset>			
-				</form>
-			
-				<div class="box">
-					<p class="center">“ Les parfums possèdent cette magie de nous transporter.
-					En moins d’une seconde leurs nuances, leurs accents, leurs vibrations nous entraînent, tantôt dans le passé,
-					tantôt vers l’avenir.</p>
-					<p class="center">Echo entre le vécu et le revécu, ils provoquent le réveil de la mémoire et sont des bouillonnements de vie ancienne.
-					C’est cette présence dans l’absence, qu’il m’a plu de recréer. ”</p>			
-				</div>
-			</div>
-			<div class="bottom">
-				<p class="center">
-					Duis, ac, augue placerat montes et rhoncus magna sit porttitor duis sed porttitor egestas ultricies,
-					mauris elementum cras et! Etiam adipiscing et ridiculus dictumst, pulvinar lectus egestas pid urna urna.
-					Urna cras amet, auctor platea hac, arcu dignissim eros rhoncus!mid turpis sed, tristique? Ultrices sed.
-					Habitasse. 
-				</p>
-			</div>
+    <h1 class="logo"><a href="#">ARTY Fragance</a></h1>
+    <form id ="" class="frm_language"  action="/accueil" method="GET">
+        <fieldset>
+            <label>Choisissez une langue / <span>Choose your language</span></label>
+            <select id="selectLangue" name="lang" class="whitegradient float_left cbox_language">
+                <?php
+                foreach ($this->idms as $index => $value):
+                    ?>
+                    <option value="<?php echo $index==$this->idmDefault?'':$index ?>">
+                        <?php echo $value; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <input type="submit" value="ENTER" class="whitegradient float_left btn" />
+        </fieldset>			
+    </form>
+
+    <div class="box">
+        <p class="center">“ Les parfums possèdent cette magie de nous transporter.
+            En moins d’une seconde leurs nuances, leurs accents, leurs vibrations nous entraînent, tantôt dans le passé,
+            tantôt vers l’avenir.</p>
+        <p class="center">Echo entre le vécu et le revécu, ils provoquent le réveil de la mémoire et sont des bouillonnements de vie ancienne.
+            C’est cette présence dans l’absence, qu’il m’a plu de recréer. ”</p>			
+    </div>
+</div>
+<div class="bottom">
+    <p class="center">
+        Duis, ac, augue placerat montes et rhoncus magna sit porttitor duis sed porttitor egestas ultricies,
+        mauris elementum cras et! Etiam adipiscing et ridiculus dictumst, pulvinar lectus egestas pid urna urna.
+        Urna cras amet, auctor platea hac, arcu dignissim eros rhoncus!mid turpis sed, tristique? Ultrices sed.
+        Habitasse. 
+    </p>
+</div>

@@ -1,0 +1,11 @@
+<ul class="lst_footer lst_recommend" >
+    <li>
+        <a class="fb first" href="#"></a>
+    </li>
+    
+    <?php
+    foreach ($this->menuFooter1 as $index => $value):
+        ?>
+        <li><a href="<?php echo $value['nombreMenu'] ?>"><?php echo $value['nombreMenu'] ?></a></li>
+    <?php endforeach; ?>
+</ul>

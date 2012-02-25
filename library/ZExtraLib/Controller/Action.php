@@ -13,12 +13,15 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
 
     public function init() {
         parent::init();
+        
         $this->headMeta();
         $this->setAtributes();
+        
         if ($this->getRequest()->getModuleName() == 'default') {
             if ($this->getRequest()->getControllerName() != 'index') {
                 $this->view->menuSup = $this->loadMenuIdioma($this->_params['lang'], 1);
-                $this->view->menuFooter = $this->loadMenuIdioma($this->_params['lang'], 2);
+                $this->view->menuFooter1 = $this->loadMenuIdioma($this->_params['lang'], 2);
+                $this->view->menuFooter2 = $this->loadMenuIdioma($this->_params['lang'], 3);
             } else {
                 $this->setLayout('layout-index');
             }
@@ -27,6 +30,8 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         if ($this->_moduleName == 'admin') {
             $this->setLayout('layoutadmin');
         }
+        
+        
     }
 
     protected function loadMenuIdioma($idioma, $modulo) {
