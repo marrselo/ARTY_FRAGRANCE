@@ -1,0 +1,12 @@
+<?php if(is_array($this->messages) && count($this->messages)>0 ) { ?>
+<div class="ybox center ">
+	        <?php foreach($this->messages as $index):?>
+	        <p><?php echo $index; ?></p>
+                <?php endforeach;?>
+        
+    </div>
+<?php } ?>
+
+<?php
+echo $this->form;
+?>
