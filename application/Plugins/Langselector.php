@@ -7,14 +7,16 @@ class Application_Plugin_Langselector
         $lang = $request->getParam('lang','');
         $modelIdioma = new Application_Model_Idioma();
         $dataIdiomaDefault = $modelIdioma->getIdiomaDefault();
+        $arrayIdiomas = $modelIdioma->getIdiomas();
         if ($lang == '') {
         $lang = $dataIdiomaDefault['PrefIdioma'];
         } else{
-            $arrayIdiomas = $modelIdioma->getIdiomas();
             if(!array_key_exists($lang, $arrayIdiomas)){
                 $lang = $dataIdiomaDefault['PrefIdioma'];
             }
         }
+        $request->setParam('idms', $arrayIdiomas);
+        $request->setParam('idmDefault', $dataIdiomaDefault);
         $request->setParam('lang', $lang);
     }
 }
