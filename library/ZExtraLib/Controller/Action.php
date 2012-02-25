@@ -25,6 +25,8 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
             } else {
                 $this->setLayout('layout-index');
             }
+            $this->view->idms = $this->_params['idms'];   
+            $this->view->idmDefault = $this->_params['idmDefault'];   
         }
         $this->initView();
         if ($this->_moduleName == 'admin') {
