@@ -26,7 +26,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     protected function loadMenuIdioma($idioma,$modulo){
        $modelMenu = new Application_Model_Menu();
        $response = $modelMenu->listarMenuPorIdioma($idioma,$modulo);
-       print_r($response);
+       //print_r($response);
        return $response;
     }
     private function setAtributes() {
