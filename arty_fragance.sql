@@ -58,7 +58,7 @@ CREATE TABLE `core_session` (
 
 LOCK TABLES `core_session` WRITE;
 
-insert  into `core_session`(`Id`,`save_path`,`name`,`Modified`,`LifeTime`,`Data`) values ('2p06fnbhhh7k9uo3q8ah6pm8d4','','',1330002622,1440,'CESecurity|s:320:\"MzAwfDEwMDAwfDEwMDB8MTAwMHwxMDAwfC9VcGxvYWRzfC9VcGxvYWRzfC9VcGxvYWRzfC9UZW1wbGF0ZXN8L1VwbG9hZHN8dHJ1ZXx0cnVlfHRydWV8dHJ1ZXwuanBnLC5qcGVnLC5naWYsLnBuZ3wuYXZpLC5tcGcsLm1wZWcsLm1wMywud2F2LC53bXZ8LnR4dCwuZG9jLC5wZGYsLnppcCwucmFyLC5hdmksLm1wZywubXBlZywuanBnLC5qcGVnLC5naWYsLnBuZywuaHRtfC5odG1sLC5odG18ZW4tZW58fHx8fHxmYWxzZXw=\";'),('c1on9f7uoui716hjgm3t1clos0','','',1330184760,1440,''),('mg7ohuk5ok51hmhqbh1v6fb603','','',1330151746,1440,''),('rc4b2fj1kkfonbpi8pc2eq6886','','',1330117524,1440,''),('ve5tpk0g7tmg3tslbuetr6if33','','',1330066593,1440,'');
+insert  into `core_session`(`Id`,`save_path`,`name`,`Modified`,`LifeTime`,`Data`) values ('2p06fnbhhh7k9uo3q8ah6pm8d4','','',1330002622,1440,'CESecurity|s:320:\"MzAwfDEwMDAwfDEwMDB8MTAwMHwxMDAwfC9VcGxvYWRzfC9VcGxvYWRzfC9VcGxvYWRzfC9UZW1wbGF0ZXN8L1VwbG9hZHN8dHJ1ZXx0cnVlfHRydWV8dHJ1ZXwuanBnLC5qcGVnLC5naWYsLnBuZ3wuYXZpLC5tcGcsLm1wZWcsLm1wMywud2F2LC53bXZ8LnR4dCwuZG9jLC5wZGYsLnppcCwucmFyLC5hdmksLm1wZywubXBlZywuanBnLC5qcGVnLC5naWYsLnBuZywuaHRtfC5odG1sLC5odG18ZW4tZW58fHx8fHxmYWxzZXw=\";'),('c1on9f7uoui716hjgm3t1clos0','','',1330187469,1440,''),('mg7ohuk5ok51hmhqbh1v6fb603','','',1330151746,1440,''),('rc4b2fj1kkfonbpi8pc2eq6886','','',1330117524,1440,''),('ve5tpk0g7tmg3tslbuetr6if33','','',1330066593,1440,''),('jqsbpaq7e0cjr0uldo63pjoci6','','',1330190237,1440,''),('nfmh6scnto2r670b0gql9u2rn2','','',1330197977,1440,'');
 
 UNLOCK TABLES;
 
@@ -166,13 +166,13 @@ CREATE TABLE `menu` (
   `nombreMenu` char(20) DEFAULT NULL,
   `idIdioma` int(5) DEFAULT NULL,
   PRIMARY KEY (`idMenu`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 /*Data for the table `menu` */
 
 LOCK TABLES `menu` WRITE;
 
-insert  into `menu`(`idMenu`,`idMenuBase`,`nombreMenu`,`idIdioma`) values (1,1,'Accueil',1),(2,2,'ArtyFragance',1),(3,1,'Welcome',2),(4,2,'Art Fragancia',2);
+insert  into `menu`(`idMenu`,`idMenuBase`,`nombreMenu`,`idIdioma`) values (1,1,'Accueil',1),(2,1,'Welcome',2),(3,2,'arty fragrance',1),(4,2,'arty fragrance',2),(5,3,'collections',1),(6,3,'collections',2),(7,4,'contact',1),(8,4,'contan',2),(9,5,'elisabeth de feydeau',1),(10,5,'elisabeth de feydeau',2),(11,6,'mecenat versailles',1),(12,6,'patronage versailles',2),(13,7,'points de vente',1),(14,7,'outlets',2),(15,8,'presse',1),(16,8,'press',2),(17,9,'blog',2),(18,9,'blog',2),(19,10,'recomanderle site',2),(20,10,'recommend the site',2),(21,11,'liens-amis',2),(22,11,'friends links',2),(23,12,'credits',2),(24,12,'credits',2),(25,13,'mentions-legales',2),(26,13,'legal notices',2);
 
 UNLOCK TABLES;
 
@@ -187,13 +187,13 @@ CREATE TABLE `menubase` (
   `nombreMenuBase` char(50) DEFAULT NULL,
   `idModulo` smallint(5) unsigned DEFAULT NULL,
   PRIMARY KEY (`idMenuBase`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `menubase` */
 
 LOCK TABLES `menubase` WRITE;
 
-insert  into `menubase`(`idMenuBase`,`rutaMenuBase`,`slugMenuBase`,`nombreMenuBase`,`idModulo`) values (1,'accueil','accueil','Accueil',1),(2,'arty-fragance','ArtyFragance','ArtyFragance',1);
+insert  into `menubase`(`idMenuBase`,`rutaMenuBase`,`slugMenuBase`,`nombreMenuBase`,`idModulo`) values (1,'/accueil','accueil','accueil',1),(2,'/arty-fragance','arty-fragance','arty-fragance',1),(3,'/collections','collections','collections',1),(4,'/contact','contact','contact',1),(5,'/elisabeth-de-feydeau','elisabeth-de-feydeau','elisabeth-de-feydeau',1),(6,'/mecenat-versailles','mecenat-versailles','mecenat-versailles',1),(7,'/points-de-vente','points-de-vente','points-de-vente',1),(8,'/presse','presse','presse',1),(9,'/blog','blog','blog',2),(10,'/recomanderle-site','recomanderle-site','recomanderle-site',2),(11,'/liens-amis','liens-amis','liens-amis',3),(12,'/credits','credits','credits',3),(13,'/mentions-legales','mentions-legales','mentions-legales',3);
 
 UNLOCK TABLES;
 
@@ -206,13 +206,13 @@ CREATE TABLE `modulo` (
   `nombreModulo` char(50) DEFAULT NULL,
   `idTipoModulo` int(11) DEFAULT NULL,
   PRIMARY KEY (`idModulo`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `modulo` */
 
 LOCK TABLES `modulo` WRITE;
 
-insert  into `modulo`(`idModulo`,`nombreModulo`,`idTipoModulo`) values (1,'MenuSuperior',NULL),(2,'MenuFooter',NULL);
+insert  into `modulo`(`idModulo`,`nombreModulo`,`idTipoModulo`) values (1,'MenuSuperior',NULL),(2,'MenuFooter1',NULL),(3,'MenuFooter2',NULL);
 
 UNLOCK TABLES;
 
