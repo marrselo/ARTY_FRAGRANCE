@@ -3,7 +3,7 @@
     foreach ($this->menuFooter2 as $index => $value):
         ?>
         <li>
-            <a href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $value['rutaMenuBase'] ?>"><?php echo $value['nombreMenu'] ?></a>
+            <a class="<?php echo $this->controllerName==$value['rutaMenuBase']?'selected':'' ?>" href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $value['rutaMenuBase'] ?>"><?php echo $value['nombreMenu'] ?></a>
         </li>
     <?php endforeach; ?>
 </ul>
