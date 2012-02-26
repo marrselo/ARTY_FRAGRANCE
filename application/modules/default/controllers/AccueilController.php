@@ -20,9 +20,6 @@ class Default_AccueilController extends ZExtraLib_Controller_Action
                     </div>
                 </div>		
             </div> ');
-        $arrayMenu ;
-        $this->view->menuIzquierda = $arrayMenu;
-        
     }
 }
 

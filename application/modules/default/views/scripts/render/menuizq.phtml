@@ -1,9 +1,11 @@
 <aside id="aside">
     <ul class="lst_aside">
-        <li><a href="#">Présentation</a></li>
-        <li><a href="#">Charte qualité</a></li>
-        <li><a href="#">Précautions d’usage</a></li>
-        <li><a href="#">Commandes spéciales</a></li>
-        <li><a class="selected" href="#">Actualités</a></li>								
+        <?php foreach($this->menuIzquierda as $index=>$valor): ?>
+        <li>
+            <a class="<?php echo $this->itemSelect==$index?'selected':'' ?>" 
+               href="<?php echo $this->controllerName.'/'.$valor['nombre'] ?>"><?php echo $valor['nombre']?>
+            </a>
+        </li>
+        <?php endforeach; ?>
     </ul>
 </aside>
