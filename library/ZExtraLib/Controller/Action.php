@@ -13,8 +13,10 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
 
     public function init() {
         parent::init();
+        
         $this->headMeta();
         $this->setAtributes();
+        
         if ($this->getRequest()->getModuleName() == 'default') {
             if ($this->getRequest()->getControllerName() != 'index') {
                 $this->view->menuSup = $this->loadMenuIdioma($this->_params['lang'], 1);
@@ -32,7 +34,6 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
             $this->setLayout('layoutadmin');
         }
         
-      //  print_r($this->_getAllParams());
     }
 
     protected function loadMenuIdioma($idioma, $modulo) {
