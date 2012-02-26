@@ -27,6 +27,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Registry::set('mail', new Zend_Mail('utf-8'));
 //        print_r($this->getResourceLoader()->getResourceTypes());
     }
+    
+    protected function _initRoutes()
+    {
+    }
+
+    
 
 }
 

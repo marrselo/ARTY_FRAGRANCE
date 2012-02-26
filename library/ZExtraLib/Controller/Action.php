@@ -25,13 +25,14 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
             }
             $this->view->idms = $this->_params['idms'];   
             $this->view->idmDefault = $this->_params['idmDefault'];   
+            $this->view->lang = $this->_params['lang'];   
         }
         $this->initView();
         if ($this->_moduleName == 'admin') {
             $this->setLayout('layoutadmin');
         }
         
-        //print_r($this->_getAllParams());
+      //  print_r($this->_getAllParams());
     }
 
     protected function loadMenuIdioma($idioma, $modulo) {

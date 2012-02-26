@@ -6,6 +6,7 @@ class Default_AccueilController extends ZExtraLib_Controller_Action
     }
     public function indexAction()
     {
+        $this->view->classBody = 'lyt_home';
         $this->view->placeholder('main_slide')->set('				<div id="main_slide" class=" layout_fluid">
 					<div id="slide" class="item layout_fluid_inner" >	
 						<div class="overview">

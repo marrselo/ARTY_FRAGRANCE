@@ -12,5 +12,5 @@
  */
 class Application_Model_DbTable_Modulo extends ZExtraLib_Db_Table
 {
-    protected  $_name = "Modulo";
+    protected  $_name = "modulo";
 }
