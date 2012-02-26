@@ -2,12 +2,12 @@
     <li>
         <a class="fb first" href="#"></a>
     </li>
-    
+
     <?php
     foreach ($this->menuFooter1 as $index => $value):
         ?>
         <li>
-            <a class="<?php echo $this->controllerName==$value['rutaMenuBase']?'selected':'' ?>" href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $value['rutaMenuBase'] ?>"><?php echo $value['nombreMenu'] ?></a>
+            <a class="<?php echo $this->controllerName == $value['rutaMenuBase'] ? 'selected' : '' ?>" href="/<?php echo $this->lang == '' ? '' : $this->lang . '/' ?><?php echo $value['rutaMenuBase'] ?>"><?php echo $value['nombreMenu'] ?></a>
         </li>
     <?php endforeach; ?>
 </ul>
