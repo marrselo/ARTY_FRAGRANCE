@@ -1,7 +1,5 @@
 <?php 
-class ZExtraLib_Controller_Plugin_Langselector    
-    extends Zend_Controller_Plugin_Abstract
-
+class ZExtraLib_Controller_Plugin_Langselector    extends Zend_Controller_Plugin_Abstract
 {
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
