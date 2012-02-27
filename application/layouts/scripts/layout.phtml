@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="/f/css/ieonly.css" type="text/css" media="screen" />
 <![endif]-->
 </head>
-<body id="" class="lyt_home" onLoad="">
+<!--<body id="" class="lyt_home" onLoad="">-->
+<body id="" class="<?php echo $this->classBody ?>" onLoad="">
 	<div class="wrapper">
 		<div class="wrapper_l">
 		<div class="wrapper_r">
@@ -42,7 +43,7 @@
 									
 										<nav id="nav">
 											<ul>
-                                                                                            <?php echo $this->render('frontmenu.phtml',array('menuSup'=>$this->menuSup));?>
+                                                                                            <?php echo $this->render('frontmenu.phtml',array('menuSup'=>$this->menuSup,'lang'=>$this->lang));?>
 <!--												<li><a href="#">Accueil</a></li>
 												<li><a href="#">Arty Fragrance</a></li>
 												<li><a href="#">Collections</a></li>
@@ -99,9 +100,9 @@
 							<li><a class="selected" href="#">Blog</a></li>
 							<li><a href="#">Recommander le site</a></li>
 						</ul>-->
-                                                <?php echo $this->render('frontfooter1.phtml',array('menuFooter1'=>$this->menuFooter1));?>            
+                                                <?php echo $this->render('frontfooter1.phtml',array('menuFooter1'=>$this->menuFooter1,'lang'=>$this->lang));?>            
                                                 
-                                                <?php echo $this->render('frontfooter2.phtml',array('menuFooter2'=>$this->menuFooter2));?>            
+                                                <?php echo $this->render('frontfooter2.phtml',array('menuFooter2'=>$this->menuFooter2,'lang'=>$this->lang));?>            
 <!--						<ul class="lst_footer lst_credits">
 							<li><a href="#">Liens amis </a></li>
 							<li><a href="#">Crédits </a></li>

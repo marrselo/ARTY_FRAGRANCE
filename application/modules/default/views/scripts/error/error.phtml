@@ -1,0 +1,240 @@
+<?php
+if(APPLICATION_ENV=='local')
+{
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Zend Framework Default Application</title>
+</head>
+<body>
+    
+    
+  <h1>An error occurred</h1>
+  <h2><?php echo $this->message ?></h2>
+
+  <?php if (isset($this->exception)): ?>
+
+  <h3>Exception information:</h3>
+  <p>
+      <b>Message:</b> <?php echo $this->exception->getMessage() ?>
+  </p>
+
+  <h3>Stack trace:</h3>
+  <pre><?php echo $this->exception->getTraceAsString() ?>
+  </pre>
+
+  <h3>Request Parameters:</h3>
+  <pre><?php echo var_export($this->request->getParams(), true) ?>
+  </pre>
+  <?php endif ?>
+
+</body>
+</html>
+<?php } else {
+    
+    $modelArticulo = new Application_Model_Articulo();
+    $listaDeUnArticulosEnOferta = $modelArticulo->listarUnArticulosEnOferta();
+    $filter = new ZExtraLib_SeoUrl();
+    //print_r($listaDeUnArticulosEnOferta);
+    ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" xmlns:fb="http://ogp.me/ns/fb#">
+    <head>
+        <meta property="og:title" content="delivery premium" />
+        <meta property="og:type" content="author" />
+        <meta property="og:url" content="http://deliverypremiumsac.com" />
+        <meta property="og:image" content="http://deliverypremiumsac.com/f/img/logo.png" />
+        <meta property="og:site_name" content="delivery premium" />
+        <meta property="fb:admins" content="698823485" />
+        <link href="/f/css/global.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockpaymentlogo.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockpermanentlinks.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockviewed.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockcart.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockmyaccount.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/editorial.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockbestsellers.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockcategories.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockspecials.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockcurrencies.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blocknewproducts.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockuserinfo.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blocklanguages.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockmanufacturer.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockcms.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blocktags.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blockstore.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/f/css/blocknewsletter.css" rel="stylesheet" type="text/css" media="all">        
+        <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+       <script type="text/javascript" src="/f/js/jquery.easing.1.3.js"></script>
+       <script type="text/javascript" src="/f/js/jquery.roundabout.js"></script>
+       
+       
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28520842-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>        
+        </head>
+        <body id="index">
+            <div id="page">
+                <!-- Header -->
+                <div id="header">
+                    <div id="header-wrapper">
+                        <!-- Logo -->
+                        <div class="header-middle">
+                            <a id="header_logo" href="<?php echo $this->baseUrl(); ?>" title="Delivery Premium">
+                                <img class="logo" src="<?php echo $this->baseUrl() ?>/f/img/logo.png" alt="Delivery Premium">
+                            </a>
+                            <div id="header_right">
+                                <!-- Block user information module HEADER -->
+                                <div id="header_user">
+                                    <p id="header_user_info">
+                                        Bienvenido,
+                                        <a href="#">Entrar</a>
+                                    </p>
+                                </div>
+                                <!-- /Block user information module HEADER -->
+                                <div id="phone_block">
+                                    <span>Central telefónica</span>
+                                    <h4>355-8888</h4>
+                                </div>
+                                <div id="social_block">
+                                    <script>(function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) return;
+                                        js = d.createElement(s); js.id = id;
+                                        js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }(document, 'script', 'facebook-jssdk'));</script>
+                                    <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div id="menu-top">
+                        <ul id="menu">
+                            <li><a href="/" class="<?php echo $this->menuActive1 ?>">Inicio</a></li>
+                            <li><a href="/zonas-reparto" class="<?php echo $this->menuActive2 ?>">Zonas de Reparto</a></li>	
+                            <li><a href="/realizar-pedido" class="<?php echo $this->menuActive3 ?>">Realizar Pedido</a></li>
+                            <li><a href="/eventos" class="<?php echo $this->menuActive4 ?>">Eventos</a></li>
+                            <li><a href="/contacto" class="<?php echo $this->menuActive5 ?>">Contacto</a></li>
+                        </ul>
+                        <!-- Block search module -->
+                        <div id="search_block">
+                            <h4>Buscar</h4>
+                            <form method="get" action="/buscar" id="searchbox">
+                                <p class="block_content">
+                                    <input class="search_query" id="search_query_block" name="search_query" value="Buscar" onfocus="if (this.value == 'Buscar') this.value = ''" onblur="if (this.value == '') this.value = 'Buscar'" type="text">
+                                </p>
+                            </form>
+                        </div>	
+                    </div>
+
+
+                </div>
+                <div id="columns">
+                    <!-- Left -->
+                    <div id="left_column" class="column">
+                        <!-- Block categories module -->
+                        <!-- /Block categories module -->
+                        <div class="fb-like-box" data-href="http://www.facebook.com/deliverypremium" data-width="220" data-show-faces="true" data-stream="false" data-header="true"></div>
+                    </div>
+                    <!-- Center -->
+                    <div id="center_column">
+                       
+                       <h1 id="cart_title">Lo sentimos, esta pagina no esta disponible</h1>
+                    </div>
+                  
+                         <div id="right_column" class="column">
+                        <?php 
+                        
+                        
+                        if ($listaDeUnArticulosEnOferta != '') { ?>
+                             
+                            <div id="special_block_right" 
+                                 class="block products_block exclusive blockspecials">
+                                <h4><a href="#" title="Ofertas">Oferta Reciente</a></h4>
+                                <div class="block_content">
+                                    
+                                    <form id="form_oferta" method="Post" action="<?php echo $this->baseUrl()?>/realizar-pedido">
+                                    
+                                        <h5><a href="<?php echo $this->baseUrl()?>/detalle-producto/<?php echo $filter->filter(trim($listaDeUnArticulosEnOferta['nombre']), '-', 0)?>-
+                                        <?php echo $listaDeUnArticulosEnOferta['idarticulo']; ?>" title="<?php echo $listaDeUnArticulosEnOferta['nombre']; ?>"><?php echo $listaDeUnArticulosEnOferta['nombre']; ?></a></h5>
+                                    
+                                        <p class="description"><?php echo $listaDeUnArticulosEnOferta['descripcion']; ?></p>
+                                    
+                                    <div class="product_image">
+                                        
+                                        <a href="<?php echo $this->baseUrl()?>/detalle-producto/<?php echo $filter->filter(trim($listaDeUnArticulosEnOferta['nombre']), '-', 0)?>-<?php echo $listaDeUnArticulosEnOferta['idarticulo']; ?>">
+                                            <input type="hidden" 
+                                                   value="<?php echo $listaDeUnArticulosEnOferta['idarticulo']; ?>" 
+                                                   name="producto" id="hidden_idArticulo_oferta">
+                                            <input type="hidden" 
+                                                   value="1" 
+                                                   name="cantidad" id="hidden_cantidadArticulo_oferta">
+                                            <img src="/imagen-articulo/<?php echo $listaDeUnArticulosEnOferta['imagen']; ?>" 
+                                                 alt="/imagen-articulo/<?php echo $listaDeUnArticulosEnOferta['imagen']; ?>" 
+                                                 title="<?php echo $listaDeUnArticulosEnOferta['nombre']; ?>">
+                                        </a>
+                                    </div>
+                                    <span class="price-discount">Antes S/. <?php echo $listaDeUnArticulosEnOferta['precioventa']; ?></span>
+                                    <span class="price">S/. <?php echo $listaDeUnArticulosEnOferta['preciooferta']; ?></span>
+                                    <a class="special-addcart ajax_add_to_cart_button" 
+                                       href="#" 
+                                       title="Add to cart"
+                                       id="addToCartOfert"
+                                       >
+                                        Agregar a carrito
+                                    </a>
+                                    <p>
+                                        <a href="<?php echo $this->baseUrl() ?>/ofertas/" title="Ver todas las ofertas" class="button_large">Ver todas las ofertas</a>
+                                    </p>
+                                    </form>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!-- Footer -->
+                <div id="footer">
+                    <div id="footer_top">
+                        <div class="info">
+                            SERVICIO DE REPARTO EXCLUSIVO.<br />
+                            <span style="color:#FFF; font-size:15px">
+                                Atención de repartos de Lunes a Jueves de 7pm a 3am y Viernes Sábado y Domingo de 7pm a 4:30am</span><br /><br />
+                            TOMAR BEBIDAS ALCOHÓLICAS EN EXCESO ES DAÑINO
+                        </div>
+                        <div class="logo">
+                            <a href="<?php echo $this->baseUrl() ?>"><img src="<?php echo $this->baseUrl() ?>/f/img/logo_footer.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+        <script type="text/javascript">
+         $(function() {
+                $("#addToCartOfert").click(function(e){
+                    e.preventDefault();
+                    $("#form_oferta").submit();
+                }) 
+             $("#categories_block_left ul li:last-child").addClass("last");
+            });   
+
+        </script>
+
+        </html>
+<?php }?>

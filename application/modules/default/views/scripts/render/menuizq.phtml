@@ -1,0 +1,11 @@
+<aside id="aside">
+    <ul class="lst_aside">
+        <?php foreach($this->menuIzquierda as $index=>$valor): ?>
+        <li>
+            <a class="<?php echo $this->itemSelect==$index?'selected':'' ?>" 
+               href="<?php echo $this->controllerName.'/'.$valor['nombre'] ?>"><?php echo $valor['nombre']?>
+            </a>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+</aside>
