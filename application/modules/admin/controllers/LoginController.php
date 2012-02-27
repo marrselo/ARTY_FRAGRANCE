@@ -30,16 +30,21 @@ class Admin_LoginController extends ZExtraLib_Controller_Action
         }
         
         public function indexAction(){
-            $this->view->messages = $this->_flashMessenger->getMessages();
+            $this->view->messages = $this->_flashMessenger->getMessages();            
             $params =  $this->_request->getParams();
-            $this->view->form = $form = $this->formLogin();
+            $form   = new Application_Form_FormLogin();
+            $form->setDecorators(array(array('ViewScript', array('viewScript' => 'form/form-login.phtml'))));
+            foreach ($form as $elem){            
+            $elem->removeDecorator('label')->removeDecorator('HtmlTag');
+            }
+            $this->view->formLogin = $form;
             if ($this->_request->isPost()) {
                 if ($form->isValid($params)) {
                     if ($this->auth($params['login'], $params['password'],1)) {
                     $this->_redirect('/admin');
                     
                     } else {
-                    $this->_flashMessenger->addMessage('Correo y/o contraseña incorrectos.');
+                    $this->_flashMessenger->addMessage('user/password combination wrong');
                     $this->_redirect('/admin/login');
                     }
 

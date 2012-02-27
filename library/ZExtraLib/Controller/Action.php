@@ -16,6 +16,9 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         
         $this->headMeta();
         $this->setAtributes();
+        $this->_identity = Zend_Auth::getInstance()->getIdentity();
+        $this->view->identity = $this->_identity;
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         
         if ($this->getRequest()->getModuleName() == 'default') {
             if ($this->getRequest()->getControllerName() != 'index') {
@@ -27,11 +30,33 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
             }
             $this->view->idms = $this->_params['idms'];   
             $this->view->idmDefault = $this->_params['idmDefault'];   
+        }else { 
+            if ($this->getRequest()->getModuleName() == 'admin' && $this->getRequest()->getControllerName() != 'login') {
+               
+                if (!isset($this->_identity)){
+                   
+                    $this->_redirect('/admin/login');
+                    $this->_layout->setLayout('layoutlogin');
+                }else{
+                    $this->_layout->setLayout('layoutadmin');
+                   // $this->_redirect('/admin/'.$this->getRequest()->getActionName());                    
+                }
+//                $rutaActual = '/' . $this->getRequest()->getModuleName() . '/' . $this->getRequest()->getControllerName();
+//                $ruta = array();
+//                foreach ($this->view->perfilUsuario as $index) {
+//                    $ruta[] = $index['url'];
+//                }
+//
+//                if (!in_array($rutaActual, $ruta)) {
+//                    $this->_redirect('/admin');
+//                }
+                
+            }elseif($this->getRequest()->getControllerName() == 'login'){
+                $this->_layout->setLayout('layoutlogin');
+            }       
         }
         $this->initView();
-        if ($this->_moduleName == 'admin') {
-            $this->setLayout('layoutadmin');
-        }
+        
         
         
     }
@@ -62,7 +87,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->view->doctype(Zend_View_Helper_Doctype::XHTML1_RDFA);
         $this->view->headMeta()->setProperty('og:title', 'Delivery Premium');
         $this->view->headMeta()->setProperty('og:type', 'author');
-        $this->view->headMeta()->setProperty('og:description', 'Bienvenido a Delivery Premium, Entrar');
+        $this->view->headMeta()->setProperty('og:description', 'Bienvenido a Arty_Fragance, Entrar');
         $this->view->headMeta()->setProperty('og:url', $this->view->baseUrl() . $_SERVER['REQUEST_URI']);
         $this->view->headMeta()->setProperty('og:image', 'http://deliverypremiumsac.com/f/img/logo.png');
         $this->view->headMeta()->setProperty('og:site_name', 'Delivery Premium');
