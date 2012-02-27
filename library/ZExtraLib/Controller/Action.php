@@ -34,6 +34,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         if ($this->_moduleName == 'admin') {
             $this->setLayout('layoutadmin');
         }
+        $this->view->headTitle('Delivery Premiun');
         
     }
 
