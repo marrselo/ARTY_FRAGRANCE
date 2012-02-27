@@ -57,7 +57,8 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         }
         $this->initView();
         
-        
+        $this->view->headTitle('Arty Fragance');
+
         
     }
 
@@ -88,7 +89,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->view->headMeta()->setProperty('og:title', 'Delivery Premium');
         $this->view->headMeta()->setProperty('og:type', 'author');
         $this->view->headMeta()->setProperty('og:description', 'Bienvenido a Arty_Fragance, Entrar');
-        //$this->view->headMeta()->setProperty('og:url', $this->view->baseUrl() . $_SERVER['REQUEST_URI']);
+        $this->view->headMeta()->setProperty('og:url', $this->view->baseUrl() . $_SERVER['REQUEST_URI']);
         $this->view->headMeta()->setProperty('og:image', 'http://deliverypremiumsac.com/f/img/logo.png');
         $this->view->headMeta()->setProperty('og:site_name', 'Delivery Premium');
         $this->view->headMeta()->setProperty('og:admins', '698823485');
