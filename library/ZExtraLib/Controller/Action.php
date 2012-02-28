@@ -29,28 +29,17 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
                 $this->setLayout('layout-index');
             }
             $this->view->idms = $this->_params['idms'];   
-            $this->view->idmDefault = $this->_params['idmDefault'];   
+            $this->view->idmDefault = $this->_params['idmDefault'];
+            $this->view->lang = $this->_params['lang'];   
+
         }else { 
             if ($this->getRequest()->getModuleName() == 'admin' && $this->getRequest()->getControllerName() != 'login') {
-               
                 if (!isset($this->_identity)){
-                   
                     $this->_redirect('/admin/login');
                     $this->_layout->setLayout('layoutlogin');
                 }else{
                     $this->_layout->setLayout('layoutadmin');
-                   // $this->_redirect('/admin/'.$this->getRequest()->getActionName());                    
                 }
-//                $rutaActual = '/' . $this->getRequest()->getModuleName() . '/' . $this->getRequest()->getControllerName();
-//                $ruta = array();
-//                foreach ($this->view->perfilUsuario as $index) {
-//                    $ruta[] = $index['url'];
-//                }
-//
-//                if (!in_array($rutaActual, $ruta)) {
-//                    $this->_redirect('/admin');
-//                }
-                
             }elseif($this->getRequest()->getControllerName() == 'login'){
                 $this->_layout->setLayout('layoutlogin');
             }       
@@ -79,6 +68,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->view->getMessages = $this->_flashMessenger->getMessages();
         $this->_moduleName = $this->getRequest()->getModuleName();
         $this->_controllerName = $this->getRequest()->getControllerName();
+        $this->view->controllerName = $this->_controllerName;
     }
 
     protected function setLayout($layout) {
