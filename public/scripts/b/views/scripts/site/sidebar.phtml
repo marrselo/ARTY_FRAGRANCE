@@ -1,0 +1,52 @@
+<?php
+$this->jQuery()->addJavascriptFile($this->getBaseUrl() . '/scripts/idTabs.js');
+$this->jQuery()->addJavascriptFile($this->getBaseUrl() . '/scripts/jquery.cookie.js');
+?>
+<?php	$this->jQuery()->onLoadCaptureStart();
+?>
+               var action='<?php echo $this->getRequest()->getActionName(); ?>';
+               var cookie = $.cookie('idtabs');
+		if(cookie === null || String(cookie).length < 1) {
+			$("#toolbar").html('<?php echo $this->getTranslation('Configuración'); ?> > <?php echo $this->getTranslation('General'); ?>');
+		}
+		else {
+                        $.each($('.idTabs a'), function(){
+                                link=$(this).attr("href");
+                                if(cookie === link) {
+                                        text=$(this).text();
+                                        $("#toolbar").html('Configuración > '+text );
+                                        $('.idTabs a').removeClass('selected');
+                                        $(this).addClass('selected');
+                                }
+                        });
+                        $(".idTabs").idTabs();
+		}
+            $(".idTabs a").click(function(){
+		text=$(this).text();
+                link=$(this).attr("href");
+                $.cookie("idtabs",link);
+                $("#toolbar").html('<?php echo $this->getTranslation('Configuración'); ?> > '+text );
+                if(action=='traductions' && link!='traductions'){
+                    location.href='<?php echo $this->getBaseUrl();?>/admin/site/';
+                }
+
+	     });
+             $("#siteLink").click(function(){
+                $.cookie("idtabs",null);
+	     });
+
+             
+
+<?php
+    $this->jQuery()->onLoadCaptureEnd();
+?>
+             
+<ul class="idTabs padding-10">
+    <li><?php echo $this->link($this->getTranslation('General'), '#site', 'layout_content.png');?></li>
+    <li><?php echo $this->link($this->getTranslation('Meta Data'), '#meta', 'page_white_code.png');?></li>
+    <li><?php echo $this->link($this->getTranslation('Internacionalización'), '#international', 'world.png');?></li>
+    <li><?php echo $this->link($this->getTranslation('Mail'), '#mail', 'email.png');?></li>
+    <!--<li><?php// echo $this->link($this->getTranslation('Diseño'), '#design', 'palette.png');?></li>-->
+    <!--<li><?php// echo $this->link($this->getTranslation('Copia de seguridad de DB'), '#backup', 'database_save.png');?></li>-->
+    <li><?php echo $this->link($this->getTranslation('Traducciones'),'/admin/site/traductions', 'world.png');?></li>
+</ul>

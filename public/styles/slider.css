@@ -1,0 +1,42 @@
+#slider {
+	width: 170px;
+	/*height: 260px;*/
+	position: relative;
+	overflow: hidden;
+	/*margin: 10px 0px 10px 52px;*/
+        margin: 10px 0 10px 34px;
+		
+}
+
+#slider-wrapper {
+	width: 2000px;
+	/*height: 260px;*/
+	position: relative;        
+}
+
+#slider-wrapper img {
+	width: 127px;
+        margin-bottom: 10px;
+}
+
+#slider-controls {
+	width: 85%;
+	height: 2px;
+	  float:left;
+	   margin-top: 5px;
+	   border:none;
+	   background: #BBBBBB;
+}
+
+/** Nouveautes **/
+#demo-frame > div.demo { padding: 10px !important; }
+.scroll-pane { overflow: auto; width: 550px; float:left; margin-left: 30px;}
+.scroll-content { width: 2440px; float: left; }
+.scroll-content-item { width: 74px; height: 55px; float: left; margin: 20px 10px 10px 30px; font-size: 3em; line-height: 55px; text-align: center; }
+* html .scroll-content-item { display: inline; } /* IE6 float double margin bug */
+.scroll-bar-wrap { clear: left; padding: 0 4px 0 2px; margin: 0 -1px -1px -1px; }
+.scroll-bar-wrap .ui-slider { background: none; border:0; height: 0px; margin: 10px 0;  }
+.scroll-bar-wrap .ui-handle-helper-parent { position: relative; width: 100%; height: 100%; margin: 0 auto; }
+.scroll-bar-wrap .ui-slider-handle { top:-6px; height: 10px; }
+.scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
+#slider-nouv { margin-top: 95px;}

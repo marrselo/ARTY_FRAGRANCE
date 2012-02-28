@@ -1,0 +1,262 @@
+<div style="display:<?php echo($this->viewadmin ? 'show' : 'none'); ?>">
+
+    <div class="table_admin" >
+        <div class="table_admin_head" ></div>
+        <div class="table_admin_body" align="left">
+            <!--UPLOAD MODULES-->
+            <?php if ($this->user->role == 'superadmin') {
+ ?>
+                <fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('updatemodules')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/package_add.png" align="top" /> <?php echo $this->getTranslation('Agregar nuevo módulo'); ?> </legend>
+                    <div id="updatemodules" style="display:none;padding:2px 10px;">
+                        <form action="" method="post" enctype="multipart/form-data" id="formupload" >
+                            <table width="600" border="0" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th> <?php echo $this->getTranslation('El módulo debe tener el formato .Zip'); ?> </th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td align="left">
+<?php echo $this->link('', '/admin/module/', 'archive.png') ?> <?php echo $this->getTranslation('Ingresar el módulo a descomprimir.'); ?>
+                                        <input type="file" name="file"  id="file" value="" validate="required:true,accept:'zip'" />
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr >
+                                    <td colspan="4" align="right" valign="bottom">
+                                        <input name="cmd_search" type="submit" id="cmd_search" value="<?php echo $this->getTranslation('Subir módulo'); ?>">
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </form>
+                </div>
+            </fieldset>
+            <!--UPLOAD MODULES-->
+            <!--LIST MODULES-->
+            <fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('listmodules')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/package.png" align="top" /> <?php echo $this->getTranslation('Lista de módulos'); ?> </legend>
+                <div id="listmodules" style="display:none;padding:2px 10px;">
+                    <form action="<?php echo $this->controllerUrl; ?>order/" method="post">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th align="left" ><?php echo $this->getTranslation('Módulo'); ?> </th>
+                                    <th align="left" ><?php echo $this->getTranslation('Descripción'); ?></th>
+                                    <th align="center"><?php echo $this->getTranslation('Acciones'); ?></th>
+                                </tr>
+                                <tr>
+                                    <td ></td>
+                                    <td ></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $valid = false;
+                                if ($this->modules) {
+                                    $n_fila = 1;
+                                    $url_base = $this->controllerUrl;
+                                    foreach ($this->modules as $r) {
+                                        $valid = true;
+                                        $class = ($n_fila % 2 == 0 ? "" : "shadow");
+                                        $n_fila++;
+                                        $status = ($r['active'] ? '_status.png':'_status-red.png');
+                                        $config = ($r['id'] ? 'process_remove.png' : 'process_accept.png');
+                                        $mode = ($r['id'] ? 'desinstaller' : 'installer');
+                                        $url = ($r['id'] ? '/mod_' . $r['module'] . '/' . $r['link'] : '/admin/module/');
+                                ?>
+                                        <tr class="<?php echo $class ?>">
+                                            <td width="40%"><?php echo $this->link($r['label'], $url, $r['icon']) ?></td>
+                                            <td width="45%"><?php echo $r['description'] ?> </td>
+                                            <td width="15%" align="right">
+                                        <?php if ($r['id']) { ?>
+                                            <a href="<?php echo $url_base . 'status/id/' . $r['module']; ?>" class="status-module">
+                                                <img src="<?php echo $this->getBaseUrl(); ?>/images/icons/<?php echo $status; ?>" border="0" alt="<?php echo $r['active']? 'enabled.gif' : 'disabled.gif';?>" />
+                                            </a>
+                                        <?php } ?>
+                                        <a href="<?php echo $url_base . 'config/id/' . $r['module'] . '/mode/' . $mode; ?>"  class="status-config">
+                                            <img src="<?php echo $this->getBaseUrl(); ?>/images/icons/<?php echo $config; ?>" border="0" alt="<?php echo $config; ?>" />
+                                        </a>
+
+                                        <a href="<?php echo $url_base . 'bkmodule/id/' . $r['module']; ?>" >
+                                            <img src="<?php echo $this->getBaseUrl(); ?>/images/icons/archive.png" border="0" alt="backup module" title="backup module" />
+                                        </a>
+
+                                    </td>
+                                </tr>
+                                <?php
+                                    }
+                                } else {
+                                ?>
+                                    <tr><td rowspan="3" ><?php echo $this->getTranslation('No hay módulos'); ?> </td></tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                            <tfoot>
+                                <tr >
+                                    <td colspan="3" align="right" valign="bottom">
+
+
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </form>
+                </div>
+            </fieldset>
+            <!--END LIST MODULES-->
+            <?php } // end if ?>
+                            <!-- ORDEN HOOKS -->
+                           <!--<fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('hooksposition')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/ordenar.gif" align="top" /> <?php echo $this->getTranslation('Posiciones de los hook en la Web'); ?> </legend>-->
+                            <div id="hooksposition" style="display:none;padding:2px 10px;">
+                <?php
+                            if ($this->hooks) {
+                                $irow = 0;
+                                foreach ($this->hooks AS $hook) {
+                                    $modules = array();
+                                    $nbModules = sizeof($hook['hooks']);
+                                    echo '
+			<a name="' . $hook['group'] . '"/>
+			<table cellpadding="0" cellspacing="0" class="table width3 space' . ($nbModules >= 2 ? ' tableDnD' : '' ) . '" id="' . $hook['group'] . '">
+			<tr class="nodrag nodrop"><th colspan="4">' . $hook['group'] . ' - <span style="color: red">' . $nbModules . '</span> ';
+                                    echo '</th></tr>';
+
+                                    // Print modules list
+                                    if ($nbModules) {
+
+                                        foreach ($hook['hooks'] AS $instance) {
+                                            $status = ($instance['state'] ? 'enabled.gif' : 'disabled.gif');
+                                            echo '
+					<tr id="' . $hook['group'] . '_' . $instance['id'] . '"' . ($irow++ % 2 ? ' class="alt_row"' : '') . ' style="height: 42px;">';
+                                            if (!$this->displayKey) {
+                                                echo '
+						<td class="positions" width="40">' . intval($instance['position']) . '</td>
+						<td' . ($nbModules >= 2 ? ' class="dragHandle"' : '') . ' id="td_' . $hook['group'] . '_' . $instance['id'] . '" width="40">
+						<a' . ($instance['position'] == 1 ? ' style="display: none;"' : '' ) . ' href=""><img src="' . $this->getBaseUrl() . '/images/admin/up.gif" alt="Up" title="Up" /></a><br />
+							<a ' . ($instance['position'] == sizeof($hook['hooks']) ? ' style="display: none;"' : '') . 'href=""><img src="' . $this->getBaseUrl() . '/images/admin/down.gif" alt="Down" title="Down" /></a>
+						</td>
+						<td style="padding-left: 10px;">
+						';
+                                            }
+                                            else
+                                                echo '<td style="padding-left: 10px;" colspan="3">';
+                                            echo '
+					 <strong>Module - ' . $instance['module'] . '</strong><br/>
+                                             ' . stripslashes($instance['description']) . '
+					</td>
+						<td width="47">
+							<a href="' . $this->getBaseUrl() . '/admin/module/statushook/id/' . $instance['id'] . '"><img src="' . $this->getBaseUrl() . '/images/admin/' . $status . '" border="0" alt="status" title="status" /></a> <a href="' . $this->getBaseUrl() . '/admin/module/deletehook/id/' . $instance['id'] . '"><img src="' . $this->getBaseUrl() . '/images/icons/cancel.png" border="0" alt="Delete" title="Delete" /></a>
+						</td>
+					</tr>';
+                                        }
+                                    } else
+                                        echo '<tr><td colspan="4">No module for this hook</td></tr>';
+                                    echo '</table>';
+                                }
+                            }
+                ?>
+                        </div>
+                        </fieldset>
+                        <!--FIN ORDEN HOOKS -->
+                    </div>
+                    <div class="table_admin_foot" ></div>
+                </div>
+
+    <?php
+                            $this->jQuery()->onLoadCaptureStart();
+    ?>
+                            //estado
+                            $('a.status-module').click(function(e){
+                            e.preventDefault();
+                            var objeto=this;
+
+                            var msg='';
+                            var cambio='';
+                            var alt='';
+
+                            if($(objeto).children('img').attr('alt')=='enabled.gif'){
+                            msg='<?php echo $this->getTranslation('No desea mostrar el módulo?'); ?>';
+                            cambio='<?php echo $this->getTranslation('Mostrar este módulo'); ?>';
+                            alt='disabled.gif';
+                            }
+                            else{
+                            msg='<?php echo $this->getTranslation('¿Quieres mostrar este módulo?'); ?>';
+                            cambio='<?php echo $this->getTranslation('No mostrar este módulo'); ?>';
+                            alt='enabled.gif';
+                            }
+
+
+                            if(confirm(msg)){
+                            $.post(objeto.href,function(data){
+                            $(objeto).children('img').attr('src',data);
+                            $(objeto).children('img').attr('alt',alt);
+                            objeto.title=cambio;
+                            location.reload(true)
+                            });
+                            }
+
+                            });
+
+
+                            $('a.status-module').each(function(){
+                            var msg='';
+                            var objeto=this;
+                            if($(objeto).children('img').attr('alt')=='enabled.gif'){
+                            msg='<?php echo $this->getTranslation('No mostrar este módulo'); ?>';
+                            }
+                            else{
+                            msg='<?php echo $this->getTranslation('Mostrar este módulo'); ?>';
+                            }
+                            this.title=msg;
+                            });
+                            $('a.status-config').each(function(){
+                            var msg='';
+                            var objeto=this;
+                            if($(objeto).children('img').attr('alt')=='process_accept.png'){
+                            msg='<?php echo $this->getTranslation('Instalar este módulo'); ?>';
+                            }
+                            else{
+                            msg='<?php echo $this->getTranslation('Desinstalar el módulo'); ?>';
+                            }
+                            this.title=msg;
+                            });
+                            $('a.status-config').click(function(e){
+                            /*e.preventDefault();*/
+                            var msg=$(this).attr('title');
+                            if(confirm(msg)){
+                            return true;
+                            }else{
+                            return false;
+                            }
+
+
+                            });
+
+                            $("label.error").css({'display' : 'none'});
+                            $.metadata.setType("attr", "validate");
+                            $("#formupload").validate();
+
+                            var updatemodules = $.cookie('updatemodules');
+                            if (updatemodules)
+                            $("#updatemodules").css({'display' : updatemodules == 'none' ? 'block':'none'});
+                            var listmodules = $.cookie('listmodules');
+                            if (listmodules)
+                            $("#listmodules").css({'display' : listmodules == 'none' ? 'block':'none'});
+                            var hooksposition = $.cookie('hooksposition');
+                            if (hooksposition)
+                            $("#hooksposition").css({'display' : hooksposition == 'none' ? 'block':'none'});
+    <?php
+                            $this->jQuery()->onLoadCaptureEnd();
+    ?>
+
+
+                        </div>
+<?php
+                            $this->jQuery()->addJavascriptFile($this->getBaseUrl() . '/scripts/jquery.tablednd_0_5.js');
+                            $this->jQuery()->addJavascriptFile($this->getBaseUrl() . '/scripts/admin-dnd.js');
+                            $this->jQuery()->addJavascriptFile($this->getBaseUrl() . '/scripts/jquery.cookie.js');
+?>

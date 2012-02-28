@@ -1,0 +1,182 @@
+<?php
+// first load the template
+$adminTemplateConfig = Zend_Registry::get('config')->template->default->admin;
+$this->loadTemplate('admin', $adminTemplateConfig->template, $adminTemplateConfig->page);
+$this->placeholder('charset')->set('utf-8');
+echo '<?xml version="1.0" encoding="' . $this->placeholder('charset') . '" ?>' . PHP_EOL;
+echo $this->doctype() . PHP_EOL;
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=<?php echo $this->placeholder('charset'); ?>" />
+        <title>
+            <?php echo $this->getTranslation('WEB Administration') . $this->escape($this->title); ?>
+        </title>
+        <?php
+            echo $this->layout()->pageHead;
+            // the loadTemplate() helper loads all of the stylesheets now
+            echo $this->headLink();
+        ?>
+            <script type="text/javascript" >
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+
+    $(".message_box").bind("click",function(){
+        $(this).fadeOut("slow");
+    });
+
+    $('a.delete').bind('click',function(){
+        var answer = confirm('<?php echo addslashes($this->getTranslation('¿Está seguro que desea eliminar este registro?')); ?>');
+        if(!answer){return false;}
+    });
+    //estado
+    $('a.status').click(function(e){
+        e.preventDefault();
+        var objeto=this;
+
+        var msg='';
+        var cambio='';
+        var alt='';
+
+        if($(objeto).children('img').attr('alt')=='enabled.gif'){
+            msg='<?php echo addslashes($this->getTranslation('Usted no desea mostrar este registro?')); ?>';
+            cambio='<?php echo addslashes($this->getTranslation('Mostrar este registro')); ?>';
+            alt='disabled.gif';
+        }
+        else{
+            msg='<?php echo addslashes($this->getTranslation('¿Quieres  mostrarle este registro?')); ?>';
+            cambio='<?php echo addslashes($this->getTranslation('No volver a mostrar este registro')); ?>';
+            alt='enabled.gif';
+        }
+
+
+        if(confirm(msg)){
+            $.post(objeto.href,function(data){
+                $(objeto).children('img').attr('src',data);
+                $(objeto).children('img').attr('alt',alt);
+                objeto.title=cambio;
+            });
+        }
+
+    });
+
+    $('a.status').each(function(){
+        var msg='';
+        var objeto=this;
+        if($(objeto).children('img').attr('alt')=='enabled.gif'){
+            msg='<?php echo addslashes($this->getTranslation('No  mostrar este registro')); ?>';
+        }
+        else{
+            msg='<?php echo addslashes($this->getTranslation('Mostrar este registro')); ?>';
+        }
+        this.title=msg;
+    });
+	///////////////////////////
+    
+    
+    $('a.home').click(function(e){
+        e.preventDefault();
+        var objeto=this;
+        
+        var msg='';
+        var cambio='';
+        var alt='';
+        
+        if($(objeto).children('img').attr('alt')=='marcado.gif'){
+            msg='<?php echo $this->getTranslation('Usted no desea publicar este registro?');?>';
+            cambio='<?php echo $this->getTranslation('publicar este registro');?>';
+            alt='desmarcado.gif';
+        }
+        else{
+            msg='<?php echo $this->getTranslation('¿Quieres  publicar este registro?');?>';
+            cambio='<?php echo $this->getTranslation('No publicar este registro');?>';
+            alt='marcado.gif';
+        }
+        
+        
+        if(confirm(msg)){
+            $.post(objeto.href,function(data){
+                $(objeto).children('img').attr('src',data);
+                $(objeto).children('img').attr('alt',alt);
+                objeto.title=cambio;
+            });
+        }
+        
+    });
+
+    
+    
+       $('a.home').each(function(){
+        var msg='';
+        var objeto=this;
+        if($(objeto).children('img').attr('alt')=='enabled.gif'){
+            msg='<?php echo $this->getTranslation('No publicar este registro');?>';
+        }
+        else{
+            msg='<?php echo $this->getTranslation('publicar este registro');?>';
+        }
+        this.title=msg;
+    });
+    
+    
+    
+    
+    
+    
+    /////////////
+    
+
+    //status profesional
+    $('a.statusp').click(function(e){
+        e.preventDefault();
+        var objeto=this;
+
+        var msg='';
+        var cambio='';
+        var alt='';
+
+        if($(objeto).children('img').attr('alt')=='enabled.gif'){
+            msg='<?php echo addslashes($this->getTranslation('Usted no desea validar este registro?')); ?>';
+            cambio='<?php echo addslashes($this->getTranslation('Enviar este registro')); ?>';
+            alt='disabled.gif';
+        }
+        else{
+            msg='<?php echo addslashes($this->getTranslation('Usted desea validar este registro?')); ?>';
+            cambio='<?php echo addslashes($this->getTranslation('No se puede validar el registro')); ?>';
+            alt='enabled.gif';
+        }
+
+
+        if(confirm(msg)){
+            $.post(objeto.href,function(data){
+                $(objeto).children('img').attr('src',data);
+                $(objeto).children('img').attr('alt',alt);
+                objeto.title=cambio;
+            });
+        }
+
+    });
+
+    $('a.statusp').each(function(){
+        var msg='';
+        var objeto=this;
+        if($(objeto).children('img').attr('alt')=='enabled.gif'){
+            msg='<?php echo addslashes($this->getTranslation('No validar este registro')); ?>';
+        }
+        else{
+            msg='<?php echo addslashes($this->getTranslation('Validar este registro')); ?>';
+        }
+        this.title=msg;
+    });
+<?php $this->jQuery()->onLoadCaptureEnd(); ?>
+
+    var getBaseUrl="<?php echo $this->getRequest()->getBaseUrl(); ?>";
+            </script>
+        </head>
+
+        <body>
+        <?php
+            echo $this->layout()->template;
+            echo $this->jQuery();
+        ?>
+    </body>
+</html>

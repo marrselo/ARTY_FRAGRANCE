@@ -1,0 +1,58 @@
+<div class="table_admin" >
+<div class="table_admin_head" ></div>
+<div class="table_admin_body" align="left">
+<form action="<?php echo $this->controllerUrl; ?>order/" method="post">
+<table width="650" border="0" cellspacing="0" cellpadding="0">
+<thead>
+  <tr>
+    <th align="left" ><?php echo $this->getTranslation('Nombre completo'); ?></th>
+    <th align="left" ><?php echo $this->getTranslation('Login'); ?></th>
+    <th align="left" ><?php echo $this->getTranslation('Tipo'); ?></th>
+    <th align="left"><?php echo $this->getTranslation('Acciones'); ?></th>
+  </tr>
+  <tr>
+  	<td colspan="3" height="5"></td>
+  </tr>
+</thead>
+<tbody>
+  <?php  
+  
+$n_fila=0;
+$u = new Model_User();
+$users = $u->fetchAll(null, 'first_name');
+foreach ($users as $user) {
+		$class = ($n_fila%2==0?"":"shadow");
+        $n_fila++;
+
+  ?>
+  
+<tr class="<?php echo $class ?>">
+    <td width="30%"><a href="<?php echo $this->getBaseUrl().'/admin/user/open/id/'.$user->id; ?>" ><?php echo $user->first_name.' '.$user->last_name?></a></td>
+    <td width="40%"><?php echo $user->email; ?></td>
+    <td width="25%"><?php echo $this->SelectAdminRole('role', $user->role,'',true); ?></td>
+    <td width="5%" align="center">
+     <?php if($user->email != $this->email){ ?>  
+        
+    	<a href="<?php echo $this->getBaseUrl().'/admin/user/delete/id/'.$user->id;?>" class="delete">
+	        <img src="<?php echo $this->getBaseUrl() ?>/images/admin/suprimer.gif" border="0" alt="<?php echo $this->getTranslation('Eliminar'); ?>" title="<?php echo $this->getTranslation('Eliminar'); ?>" />
+        </a>
+     <?php } ?>
+    </td>
+</tr>
+	<?php
+    }
+    ?>
+</tbody>
+<tfoot>
+<tr >
+    <td colspan="4" align="right" valign="bottom">
+ 
+        <input type="button" name="new" value=" <?php echo $this->getTranslation('Nuevo'); ?> " onclick="location.href='<?php echo $this->getBaseUrl();?>/admin/user/create'">
+    </td>
+</tr>
+</tfoot>
+</table>
+</form>
+</div>
+<div class="table_admin_foot" ></div>
+</div>

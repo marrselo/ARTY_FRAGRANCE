@@ -28,7 +28,7 @@ class Admin_LoginController extends ZExtraLib_Controller_Action
             }
         }
         
-        public function indexAction(){ echo "asdasda"; exit;
+        public function indexAction(){ 
             $this->view->messages = $this->_flashMessenger->getMessages();            
             $params =  $this->_request->getParams();
             $form   = new Application_Form_FormLogin();

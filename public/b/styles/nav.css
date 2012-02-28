@@ -1,0 +1,119 @@
+/* CSS Document */
+#currentUser{
+list-style:none;
+float:right;
+margin:20px 20px 0 0;
+}
+
+#adminMenu{
+display:inline;
+margin: 0px; padding:0px; border:0px;
+/*width:1000px;*/
+background: #e5e5e5;
+}
+
+#adminMenu li{
+	display:inline;
+	/*list-style:none;*/
+	margin: 0px; padding:0px; border:0px;
+}
+
+#adminMenu a{
+display:block;
+float:left;
+padding:102px 0 5px 0;
+margin:0 0px 0 0;
+text-align:center;
+text-decoration:none;
+font-size:11px;
+color:#756D59;
+font-weight:bold;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+#adminMenu a.selected{
+color:#fff;
+}
+
+#adminMenu a.selected:hover{
+color:#fff;
+}
+
+
+#adminMenu li.logo a{
+width:240px;
+background:url(../images/title_admin.gif) no-repeat;
+}
+#adminMenu li.cuentas a{
+width:100px;
+background:url(../images/nav/cuentas_off.jpg) no-repeat;
+}
+
+#adminMenu li.configuracion a{
+width:100px;
+background:url(../images/nav/configuracion_off.jpg) no-repeat;
+}
+#adminMenu li.configuracion_stop a{
+color:silver ;
+width:100px;
+cursor:default;
+background:url(../images/nav/configuracion_stop.jpg) no-repeat;
+}
+#adminMenu li.administrar a{
+width:100px;
+background:url(../images/nav/administrar_off.jpg) no-repeat;
+}
+#adminMenu li.cms a{
+width:100px;
+background:url(../images/nav/cms_off.jpg) no-repeat;
+}
+#adminMenu li.cms_stop a{
+color:silver;
+width:100px;
+background:url(../images/nav/cms_stop.jpg) no-repeat;
+cursor:default;
+}
+#adminMenu li.publicidad a{
+width:100px;
+background:url(../images/nav/publicidad_off.jpg) no-repeat;
+}
+#adminMenu li.administrar a:hover{
+background:url(../images/nav/administrar_on.jpg) no-repeat;
+}
+
+#adminMenu li.cuentas a:hover{
+background:url(../images/nav/cuentas_on.jpg) no-repeat;
+}
+
+#adminMenu li.configuracion a:hover{
+background:url(../images/nav/configuracion_on.jpg) no-repeat;
+}
+#adminMenu li.cms a:hover{
+background:url(../images/nav/cms_on.jpg) no-repeat;
+}
+#adminMenu li.publicidad a:hover{
+background:url(../images/nav/publicidad_on.jpg) no-repeat;
+}
+#adminMenu li.cuentas a.selected{
+background:url(../images/nav/cuentas_on.jpg) no-repeat;
+}
+
+#adminMenu li.configuracion a.selected{
+background:url(../images/nav/configuracion_on.jpg) no-repeat;
+}
+
+#adminMenu li.administrar a.selected{
+background:url(../images/nav/administrar_on.jpg) no-repeat;
+}
+#adminMenu li.cms a.selected{
+background:url(../images/nav/cms_on.jpg) no-repeat;
+}
+#adminMenu li.publicidad a.selected{
+background:url(../images/nav/publicidad_on.jpg) no-repeat;
+}
+.navpages{
+  font-size:9px;
+  font-style:italic;
+  color:gray;
+}
+

@@ -1,0 +1,80 @@
+
+<div class="table_admin"  id="langsite">
+<div class="table_admin_head" ></div>
+<div class="table_admin_body" align="center" style="background-color:#F7F7F7">
+<?php echo $this->render('lang.phtml') ?>
+</div>
+<div class="table_admin_foot" ></div>
+</div>
+<!--HEADER DESING-->
+<div class="table_admin" >
+<div class="table_admin_head" ></div>
+<div class="table_admin_body" align="left">
+<!--END HEADER DESING-->	
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/traductions/version/<?php echo $this->getRequest()->getParam('version'); ?>" method="post" id='traductions'>
+ <div id="traductions">
+  <?php
+if($this->allfiles){
+        $n_fila = 1;
+        $n_class=1;
+	foreach ($this->allfiles AS $theme_name => $theme){
+	foreach ($theme AS $module_name => $module){
+                $html='';
+					foreach ($module AS $template_name => $newLang)
+						if (sizeof($newLang))
+						{
+							$countValues = array_count_values($newLang);
+
+							$empty = isset($countValues['']) ? $countValues[''] : 0;
+							$html.= '
+							<fieldset><legend style="cursor : pointer" onclick="openCloseLayer(\''.$theme_name.'_'.$module_name.'_'.$template_name.'\')">'.$theme_name.' - '.$template_name.' - <font color="blue">'.sizeof($newLang).'</font> expressions (<font color="red">'.$empty.'</font>)</legend>
+								<div name="modules_div" id="'.$theme_name.'_'.$module_name.'_'.$template_name.'" style="display: '.($empty ? 'block' : 'none').';">
+									';
+                                                                        $n_fila=1;
+                                                                        foreach ($newLang as $key => $value)
+                                                                        {
+                                                                                $class = ($n_fila%2==0?"row_traductions_on":"row_traductions_off");
+                                                                                $n_fila++;
+                                                                                $html.=  '<div class="'.$class.'"><div style="width: 30%; float:left">'.stripslashes($key).'</div><div style="width: 60%; float:left">= ';
+                                                                                if (strlen($key) < 70)
+                                                                                        $html.=  '<input type="text" style="width: 320px" name="traductions['.$module_name.']['.$template_name.']['.base64_encode($key).']" value="'.stripslashes(preg_replace('/"/', '\&quot;', stripslashes($value))).'" />';
+                                                                                else
+                                                                                        $html.=  '<textarea rows="'.intval(strlen($key) / 70).'" style="width: 320px" name="traductions['.$module_name.']['.$template_name.']['.base64_encode($key).']">'.stripslashes(preg_replace('/"/', '\&quot;', stripslashes($value))).'</textarea>';
+                                                                                $html.=  '</div><div style="clear:left; clear:both"></div></div>';
+                                                                        }
+                                                                        $html.=  '
+								</div>
+							</fieldset><br />';
+						}
+                  #ardenar por admin,public,modulos
+                  $color = Array("#FFF7F7", "#F9F9F9", "#FFFFFF", "#FFF8F2", "#FEFFED", "#F6FFF5");
+                  $class = ($n_class%2==0?"module_traductions_on":"module_traductions_off");
+                  $n_class++;
+                  $body=  '<fieldset class="'.$class.'">
+                                   <legend style="cursor : pointer" onclick="openCloseLayer(\''.$theme_name.'_'.$module_name.'\')"> <img src="'.$this->getBaseUrl().'/images/icons/world.png" align="top" /> '.$theme_name.'</legend>
+			             <div  id="'.$theme_name.'_'.$module_name.'" style="display: none">'.$html.'</div>
+                                  </fieldset><br/>';
+
+                  print($body);
+                          
+        }
+        }
+  ?>
+            
+  
+	<?php
+}else{
+    ?>
+<?php echo $this->getTranslation('No hay registros'); ?>
+    <?php
+ }
+    ?>
+</div>
+    <div align="right"><input type="submit" name="" value=" <?php echo $this->getTranslation('Guardar cambios'); ?> "></div>
+</form>
+<!--FOOTER DESING-->
+<div class="clear" ></div>
+</div>
+<div class="table_admin_foot" ></div>
+</div>
+<!--END FOOTER DESING-->

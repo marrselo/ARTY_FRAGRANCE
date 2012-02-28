@@ -1,0 +1,439 @@
+<!--HEADER DESING-->
+<div class="table_admin" >
+<div class="table_admin_head" ></div>
+<div class="table_admin_body" align="left">
+<!--END HEADER DESING-->	
+
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/edit" method="post" id='site' style="display:none" enctype="multipart/form-data">
+
+<table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+	<tr><th></th></tr>
+<tbody>
+<tr>
+    <td align="left" >  <?php echo $this->getTranslation('Nombre del sitio'); ?>
+    </td>
+	<td align="left" >
+            <input id="setting-name" type="text" value="<?php echo $this->settings->name; ?>" name="setting[name]" class="required"/>
+    </td>
+ </tr>
+ <tr>
+    <td align="left" >  <?php echo $this->getTranslation('Logo del sitio'); ?>
+    </td>
+	<td align="left" >
+               <input type="file" name="file" value="" validate="required:false,accept:'jpg,png,gif'"  />
+    </td>
+ </tr>
+  <tr>
+    <td align="left" >
+    </td>
+	<td align="left" >
+             <?php if($this->settings->weblogo){ ?>
+	<img src="<?php echo $this->getBaseUrl().'/image/show/file/configuration/width/50/img/'.$this->settings->weblogo; ?>" border="0" /> <div style="float: right; position:relative; right:335px; top:6px"> Taille : 230 x 167 px.</div>
+	<?php } ?>
+    <br />
+    <br />
+    </td>
+ </tr>
+
+
+ <tr>
+    <td align="left"  valign=top >  <?php echo $this->getTranslation('Meta descripción'); ?>
+    </td>
+	<td align="left" >
+		<textarea id="setting-meta_description" class="med" cols="80" rows="24" name="setting[meta_description]"><?php echo $this->settings->meta_description; ?></textarea>
+    </td>
+ </tr>
+ <tr>
+    <td align="left" valign=top >  <?php echo $this->getTranslation('Meta palabras clave'); ?>
+    </td>
+	<td align="left" >
+		<textarea id="setting-meta_keywords" class="med" cols="80" rows="24" name="setting[meta_keywords]"><?php echo $this->settings->meta_keywords; ?></textarea>
+    </td>
+ </tr>
+	<tr><th></th></tr>
+</tbody>
+<tfoot>
+<tr>
+    <td align="right"  colspan=2>
+        <input id="site" type="submit" value="<?php echo $this->getTranslation('Validar'); ?>" name="site"/>
+    </td>
+</tr>
+</tfoot>
+</table>
+  
+</form>
+ <?php	$this->jQuery()->onLoadCaptureStart();
+?>
+$("label.error").css({'display' : 'none'});
+$.metadata.setType("attr", "validate");
+$("#site").validate();
+<?php
+    $this->jQuery()->onLoadCaptureEnd();
+?>
+
+
+
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/edit" method="post" id='meta' style="display:none">
+	<table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+	<tr><th></th></tr>
+<tbody>
+    <tr><td>
+    	<div style="width:400px;">
+    <?php
+        echo $this->FormRow($this->getTranslation('Doc Type'), $this->selectDoctype('setting[doc_type]', $this->settings->doc_type));
+        echo $this->FormRow($this->getTranslation('Caracteres por defecto'), $this->FormText('setting[default_charset]', $this->settings->default_charset));
+        echo $this->FormRow($this->getTranslation('Zona horaria predeterminada'), $this->selectTimezone('setting[default_timezone]', $this->settings->default_timezone));
+       // echo $this->FormRow('&nbsp;', $this->FormSubmit('meta', $this->getTranslation('Update Page Meta Data')));
+    ?>
+</div>
+</td>
+    </tr>
+	<tr><th></th></tr>
+</tbody>
+<tfoot>
+<tr>
+    <td align="right" >
+        <input id="site" type="submit" value="<?php echo $this->getTranslation('Validar'); ?>" name="site"/>
+    </td>
+</tr>
+</tfoot>
+</table>
+</form>
+
+<div id='international' style="display:none">
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/edit" method="post" >
+    <fieldset><legend  style="cursor : pointer" ><?php echo $this->getTranslation('Preferencias de idioma'); ?></legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_form">
+<tbody>
+    <tr><td>
+    	<div style="width:100%;">
+    <?php
+        echo $this->FormRow($this->getTranslation('Idioma de la web'), $this->selectLanguage('setting[default_language]', $this->settings->default_language));
+        // the admin language should default to the setting in config
+        if (isset($this->settings->admin_language)) {
+            $adminLanguage = $this->settings->admin_language;
+        } else {
+           $config = Zend_Registry::get('config');
+           $adminLanguage = $config->language->defaultLocale;
+        }
+        echo $this->FormRow($this->getTranslation('Idioma del admin'), $this->selectLanguage('setting[admin_language]', $adminLanguage));
+       // echo $this->FormRow('&nbsp;', $this->FormSubmit('language', $this->getTranslation('Update Internationalization Settings')));
+    ?>
+</div>
+</td>
+ </tr>
+</tbody>
+<tfoot>
+<tr >
+    <td colspan="2" align="right" valign="bottom">
+        <input type="submit" name="" value="<?php echo $this->getTranslation('Validar'); ?>" >
+    </td>
+</tr>
+</tfoot>
+</table>
+</fieldset>
+ </form>
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/newlang" method="post" enctype="multipart/form-data"  id="formnewlangue">
+<fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('newlangue')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/world_add.png" align="top" /><?php echo $this->getTranslation('Nuevo idioma'); ?> </legend>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_form" id="newlangue" style="display:none">
+<tbody>
+    <tr>
+      <td width="120"><?php echo $this->getTranslation('Nombre'); ?> </td>
+      <td width="500"><input type="text" name="newlangtitle" id="newlangtitle" maxlength="20" size="" value=""  class="required"/></td>
+    </tr>
+    <tr>
+      <td> <?php echo $this->getTranslation('Código ISO'); ?></td>
+      <td> <input type="text" name="newlang" id="newlang"  maxlength="5" size="" value=""  class="required"/> <?php echo $this->getTranslation('Code ISO sur 2 lettres (ex : fr, en, de)'); ?></td>
+    </tr>
+    <tr>
+        <td valign="top"><?php echo $this->getTranslation('Imagen'); ?> </td>
+      <td><input type="file" name="file" value="" validate="required:false,accept:'png'"  ><br/>
+      <?php echo $this->getTranslation('Tipo de archivo'); ?>: png<br/>
+<?php echo $this->getTranslation('Tamaño máximo'); ?>: 16x16
+      </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+ <fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('drapeauxdisponibles')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/flag_blue.png" align="top" /><?php echo $this->getTranslation('Banderas disponibles'); ?></legend>
+ <div id="drapeauxdisponibles" style="display:none;">
+  <?php
+if($this->allfilesflags){
+        $html='';
+	foreach ($this->allfilesflags AS $file){
+                $html.=  '
+                <div style="min-width: 55px;min-height:30px; float:left">'.$file['iso'].'
+                <img src="'.$this->getBaseUrl().'/images/flags/'.$file['name'].'" border="0"  align="top" />
+                </div>';
+            }
+        print($html);
+} ?>
+</div>
+</fieldset>
+
+      </td>
+    </tr>
+</tbody>
+<tfoot>
+<tr >
+    <td colspan="2" align="right" valign="bottom">
+        <input type="submit" name="" value="<?php echo $this->getTranslation('Validar'); ?>" >
+    </td>
+</tr>
+</tfoot>
+    </table>
+</fieldset>
+</form>
+ <fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('removelangue')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/world_delete.png" align="top" /> <?php echo $this->getTranslation('Eliminar idioma'); ?></legend>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_form" id="removelangue" style="display:none">
+
+       <thead>
+  <tr>
+    <th align="left" ><?php echo $this->getTranslation('Nombre'); ?></th>
+    <th align="left" ><?php echo $this->getTranslation('ISO'); ?></th>
+    <th align="left"><?php echo $this->getTranslation('Acciones'); ?></th>
+  </tr>
+</thead>
+      <tbody>
+  <?php
+if($this->languages){
+    $n_fila = 1;
+    foreach ($this->languages as $i => $r){
+        $class = ($n_fila%2==0?"":"shadow");
+        $n_fila++;
+  ?>
+      <tr>
+          <td width="400" style="border-bottom:1px dashed #ccc"><img src="<?php echo $this->getBaseUrl();?>/images/flags/<?php echo $i; ?>.png" border="0" align="top"/> <?php echo $r; ?> </td>
+      <td width="100" style="border-bottom:1px dashed #ccc"><?php echo $i; ?> </td>
+      <td width="100" style="border-bottom:1px dashed #ccc">
+        <?php if($i<>$this->keylang and $i<>$this->langdefault and $i<>$this->langadmindefault ){?>
+        <a href="<?php echo $this->getBaseUrl().'/admin/site/deletelang/iso/'.$i; ?>" class="delete">
+	        <img src="<?php echo $this->getBaseUrl();?>/images/admin/suprimer.gif" border="0" alt="delete" />
+        </a>
+        <?php }?>
+      </td>
+    </tr>
+<?php
+    }
+}
+?>
+</tbody>
+    </table>
+</fieldset>
+ <fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('sauvegardelangue')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/archive.png" align="top" /> <?php echo $this->getTranslation('Exportar idioma'); ?></legend>
+ <div id="sauvegardelangue" style="display:none">
+     <div style="padding:5px 10px;"><?php echo $this->getTranslation('Exportar datos de un idioma a un archivo (paquete de idioma). Elige el idioma que desea exportar.'); ?> </div>
+  <?php
+if($this->allfileslang){
+        $html='';
+	foreach ($this->allfileslang AS $module){
+            if(is_array($module['files'])){
+                   $html.= '<fieldset><legend style="cursor : pointer" onclick="openCloseLayer(\'bk'.$module['module'].'\')">'.$module['module'].'</legend>
+                                        <div  id="bk'.$module['module'].'" style="display:none">
+                                                ';
+                                                foreach ($module['files'] AS  $file){
+                                                        $html.=  '<div><div style="width: 20%; float:left">'.$file['name'].'</div>';
+                                                        $html.=  '<div style="width: 60%; float:left">'.$file['link'].'</div>
+                                                        <div style="width: 15%; float:left">'.$file['filesize'].'</div>
+                                                        <div style="width: 5%; float:left"></div>
+                                                         <a href="'.$this->getBaseUrl().'/admin/site/backuplang/mod/'.$module['module'].'/langfile/'.$file['name'].'" >
+                                                          <img src="'.$this->getBaseUrl().'/images/icons/archive.png" border="0" alt="backup" title="backup" />
+                                                        </a>
+                                                        <div style="clear:left; clear:both"></div></div>';
+                                                }
+                                                $html.=  '
+                                        </div>
+				</fieldset>';
+            }
+            }
+        print($html);
+} ?>
+</div>
+</fieldset>
+
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/importerlang" method="post" enctype="multipart/form-data"  id="formimporterlang">
+<fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('importerlang')"><img src="<?php echo $this->getBaseUrl(); ?>/images/icons/archive.png" align="top" /> <?php echo $this->getTranslation('Importar idioma'); ?></legend>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_form" id="importerlang" style="display:none">
+<tbody>
+    <tr>
+        <td colspan="2">
+            <?php echo $this->getTranslation('Importar datos desde un archivo (paquete de idioma). Tenga cuidado, sobrescribirá todos los datos en el idioma de destino! Seleccione el archivo a importar traducciones '); ?>
+
+      </td>
+    </tr>
+    <tr>
+      <td><?php echo $this->getTranslation('Módulo'); ?> </td>
+      <td> <select id="mod" name="mod">
+			<?php foreach ($this->allfileslang as $nomm) {?>
+			<option  value="<?php echo $nomm['module'] ?>" ><?php echo $nomm['module']?></option>
+			<?php }?>
+		</select></td>
+    </tr>
+     <tr>
+      <td><?php echo $this->getTranslation('Archivo'); ?> </td>
+      <td><input type="file" name="file" value="" validate="required:true,accept:'zip'"  ><?php echo $this->getTranslation('Tipo de archivo'); ?>: zip </td>
+    </tr>
+</tbody>
+<tfoot>
+<tr >
+    <td colspan="2" align="right" valign="bottom">
+        <input type="submit" name="" value="<?php echo $this->getTranslation('Validar'); ?>" >
+    </td>
+</tr>
+</tfoot>
+    </table>
+</fieldset>
+</form>
+
+ <?php	$this->jQuery()->onLoadCaptureStart();
+?>
+$("label.error").css({'display' : 'none'});
+$.metadata.setType("attr", "validate");
+$("#formnewlangue").validate();
+$("#formimporterlang").validate();
+<?php
+    $this->jQuery()->onLoadCaptureEnd();
+?>
+</div>
+
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/edit" method="post" id='mail' style="display:none">
+<table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+<tr><th></th></tr>
+<tbody>
+    <tr><td>
+    	<div style="width:400px;">
+    <?php
+        echo $this->FormRow($this->getTranslation('Email predeterminado'), $this->FormText('setting[default_email]', $this->settings->default_email));
+        echo $this->FormRow($this->getTranslation('Remitente por defecto'), $this->FormText('setting[default_email_sender]', $this->settings->default_email_sender));
+        echo $this->FormRow($this->getTranslation('Transporte'),$this->formCheckbox('setting[use_smtp_mail]', intval($this->settings->use_smtp_mail)) . ' ' . $this->getTranslation('El uso de transporte SMTP'));
+        echo $this->FormRow($this->getTranslation('SMTP host'), $this->FormText('setting[smtp_host]', $this->settings->smtp_host));
+        echo $this->FormRow($this->getTranslation('Usuario SMTP'), $this->FormText('setting[smtp_username]', $this->settings->smtp_username));
+        echo $this->FormRow($this->getTranslation('Contraseña SMTP'), $this->FormPassword('setting[smtp_password]', $this->settings->smtp_password));
+        //echo $this->FormRow('&nbsp;', $this->FormSubmit('mail', $this->getTranslation('Update Mail Settings')));
+        //echo $this->FormRow('&nbsp;', $this->link($this->getTranslation('Send test message'), '/admin/site/mail-test', 'email_go.png'));
+    ?>
+</div>
+</td>
+    </tr>
+	<tr><th></th></tr>
+</tbody>
+<tfoot>
+<tr>
+    <td align="right" >
+        <input id="site" type="submit" value="<?php echo $this->getTranslation('Validar'); ?>" name="site"/>
+    </td>
+</tr>
+</tfoot>
+</table>
+</form>
+
+
+
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/edit" method="post" id='design' style="display:none">
+    <table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+    <tr><th></th></tr>
+    <tbody>
+        <tr><td>
+            <div style="width:400px;">
+    <?php
+        ##get design public
+        $defaultimg='images/px.gif';
+        $designConfig = Zend_Registry::get('config')->template->default->public;
+        $currentDesign = isset($this->settings->default_design)? $this->settings->default_design : $designConfig->template . '_' . $designConfig->design;
+        $imagepublic='templates/public/'.$currentDesign.'/'.$currentDesign.'.jpg';
+        $imagepublic=file_exists($imagepublic)?$imagepublic:$defaultimg;
+        echo $this->FormRow($this->getTranslation('Diseño por defecto de la web'), $this->selectDesign('setting[default_design]', $currentDesign,array('id'=>'default_design')));
+      ?>
+                <div style="padding:2px 0px 20px 100px" class="showimagetemplatepublic"><img src="<?php echo $this->getBaseUrl().'/'.$imagepublic;?>" border="0" class="default_design" /></div>
+     <?php
+        ##get design admin
+        $designConfigA = Zend_Registry::get('config')->template->default->admin;
+        $currentDesignA = isset($this->settings->admin_design)? $this->settings->admin_design : $designConfigA->template . '_' . $designConfigA->design;
+        $imageadmin='templates/admin/'.$currentDesignA.'/'.$currentDesignA.'.jpg';
+        $imageadmin=file_exists($imageadmin)?$imageadmin:$defaultimg;
+        echo $this->FormRow($this->getTranslation('Diseño por defecto del admin'), $this->selectDesign('setting[admin_design]', $currentDesignA,array('id'=>'admin_design'),'admin'));
+    ?>
+        <div style="padding:2px 0px 20px 100px" class="showimagetemplateadmin"><img src="<?php echo $this->getBaseUrl().'/'.$imageadmin;?>" border="0" class="admin_design" /></div>
+    </div>
+</td>
+    </tr>
+	<tr><th></th></tr>
+</tbody>
+<tfoot>
+<tr>
+    <td align="right" >
+        <input id="site" type="submit" value="<?php echo $this->getTranslation('Validar'); ?>" name="site"/>
+    </td>
+</tr>
+</tfoot>
+</table>
+<?php	$this->jQuery()->onLoadCaptureStart();
+?>
+    $("#default_design").change(function() {
+            var src = $("option:selected", this).val();
+            $(".showimagetemplatepublic").html(src ? "<img src='<?php echo $this->getBaseUrl(); ?>/templates/public/" + src + "/" + src + ".jpg'>" : "");
+        });
+
+<?php
+    $this->jQuery()->onLoadCaptureEnd();
+?>
+</form>
+
+
+<form action="<?php echo $this->getBaseUrl(); ?>/admin/site/backup" method="post" id='backup' style="display:none">
+    <table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+       <thead>
+          <tr>
+            <th align="left" ><?php echo $this->getTranslation('Fecha'); ?></th>
+            <th align="left" ><?php echo $this->getTranslation('Creado'); ?></th>
+            <th align="left" ><?php echo $this->getTranslation('Nombre de archivo'); ?></th>
+            <th align="left" ><?php echo $this->getTranslation('Tamaño del archivo'); ?></th>
+            <th align="left"></th>
+          </tr>
+          <tr>
+              <td colspan="5" ></td>
+          </tr>
+    </thead>
+<tbody>
+  <?php
+if($this->backups){
+        $n_fila = 1;
+	foreach ($this->backups as $i => $r){
+	$class = ($n_fila%2==0?"":"shadow");
+        $n_fila++;
+  ?>
+    <tr class="<?php echo $class ?>">
+    <td width="25%"><?php echo $r['date']?></td>
+    <td width="25%"><?php echo $r['age']?></td>
+    <td width="25%"><?php echo $r['filename']?></td>
+    <td width="20%"><?php echo $r['filesize']?></td>
+     <td width="5%" align="center"><a href="<?php echo $this->getBaseUrl(); ?>/media/backup/<?php echo $r['filename']?>" >
+	        <img src="<?php echo $this->getBaseUrl();?>/images/icons/database_down.png" border="0" />
+        </a> </td>
+    </tr>
+	<?php
+    }
+}else{
+    ?>
+<tr><td colspan="5" ><?php echo $this->getTranslation('No hay registros'); ?></td></tr>
+    <?php
+ }
+    ?>
+</tbody>
+<tfoot>
+<tr>
+    <td align="right" colspan="5" >
+        <input id="backup" type="submit" value=" <?php echo $this->getTranslation('Realiza una nueva copia de seguridad'); ?> " name="backup"/>
+    </td>
+</tr>
+</tfoot>
+</table>
+</form>
+
+
+<!--FOOTER DESING-->
+<div class="clear" ></div>
+</div>
+<div class="table_admin_foot" ></div>
+</div>
+<!--END FOOTER DESING-->

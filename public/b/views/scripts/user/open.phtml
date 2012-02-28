@@ -1,0 +1,172 @@
+<!--HEADER DESING-->
+<div class="table_admin" >
+<div class="table_admin_head" ></div>
+<div class="table_admin_body" align="left">
+<!--END HEADER DESING-->	
+<?php $this->jQuery()->addJavascriptFile($this->getBaseUrl() . '/scripts/idTabs.js');?>
+<ul class="idTabs " style="list-style:none;">
+
+<li style="width: 90px;float:left" ><?php echo $this->link($this->getTranslation('Cuenta'), '#general', 'vcard_edit.png');?></li>
+<li style="width: 120px;float:left" ><?php echo $this->link($this->getTranslation('Contraseña'), '#password', 'server_key.png');?></li>
+<li style="width: 100px;float:left" ><?php echo ($this->viewrole?$this->link($this->getTranslation('Permisos'), '#permissions', 'application_cascade.png'):'')?></li>
+</ul>
+<div class="clear"></div>
+<p>&nbsp;</p><p></p>
+
+		
+<form id="general" action="<?php echo $this->getBaseUrl();?>/admin/user/edit" method="post" style="display:none">
+<table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+     <thead>
+  <tr>
+    <th align="left"  class="champs_obligatoires" ><?php echo $this->getTranslation('Los campos marcados con * son obligatorios'); ?></th>
+  </tr>
+  <tr>
+  	<td  height="5"></td>
+  </tr>
+</thead>
+<tbody>
+    <tr><td>
+    	<div style="width:400px;">
+        <?php
+           $data = new Altimea_Data_Storage();
+           $user = $data->get();
+           echo $this->formHidden('id',$this->user->id);
+            echo $this->FormRow($this->getTranslation('Nombre*'), $this->FormText('first_name', $this->user->first_name));
+            echo $this->FormRow($this->getTranslation('Apellido*'), $this->FormText('last_name', $this->user->last_name));
+            echo $this->FormRow($this->getTranslation('Email* '), $this->FormText('email', $this->user->email));
+            echo $this->FormRow($this->getTranslation('Tipo*'), $this->SelectAdminRole('role', $this->user->role));
+		   ?>
+		 
+		  
+  	</div>
+</td>
+    </tr>
+	<tr><th></th></tr>
+</tbody>
+<tfoot>
+<tfoot>
+<tr>
+    <td align="right" >
+        <?php
+            echo "<input id='update' type='submit' value='".$this->getTranslation('Modificar')."' name='update'/> <input type=button onclick=\"location.href='".$this->getBaseUrl()."/admin/user/';\" value='".$this->getTranslation('Cancelar')."' name='cancel'/>";
+        ?>
+    </td>
+</tr>
+</tfoot>
+</table>
+</form>
+<?php if($this->viewrole){?>
+<form id="permissions" action="<?php echo $this->getBaseUrl();?>/admin/user/edit" method="post" style="display:none">
+  <table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+       <thead>
+  <tr>
+    <th align="left"  class="champs_obligatoires" ><?php echo $this->getTranslation('Permisos de usuario');?></th>
+  </tr>
+  <tr>
+  	<td  height="5"></td>
+  </tr>
+</thead>
+    <tr><td>
+    	<div>
+        <?php
+            echo $this->formHidden('id',$this->user->id);
+            echo $this->RenderAclList($this->userPermissions);
+        ?>
+     </div>
+    </td>
+    </tr>
+	<tr><th></th>
+	</tr>
+</tbody>
+<tfoot>
+<tfoot>
+<tr>
+    <td align="right" >
+        <?php
+            echo $this->FormSubmit('update_permissions', $this->getTranslation('Actulizar permisos'));
+        ?>
+    </td>
+</tr>
+
+</tfoot>
+</table>
+</form>
+<?php }?>
+<form id="password" name="password"  action="<?php echo $this->getBaseUrl();?>/admin/user/edit" method="post" style="display:none">
+  <table width="650" border="0" cellspacing="0" cellpadding="0" class="table_form">
+       <thead>
+  <tr>
+    <th align="left"  class="champs_obligatoires" ><?php echo $this->getTranslation('Los campos marcados con * son obligatorios'); ?></th>
+  </tr>
+  <tr>
+  	<td  height="5"></td>
+  </tr>
+</thead>
+<tbody>
+    <tr><td>
+    	<div style="width:450px;">
+        <?php
+            echo $this->formHidden('id',$this->user->id);
+            echo $this->FormRow($this->getTranslation('Contraseña*'), $this->FormPassword('newPassword'));
+            echo $this->FormRow($this->getTranslation('Confirmar contraseña*'), $this->FormPassword('newConfirmPassword'));
+            //echo $this->FormRow('&nbsp;', $this->FormSubmit('admin_user_password', $this->getTranslation('Valider')));
+        ?>
+     	</div>
+		</td>
+    </tr>
+	<tr><th></th>
+	</tr>
+</tbody>
+<tfoot>
+<tfoot>
+<tr>
+    <td align="right" >
+        <?php
+            echo "<input id='admin_user_password' type='submit' value='".$this->getTranslation('Modificar')."' name='admin_user_password'/> <input type=button onclick=\"location.href='".$this->getBaseUrl()."/admin/user/';\" value='".$this->getTranslation('Cancelar')."' name='cancel'/>";
+        ?>
+    </td>
+</tr>
+
+</tfoot>
+</table>
+</form>
+<!--FOOTER DESING-->
+</div>
+<div class="table_admin_foot" ></div>
+</div>
+<!--END FOOTER DESING-->
+<?php	$this->jQuery()->onLoadCaptureStart();
+?>
+$("#newPassword").addClass("required");
+$("#newConfirmPassword").addClass("required");
+$("#first_name").addClass("required");
+$("#last_name").addClass("required");
+$("#email").addClass("required");
+$("#password").validate({
+		rules: {
+			newPassword: {
+				required: true,
+				minlength: 5
+			},
+			newConfirmPassword: {
+				required: true,
+				minlength: 5,
+				equalTo: "#newPassword"
+			}
+		},
+		messages: {
+			newPassword: {
+				required: "Veuillez fournir un mot de passe",
+				minlength: "Votre mot de passe doit être au moins 5 caractères"
+			},
+			newConfirmPassword: {
+				required: "Veuillez fournir un mot de passe",
+				minlength: "Votre mot de passe doit être au moins 5 caractères",
+				equalTo: "Veuillez entrer le même mot de passe comme ci-dessus"
+			}
+		}
+	});
+$("#general").validate();
+<?php 
+    $this->jQuery()->onLoadCaptureEnd(); 
+?>
