@@ -6,9 +6,9 @@ class Default_ArtyFraganceController extends ZExtraLib_Controller_Action {
         $arrayMenu = $this->loadMenuIdioma($this->_params['lang'], 4);
         $this->view->menuIzquierda = $arrayMenu;
         $this->_menu = $arrayMenu;
+        $this->view->classBody = 'lyt_news_precaution';
     }
     public function indexAction() {
-        $this->view->classBody = 'lyt_news_precaution';
         $arrayKey = array_keys($this->_menu);
         $this->view->itemSelect = $arrayKey[0];
     }
@@ -17,6 +17,10 @@ class Default_ArtyFraganceController extends ZExtraLib_Controller_Action {
         $this->view->itemSelect = $array[(count($array)-1)];
     }
     public function ejemploAction() {
+        echo "estoy ejemplo";
+    }
+    public function actualitesAction() {
+        $this->view->itemSelect=18;
         echo "estoy ejemplo";
     }
 }

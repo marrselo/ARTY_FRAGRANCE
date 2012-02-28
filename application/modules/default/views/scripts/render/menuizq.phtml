@@ -1,10 +1,12 @@
 <aside id="aside">
     <ul class="lst_aside">
         <?php 
-        foreach($this->menuIzquierda as $index=>$valor): ?>
+        foreach($this->menuIzquierda as $index=>$valor): 
+            $rutCont = $valor['idTipoMenu']==1?'/cont':'';
+            ?>
         <li>
             <a class="<?php echo $this->itemSelect==$index?'selected':'' ?>" 
-               href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $this->controllerName.'/'.$valor['rutaMenuBase'] ?>"><?php echo $valor['nombreMenu']?>
+               href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $this->controllerName.$rutCont.'/'.$valor['rutaMenuBase'] ?>"><?php echo $valor['nombreMenu']?>
             </a>
         </li>
         <?php endforeach; ?>
