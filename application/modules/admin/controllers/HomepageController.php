@@ -1,6 +1,6 @@
 <?php
 
-class Admin_IndexController
+class Admin_HomepageController
         extends ZExtraLib_Controller_Action
 {
     function init() {
