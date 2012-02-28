@@ -1,5 +1,4 @@
 <?php
-
 class Admin_LoginController extends ZExtraLib_Controller_Action
 {
     protected $_usuarioModel;
@@ -29,7 +28,7 @@ class Admin_LoginController extends ZExtraLib_Controller_Action
             }
         }
         
-        public function indexAction(){
+        public function indexAction(){ echo "asdasda"; exit;
             $this->view->messages = $this->_flashMessenger->getMessages();            
             $params =  $this->_request->getParams();
             $form   = new Application_Form_FormLogin();

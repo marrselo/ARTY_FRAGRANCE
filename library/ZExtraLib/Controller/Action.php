@@ -56,8 +56,9 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
             }       
         }
         $this->initView();
-        
+       
         $this->view->headTitle('Arty Fragance');
+       
 
         
     }
