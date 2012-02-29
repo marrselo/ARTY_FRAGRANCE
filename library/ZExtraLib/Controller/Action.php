@@ -10,6 +10,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     protected $_moduleName;
     protected $_controllerName;
     protected $_params;
+    protected $_actionName;
 
     public function init() {
         parent::init();
@@ -68,7 +69,9 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->view->getMessages = $this->_flashMessenger->getMessages();
         $this->_moduleName = $this->getRequest()->getModuleName();
         $this->_controllerName = $this->getRequest()->getControllerName();
+        $this->_actionName = $this->getRequest()->getActionName();
         $this->view->controllerName = $this->_controllerName;
+        $this->view->actionName = $this->_actionName;
     }
 
     protected function setLayout($layout) {
