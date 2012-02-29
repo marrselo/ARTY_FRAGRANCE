@@ -5,14 +5,18 @@ class Admin_IndexController
 {
     function init() {
         parent::init();
-        
-        
+        $this->modulo = new Application_Model_Modulo();
+        $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
+       
     }
     function indexAction()
     {
-       echo "·asdasdasdsad";
+       
     }
-
+    function accueilAction()
+    {
+        
+    }
 
 }
 

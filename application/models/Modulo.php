@@ -13,6 +13,27 @@ class Application_Model_Modulo extends ZExtraLib_Model {
         }
         return $result;
     }
+    function listarModuloMenu(){
+        
+        if (!($colMenuModulo = $this->_cache->load('listaModuloMenu'))) {
+            
+            $colModulos = $this->listarModulo();                      
+            $result = $this->_modulo->getAdapter()->select()
+                           ->from($this->_modulo->getName())
+                           ->join('menubase', 'menubase.idModulo = modulo.idModulo')
+                           ->query()
+                           ->fetchAll();
+            foreach($colModulos as $value){
+                for($i = 0;$i<count($result); $i++ ){
+                    if($value['idModulo']== $result[$i]['idModulo']){                    
+                        $colMenuModulo[$value['nombreModulo']][] = $result[$i];
+                    }
+                }
+            }            
+            $this->_cache->save($colMenuModulo, 'listaModuloMenu');
+        }
+        return $colMenuModulo;
+    }
     
 }
 
