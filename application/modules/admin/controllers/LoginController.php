@@ -40,7 +40,7 @@ class Admin_LoginController extends ZExtraLib_Controller_Action
             if ($this->_request->isPost()) {
                 if ($form->isValid($params)) {
                     if ($this->auth($params['login'], $params['password'],1)) {
-                    $this->_redirect('/admin');
+                        $this->_redirect('/admin/index');
                     
                     } else {
                     $this->_flashMessenger->addMessage('user/password combination wrong');

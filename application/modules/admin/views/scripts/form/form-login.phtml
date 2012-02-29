@@ -1,7 +1,11 @@
-   <img src="/images/px.gif" alt="" width='200' height='10' border="0" />
- 	<form action="" method="post"  class="form">
-        <div>Entrer votre login et votre mot de passe</div>
-
+   
+<img src="/images/px.gif" alt="" width='200' height='10' border="0" />
+<form action="" method="post"  class="form">
+               <div id="login_wrapper">
+<?php if(is_array($this->element->getView()->messages) && count($this->element->getView()->messages)>0 ) { ?>
+    <?php foreach($this->element->getView()->messages as $index):    ?>  
+    <div><?php echo  $index;?></div>
+<?php  endforeach; } ?>
 <table width="230" border="0" cellspacing="2" cellpadding="2">
     <tr>
         <td>Identifiant        </td>
@@ -28,4 +32,5 @@
         </td>
     </tr>
 </table>
-        </form>
+               </div>
+</form>
