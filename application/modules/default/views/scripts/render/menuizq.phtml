@@ -4,8 +4,11 @@
         foreach($this->menuIzquierda as $index=>$valor): 
             $rutCont = $valor['idTipoMenu']==1?'/cont':'';
             ?>
-        <li>
-            <a class="<?php echo $this->itemSelect==$index?'selected':'' ?>" 
+        <li><?php if($valor['idTipoMenu']==2 && $this->itemSelect==''){?>
+            <a class="<?php echo $this->actionName==$valor['rutaMenuBase']?'selected':'' ?>" 
+            <?php } else { ?>   
+            <a class="<?php echo $this->itemSelect==$index?'selected':'' ?>"    
+            <?php }  ?>   
                href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $this->controllerName.$rutCont.'/'.$valor['rutaMenuBase'] ?>"><?php echo $valor['nombreMenu']?>
             </a>
         </li>
