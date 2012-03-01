@@ -1,0 +1,23 @@
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('editor',
+{
+   // toolbar : 'Basic'
+   /*toolbar :
+       [
+       ['Styles', 'Format'],
+       ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', '-', 'About']
+       ]*/
+width: '600'
+}
+
+);
+}
+</script>
+
+
+<form method="GET">
+<textarea name="editor" id="producto1"></textarea>
+<input type="submit" name="enviar">
+</form>

@@ -17,6 +17,10 @@ class Admin_IndexController
     {
         
     }
+    function collectionsAction()
+    {
+        
+    }
 
 }
 
