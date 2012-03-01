@@ -11,14 +11,21 @@
         <div class="table_admin_head"></div>
         <div align="left" class="table_admin_body">
 <fieldset>
-               <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
-<select onchange="location.href='/mod_actualites/actualites/form/id/9/version/'+this.value" id="lang_code" name="lang_code">
+    
+    <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
+<select onchange="location.href='/admin/index/collections/'" id="lang_code" name="lang_code">
+    <?php 
+    $frontController = Zend_Controller_Front::getInstance();
+       $file = $frontController->getParam('bootstrap')->getOption('file');
+    foreach ($this->idioma as $idioma):
+?>
 <option selected="selected" title="/images/flags/fr.png" value="fr">Francais</option>
 <option title="/images/flags/es.png" value="es">Español</option>
 <option title="/images/flags/de.png" value="de">Aleman</option>
 <option title="/images/flags/jp.png" value="jp">Japones</option>
+<?php endforeach;?>
 </select>
-               </div>
+    </div>
     <?php //var_dump($this->idioma); 
     $frontController = Zend_Controller_Front::getInstance();
        $file = $frontController->getParam('bootstrap')->getOption('file');
