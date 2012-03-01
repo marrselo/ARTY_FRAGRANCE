@@ -13,6 +13,9 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     {
         $arrayKey = array_keys($this->_menu);
         $this->view->itemSelect = $arrayKey[0];
+        $modelBio = new Application_Model_Biografia();
+        $this->view->bio = $modelBio->listarBiografiaPorIdioma($this->_params['lang']);
+        $this->view->fotos = $modelBio->listarFotosBiografia();
     }
     public function ouvragesAction()
     {
