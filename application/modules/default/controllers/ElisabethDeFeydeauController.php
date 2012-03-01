@@ -13,12 +13,10 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     {
         $arrayKey = array_keys($this->_menu);
         $this->view->itemSelect = $arrayKey[0];
-
     }
     public function ouvragesAction()
     {
-        
-        
+        $this->view->classBody = 'lyt_elisafey_ouvrages';
     }
     public function realisationsAction()
     {
