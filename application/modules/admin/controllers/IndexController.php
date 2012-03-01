@@ -3,13 +3,13 @@
 class Admin_IndexController
         extends ZExtraLib_Controller_Action
 {
-    function init() {
+    public function init() {
         parent::init();
         $this->modulo = new Application_Model_Modulo();
         $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
        
     }
-    function indexAction()
+    public function indexAction()
     {
         
     }
@@ -24,9 +24,13 @@ class Admin_IndexController
             $elem->removeDecorator('label')->removeDecorator('HtmlTag');
         }   
         $this->view->formAccueil = $form;
+
         
+    }
+    public function collectionsAction()
+    {
+      $idiomas = new Application_Model_Idioma();
+      $this->view->idioma = $idiomas->getAllIdiomas();
     }
 
 }
-
-//class Admin_IndexController

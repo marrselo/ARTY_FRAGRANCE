@@ -19,7 +19,13 @@ class ZExtraLib_Model {
     function clearCache($nameCache){
         $this->_cache->remove($nameCache);
     }
-    //put your code here
+    function arrayAsoccForFirstItem($array){
+        $arrayResponse = array();
+        foreach($array as $index => $data){
+            $arrayResponse[$data[key($data)]][]=$data;
+        }
+        return $arrayResponse;
+    }
 }
 
 ?>

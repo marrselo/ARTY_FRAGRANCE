@@ -25,7 +25,8 @@ class Application_Model_Site extends ZExtraLib_Model {
                 ->where('si.estado = ?','1')
                 ->where('idi.prefIdioma = ? ', $idioma)
                 ->order('si.idTipoSite');
-        $result = $this->_site->getAdapter()->fetchAssoc($sql);
+        $result = $this->_site->getAdapter()->fetchAll($sql);
+        $result = $this->arrayAsoccForFirstItem($result);
         $this->_cache->save($result, 'listaSite'.$idioma);
         }
         return $result;

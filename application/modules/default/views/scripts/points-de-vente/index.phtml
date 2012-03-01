@@ -3,7 +3,45 @@
 <?php echo $this->render('render/menuizq-pais.phtml') ?>        
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
-                <h2>PARIS</h2>
+                <?php
+                foreach($this->listaPuntoVenta as $index => $data): ?>
+                <h2><?php echo $index; ?></h2>
+                <div class="cf">
+                    <?php foreach($data as $dataIndex): 
+                        ?>
+                    <div class="box_border box_pointvente">											
+                        <div class="inner_thumb">
+                             <p>
+                                <?php echo $dataIndex['nombrePuntoVenta']; ?><br/>
+                                <?php echo $dataIndex['direccionPuntoVenta']; ?><br/>
+                                Tél : <?php echo $dataIndex['telefonoPuntoVenta']; ?><br/>
+                            </p>
+                            <a class="more" href="<?php echo $dataIndex['direccionWebPuntoVenta']; ?>"><?php echo $dataIndex['direccionWebPuntoVenta']; ?></a>
+                            <?php 
+                            if($dataIndex['fotos']!=''){
+                            $arrayFotos = explode(',',$dataIndex['fotos']);
+                            $arrayFotos = array_unique($arrayFotos);
+                            } else {
+                            $arrayFotos = array();    
+                            }
+                            if (count($arrayFotos)>0) {
+                            ?>
+                            <ul class="lst_thumb">
+                                <?php foreach($arrayFotos as $indexfotos):?>
+                                <li>
+                                    <a href="/imgPuntoVenta/<?php echo $indexfotos?>" class="zoom" rel="thumb1">
+                                        <img class="" width="25" height="25" src="/imgPuntoVenta/<?php echo $indexfotos?>"/>
+                                    </a>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php } ?>
+                        </div>
+                    </div>	
+                    <?php endforeach; ?>
+                </div>	
+                <?php endforeach;?>
+<!--        <h2>PARIS</h2>
                 <div class="cf">
                     <div class="box_border box_pointvente">											
                         <div class="inner_thumb">
@@ -84,6 +122,7 @@
                         </div>
                     </div>									
                 </div>
+                -->
             </div>	
         </section>
     </div>
