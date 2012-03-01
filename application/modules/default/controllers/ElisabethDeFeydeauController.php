@@ -24,6 +24,8 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     }
     public function blogEtPhotosAction()
     {
+        $this->view->classBody = 'lyt_elisafey_fotos fancyBox';
+        
         
     }
     
