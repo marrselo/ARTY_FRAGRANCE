@@ -1,5 +1,5 @@
 <?php 
-class Application_Form_FormAccueil extends Zend_Form
+class Application_Form_FormPtoVenta extends Zend_Form
 {
     public function __construct() 
     {

@@ -1,5 +1,5 @@
 <?php
-class Application_Form_FormBase_FormArticulo extends Zend_Form
+class Application_Form_FormBase_FormArticulo extends ZExtraLib_Form
 {
     public function init() {
             $this->setMethod('Post');
