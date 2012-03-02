@@ -41,7 +41,6 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
                 ->where('idi.prefIdioma = ? ', $idioma)
                 ->where('pv.idPais = ? ', $idPais)
                 ->group('pv.idPuntoVenta');
-        //echo $result;
         $result = $this->_pais->getAdapter()->fetchAll($result);
         $result = $this->arrayAsoccForFirstItem($result);
            $this->_cache->save($result, 'listarPuntoVentaPorIdioma' . $idioma.$pais);

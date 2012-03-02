@@ -16,6 +16,7 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
         $modelBio = new Application_Model_Biografia();
         $this->view->bio = $modelBio->listarBiografiaPorIdioma($this->_params['lang']);
         $this->view->fotos = $modelBio->listarFotosBiografia();
+        //print_r($this->view->fotos);
     }
     public function ouvragesAction()
     {
