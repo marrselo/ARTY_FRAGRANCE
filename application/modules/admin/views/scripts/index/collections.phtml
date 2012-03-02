@@ -11,42 +11,33 @@
         <div class="table_admin_head"></div>
         <div align="left" class="table_admin_body">
 <fieldset>
-    
     <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
-<select onchange="location.href='/admin/index/collections/'" id="lang_code" name="lang_code">
-    <?php 
-    $frontController = Zend_Controller_Front::getInstance();
-       $file = $frontController->getParam('bootstrap')->getOption('file');
+        <select onchange="location.href='/admin/index/collections/'" id="lang_code" name="lang_code">
+    <?php     
     foreach ($this->idioma as $idioma):
-?>
-<option selected="selected" title="/images/flags/fr.png" value="fr">Francais</option>
-<option title="/images/flags/es.png" value="es">Español</option>
-<option title="/images/flags/de.png" value="de">Aleman</option>
-<option title="/images/flags/jp.png" value="jp">Japones</option>
-<?php endforeach;?>
-</select>
-    </div>
-    <?php //var_dump($this->idioma); 
-    $frontController = Zend_Controller_Front::getInstance();
-       $file = $frontController->getParam('bootstrap')->getOption('file');
-       var_dump($file);
     ?>
-<div class="dd" id="lang_code_msdd" style="width: 73px;">
-    <div class="ddTitle" id="lang_code_title"><span class="arrow" id="lang_code_arrow" style="background-position: 0pt 0pt;"></span>
-<span id="lang_code_titletext" class="textTitle">
-    <img align="left" src="/images/flags/fr.png"> Francais
-</span>
+            <option title="/iconos/<?php echo $idioma["icono"]?>" value="<?php echo $idioma["PrefIdioma"]?>"><?php echo $idioma["NombreIdioma"]?>
+            </option>
+    <?php endforeach;?>
+        </select>
     </div>
-    <div class="ddChild" id="lang_code_child" style="width: 71px;">
-        <a id="lang_code_msa_0" style="undefined" class="selected enabled" href="javascript:void(0);">
-            <img align="left" src="/images/flags/fr.png"> Francais</a>
-        <a id="lang_code_msa_1" style="undefined" class="enabled" href="javascript:void(0);">
-            <img align="left" src="/images/flags/es.png"> Español</a>
-        <a id="lang_code_msa_2" style="undefined" class="enabled" href="javascript:void(0);">
-            <img align="left" src="/images/flags/de.png"> Aleman</a>
-        <a id="lang_code_msa_3" style="undefined" class="enabled" href="javascript:void(0);">
-            <img align="left" src="/images/flags/jp.png"> Japones</a></div>
-</div>
+    
+    <div class="dd" id="lang_code_msdd" style="width: 200px;">
+        <div class="ddTitle" id="lang_code_title">
+            <span class="arrow" id="lang_code_arrow" style="background-position: 0pt 0pt;">                
+            </span>
+            <span id="lang_code_titletext" class="textTitle">                
+                <img align="left" src="/iconos/cv.png"> Frances
+            </span>
+        </div>
+        <div class="ddChild" id="lang_code_child" style="width: 71px;">
+        <?php foreach ($this->idioma as $idioma):?>
+            <a id="<?php echo $idioma["idIdioma"]?>" class="selected enabled" href="javascript:void(0);">
+                <img align="left" src="/iconos/<?php echo $idioma["icono"]?>"> <?php echo $idioma["NombreIdioma"]?>
+            </a>        
+        <?php endforeach;?>
+        </div>
+    </div>
 </fieldset>
             <!--UPLOAD MODULES-->
             <!--LIST MODULES-->
