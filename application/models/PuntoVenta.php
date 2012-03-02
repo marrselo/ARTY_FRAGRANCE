@@ -30,20 +30,58 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
                     'pv.idPuntoVenta',
                     'fotos' => new Zend_Db_Expr('GROUP_CONCAT(f.nombreFotoPuntoVenta)'),
                     'pvi.nombrePuntoVenta',
-                    'pvi.direccionPuntoVenta',
+                    'pv.direccionPuntoVenta',
                     'pv.telefonoPuntoVenta',
                     'pv.direccionWebPuntoVenta'))
                 ->join(array('pvi' => $this->_puntoventaIdioma->getName()), 'pvi.idPuntoVenta = pv.idPuntoVenta', '')
                 ->join(array('c' => $this->_ciudad->getName()), 'pv.idCiudad = c.idCiudad', '')
                 ->joinLeft(array('f' => $this->_fotosPuntoVenta->getName()), 'f.idPuntoVenta = pv.idPuntoVenta', '')
                 ->join(array('ci' => $this->_ciudadIdioma->getName()), 'ci.idCiudad = c.idCiudad', '')
-                ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = pvi.idIdioma', '')
                 ->where('idi.prefIdioma = ? ', $idioma)
                 ->where('pv.idPais = ? ', $idPais)
                 ->group('pv.idPuntoVenta');
         $result = $this->_pais->getAdapter()->fetchAll($result);
         $result = $this->arrayAsoccForFirstItem($result);
         }
+        return $result;
+    }
+    
+    function listarPuntoVenta() {
+       if (!($result = $this->_cache->load('listarPuntoVenta' ))) {
+         $result = $this->_puntoventa->getAdapter()
+                ->select()
+                ->from(array('pv' => $this->_puntoventa->getName()), array(
+                    'c.nombreCiudad',
+                    'pv.idPuntoVenta',                    
+                    'pv.nombrePuntoVenta',                    
+                    'pv.telefonoPuntoVenta',
+                    'pv.direccionPuntoVenta',
+                    'pv.direccionWebPuntoVenta'))               
+                ->join(array('c' => $this->_ciudad->getName()), 'pv.idCiudad = c.idCiudad', '')               
+                ->query()
+                ->fetchAll();
+        }
+        return $result;
+    }
+    
+    function detallePuntoVentaIdioma($idPtoVentaIdioma,$idIdioma){
+        $result = $this->_puntoventaIdioma->getAdapter()
+                ->select()
+                ->from(array('pvi' => $this->_puntoventaIdioma->getName()), array(
+                    'pvi.idPuntoVenta',
+                    'pvi.idPuntoVentaIdioma',
+                    'pvi.nombrePuntoVenta',                    
+                    'pv.telefonoPuntoVenta',
+                    'pv.direccionPuntoVenta',
+                    'pv.idPais',
+                    'pvi.direccionWebPuntoVenta',
+                    'p.nombrePais'))
+                ->join(array('pv' => $this->_puntoventa->getName()), 'pv.idPuntoVenta = pv.idPuntoVenta', '')
+                ->join(array('p' => $this->_pais->getName()), 'p.idPais = pv.idPais', '')
+                ->where('pvi.idIdioma = ? ',$idIdioma)
+                ->where('idPuntoVentaIdioma =?',$idPtoVentaIdioma)
+                ->query()
+                ->fetch();
         return $result;
     }
 
