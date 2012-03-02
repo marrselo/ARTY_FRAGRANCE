@@ -54,6 +54,13 @@ class Admin_IndexController
     }
     public function editcollectionAction()
     {
+        $idArticulo = $this->_getParam('id', NULL);
+        if($idArticulo){
+        $articulo = new Application_Model_Articulo();
+        $this->view->articulo = $articulo->buscaArticulo($idArticulo);
+        }
+        else 
+            $this->_redirect('/');
         
     }
     public function deletecollectionAction()

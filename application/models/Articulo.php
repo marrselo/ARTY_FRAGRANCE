@@ -21,4 +21,16 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         
         return $result;
     }
+    
+    function buscaArticulo($id) {
+        $db = $this->_articulo
+                ->getAdapter()->select()
+                ->from(array($this->_articulo->getName()))
+                ->where('idArticulo = ? ', $id)
+                ->where('idEstadoArticulo = ? ', 1);
+        
+        $result = $db->query()->fetchAll();
+        
+        return $result;
+    }
 }

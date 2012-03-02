@@ -40,11 +40,11 @@
                                         <?php echo $art['tituloDetalle']?>
                                     </td>
                                     <td align="right" width="15%">
-                                        <a href="/admin/index/editcollection/id/<?php echo $art['idArticulo']?>">
+                                        <a href="/admin/producto/editproduct/id/<?php echo $art['idDetalleArticulo']?>">
                                             <!--<img border="0" alt="enabled.gif" src="/images/icons/_status.png">-->
                                             Editar
                                         </a>
-                                        <a href="/admin/index/deletecollection/id/<?php echo $art['idArticulo']?>">
+                                        <a href="/admin/producto/deleteproduct/id/<?php echo $art['idDetalleArticulo']?>">
                                             <!--<img border="0" alt="process_remove.png" src="/images/icons/process_remove.png">-->
                                             Eliminar
                                         </a>
@@ -62,6 +62,7 @@
                                 </tr>
                             </tfoot>
                         </table>
+                    <a href="/admin/producto/agregarproducto">New Product</a>
                     
                 </div>
             </fieldset>
