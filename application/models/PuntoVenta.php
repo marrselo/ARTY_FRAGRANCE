@@ -22,7 +22,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
     }
 
     function listarPuntoVentaPorIdioma($idioma, $idPais) {
-        if (!($result = $this->_cache->load('listarPuntoVentaPorIdioma' . $idioma.$pais))) {
+         if (!($result = $this->_cache->load('listarPuntoVentaPorIdioma' . $idioma.$pais))) {
         $result = $this->_puntoventa->getAdapter()
                 ->select()->distinct()
                 ->from(array('pv' => $this->_puntoventa->getName()), array(
@@ -37,11 +37,14 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
                 ->join(array('c' => $this->_ciudad->getName()), 'pv.idCiudad = c.idCiudad', '')
                 ->joinLeft(array('f' => $this->_fotosPuntoVenta->getName()), 'f.idPuntoVenta = pv.idPuntoVenta', '')
                 ->join(array('ci' => $this->_ciudadIdioma->getName()), 'ci.idCiudad = c.idCiudad', '')
+                ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = pvi.idIdioma', '')
                 ->where('idi.prefIdioma = ? ', $idioma)
                 ->where('pv.idPais = ? ', $idPais)
                 ->group('pv.idPuntoVenta');
+        //echo $result;
         $result = $this->_pais->getAdapter()->fetchAll($result);
         $result = $this->arrayAsoccForFirstItem($result);
+           $this->_cache->save($result, 'listarPuntoVentaPorIdioma' . $idioma.$pais);
         }
         return $result;
     }
