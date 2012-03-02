@@ -29,4 +29,18 @@ class Application_Model_Menu extends ZExtraLib_Model {
         }
         return $result;
     }
+    
+    function buscaMenu($idMenuBase, $idIdioma) {
+        $db = $this->_menu->getAdapter()
+                ->select()
+                ->from($this->_menu->getName(), array('idMenu', 'nombreMenu'))                    
+                    ->where('idMenuBase = ? ', $idMenuBase)
+                    ->where('idIdioma = ? ', $idIdioma);
+        
+        $result = $db->query()->fetch();
+        
+        return $result;
+        
+    }
+    
 }

@@ -25,17 +25,48 @@ class Admin_IndexController
     }
     function accueilAction()
     { 
-
-        
-        
-        
-                
         
     }
     public function collectionsAction()
     {
-      $idiomas = new Application_Model_Idioma();
-      $this->view->idioma = $idiomas->getAllIdiomas();
+        $idiomas = new Application_Model_Idioma();
+        $articulo = new Application_Model_Articulo();
+        $menu = new Application_Model_Menu();       
+        
+        $idIdioma = $this->_getParam('lang_code', 1);
+        $idMenu = $menu->buscaMenu(3, $idIdioma);
+        
+        $this->view->idioma = $idiomas->getAllIdiomas();
+        $this->view->articulo = $articulo->listarArticulo($idMenu['idMenu']);
+        
     }
+    
+    public function listproductosAction()
+    {
+        $idArticulo = $this->_getParam('id', NULL);
+        if($idArticulo){
+        $articulo = new Application_Model_DetalleArticulo();
+        $this->view->articulo = $articulo->listarArticulo($idArticulo);
+        }
+        else 
+            $this->_redirect('/');
+        
+    }
+    public function editcollectionAction()
+    {
+        
+    }
+    public function deletecollectionAction()
+    {
+        
+    }
+    public function activecollectionAction()
+    {
+        
+    }
+    
+    
+    
+    
 
 }
