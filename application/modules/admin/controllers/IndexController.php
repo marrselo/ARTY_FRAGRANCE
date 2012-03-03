@@ -54,13 +54,12 @@ class Admin_IndexController
         
     }
     public function editcollectionAction()
-    {
-        $idArticulo = $this->_getParam('id', NULL);
+    {        
         $form = new Application_Form_FormArt();
+        $idArticulo = $this->_getParam('id', NULL);
         
-        if($idArticulo){
-        $art = new Application_Model_Articulo();
-        $articulo = $art->buscaArticulo($idArticulo);        
+        if($idArticulo){        
+        $articulo = $this->_articulo->buscaArticulo($idArticulo);        
         $form->populate($articulo);
         
         if ($this->_request->isPost()) {  
@@ -90,7 +89,13 @@ class Admin_IndexController
         $this->_articulo;
     }
     public function activecollectionAction()
-    {
+    {        
+        $idArticulo = $this->_getParam('id', NULL);
+        if($idArticulo) {
+            $est = $this->_getParam('est', 1);            
+            $this->_articulo->desactiveArticulo($idArticulo, $est);
+            $this->_redirect('/admin/index/collections');
+        }
         
     }
 

@@ -15,7 +15,8 @@ class Application_Model_Articulo extends ZExtraLib_Model {
                 ->select()
                 ->from(array($this->_articulo->getName()))
                 ->where('idMenu = ? ', $idmenu)
-                ->where('idEstadoArticulo = ? ', 1);
+                //->where('idEstadoArticulo = ? ', 1);
+                ;
         
         $result = $db->query()->fetchAll();
         
@@ -27,10 +28,9 @@ class Application_Model_Articulo extends ZExtraLib_Model {
                 ->getAdapter()->select()
                 ->from(array($this->_articulo->getName()))
                 ->where('idArticulo = ? ', $id)
-                ->where('idEstadoArticulo = ? ', 1);
-        
-        $result = $db->query()->fetch();
-        
+                //->where('idEstadoArticulo = ? ', 1)
+                ;        
+        $result = $db->query()->fetch();        
         return $result;
     }
     
@@ -91,13 +91,18 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         return $result;        
     }
     
-    function desactiveArticulo($id) {
-        $db = $this->_articulo->getAdapter();
+    function desactiveArticulo($id, $est) {
+        $db = $this->_articulo->getAdapter();        
+        if($est==0)
+            $est =1;
+        else 
+            $est =0;
+                    
         $where = $db->quoteInto('idArticulo = ?', $id);
-        $data = array('idEstadoArticulo' => 0
+        $data = array('idEstadoArticulo' => $est
             );
         $db->update('articulo', $data,$where);
-        return $result;        
+        return true;
     }
     
 }

@@ -85,11 +85,12 @@
                                             <!--<img border="0" alt="process_remove.png" src="/images/icons/process_remove.png">-->
                                             Eliminar
                                         </a>
-                                        <a href="/admin/index/activecollection/id/<?php echo $art['idArticulo']?>">
-                                            <!--<img border="0" title="backup module" alt="backup module" src="/images/icons/archive.png">-->
-                                            Desactivar
-                                            
-                                        </a>
+                                        <a href="/admin/index/activecollection/id/<?php echo $art['idArticulo']."/est/",$art['idEstadoArticulo']?>" onclick="return confirm('¿Desea <?php if($art['idEstadoArticulo']==1) echo "desactive"; else echo "activar"; ?> the collection?')">
+                            <?php 
+                            if($art['idEstadoArticulo']==1){echo "Desactive";} 
+                            if($art['idEstadoArticulo']==0){echo "Active";} 
+                            ?>
+                        </a>
 
                                     </td>
                                 </tr>
