@@ -21,7 +21,6 @@
                                         <td>
                                             <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
                                                 <select onchange="location.href='<?php echo $this->baseUrl() . '/' . $this->params['module'] . '/' . $this->params['controller'] . '/' . $this->params['action'] ?>/idlang/'+this.value" id="lang_code" name="lang_code">
-
                                                     <?php
                                                     foreach ($this->colIdioma as $index => $value):
                                                         if (isset($this->params['idlang'])) {
@@ -86,9 +85,9 @@
 
                                                     <?php
                                                     foreach ($this->colPais as $index => $valu):                            
-                                                         $selected = ($valu['idPais'] == $this->detallePtoVenta['idPais'])? 'selected' : '';                                                       
+                                                         $selected = ($valu['idPais'] == $this->detallePtoVenta['idPais'])? 'selected = "selected"' : '';                                                       
                                                         ?>
-                                                        <option selected="<?php echo $selected ?>" value="<?php echo $valu['idPais'] ?>">
+                                                        <option <?php echo $selected ?> value="<?php echo $valu['idPais'] ?>">
                                                             <?php echo $valu['nombrePais'] ?>
                                                         </option>
 
@@ -99,23 +98,30 @@
                                     <tr>
                                         <td align="left" width="20%">Titre *</td>
                                         <td align="left" width="80%">
-                                            <input type="text" value="marchand 1" class="required" size="50" maxlength="100" id="title" name="title"></td>
+                                            <input type="hidden" name='idPuntoVenta' value="<?php echo $this->detallePtoVenta['idPuntoVenta']?>" />
+                                            <input type="hidden" name="idPuntoVentaIdioma" value="<?php echo $this->detallePtoVenta['idPuntoVentaIdioma']?>" />
+                                            <input type="hidden" name="idIdioma" value="<?php echo $this->detallePtoVenta['idIdioma']?>" />
+                                            <input type="hidden" name="idDefault" value="<?php echo $this->params['idmDefault']['idIdioma']?>" />
+                                            <input type="text" value="<?php echo $this->detallePtoVenta['idPuntoVenta']?>" class="required" size="50" maxlength="100" id="title" name="nombrePuntoVenta"></td>
                                     </tr>
                                     <tr>
-                                        <td align="left" width="20%">Type *</td>
+                                        <td align="left" width="20%">Dirección *</td>
                                         <td align="left" width="80%">
-                                            <select class="valid" name="tipe" id="tipe">
-                                                <option value="0" selected="selected">Paul Bert</option>
-                                                <option value="1">Serpette</option>
-                                            </select>
+                                            <input value='<?php echo $this->detallePtoVenta['direccionPuntoVenta']?>' type="text" size="50" name="direccionPuntoVenta" >
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="left" width="14%" valign="top">Fichier *</td>
+                                        <td align="left" width="14%" valign="top">Telefono *</td>
                                         <td align="left" colspan="2">
-                                            <input type="file" validate="required:false,accept:'docx?|pdf|doc|docx|xls|xls'" value="" name="file">
-                                            Format pdf|doc|docx|xls|xlsx<br><br>
-                                            <a target="_blank" href="/media/devenir/devenir_d2ddea18f00665ce8623e36bd4e3c7c520110720195743.pdf">devenir_d2ddea18f00665ce8623e36bd4e3c7c520110720195743.pdf</a>
+                                            <input type="text"  value="<?php echo $this->detallePtoVenta['telefonoPuntoVenta']?>" name="telefono">
+                                            <br><br>                                            
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td align="left" width="14%" valign="top">Web *</td>
+                                        <td align="left" colspan="2">
+                                            <input type="text" size='50' value="<?php echo $this->detallePtoVenta['direccionWebPuntoVenta']?>" name="web">
+                                            <br><br>                                            
                                         </td>
                                     </tr>
 
