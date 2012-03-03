@@ -4,7 +4,7 @@
             <li><a class="<?php echo $this->itemSelect==$index?'selected':'' ?>" href="/<?php echo $this->lang == '' ? '' : $this->lang . '/' ?><?php echo $this->controllerName; ?>/<?php echo $data['slugPais'] ?>-<?php echo $index ?>"><?php echo $data['nombrePais'] ?></a></li>									
         <?php endforeach; ?>
         <li><a class="<?php echo $this->actionName=='internet'?'selected':''; ?>" 
-               href="/<?php echo $this->lang == '' ? '' : $this->lang . '/' ?><?php echo $this->controllerName.'/'.$this->actionName ?>">
+               href="/<?php echo $this->lang == '' ? '' : $this->lang . '/' ?><?php echo $this->controllerName.'/internet' ?>">
                 Internet
             </a>
         </li>									

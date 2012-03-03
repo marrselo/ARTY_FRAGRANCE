@@ -1,531 +1,65 @@
-
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('parrafo');
+}
+</script>
 <td valign="top">
-<div id="centerPane">
-<div id="toolbar">
-<a class="modules" href="/admin/module">Collections</a>
-</div>
-<div id="main">
-<div id="form">
-<div style="display:show">
-    <div class="table_admin">
-        <div class="table_admin_head"></div>
-        <div align="left" class="table_admin_body">
-<fieldset>
-    <form method="get">        
-    <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
-        <select onchange="submit()" id="lang_code" name="lang_code">
-    <?php     
-    $id = $_GET["lang_code"];
-    foreach ($this->idioma as $idioma):
-        if($idioma["idIdioma"] == $id)
-            $select = "selected";
-        else 
-            $select = "";
-    ?>            
-            <option <?php echo $select;?> title="/iconos/<?php echo $idioma["icono"]?>" value="<?php echo $idioma["idIdioma"]?>"><?php echo $idioma["NombreIdioma"]?>
-            </option>
-    <?php endforeach;?>
-        </select>
-    </div>
-    
-    <div class="dd" id="lang_code_msdd" style="width: 200px;">
-        <div class="ddTitle" id="lang_code_title">
-            <span class="arrow" id="lang_code_arrow" style="background-position: 0pt 0pt;">                
-            </span>
-            <span id="lang_code_titletext" class="textTitle">                
-                <img align="left" src="/iconos/cv.png"> Frances
-            </span>
-        </div>
-        <div class="ddChild" id="lang_code_child" style="width: 71px;">
-        <?php foreach ($this->idioma as $idioma):?>
-            <a id="<?php echo $idioma["idIdioma"]?>" class="selected enabled" href="submit()">
-                <img align="left" src="/iconos/<?php echo $idioma["icono"]?>"> <?php echo $idioma["NombreIdioma"]?>
-            </a>        
-        <?php endforeach;?>
-        </div>
-    </div>
-        </form>
-</fieldset>
-            <!--UPLOAD MODULES-->
-            <!--LIST MODULES-->
-            <fieldset>
-                <legend onclick="openCloseLayer('listmodules')" style="cursor : pointer"><img align="top" src="/images/icons/package.png"> 
-                    Liste de modules 
-                </legend>
-                <div style="display:none;padding:2px 10px;" id="listmodules">
-                    <form method="post" action="/admin/module/order/">
-                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th align="left">Collection </th>
-                                    <th align="left">Description</th>
-                                    <th align="center">Actions</th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($this->articulo as $art):?>
-                                <tr class="">
-                                    <td width="40%">
-                                        <a class="link" href="/admin/index/listproductos/id/<?php echo $art['idArticulo']?>">
-                                        <?php echo $art['titulo']?>
-                                        </a>
-                                    </td>
-                                    <td width="45%">
-                                        <?php echo $art['parrafo']?>
-                                    </td>
-                                    <td align="right" width="15%">
-                                        <a href="/admin/index/editcollection/id/<?php echo $art['idArticulo']?>">
-                                            <!--<img border="0" alt="enabled.gif" src="/images/icons/_status.png">-->
-                                            Editar
-                                        </a>
-                                        <a href="/admin/index/deletecollection/id/<?php echo $art['idArticulo']?>">
-                                            <!--<img border="0" alt="process_remove.png" src="/images/icons/process_remove.png">-->
-                                            Eliminar
-                                        </a>
-                                        <a href="/admin/index/activecollection/id/<?php echo $art['idArticulo']?>">
-                                            <!--<img border="0" title="backup module" alt="backup module" src="/images/icons/archive.png">-->
-                                            Desactivar
-                                            
-                                        </a>
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php //$this->baseUrl() ?>/admin/pointventa/index">Liste Point Vente</a> &gt; <a class="actualités" href="<?php //$this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+            <div id="main">
+                <!--   <h2 class="top"></h2>-->
+                <div id="form">
+                    <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+                        <div class="table_admin">                            
+                            <div class="table_admin_head"></div>
+                            <div align="center" class="table_admin_body">
+                                <input type="hidden" value="3" name="id">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                    <tbody>
+                                        <tr><th colspan="2">
+                                            </th></tr>
+                                        <tr>
+                                            <td align="left" width="20%">Title *</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->titulo; ?>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td align="left" width="20%">Imagen *</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->fotoPrincipal; ?>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td align="left" width="14%" valign="top">Description *</td>
+                                            <td align="left" colspan="2">                                                
+                                                <?php echo $this->form->parrafo; ?>
+                                            </td>
+                                        </tr>
 
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td align="right" valign="bottom" colspan="3">
-
-
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </form>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td align="right" valign="bottom" colspan="3">
+                                                <input type="submit" value="Valider" name="">
+                                                <input type="button" onclick="location.href='/admin/index/collections/idMenu/3';" value="Annuler" name="cancel">    
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="table_admin_foot"></div>
+                        </div>
+                    </form>                
                 </div>
-            </fieldset>
-            <!--END LIST MODULES-->
-            <!-- ORDEN HOOKS -->
-<!--<fieldset><legend  style="cursor : pointer" onclick="openCloseLayer('hooksposition')"><img src="/images/icons/ordenar.gif" align="top" /> Position des blocs sur le frontOffice </legend>-->
-            <div style="display:none;padding:2px 10px;" id="hooksposition">
+            </div>
 
-                <a name="top">
-                    <table cellspacing="0" cellpadding="0" id="top" class="table width3 space tableDnD">
-                        <tbody><tr class="nodrag nodrop"><th colspan="4">top - <span style="color: red">8</span> </th></tr>
-                            <tr style="height: 42px;" id="top_28">
-                                <td width="40" class="positions">1</td>
-                                <td width="40" id="td_top_28" class="dragHandle">
-                                    <a href="" style="display: none;"><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
+            <!-- <div id="options" class="column" >
+                                 </div>-->
 
-                                    <strong>Module - partner</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/28"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/28"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="top_40">
-                                <td width="40" class="positions">2</td>
-                                <td width="40" id="td_top_40" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - brocanteur</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/40"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/40"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="top_64">
-                                <td width="40" class="positions">3</td>
-                                <td width="40" id="td_top_64" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - actualites</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/64"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/64"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="top_101">
-                                <td width="40" class="positions">4</td>
-                                <td width="40" id="td_top_101" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - partenaires</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/101"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/101"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="top_104">
-                                <td width="40" class="positions">5</td>
-                                <td width="40" id="td_top_104" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - mediatheque</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/104"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/104"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="top_107">
-                                <td width="40" class="positions">6</td>
-                                <td width="40" id="td_top_107" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - presse</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/107"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/107"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="top_110">
-                                <td width="40" class="positions">7</td>
-                                <td width="40" id="td_top_110" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - nouveautes</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/110"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/110"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="top_121">
-                                <td width="40" class="positions">8</td>
-                                <td width="40" id="td_top_121" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href="" style="display: none;"><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - devenir</strong><br>
-                                    Menu top
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/121"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/121"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr></tbody></table>
-                </a><a name="rightColumn">
-                    <table cellspacing="0" cellpadding="0" id="rightColumn" class="table width3 space tableDnD">
-                        <tbody><tr class="nodrag nodrop"><th colspan="4">rightColumn - <span style="color: red">9</span> </th></tr>
-                            <tr style="height: 42px;" id="rightColumn_29">
-                                <td width="40" class="positions">1</td>
-                                <td width="40" id="td_rightColumn_29" class="dragHandle">
-                                    <a href="" style="display: none;"><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - partner</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/29"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/29"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="rightColumn_41">
-                                <td width="40" class="positions">2</td>
-                                <td width="40" id="td_rightColumn_41" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - brocanteur</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/41"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/41"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="rightColumn_65">
-                                <td width="40" class="positions">3</td>
-                                <td width="40" id="td_rightColumn_65" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - actualites</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/65"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/65"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="rightColumn_102">
-                                <td width="40" class="positions">4</td>
-                                <td width="40" id="td_rightColumn_102" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - partenaires</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/102"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/102"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="rightColumn_105">
-                                <td width="40" class="positions">5</td>
-                                <td width="40" id="td_rightColumn_105" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - mediatheque</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/105"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/105"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="rightColumn_108">
-                                <td width="40" class="positions">6</td>
-                                <td width="40" id="td_rightColumn_108" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - presse</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/108"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/108"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="rightColumn_111">
-                                <td width="40" class="positions">7</td>
-                                <td width="40" id="td_rightColumn_111" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - nouveautes</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/111"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/111"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="rightColumn_116">
-                                <td width="40" class="positions">8</td>
-                                <td width="40" id="td_rightColumn_116" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - newsletters</strong><br>
-                                    Men� derecho
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/116"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/116"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="rightColumn_122">
-                                <td width="40" class="positions">9</td>
-                                <td width="40" id="td_rightColumn_122" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href="" style="display: none;"><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - devenir</strong><br>
-                                    Menu right
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/122"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/122"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr></tbody></table>
-                </a><a name="leftColumn">
-                    <table cellspacing="0" cellpadding="0" id="leftColumn" class="table width3 space tableDnD">
-                        <tbody><tr class="nodrag nodrop"><th colspan="4">leftColumn - <span style="color: red">9</span> </th></tr>
-                            <tr style="height: 42px;" class="alt_row" id="leftColumn_30">
-                                <td width="40" class="positions">1</td>
-                                <td width="40" id="td_leftColumn_30" class="dragHandle">
-                                    <a href="" style="display: none;"><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - partner</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/30"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/30"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="leftColumn_42">
-                                <td width="40" class="positions">2</td>
-                                <td width="40" id="td_leftColumn_42" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - brocanteur</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/42"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/42"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="leftColumn_66">
-                                <td width="40" class="positions">3</td>
-                                <td width="40" id="td_leftColumn_66" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - actualites</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/66"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/66"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="leftColumn_103">
-                                <td width="40" class="positions">4</td>
-                                <td width="40" id="td_leftColumn_103" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - partenaires</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/103"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/103"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="leftColumn_106">
-                                <td width="40" class="positions">5</td>
-                                <td width="40" id="td_leftColumn_106" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - mediatheque</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/106"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/106"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="leftColumn_109">
-                                <td width="40" class="positions">6</td>
-                                <td width="40" id="td_leftColumn_109" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - presse</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/109"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/109"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="leftColumn_112">
-                                <td width="40" class="positions">7</td>
-                                <td width="40" id="td_leftColumn_112" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - nouveautes</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/112"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/112"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" id="leftColumn_117">
-                                <td width="40" class="positions">8</td>
-                                <td width="40" id="td_leftColumn_117" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href=""><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - newsletters</strong><br>
-                                    Men� izquierdo
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/117"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/117"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr>
-                            <tr style="height: 42px;" class="alt_row" id="leftColumn_123">
-                                <td width="40" class="positions">9</td>
-                                <td width="40" id="td_leftColumn_123" class="dragHandle">
-                                    <a href=""><img title="Up" alt="Up" src="/images/admin/up.gif"></a><br>
-                                    <a href="" style="display: none;"><img title="Down" alt="Down" src="/images/admin/down.gif"></a>
-                                </td>
-                                <td style="padding-left: 10px;">
-
-                                    <strong>Module - devenir</strong><br>
-                                    Menu left
-                                </td>
-                                <td width="47">
-                                    <a href="/admin/module/statushook/id/123"><img border="0" title="status" alt="status" src="/images/admin/enabled.gif"></a> <a href="/admin/module/deletehook/id/123"><img border="0" title="Delete" alt="Delete" src="/images/icons/cancel.png"></a>
-                                </td>
-                            </tr></tbody></table>                        </a></div><a name="leftColumn">
-
-                <!--FIN ORDEN HOOKS -->
-            </a></div><a name="leftColumn">
-            <div class="table_admin_foot"></div>
-        </a></div><a name="leftColumn">
-
-
-
-    </a></div><a name="leftColumn">
-</a></div><a name="leftColumn">
-</a></div><a name="leftColumn">
-
-<!-- <div id="options" class="column" >
-                 </div>-->
-
-</a></div><a name="leftColumn">
-</a></td>
+        </div>
+</td>

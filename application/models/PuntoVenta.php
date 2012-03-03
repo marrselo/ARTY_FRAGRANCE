@@ -22,7 +22,8 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
     }
 
     function listarPuntoVentaPorIdioma($idioma, $idPais) {
-         if (!($result = $this->_cache->load('listarPuntoVentaPorIdioma' . $idioma.$pais))) {
+        
+         if (!($result = $this->_cache->load('listarPuntoVentaPorIdioma' . $idioma.$idPais))) {
         $result = $this->_puntoventa->getAdapter()
                 ->select()->distinct()
                 ->from(array('pv' => $this->_puntoventa->getName()), array(
@@ -43,7 +44,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
                 ->group('pv.idPuntoVenta');
         $result = $this->_pais->getAdapter()->fetchAll($result);
         $result = $this->arrayAsoccForFirstItem($result);
-           $this->_cache->save($result, 'listarPuntoVentaPorIdioma' . $idioma.$pais);
+           $this->_cache->save($result, 'listarPuntoVentaPorIdioma' . $idioma.$idPais);
         }
         return $result;
     }

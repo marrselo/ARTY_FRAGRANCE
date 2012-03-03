@@ -1,4 +1,3 @@
-
 <div id="content" class="layout_fluid_inner">
     <div class="inside">
         <?php echo $this->render('render/menuizq.phtml'); //vista rederizada para el menu izquierda ?>
@@ -6,37 +5,38 @@
             <div class="wrapp_content_inner">								
 
                 <div class="cf"	>
-                    <div class="row odd">
+                    <?php 
+                    $clasArray = array('row odd','row even');
+                    $count=1;
+                    foreach($this->dataObras as $index):?>
+                    <div class="<?php echo $clasArray[$count%2];  ?>">
                         <div class="row_inner">
                             <div class="detail">
-                                <h3>2011</h3>												
-                                <p>
-                                    Les Parfums : dictionnaire, anthologie, histoire <br/>
-                                    Ouvrage complet<br/>
-                                    (éditions R. Laffont) 
-                                </p>
+                            <?php echo $index['tituloObraIdioma'] ?>
                             </div>
                             <div class="photo">
                                 <a href="#">
-                                    <img class="" src="/imgOuverages/thums_img_elisafey_ouvrages.jpg" width=""/>	
+                                    <img class="" src="/imgOuverages/thums_<?php echo $index['imgObra'] ?>" width=""/>	
                                 </a>
                             </div>
                         </div>
+                        
                         <div class="row_slide">
                             <div class="detail">
                                 <p>
-                                    Les Parfums : dictionnaire, anthologie, histoire <br/>
-                                    Ouvrage complet<br/>
-                                    (éditions R. Laffont)													
+                                <?php echo $index['parrafoObraIdioma'] ?>
                                 </p>
-                                <a href="#" class="">aqui</a>
+                                <a href="<?php echo $index['linkObra'] ?>" class="">aqui</a>
                             </div>
                             <div class="photo">
-                                <img class="" src="/imgOuverages/img_elisafey_ouvrages.jpg" width=""/>	
+                                <img class="" src="/imgOuverages/<?php echo $index['imgObra'] ?>" width=""/>	
                             </div>
                         </div>
                     </div>
-                    <div class="row even">	
+                    <?php
+                    $count++;
+                    endforeach; ?>
+<!--                    <div class="row even">	
                         
                         <div class="row_inner">
                             <div class="detail">
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         
-                    </div>
+                    </div>-->
 
 
                 </div>

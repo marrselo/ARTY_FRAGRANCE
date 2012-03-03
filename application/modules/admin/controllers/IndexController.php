@@ -55,12 +55,39 @@ class Admin_IndexController
     public function editcollectionAction()
     {
         $idArticulo = $this->_getParam('id', NULL);
+        $form = new Application_Form_FormArt();
+        
         if($idArticulo){
-        $articulo = new Application_Model_Articulo();
-        $this->view->articulo = $articulo->buscaArticulo($idArticulo);
+        $art = new Application_Model_Articulo();
+        $articulo = $art->buscaArticulo($idArticulo);        
+        $form->populate($articulo);
+        
+        if ($this->_request->isPost()) {
+                $params = $this->_getAllParams();
+                if ($form->isValid($params)) {                    
+                        $values = $form->getValues();
+                        
+                        $id = $this->_usuario->editRest($values);
+                        switch ($id) {
+                            case 0:
+                                $this->view->msg = '<strong>Error.</strong><br />No se pudo realizar el registro';
+                                break;
+                            case 1:
+                                $this->_redirect('/usuario/restaurante/minegocio/msg/Restaurante modificado');
+                                break;
+                        }
+                    
+                } else {
+//                    $this->view->msg = $form->getValidValues($params);
+//                    $this->view->msg1 = $form->getValues();
+                }
+            }
+        
         }
         else 
             $this->_redirect('/');
+        
+        $this->view->form = $form;
         
     }
     public function deletecollectionAction()

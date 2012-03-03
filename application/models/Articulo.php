@@ -29,7 +29,7 @@ class Application_Model_Articulo extends ZExtraLib_Model {
                 ->where('idArticulo = ? ', $id)
                 ->where('idEstadoArticulo = ? ', 1);
         
-        $result = $db->query()->fetchAll();
+        $result = $db->query()->fetch();
         
         return $result;
     }

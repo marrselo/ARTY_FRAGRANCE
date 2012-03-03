@@ -21,6 +21,9 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     public function ouvragesAction()
     {
         $this->view->classBody = 'lyt_elisafey_ouvrages';
+        $modelObras = new Application_Model_Obra();
+        $this->view->dataObras = $modelObras->listarObraPorIdioma($this->_params['lang']);
+        
     }
     public function realisationsAction()
     {
