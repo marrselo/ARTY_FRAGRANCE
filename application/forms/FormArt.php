@@ -31,9 +31,9 @@ class Application_Form_FormArt extends Zend_Form {
         //$e = new Zend_Form_Element_Hidden('hidden');
         //$this->addElement($e);
 //        
-//        $e = new Zend_Form_Element_Submit('submit1');
-//        $e->setLabel('Grabar');
-//        $this->addElement($e);
+        $e = new Zend_Form_Element_Submit('submit');
+        $e->setLabel('Grabar');
+        $this->addElement($e);
 
         
         foreach($this->getElements() as $element) {

@@ -62,10 +62,10 @@ class Admin_IndexController
         $articulo = $art->buscaArticulo($idArticulo);        
         $form->populate($articulo);
         
-        if ($this->_request->isPost()) {
-                $params = $this->_getAllParams();
-                if ($form->isValid($params)) {                    
-                        $values = $form->getValues();
+        if ($this->_request->isPost()) {                
+                if ($form->isValid($this->_request->getPost())) {
+                        $params = $this->_getAllParams();
+                        echo "aqui";exit;
                         
                         $id = $this->_usuario->editRest($values);
                         switch ($id) {
