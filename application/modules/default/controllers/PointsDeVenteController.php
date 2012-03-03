@@ -10,6 +10,7 @@ class Default_PointsDeVenteController extends ZExtraLib_Controller_Action
 
     }
     public function indexAction() {
+        
         $array = explode('-',$this->_params['val']);
         $this->view->itemSelect = $array[(count($array)-1)];
         $modelPuntoVenta = new Application_Model_PuntoVenta();
