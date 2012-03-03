@@ -83,12 +83,11 @@ class Application_Model_Articulo extends ZExtraLib_Model {
     }    
     function deleteArticulo($id) {
         $db = $this->_articulo->getAdapter();
-        $where = $db->quoteInto('idArticulo = ?', $id);
-        
-        $db->delete('articulo', $where);
+        $where = $db->quoteInto('idArticulo = ?', $id);        
+        $db->delete('articulo', $where);        
         $db->delete('detallearticulo', $where);
         
-        return $result;        
+        return true;
     }
     
     function desactiveArticulo($id, $est) {

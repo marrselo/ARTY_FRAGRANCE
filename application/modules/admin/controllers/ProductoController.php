@@ -1,11 +1,11 @@
 <?php
 
-class Admin_IndexController
+class Admin_ProductoController
         extends ZExtraLib_Controller_Action
 {
     public function init() {
         parent::init();
-        $this->_articulo = new Application_Model_Articulo();
+        $this->_articulo = new Application_Model_DetalleArticulo();
         $this->modulo = new Application_Model_Modulo();
         $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
         $this->idioma = new Application_Model_Idioma();
@@ -13,36 +13,14 @@ class Admin_IndexController
             $colIdioma[$val['idIdioma']] = $val;
         };
         $this->view->colIdioma =$colIdioma; // $this->idioma->getAllIdiomas();
-        $this->params = $this->_getAllParams();       
-        $this->view->params = $this->params;
         
-        $this->view->idiomaDefault = isset($this->params['idlang'])? 
-                                    $colIdioma[$this->params['idlang']] : 
-                                     $this->params['idmDefault'];
     }
     public function indexAction()
     {
         
-    }
-    function accueilAction()
-    { 
-        
-    }
-    public function collectionsAction()
-    {
-        $idiomas = new Application_Model_Idioma();
-        $articulo = new Application_Model_Articulo();
-        $menu = new Application_Model_Menu();       
-        
-        $idIdioma = $this->_getParam('lang_code', 1);
-        $idMenu = $menu->buscaMenu(3, $idIdioma);
-        
-        $this->view->idioma = $idiomas->getAllIdiomas();
-        $this->view->articulo = $articulo->listarArticulo($idMenu['idMenu']);
-        
-    }
-    
-    public function listproductosAction()
+    }    
+
+    public function listfotosAction()
     {
         $idArticulo = $this->_getParam('id', NULL);
         if($idArticulo){
@@ -53,21 +31,21 @@ class Admin_IndexController
             $this->_redirect('/');
         
     }
-    public function editcollectionAction()
+    public function editproductAction()
     {        
-        $form = new Application_Form_FormArt();
+        $form = new Application_Form_FormProduct();
         $idArticulo = $this->_getParam('id', NULL);
         
-        if($idArticulo){        
+        if($idArticulo){
         $articulo = $this->_articulo->buscaArticulo($idArticulo);        
         $form->populate($articulo);
-        
+      
         if ($this->_request->isPost()) {  
             $params = $this->_getAllParams();
                 //if ($form->isValid($this->_request->getPost())) {
                 if ($form->isValid($params)) {
                         $values = $form->getValues();                        
-                        if($this->_articulo->updateArticulo($values))
+                        if($this->_articulo->updateProducto($values))
                             $this->_redirect ('/admin/index/collections');
                         else
                             $this->view->msg = "ERROR EN ACTUALIZACIÓN";
@@ -84,21 +62,21 @@ class Admin_IndexController
         $this->view->form = $form;
         
     }
-    public function deletecollectionAction()
+    public function deleteproductAction()
     {
         $idArticulo = $this->_getParam('id', NULL);
         if($idArticulo) {
-            $this->_articulo->deletearticulo($idArticulo);  
+            $this->_articulo->deleteProduct($idArticulo);  
             $this->_redirect('/admin/index/collections');
         }
         
     }
-    public function activecollectionAction()
+    public function activeproductAction()
     {        
         $idArticulo = $this->_getParam('id', NULL);
         if($idArticulo) {
             $est = $this->_getParam('est', 1);            
-            $this->_articulo->desactiveArticulo($idArticulo, $est);
+            $this->_articulo->desactiveProduct($idArticulo, $est);
             $this->_redirect('/admin/index/collections');
         }
         

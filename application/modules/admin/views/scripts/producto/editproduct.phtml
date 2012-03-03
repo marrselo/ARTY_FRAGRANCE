@@ -1,0 +1,81 @@
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('parrafoDetalle');
+}
+</script>
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php //$this->baseUrl() ?>/admin/collection/index">Collections</a> &gt; <a class="actualités" href="<?php //$this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+            <div id="main">
+                <!--   <h2 class="top"></h2>-->
+                <div id="form">
+                    <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+                        <div class="table_admin">                            
+                            <div class="table_admin_head"></div>
+                            <div align="center" class="table_admin_body">
+                                <?php echo $this->form->idDetalleArticulo; ?>
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                    <tbody>
+                                        <tr><th colspan="2">
+                                            </th></tr>
+                                        <tr>
+                                            <td align="left" width="20%">Title *</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->titulo; ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" width="20%">Title Complete*</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->tituloDetalle; ?>
+                                            </td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td align="left" width="20%">Fotos*</td>
+                                            <td align="left" width="80%">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="2"><a href="/admin/producto/addfoto">Agregar foto</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><img>Imagen</td>
+                                                        <td><a href="/admin/producto/deletefoto">Delete</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><img>Imagen</td>
+                                                        <td><a href="/admin/producto/deletefoto">Delete</a></td>
+                                                    </tr>
+                                                </table>
+                                            </td>                                            
+                                        </tr>
+                                        <tr>
+                                            <td align="left" width="14%" valign="top">Description *</td>
+                                            <td align="left" colspan="2">                                                
+                                                <?php echo $this->form->parrafoDetalle; ?>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td align="right" valign="bottom" colspan="3">
+                                                <?php echo $this->form->submit?>
+                                                <input type="button" onclick="location.href='/admin/index/collections/idMenu/3';" value="Annuler" name="cancel">    
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="table_admin_foot"></div>
+                        </div>
+                    </form>                
+                </div>
+            </div>
+
+            <!-- <div id="options" class="column" >
+                                 </div>-->
+
+        </div>
+</td>
