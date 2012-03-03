@@ -33,12 +33,19 @@ class Admin_PointventaController
     {
         $idIdioma = $this->view->idiomaDefault['idIdioma']; 
         $pais = new Application_Model_Pais();
-        $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);               
-        $this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma
-                                       ($this->params['idPtoVenta'],$idIdioma);  
+        $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);   
         
+        $idPtoVenta = (!empty($this->params['idPtoVenta']))? $this->params['idPtoVenta'] : '';                
+        if( $idPtoVenta=="") { $idPtoVenta = $this->session->idPtoVenta; }else { $this->session->idPtoVenta = $idPtoVenta; }
+        
+        $this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma($idPtoVenta,$idIdioma); 
+        
+         if ($this->_request->isPost() ){
+             $params = $this->_getAllParams();
+             print_r($params);
+             exit;
+         }
         //$this->view->detallePtoVenta[0]['idPais'];
-       // print_r($this->view->detallePtoVenta); exit;
     }
 
 }
