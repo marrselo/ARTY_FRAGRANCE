@@ -5,6 +5,7 @@ class Admin_IndexController
 {
     public function init() {
         parent::init();
+        $this->_articulo = new Application_Model_Articulo();
         $this->modulo = new Application_Model_Modulo();
         $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
         $this->idioma = new Application_Model_Idioma();
@@ -62,24 +63,18 @@ class Admin_IndexController
         $articulo = $art->buscaArticulo($idArticulo);        
         $form->populate($articulo);
         
-        if ($this->_request->isPost()) {                
-                if ($form->isValid($this->_request->getPost())) {
-                        $params = $this->_getAllParams();
-                        echo "aqui";exit;
-                        
-                        $id = $this->_usuario->editRest($values);
-                        switch ($id) {
-                            case 0:
-                                $this->view->msg = '<strong>Error.</strong><br />No se pudo realizar el registro';
-                                break;
-                            case 1:
-                                $this->_redirect('/usuario/restaurante/minegocio/msg/Restaurante modificado');
-                                break;
-                        }
+        if ($this->_request->isPost()) {  
+            $params = $this->_getAllParams();
+                //if ($form->isValid($this->_request->getPost())) {
+                if ($form->isValid($params)) {
+                        $values = $form->getValues();                        
+                        if($art->updateArticulo($values))
+                            $this->_redirect ('/admin/index/collections');
+                        else
+                            $this->view->msg = "ERROR EN ACTUALIZACIÓN";
                     
                 } else {
-//                    $this->view->msg = $form->getValidValues($params);
-//                    $this->view->msg1 = $form->getValues();
+                    $this->view->msg = "verifique los datos ingresados";
                 }
             }
         
@@ -92,15 +87,11 @@ class Admin_IndexController
     }
     public function deletecollectionAction()
     {
-        
+        $this->_articulo;
     }
     public function activecollectionAction()
     {
         
     }
-    
-    
-    
-    
 
 }

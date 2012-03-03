@@ -5,7 +5,7 @@ class Application_Form_FormArt extends Zend_Form {
     public function init(){
         
         $this->setMethod('post')
-                ->setAttrib('id', 'frmCollection');
+                ->setAttrib('id', 'frmDevenir');
         
         $e = new Zend_Form_Element_Text('titulo');
         $e->setRequired(true);
@@ -23,13 +23,13 @@ class Application_Form_FormArt extends Zend_Form {
         $this->addElement($e);        
                 
         $e = new Zend_Form_Element_Textarea('parrafo');
-        $v = new Zend_Validate_StringLength(array('min' => 500));
+        $v = new Zend_Validate_StringLength(array('min' => 10));
         $e->addValidator($v);
         $e->setAttrib('name', 'parrafo');
         $this->addElement($e);        
 
-        //$e = new Zend_Form_Element_Hidden('hidden');
-        //$this->addElement($e);
+        $e = new Zend_Form_Element_Hidden('idArticulo');
+        $this->addElement($e);
 //        
         $e = new Zend_Form_Element_Submit('submit');
         $e->setLabel('Grabar');

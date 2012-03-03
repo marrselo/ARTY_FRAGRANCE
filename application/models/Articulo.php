@@ -33,4 +33,65 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         
         return $result;
     }
+    
+    function updateArticulo($values=array()) {
+        $db = $this->_articulo->getAdapter();        
+        $data = array(
+            'titulo' => $values["titulo"],
+            'parrafo' => $values["parrafo"],
+            );
+        if($values["fotoPrincipal"] != '') {
+            $ext = pathinfo($_FILES['fotoPrincipal']['name'], PATHINFO_EXTENSION);            
+            $vallogo = array(
+                'fotoPrincipal' => $values['idArticulo'] . '.' . $ext
+                );
+        }
+        else 
+            $vallogo = array();
+        $where = $db->quoteInto('idArticulo = ?', $values["idArticulo"]);            
+        $db->update($this->_articulo->getName(),$data + $vallogo, $where); 
+        
+        if($values["fotoPrincipal"] != '') {            
+            $ruta1 = 'tmp/ARTY' . $values['idArticulo'];
+            $ruta = APPLICATION_PATH . '/../public/' . $ruta1;
+            $ftp = new ZExtraLib_Utils_Ftp(
+                        "perusoftware.net", 
+                        "artyfrag", 
+                        "arty2012");
+            $ftp->openFtp();       
+            $ftp->upImage($values['idArticulo'] . 's.' . $ext, $ruta . '/' . $values['fotoPrincipal']);
+            $ftp->closeFtp();
+             /*$configNormal = array(
+                  'applySizeLimit' => true,
+                  'maxWidth' => '2000',
+                  'maxHeight' => '2000'
+                  );
+                  $thumblib = new ZExtraLib_Utils_Thumbnail();
+                  $rutaImg=APPLICATION_PATH. '/../public/imagen-articulo';
+                  $imgNormal = $rutaImg . '/' . $values['fotoPrincipal'];                  
+                  $imgOriginal = $rutaImg . '/or/' . $values['fotoPrincipal'];                  
+                  $thumblib->setSourceFile($imgOriginal);
+                  $originalFilename = pathinfo($values['fotoPrincipal']);                  
+                  $ext=strtolower($originalFilename['extension']);
+                  if($ext=='gif')
+                  $thumblib->saveToFile($imgNormal, ZExtraLib_Utils_Thumbnail::FORMAT_GIF, $configNormal);                  
+                  else
+                  $thumblib->saveToFile($imgNormal, ZExtraLib_Utils_Thumbnail::FORMAT_JPG, $configNormal); */
+        }
+        
+        return true;
+    }    
+    function deleteArticulo($id) {
+        $db = $this->_articulo->getAdapter();
+        $where = $db->quoteInto('idArticulo = ?', $id);
+        $db->select()
+                ->from(array($this->_articulo->getName()))
+                ->where('idArticulo = ? ', $id)
+                ->where('idEstadoArticulo = ? ', 1);
+        
+        $result = $db->query()->fetch();
+        
+        return $result;        
+    }
+    
 }
