@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Menu extends ZExtraLib_Model {
+class Application_Model_Obra extends ZExtraLib_Model {
 
     protected $_idioma;
     protected $_obra;
@@ -21,7 +21,7 @@ class Application_Model_Menu extends ZExtraLib_Model {
                     ->join(array('idi' => $this->_idioma->getName()), 'oi.idIdioma = oi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
             ;
-            $result = $this->_menu->getAdapter()->fetchAssoc($result);
+            $result = $this->_obra->getAdapter()->fetchAssoc($result);
             $this->_cache->save($result, 'listaObrasIdioma'.$idioma);
         }
         return $result;
