@@ -1,6 +1,14 @@
 <div id="content" class="layout_fluid_inner">
     <div class="inside">
-        <?php echo $this->render('render/menuizq.phtml'); //vista rederizada para el menu izquierda ?>
+<?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
                 <?php 

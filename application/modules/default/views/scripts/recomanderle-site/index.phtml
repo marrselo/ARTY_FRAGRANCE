@@ -1,37 +1,41 @@
 
 <div id="content" class="layout_fluid_inner">
     <div class="inside">
-        <aside id="aside">
-            <ul class="lst_aside">
-                <li><a class="selected" href="#">Mentions légales </a></li>								
-            </ul>
-        </aside>
+        <?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
-                <p>Indiquer votre email et celui de votre destinataire.</p>
+                <p><?php echo $this->modeRecomendate['tituloPaginaModRecomendarSite'] ?></p>
                 <form class="frm_recomender dlgrid">
                     <fieldset class="dlinline">
                         <div class="w100">
                             <dl class="dt50 dd50">
-                                <dt><label>Votre nom et prénom</label></dt>
+                                <dt><label><?php echo $this->modeRecomendate['labelNombreModRecomendarSite'] ?></label></dt>
                                 <dd><input type="text" class="text" /></dd>
                             </dl>
                         </div>
                         <div class="w100">
                             <dl class="dt50 dd50">
-                                <dt><label>Votre email</label></dt>
+                                <dt><label><?php echo $this->modeRecomendate['labelEmailModRecomendarSite'] ?></label></dt>
                                 <dd><input type="text" class="text" /></dd>
                             </dl>
                         </div>	
                         <div class="w100">
                             <dl class="dt50 dd50 box_sep">
-                                <dt><label>Nom et Prénom du destinaire</label></dt>
+                                <dt><label><?php echo $this->modeRecomendate['labelNombreDestinatarioModRecomendarSite'] ?></label></dt>
                                 <dd><input type="text" class="text" /></dd>
                             </dl>
                         </div>	
                         <div class="w100 ">
                             <dl class="dt50 dd50 ">
-                                <dt><label>Email du destinataire</label></dt>
+                                <dt><label><?php echo $this->modeRecomendate['labelEmailDestinatarioModRecomendarSite'] ?></label></dt>
                                 <dd><input type="text" class="text" /></dd>
                             </dl>
                         </div>	

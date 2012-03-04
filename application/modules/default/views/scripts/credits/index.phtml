@@ -1,7 +1,6 @@
-
 <div id="content" class="layout_fluid_inner">
     <div class="inside">
-<?php 
+        <?php 
             $arrayOption = array(
             'menuIzquierda'=>$this->menuIzquierda,
             'itemSelect'=>$this->itemSelect,
@@ -9,7 +8,9 @@
             'lang'=>$this->lang,
             'controllerName'=>$this->controllerName
             );
-        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>        <section id="" class="wrapp_content">
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
+
+        <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
                 <img class="imgRight" src="/f/img/temp/img_contact.jpg"/>
                 <p>Vous souhaitez nous faire part de vos remarques ou nous poser une question? </p>
