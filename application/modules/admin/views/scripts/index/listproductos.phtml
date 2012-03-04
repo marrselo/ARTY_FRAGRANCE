@@ -21,8 +21,8 @@
                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th align="left">Productos </th>
-                                    <th align="left">Detalle Producto</th>
+                                    <th align="left">Products </th>
+                                    <th align="left">Complete Name</th>
                                     <th align="center">Actions</th>
                                 </tr>
                                 <tr>
@@ -48,6 +48,12 @@
                                             <!--<img border="0" alt="process_remove.png" src="/images/icons/process_remove.png">-->
                                             Eliminar
                                         </a>
+                                        <a href="/admin/producto/activeproduct/id/<?php echo $art['idDetalleArticulo']."/est/".$art['estado']?>" onclick="return confirm('¿Desea <?php if($art['estado']==1) echo "desactive"; else echo "activar"; ?> the collection?')">
+                            <?php 
+                            if($art['estado']==1){echo "Desactive";} 
+                            if($art['estado']==0){echo "Active";} 
+                            ?>
+                        </a>
 
                                     </td>
                                 </tr>

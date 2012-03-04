@@ -27,10 +27,14 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     }
     public function realisationsAction()
     {
+        $this->view->classBody = 'lyt_news';
         
     }
     public function blogEtPhotosAction()
     {
+        $modelBlogFoto = new Application_Model_BlogFoto();
+        $this->view->dataBlogFoto = $modelBlogFoto->listarBlogFotoPorIdioma($this->_params['lang']);
+        $this->view->dataFotoBlogFoto = $modelBlogFoto->listarFotosBlogFoto();
         $this->view->classBody = 'lyt_elisafey_fotos fancyBox';
         
         
