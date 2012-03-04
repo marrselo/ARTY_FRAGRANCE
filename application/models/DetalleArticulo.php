@@ -31,4 +31,38 @@ class Application_Model_DetalleArticulo extends ZExtraLib_Model {
         
         return $result;
     }
+    function updateProducto($values=array()) {
+        $db = $this->_articulo->getAdapter();        
+        $data = array(
+            'titulo' => $values["titulo"],
+            'tituloDetalle' => $values["tituloDetalle"],
+            'parrafoDetalle' => $values["parrafoDetalle"],
+            );
+        $where = $db->quoteInto('idDetalleArticulo = ?', $values["idDetalleArticulo"]);
+        $db->update($this->_articulo->getName(),$data, $where); 
+        
+        return true;
+    }    
+    
+    function deleteProduct($id) {
+        $db = $this->_articulo->getAdapter();
+        $where = $db->quoteInto('idDetalleArticulo = ?', $id);                       
+        $db->delete('detallearticulo', $where);
+        
+        return true;
+    }
+    
+    function desactiveProduct($id, $est) {
+        $db = $this->_articulo->getAdapter();        
+        if($est==0)
+            $est =1;
+        else 
+            $est =0;
+                    
+        $where = $db->quoteInto('idDetalleArticulo = ?', $id);
+        $data = array('estado' => $est
+            );
+        $db->update('detallearticulo', $data,$where);
+        return true;
+    }
 }

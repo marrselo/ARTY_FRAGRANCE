@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_FormArt extends Zend_Form {
+class Application_Form_FormProduct extends Zend_Form {
     
     public function init(){
         
@@ -10,25 +10,18 @@ class Application_Form_FormArt extends Zend_Form {
         $e = new Zend_Form_Element_Text('titulo');
         $e->setRequired(true);
         $this->addElement($e);
-
-        $e = new Zend_Form_Element_File('fotoPrincipal');
-        $e->addValidator('Count', false, 1);                
-        //$e->addValidator('Size', false, 512000);            // limit to 10 meg
-        //$e->addValidator('Extension', false, 'jpg,jpeg,gif');
-        //$e->setDestination(APPLICATION_PATH. '/../public/guiarestaurantes/'.RESTAURANTES_FICHAS_IMG_FRONT.'or');
-        //$originalFilename = @pathinfo($e->getFileName());
-        /*$e->addFilter(new Zend_Filter_File_Rename(
-                      array('target' => $this->_foo.'.'.$originalFilename['extension']))
-                   );*/
+        
+        $e = new Zend_Form_Element_Text('tituloDetalle');
+        //$e->setRequired(true);
         $this->addElement($e);        
                 
-        $e = new Zend_Form_Element_Textarea('parrafo');
+        $e = new Zend_Form_Element_Textarea('parrafoDetalle');
         $v = new Zend_Validate_StringLength(array('min' => 10));
         $e->addValidator($v);
-        $e->setAttrib('name', 'parrafo');
-        $this->addElement($e);        
+        $e->setAttrib('name', 'parrafoDetalle');
+        $this->addElement($e);
 
-        $e = new Zend_Form_Element_Hidden('idArticulo');
+        $e = new Zend_Form_Element_Hidden('idDetalleArticulo');
         $this->addElement($e);
 //        
         $e = new Zend_Form_Element_Submit('submit');
