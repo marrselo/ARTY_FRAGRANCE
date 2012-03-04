@@ -4,17 +4,18 @@
         <?php echo $this->render('render/menuizq.phtml'); //vista rederizada para el menu izquierda ?>
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
-                <p>En 2008, Elisabeth lance son blog, Elisabeth de Feydeau’s News, où elle partage son avis et ses connaissances 
-                    de femme et d’experte sur les tendances olfactives.</p>	
-                <a href="#">http://elisadefeydeau.wordpress.com</a>
+<!--                <p>En 2008, Elisabeth lance son blog, Elisabeth de Feydeau’s News, où elle partage son avis et ses connaissances 
+                    de femme et d’experte sur les tendances olfactives.</p>	-->
+                <?php echo $this->dataBlogFoto['descripcionBlogFotos'];?>
+                <a href="<?php echo $this->dataBlogFoto['linkBlogFotos'];?>"><?php echo $this->dataBlogFoto['nombreLinkBlogFotos'];?></a>
+<!--                <a href="#">http://elisadefeydeau.wordpress.com</a>-->
 
                 <div class="cf cnt_item">
-                    <a href="/blog/img_elisafey_bio_2.jpg" class="item zoom">
-                        <img class="" src="/blog/img_foto1_elisafey.jpg" width=""/>										
+                    <?php foreach($this->dataFotoBlogFoto as $index): ?>
+                    <a href="/blog/thums_<?php echo $index['nombre']; ?>" class="item zoom">
+                        <img class="" src="/blog/<?php echo $index['nombre']; ?>" width=""/>										
                     </a>
-                    <a href="/blog/img_elisafey_bio_1.jpg" class="item zoom">
-                        <img class="" src="/blog/img_foto2_elisafey.jpg" width=""/>										
-                    </a>					
+                    <?php endforeach; ?>
                 </div>
             </div>	
         </section>    

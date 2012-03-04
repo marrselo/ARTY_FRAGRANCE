@@ -1,89 +1,19 @@
 <div id="content" class="layout_fluid_inner">
     <div class="inside">
-<?php echo $this->render('render/menuizq-pais.phtml') ?>        
+        <?php echo $this->render('render/menuizq-pais.phtml') ?>        
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
-                <h2>PARIS</h2>
+                <h2>SITE INTERNET</h2>
                 <div class="cf">
-                    <div class="box_border box_pointvente">											
-                        <div class="inner_thumb">
-                            <p>Boutique Jovoy<br/>
-                                Parfums Rares<br/>
-                                29, rue Danielle Casanova<br/>
-                                75001 Paris<br/>
-                                Tél : +33 (0)1 40 20 06 19</p>
-                            <a class="more" href="#">www.jovoy.com</a>
-                            <ul class="lst_thumb">
-                                <li>
-                                    <a href="img/temp/img_pointvente_1.jpg" class="zoom" rel="thumb1">
-                                        <img class="" src="img/temp/thumb_pointvente_1.jpg"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="img/temp/img_pointvente_2.jpg" class="zoom" rel="thumb1">
-                                        <img class="" src="img/temp/thumb_pointvente_2.jpg"/>
-                                    </a>
-                                </li>
-                            </ul>
+                    <?php foreach($this->listaPuntoVenta as $index): ?>
+                    <div class="box_border box_pointvente">
+                        <img class="imgLeft" src="<?php echo $index['imgPortalPuntoVenta']?>"/>
+                        <div class="inner">
+                            <a class="more" href="<?php echo $index['direccionWebPuntoVenta']?>"><?php echo $index['direccionWebPuntoVenta']?></a>
                         </div>
                     </div>								
-                    <div class="box_border box_pointvente">
-                        <div class="inner_thumb">
-                            <p>Boutique Jovoy<br/>
-                                Parfums Rares<br/>
-                                29, rue Danielle Casanova<br/>
-                                75001 Paris<br/>
-                                Tél : +33 (0)1 40 20 06 19</p>
-                            <a class="more" href="#">www.jovoy.com</a>
-                            <ul class="lst_thumb">
-                                <li>
-                                    <a href="img/temp/img_pointvente_1.jpg" class="zoom" rel="thumb1">
-                                        <img class="" src="img/temp/thumb_pointvente_1.jpg"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="img/temp/img_pointvente_2.jpg" class="zoom" rel="thumb1">
-                                        <img class="" src="img/temp/thumb_pointvente_2.jpg"/>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="box_border box_pointvente">											
-                        <div class="inner_thumb">
-                            <p>Boutique Jovoy<br/>
-                                Parfums Rares<br/>
-                                29, rue Danielle Casanova<br/>
-                                75001 Paris<br/>
-                                Tél : +33 (0)1 40 20 06 19</p>
-                        </div>
-                    </div>									
+                    <?php endforeach; ?>
                 </div>	
-
-                <h2>PARIS</h2>
-                <div class="cf">
-
-                    <div class="box_border box_pointvente">
-                        <div class="inner_thumb">
-                            <p>Boutique Jovoy<br/>
-                                Parfums Rares<br/>
-                                29, rue Danielle Casanova<br/>
-                                75001 Paris<br/>
-                                Tél : +33 (0)1 40 20 06 19</p>
-                        </div>
-                    </div>
-
-                    <div class="box_border box_pointvente">											
-                        <div class="inner_thumb">
-                            <p>Boutique Jovoy<br/>
-                                Parfums Rares<br/>
-                                29, rue Danielle Casanova<br/>
-                                75001 Paris<br/>
-                                Tél : +33 (0)1 40 20 06 19</p>
-                        </div>
-                    </div>									
-                </div>
             </div>	
         </section>
     </div>
