@@ -1,0 +1,35 @@
+<div id="content" class="layout_fluid_inner">
+    <div class="inside">
+<?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
+
+        <section id="" class="cf wrapp_content">
+            <div class="wrapp_content_inner">
+                <?php
+                $clasArray = array('box_presse float_left right','box_presse float_right left');
+                $count=2;
+
+                
+                foreach($this->dataPresse as $index): ?>
+                <div class="<?php echo $clasArray[$count%2];  ?>">							
+                    <img class="imgRight" src="/presse/<?php echo $index['imgPresse']; ?>"/>
+                    <div class="inner">
+                        <h3><?php echo $index['tituloPresseIdioma']; ?></h3>
+                        <span><?php echo $index['subTituloPresseIdioma']; ?></span>
+                        <a  class="more" href="<?php echo $index['linkPresse']; ?>"><?php echo $index['linkMostrarPresseIdioma']; ?></a>
+                    </div>									
+                </div>
+                <?php
+                $count++;
+                endforeach; ?>
+            </div>	
+        </section>
+    </div>
+</div>
