@@ -89,6 +89,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
                     'pv.telefonoPuntoVenta',
                     'pv.direccionPuntoVenta',
                     'pv.idPais',
+                    'pv.idCiudad',
                     'pvi.direccionWebPuntoVenta',
                     'pvi.idIdioma',
                     'p.nombrePais'))
@@ -109,16 +110,12 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         
     }
 
-    function modificarPtoVentaIdioma($data=array(), $idPtoVentaIdioma) {
-        $where = $this->_puntoventaIdioma
+    function modificarPtoVenta($data,$idPtoVenta) {
+        $where = $this->_puntoventa
                 ->getAdapter()
-                ->quoteInto('idPuntoVentaIdioma = ?', $idPtoVentaIdioma);
-        $this->_puntoventaIdioma->update($data, $where);
+                ->quoteInto('idPuntoVenta = ?', $idPtoVentaIdioma);
+        $this->_puntoventa->update($data, $where);
         $this->clearCache();
-    }
-
-    function modificarPtoVenta($idPtoVentaIdioma) {
-        
     }
 
 }

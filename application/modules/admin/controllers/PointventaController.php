@@ -21,8 +21,7 @@ class Admin_PointventaController
                                     $colIdioma[$this->params['idlang']] : 
                                      $this->params['idmDefault'];
         //print_r($this->view->idiomaDefault);exit;
-        $this->pointventa = new Application_Model_PuntoVenta();
-        
+        $this->pointventa = new Application_Model_PuntoVenta();       
     }
     public function indexAction()
     {
@@ -39,20 +38,32 @@ class Admin_PointventaController
         if( $idPtoVenta=="") { $idPtoVenta = $this->session->idPtoVenta; }else { $this->session->idPtoVenta = $idPtoVenta; }
         
         $this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma($idPtoVenta,$idIdioma); 
-        
          if ($this->_request->isPost() ){
-             $params                      = $this->_getAllParams();
-             $idPuntoVenta                = $params['idPuntoVenta'];
-             $idPuntoVentaIdioma          = $params['idPuntoVentaIdioma'];
-             $data     = array();
-             $data['idIdioma']           = $params['idIdioma'];
-             $data['nombrePuntoVenta']   = $params['nombrePuntoVenta'];
-             $data['direccionPuntoVenta']= $params['direccionPuntoVenta'];
-             $data['telefono']           = $params['telefono'];
-             $data['web']                = $params['web'];
+             $params                       = $this->_getAllParams();
              
-             print_r($params);
-             exit;
+             $idPuntoVenta                 = $params['idPuntoVenta'];
+             $idPuntoVentaIdioma           = $params['idPuntoVentaIdioma'];
+             $data     = array();
+             $data2    = array();
+             
+             $data['idIdioma']             = $params['idIdioma2'];
+             $data['nombrePuntoVenta']     = $params['nombrePuntoVenta'];
+             $data2['direccionPuntoVenta'] = $params['direccionPuntoVenta'];
+             $data2['telefonoPuntoVenta']            = $params['telefono'];
+             $data['direccionWebPuntoVenta']= $params['web']; 
+             $ptoVentaIdioma                = new Application_Model_PuntoVentaIdioma();
+             $ptoVentaIdioma->modificarPtoVentaIdioma($data,$idPuntoVentaIdioma);             
+             if($params['idmDefault']['idIdioma']==$params['idIdioma2'])
+             {
+                 $data2['idPais']                = $params['idPais'];
+                 $data2['idCiudad']              = $params['idCiudad'];
+                 $data2['nombrePuntoVenta']      = $data['nombrePuntoVenta'];
+                 $data2['direccionWebPuntoVenta']= $params['web'];
+                 print_r($data2);
+                 $this->pointventa->modificarPtoVenta($data2,$idPtoVenta);
+                 exit;
+             }
+             $this->_redirect('/admin/pointventa/index');
          }
         //$this->view->detallePtoVenta[0]['idPais'];
     }

@@ -100,9 +100,10 @@
                                         <td align="left" width="80%">
                                             <input type="hidden" name='idPuntoVenta' value="<?php echo $this->detallePtoVenta['idPuntoVenta']?>" />
                                             <input type="hidden" name="idPuntoVentaIdioma" value="<?php echo $this->detallePtoVenta['idPuntoVentaIdioma']?>" />
-                                            <input type="hidden" name="idIdioma" value="<?php echo $this->detallePtoVenta['idIdioma']?>" />
+                                            <input type="hidden" name="idIdioma2" value="<?php echo $this->detallePtoVenta['idIdioma']?>" />
                                             <input type="hidden" name="idDefault" value="<?php echo $this->params['idmDefault']['idIdioma']?>" />
-                                            <input type="text" value="<?php echo $this->detallePtoVenta['idPuntoVenta']?>" class="required" size="50" maxlength="100" id="title" name="nombrePuntoVenta"></td>
+                                            <input type="hidden" name="idCiudad" value="<?php echo $this->detallePtoVenta['idCiudad']?>" />
+                                            <input type="text" value="<?php echo $this->detallePtoVenta['nombrePuntoVenta']?>" class="required" size="50" maxlength="100" id="title" name="nombrePuntoVenta"></td>
                                     </tr>
                                     <tr>
                                         <td align="left" width="20%">Dirección *</td>
