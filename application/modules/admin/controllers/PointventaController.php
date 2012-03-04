@@ -41,11 +41,20 @@ class Admin_PointventaController
         $this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma($idPtoVenta,$idIdioma); 
         
          if ($this->_request->isPost() ){
-             $params = $this->_getAllParams();
+             $params                      = $this->_getAllParams();
+             $idPuntoVenta                = $params['idPuntoVenta'];
+             $idPuntoVentaIdioma          = $params['idPuntoVentaIdioma'];
+             $data     = array();
+             $data['idIdioma']           = $params['idIdioma'];
+             $data['nombrePuntoVenta']   = $params['nombrePuntoVenta'];
+             $data['direccionPuntoVenta']= $params['direccionPuntoVenta'];
+             $data['telefono']           = $params['telefono'];
+             $data['web']                = $params['web'];
+             
              print_r($params);
              exit;
          }
         //$this->view->detallePtoVenta[0]['idPais'];
     }
-
+    
 }
