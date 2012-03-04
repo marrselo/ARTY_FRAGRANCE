@@ -1,15 +1,16 @@
 
 <div id="content" class="layout_fluid_inner">
     <div class="inside">
-        <?php 
-            $arrayOption = array(
-            'menuIzquierda'=>$this->menuIzquierda,
-            'itemSelect'=>$this->itemSelect,
-            'actionName'=>$this->actionName,
-            'lang'=>$this->lang,
-            'controllerName'=>$this->controllerName
-            );
-        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
+        <?php
+        $arrayOption = array(
+            'menuIzquierda' => $this->menuIzquierda,
+            'itemSelect' => $this->itemSelect,
+            'actionName' => $this->actionName,
+            'lang' => $this->lang,
+            'controllerName' => $this->controllerName
+        );
+        echo $this->render('render/menuizq.phtml', $arrayOption); //vista rederizada para el menu izquierda 
+        ?>
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
                 <p><?php echo $this->modeRecomendate['tituloPaginaModRecomendarSite'] ?></p>
@@ -45,10 +46,6 @@
                                 <dd><input type="submit" class="btn btn_submit whitegradient float_right" value="ENVOYER"/></dd>
                             </dl>
                         </div>	
-
-
-
-
                     </fieldset>						
                 </form>
             </div>	
