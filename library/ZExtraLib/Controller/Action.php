@@ -88,5 +88,9 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->view->headMeta()->setProperty('og:site_name', 'Delivery Premium');
         $this->view->headMeta()->setProperty('og:admins', '698823485');
     }
+    protected function cleanCache(){
+        $this->_cache = Zend_Registry::get('cache');
+        $this->_cache->clean();
+    }
 
 }
