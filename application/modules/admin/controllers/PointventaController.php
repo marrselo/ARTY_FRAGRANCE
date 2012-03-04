@@ -59,10 +59,8 @@ class Admin_PointventaController
                  $data2['idCiudad']              = $params['idCiudad'];
                  $data2['nombrePuntoVenta']      = $data['nombrePuntoVenta'];
                  $data2['direccionWebPuntoVenta']= $params['web'];
-                 echo  $idPuntoVenta  ;
-                 print_r($data2);
                  $this->pointventa->modificarPtoVenta($data2,$idPtoVenta);
-                 exit;
+
              }
              $this->_redirect('/admin/pointventa/index');
          }
