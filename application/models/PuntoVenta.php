@@ -113,9 +113,9 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
     function modificarPtoVenta($data,$idPtoVenta) {
         $where = $this->_puntoventa
                 ->getAdapter()
-                ->quoteInto('idPuntoVenta = ?', $idPtoVentaIdioma);
+                ->quoteInto('idPuntoVenta = ?', $idPtoVenta);
         $this->_puntoventa->update($data, $where);
-        $this->clearCache();
+        //$this->clearCache();
     }
 
 }
