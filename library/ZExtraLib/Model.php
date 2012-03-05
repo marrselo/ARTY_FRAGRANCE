@@ -26,6 +26,7 @@ class ZExtraLib_Model {
         }
         return $arrayResponse;
     }
+    
 }
 
 ?>

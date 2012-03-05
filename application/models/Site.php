@@ -31,6 +31,19 @@ class Application_Model_Site extends ZExtraLib_Model {
         }
         return $result;
     }
+    function listarSite2($idIdioma) {
+        if (!($result = $this->_cache->load('listarSite2'))) {
+            
+            $result =  $this->_tipoSite->getAdapter()
+                    -> select()
+                    -> from(array('TS'=>$this->_tipoSite->getName()),array('idTipoSite'=>'TS.idTipoSIte'))
+                    -> join(array('ITS'=> $this->_idiomaTipoSite->getName()),'ITS.idTipoSite = TS.idTipoSite',array('nombreTipoSite' => 'ITS.nombreIdiomaTipoSite','idIdiomaSite'))
+                    -> where('ITS.idIdioma = ?',$idIdioma)
+                    -> query()
+                    -> fetchAll();
+        }
+        return  $result;
+    }
 }
 
 ?>

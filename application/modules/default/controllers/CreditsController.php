@@ -1,10 +1,11 @@
 <?php
-class Default_MentionsLegalesController extends ZExtraLib_Controller_Action
+
+class Default_CreditsController extends ZExtraLib_Controller_Action
 {
     public $_menu;
     public function init() {
         parent::init();
-        $arrayMenu = $this->loadMenuIdioma($this->_params['lang'], 12);
+        $arrayMenu = $this->loadMenuIdioma($this->_params['lang'], 11);
         $this->view->menuIzquierda = $arrayMenu;
         $this->_menu = $arrayMenu;
 

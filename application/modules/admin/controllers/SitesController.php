@@ -1,6 +1,6 @@
 <?php
 
-class Admin_PointventaController
+class Admin_SitesController
         extends ZExtraLib_Controller_Action
 {
     public function init() {
@@ -8,25 +8,29 @@ class Admin_PointventaController
         $this->modulo = new Application_Model_Modulo();
         $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
         
-        $this->idioma = new Application_Model_Idioma();
+        $this->idioma               = new Application_Model_Idioma();
         foreach($this->idioma->getAllIdiomas() as $ind => $val){
             $colIdioma[$val['idIdioma']] = $val;
         };
-        $this->view->colIdioma =$colIdioma; // $this->idioma->getAllIdiomas();
-        $this->params = $this->_getAllParams();       
+        $this->view->colIdioma      =$colIdioma; // $this->idioma->getAllIdiomas();
+        $this->params               = $this->_getAllParams();       
        
-        $this->view->params = $this->params;
+        $this->view->params         = $this->params;
         
-        $this->view->idiomaDefault = isset($this->params['idlang'])? 
-                                    $colIdioma[$this->params['idlang']] : 
-                                     $this->params['idmDefault'];
-        //print_r($this->view->idiomaDefault);exit;
-        $this->pointventa = new Application_Model_PuntoVenta();       
+        $this->view->idiomaDefault  = isset($this->params['idlang'])? 
+                                      $colIdioma[$this->params['idlang']] : 
+                                      $this->params['idmDefault'];
+        
+        $this->sites                = new Application_Model_Site();        
+        
+               
+       //print_r($this->view->idiomaDefault);exit;
+        
     }
     public function indexAction()
     {
-        
-        $this->view->colPointventa = $this->pointventa->listarPuntoVenta();
+        $this->view->colSites      = $this->sites->listarSite2($this->view->idiomaDefault['idIdioma']);
+       
     }
     public function editarAction()
     {
@@ -62,7 +66,7 @@ class Admin_PointventaController
                  $this->pointventa->modificarPtoVenta($data2,$idPtoVenta);
 
              }
-             $this->_redirect('/admin/pointventa/index');
+             $this->_redirect('/admin/sites/index');
          }
         //$this->view->detallePtoVenta[0]['idPais'];
     }
