@@ -66,5 +66,10 @@ class Admin_PointventaController
          }
         //$this->view->detallePtoVenta[0]['idPais'];
     }
+    function newPointAction(){
+        $idIdioma = $this->view->idiomaDefault['idIdioma']; 
+        $pais = new Application_Model_Pais();
+        $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);   
+    }
     
 }
