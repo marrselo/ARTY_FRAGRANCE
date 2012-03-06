@@ -78,8 +78,8 @@ CKEDITOR.replace('parrafo');
                                         <?php echo $art['titulo']?>
                                         </a>
                                     </td>
-                                    <td width="45%">
-                                        <?php echo $art['parrafo']?>
+                                    <td width="45%">                                        
+                                        <?php echo strip_tags($art['parrafo']); ?>
                                     </td>
                                     <td align="right" width="15%">
                                         <a href="/admin/index/editcollection/id/<?php echo $art['idArticulo']?>">
@@ -110,7 +110,12 @@ CKEDITOR.replace('parrafo');
                                 </tr>
                             </tfoot>
                         </table>
-                    <a href="/admin/index/agregarcollection">New Collection</a>
+                    <?php 
+                        if(is_null($id))
+                        $id = 1;
+                    ?>
+                    <a href="/admin/index/newcollection/info/<?php echo $id ?>">New Collection</a>
+                    
                     
                 </div>
             </fieldset>

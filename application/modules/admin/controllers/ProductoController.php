@@ -6,6 +6,7 @@ class Admin_ProductoController
     public function init() {
         parent::init();
         $this->_articulo = new Application_Model_DetalleArticulo();
+        $this->_foto = new Application_Model_FotoDetalleArticulo();
         $this->modulo = new Application_Model_Modulo();
         $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
         $this->idioma = new Application_Model_Idioma();
@@ -37,7 +38,8 @@ class Admin_ProductoController
         $idArticulo = $this->_getParam('id', NULL);
         
         if($idArticulo){
-        $articulo = $this->_articulo->buscaArticulo($idArticulo);        
+        $articulo = $this->_articulo->buscaArticulo($idArticulo);
+        $this->view->foto = $this->_foto->imagesPorProducto($idArticulo);
         $form->populate($articulo);
       
         if ($this->_request->isPost()) {  
@@ -78,6 +80,16 @@ class Admin_ProductoController
             $est = $this->_getParam('est', 1);            
             $this->_articulo->desactiveProduct($idArticulo, $est);
             $this->_redirect('/admin/index/collections');
+        }
+        
+    }
+    public function deletefotoAction()
+    {
+        $idFoto = $this->_getParam('info1', NULL);
+        $idDetalleArticulo = $this->_getParam('info2', NULL);
+        if($idFoto and $idDetalleArticulo) {
+            $this->_foto->deleteFoto($idFoto, $idDetalleArticulo); 
+            $this->_redirect('/admin/producto/editproduct/id/'.$idDetalleArticulo);
         }
         
     }
