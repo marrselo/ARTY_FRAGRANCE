@@ -110,7 +110,12 @@ CKEDITOR.replace('parrafo');
                                 </tr>
                             </tfoot>
                         </table>
-                    <a href="/admin/index/agregarcollection">New Collection</a>
+                    <?php 
+                        if(is_null($id))
+                        $id = 1;
+                    ?>
+                    <a href="/admin/index/newcollection/info/<?php echo $id ?>">New Collection</a>
+                    
                     
                 </div>
             </fieldset>

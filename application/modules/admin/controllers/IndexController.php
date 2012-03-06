@@ -55,22 +55,35 @@ class Admin_IndexController
     }
     public function editcollectionAction()
     {        
-        $form = new Application_Form_FormArt();
         $idArticulo = $this->_getParam('id', NULL);
-        
+        $form = new Application_Form_FormArt();
+        $this->view->form = $form;
         if($idArticulo){        
-        $articulo = $this->_articulo->buscaArticulo($idArticulo);        
+        $articulo = $this->_articulo->buscaArticulo($idArticulo); 
         $form->populate($articulo);
         
-        if ($this->_request->isPost()) {  
+        if ($this->_request->isPost()) {
+            $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
+            $form->fotoPrincipal->addFilter(new Zend_Filter_File_Rename(
+                      array('target' => 'collection-'.$idArticulo.'.'.$extn))
+                   );
             $params = $this->_getAllParams();
                 //if ($form->isValid($this->_request->getPost())) {
                 if ($form->isValid($params)) {
-                        $values = $form->getValues();                        
-                        if($this->_articulo->updateArticulo($values))
-                            $this->_redirect ('/admin/index/collections');
-                        else
-                            $this->view->msg = "ERROR EN ACTUALIZACIÓN";
+                    $values = $form->getValues();                    
+                    $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
+                    $values["fotoPrincipal"] = 'collection-' . $idArticulo . '.' . $extn;
+//                    $form->fotoPrincipal->addFilter(new Zend_Filter_File_Rename(
+//                      array('target' => $values["fotoPrincipal"]))
+//                   );
+                    
+                    $form->fotoPrincipal->receive();
+                    if($this->_articulo->updateArticulo($values))
+                        $this->_redirect ('/admin/index/collections');
+                    else
+                        $this->view->msg = "ERROR EN ACTUALIZACIÓN";
+                    
+                    
                     
                 } else {
                     $this->view->msg = "verifique los datos ingresados";
@@ -81,7 +94,6 @@ class Admin_IndexController
         else 
             $this->_redirect('/');
         
-        $this->view->form = $form;
         
     }
     public function deletecollectionAction()
@@ -102,6 +114,43 @@ class Admin_IndexController
             $this->_redirect('/admin/index/collections');
         }
         
+    }
+    
+    public function newcollectionAction()
+    {
+        $form = new Application_Form_FormArt();
+        $this->view->form = $form;
+        $menu = new Application_Model_Menu();
+        
+        $idIdioma = $this->_getParam('info', 1);        
+        $idMenu = $menu->buscaMenu(3, $idIdioma);
+        
+        if ($this->_request->isPost()) {
+            $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
+            $idArticulo = $this->_articulo->maxId();
+            $form->fotoPrincipal->addFilter(new Zend_Filter_File_Rename(
+                      array('target' => 'collection-'.$idArticulo.'.'.$extn))
+                   );
+            $params = $this->_getAllParams();
+                //if ($form->isValid($this->_request->getPost())) {
+                if ($form->isValid($params)) {
+                    $values = $form->getValues();                    
+                    $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
+                    $values["fotoPrincipal"] = 'collection-' . $idArticulo . '.' . $extn;
+                    $values["idMenu"] = $idMenu["idMenu"];
+
+                    $form->fotoPrincipal->receive();                    
+                    if($this->_articulo->insertArticulo($values))
+                        $this->_redirect ('/admin/index/collections');                    
+                    else
+                        $this->view->msg = "ERROR EN ACTUALIZACIÓN";
+                    
+                    
+                    
+                } else {
+                    $this->view->msg = "verifique los datos ingresados";
+                }
+            }
     }
 
 }
