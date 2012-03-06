@@ -39,14 +39,18 @@ CKEDITOR.replace('parrafoDetalle');
                                                     <tr>
                                                         <td colspan="2"><a href="/admin/producto/addfoto">Agregar foto</a></td>
                                                     </tr>
+                                                    <?php foreach ($this->foto as $foto):?>
                                                     <tr>
-                                                        <td><img>Imagen</td>
-                                                        <td><a href="/admin/producto/deletefoto">Delete</a></td>
+                                                        <td>
+                                                            <?php //$file = APPLICATION_PATH. '/../public/imagen-producto/'.$foto["nombreFoto"]; 
+                                                            $file = '/imagen-producto/'.$foto["nombreFoto"];
+                                                            ?>
+                                                            <img id="fotodet" src="<?php echo $file ?>" title="foto1" style="width: 80px; height: 80px;" />
+                                                        </td>
+                                                        <td><a href="/admin/producto/deletefoto/info1/<?php echo $foto["idFoto"]."/info2/".$foto["idDetalleArticulo"]?>">Delete</a></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td><img>Imagen</td>
-                                                        <td><a href="/admin/producto/deletefoto">Delete</a></td>
-                                                    </tr>
+                                                    <?php endforeach;?>
+                                                    
                                                 </table>
                                             </td>                                            
                                         </tr>
