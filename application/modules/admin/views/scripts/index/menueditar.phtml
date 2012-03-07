@@ -73,7 +73,7 @@
     
     function returnCalendarTalleres(id){
 	
-        $.getJSON('/admin/json/json/case/geteditar', {COD:id}, 
+        $.getJSON('/admin/json/json/case/getEditMenu', {COD:id}, 
             function(json){
                 $.each(json, function(i,item){
                     $("#anocob").attr('value',json[i].anocal); 
@@ -89,9 +89,7 @@
     }
 	//$('#id').attr('value',id);
 	//comboNotaAnual(id);
-	return false;
-}
-    
+
     function modalDetalle(){	
         $("#editar-menu").html('');
         $.ajax({
