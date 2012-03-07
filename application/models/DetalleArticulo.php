@@ -44,6 +44,21 @@ class Application_Model_DetalleArticulo extends ZExtraLib_Model {
         return true;
     }    
     
+    function insertProduct($values=array()) {
+        $db = $this->_articulo->getAdapter();        
+        $data = array(
+            'idArticulo' => $values["idArticulo"],
+            'titulo' => $values["titulo"],
+            'tituloDetalle' => $values["tituloDetalle"],
+            'parrafoDetalle' => $values["parrafoDetalle"],
+            'slugDetalle' => 1,
+            'estado' => 1,            
+            );        
+        $db->insert($this->_articulo->getName(),$data); 
+        
+        return true;
+    }
+    
     function deleteProduct($id) {
         $db = $this->_articulo->getAdapter();
         $where = $db->quoteInto('idDetalleArticulo = ?', $id);                       

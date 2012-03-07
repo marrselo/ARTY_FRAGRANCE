@@ -48,6 +48,7 @@ class Admin_IndexController
         if($idArticulo){
         $articulo = new Application_Model_DetalleArticulo();
         $this->view->articulo = $articulo->listarArticulo($idArticulo);
+        $this->view->id = $idArticulo;
         }
         else 
             $this->_redirect('/');

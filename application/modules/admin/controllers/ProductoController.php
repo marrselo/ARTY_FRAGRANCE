@@ -155,16 +155,19 @@ class Admin_ProductoController
     }
     
     public function addproductAction()
-    {        
+    {
+        $idArticulo = $this->_getParam('info1', NULL);
+        if($idArticulo){
         $form = new Application_Form_FormProduct();
         $this->view->form = $form;
         
         if ($this->_request->isPost()) {  
             $params = $this->_getAllParams();
                 //if ($form->isValid($this->_request->getPost())) {
-                if ($form->isValid($params)) {
-                        $values = $form->getValues();                        
-                        if($this->_articulo->updateProducto($values))
+                if ($form->isValid($params)) {                    
+                        $values = $form->getValues();
+                        $values =$values + array('idArticulo' => $idArticulo);                         
+                        if($this->_articulo->insertProduct($values))
                             $this->_redirect ('/admin/index/collections');
                         else
                             $this->view->msg = "ERROR EN ACTUALIZACIÓN";
@@ -173,7 +176,9 @@ class Admin_ProductoController
                     $this->view->msg = "verifique los datos ingresados";
                 }
             }
-        
+        }
+        else 
+            $this->_redirect ('/admin');
     }
 
 }
