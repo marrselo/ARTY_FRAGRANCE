@@ -44,6 +44,22 @@ class Application_Model_Idioma extends ZExtraLib_Model {
         $this->clearCache('listaIdiomas');
         return $this->_idioma->getAdapter()->lastInsertId();
     }
+    /*
+    public function getComboIdioma($data){
+        $default = $data['idmDefault']['idIdioma'];
+        $dtaIdioma = $this->getAllIdiomas();
+        var_dump($dtaIdioma,$default); exit;
+        $html = '';
+        foreach($dtaIdioma as $value):
+            //$value = '';
+            if($default == $value['idIdioma'])
+                $select = 'selected';
+            else
+                $select = '';
+            $html .= '<option '.$select.' title="images/flags" value="'.$value['idIdioma'].'">'.$value['NombreIdioma'].'</option>';
+        endforeach;
+        return $html;
+    }*/
 
 }
 

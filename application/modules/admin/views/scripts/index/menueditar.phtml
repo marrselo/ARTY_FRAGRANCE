@@ -1,0 +1,138 @@
+<div id="editar-menu">
+    
+</div>
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <form id="frmActualites" enctype="multipart/form-data" method="post" action="">
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody><tr>
+                                        <td>
+                                            Version actuel: 
+                                            <strong><?php echo $this->idiomaDefault['NombreIdioma'] ?></strong>
+                                            &nbsp;&nbsp;&nbsp;
+                                            Langue disponible:
+
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+
+
+                        </div>        
+                        <div class="table_admin_foot"></div>
+                    </div>
+                    <!-- End Language -->
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" class="table_admin_body">
+                            <input type="hidden" value="9" name="id">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0" class="table_form">
+                                <tbody>
+                                    <input type="hidden" name="idMenu">
+                                    <input type="hidden" name="idMenuBase">
+                                    <tr>
+                                        <td>Código :</td>
+                                        <td><input type="text" name="hidMenu" disabled="disabled"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre :</td>
+                                        <td><input type="text" name="nombreMenu"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td valign="bottom" align="right" colspan="3">
+                                            <input type="submit" value="Agregar" name="validate">
+                                            
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="table_admin_foot"></div>
+                    </div>
+                </form>
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>
+<script type="text/javascript">
+    
+    function returnCalendarTalleres(id){
+	
+        $.getJSON('/admin/json/json/case/geteditar', {COD:id}, 
+            function(json){
+                $.each(json, function(i,item){
+                    $("#anocob").attr('value',json[i].anocal); 
+                    $("#concob").attr('value',json[i].concob); 
+                    $("#condes").attr('value',json[i].condes); 
+                    $("#instrudes").attr('value',json[i].instrudes);
+                    $("#instrucod").attr('value',json[i].instrucod);
+                    $("#gradocod").attr('value',json[i].gradocod);
+                    $("#ini").attr('value',json[i].ini);
+                    $("#fin").attr('value',json[i].fin);
+                });
+            });
+    }
+	//$('#id').attr('value',id);
+	//comboNotaAnual(id);
+	return false;
+}
+    
+    function modalDetalle(){	
+        $("#editar-menu").html('');
+        $.ajax({
+            data:'name=10',
+            async:1,
+            type:"POST",dataType:"html",
+            contentType: "application/x-www-form-urlencoded",
+            url:"/admin/index/boxmenu/id/",
+            beforeSend:beforeload,
+            success:successload,
+            timeout:80000,
+            error:errorload 
+        });
+        /*$('#editar-menu').dialog({
+		autoOpen : true,modal : true,width : 390,height : 380,			
+		open:$.ajax({
+			data:'name=10',
+			async:1,
+			type:"POST",dataType:"html",
+			contentType: "application/x-www-form-urlencoded",
+			url:"/admin/index/boxmenu/id/",
+			beforeSend:beforeload,
+			success:successload,
+			timeout:80000,
+			error:errorload 
+		})
+	});
+	$('#editar-menu').dialog('open');*/
+    }
+    
+    function beforeload(){
+        $("#editar-menu").html("<img src='/images/cargando.gif'>");
+    }
+
+    function successload(datos){
+        $("#editar-menu").html(datos);
+    }
+
+    function errorload(){
+        $("#editar-menu").text("Problemas en el servidor.");
+    } 
+    
+    
+</script>

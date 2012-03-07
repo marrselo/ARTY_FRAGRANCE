@@ -6,6 +6,7 @@ class Application_Model_Menu extends ZExtraLib_Model {
     protected $_menuBase;
     protected $_modulo;
     protected $_menu;
+
     function __construct() {
         parent::__construct();
         $this->_idioma = new Application_Model_DbTable_Idioma();
@@ -13,12 +14,13 @@ class Application_Model_Menu extends ZExtraLib_Model {
         $this->_modulo = new Application_Model_DbTable_Modulo();
         $this->_menu = new Application_Model_DbTable_Menu();
     }
+
     function listarMenuPorIdioma($idioma, $modulo) {
         if (!($result = $this->_cache->load('listaMenuIdioma' . $idioma . $modulo))) {
             $result = $this->_menu
                     ->getAdapter()
                     ->select()
-                    ->from(array('mb' => $this->_menuBase->getName()), array('mb.idMenuBase', 'mb.slugMenuBase','mb.rutaMenuBase','mb.idTipoMenu'))
+                    ->from(array('mb' => $this->_menuBase->getName()), array('mb.idMenuBase', 'mb.slugMenuBase', 'mb.rutaMenuBase', 'mb.idTipoMenu'))
                     ->join(array('men' => $this->_menu->getName()), 'mb.idMenuBase = men.idMenuBase', array('men.nombreMenu', 'mb.idModulo'))
                     ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = men.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
@@ -29,18 +31,30 @@ class Application_Model_Menu extends ZExtraLib_Model {
         }
         return $result;
     }
-    
+
     function buscaMenu($idMenuBase, $idIdioma) {
         $db = $this->_menu->getAdapter()
                 ->select()
-                ->from($this->_menu->getName(), array('idMenu', 'nombreMenu'))                    
-                    ->where('idMenuBase = ? ', $idMenuBase)
-                    ->where('idIdioma = ? ', $idIdioma);
-        
+                ->from($this->_menu->getName(), array('idMenu', 'nombreMenu'))
+                ->where('idMenuBase = ? ', $idMenuBase)
+                ->where('idIdioma = ? ', $idIdioma);
+
         $result = $db->query()->fetch();
-        
+
         return $result;
-        
     }
-    
+
+    public function menuSuperior($idIdioma,$modulo = 1) {
+        $select = $this->_menu->getAdapter()->select();
+
+        $select->from(array('t1' => 'menu'), array('idMenu', 'nombreMenu'))
+                ->join(array('t2' => 'menubase'), 't1.idMenuBase = t2.idMenuBase', array(''))
+                ->where('t2.idModulo = ? ', $modulo)
+               ->where('idIdioma = ? ', $idIdioma);
+
+        $result = $select->query()->fetchAll();
+
+        return $result;
+    }
+
 }

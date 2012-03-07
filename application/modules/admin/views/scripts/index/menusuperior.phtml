@@ -1,0 +1,173 @@
+<div id="editar-menu">
+    
+</div>
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <form id="frmActualites" enctype="multipart/form-data" method="post" action="">
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody><tr>
+                                        <td>
+                                            Version actuel: 
+                                            <strong><?php echo $this->idiomaDefault['NombreIdioma'] ?></strong>
+                                            &nbsp;&nbsp;&nbsp;
+                                            Langue disponible:
+
+                                        </td>
+                                        <td>
+                                            <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
+
+                                                <select onchange="getComboIdioma(this.value);" id="lang_code" name="lang_code">
+
+                                                    <?php
+                                                    foreach ($this->colIdioma as $index => $value):
+                                                        if (isset($this->params['idlang'])) {
+                                                            $selected = ($value['idIdioma'] == $this->params['idlang']) ? 'selected' : '';
+                                                        } else {
+                                                            $selected = ($value['FlagDefaultIdioma'] == 1) ? 'selected' : '';
+                                                        }
+                                                        ?>
+                                                        <option <?php echo $selected ?> title="/images/flags/<?php echo $value['PrefIdioma'] ?>.png" value="<?php echo $value['idIdioma'] ?>">
+                                                            <?php echo $value['NombreIdioma'] ?>
+                                                        </option>
+
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="dd" id="lang_code_msdd" style="width: 73px;">
+                                                <?php echo $this->idiomaDefault['PrefIdioma'] ?>.png
+                                                <div class="ddTitle" id="lang_code_title">
+                                                    <span class="arrow" id="lang_code_arrow" style="background-position: 0pt 0pt;"></span>
+                                                    <span id="lang_code_titletext" class="textTitle">
+                                                        <img align="left" src="/images/flags/<?php echo $this->idiomaDefault['PrefIdioma'] ?>.png"><?php echo $this->idiomaDefault['NombreIdioma'] ?>
+                                                    </span>
+                                                </div>
+                                                <?php
+                                                foreach ($this->colIdioma as $index => $value):
+                                                    if (isset($this->params['idlang'])) {
+                                                        $enabled = ($value['idIdioma'] == $this->params['idlang']) ? 'enabled' : '';
+                                                    } else {
+                                                        $enabled = ($value['FlagDefaultIdioma'] == 1) ? 'enabled' : '';
+                                                    }
+                                                    ?>
+                                                    <div class="ddChild" id="lang_code_child" style="width: 71px;">               
+                                                        <a id="lang_code_msa_<?php echo $index ?>" style="undefined" class="selected <?php echo $enabled ?>" href="javascript:void(0);">
+                                                            <img align="left" src="/images/flags/<?php echo $value['PrefIdioma'] ?>.png"> <?php echo $value['NombreIdioma'] ?>
+                                                        </a>
+                                                    <?php endforeach; ?>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+
+
+                        </div>        
+                        <div class="table_admin_foot"></div>
+                    </div>
+                    <!-- End Language -->
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" class="table_admin_body">
+                            <input type="hidden" value="9" name="id">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0" class="table_form">
+                                <tbody>
+                                    <?php foreach ($this->data as $value): ?>
+                                        <tr class="shadow">
+                                            <td width="40%"><a class="link" href="/mod_actualites/actualites"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></a></td>
+                                            <td width="45%"><?php echo $value['nombreMenu'];?></td>
+                                            <td align="right" width="15%">
+                                               <a class="status-module" href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Ne pas montrer ce module">
+                                                    <img border="0" alt="enabled.gif" src="/images/icons/_status.png">
+                                               </a>
+                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">
+                                                    <img border="0" alt="process_remove.png" src="/images/icons/process_remove.png">
+                                                </a>
+
+                                                <a href="/admin/module/bkmodule/id/actualites">
+                                                    <img border="0" title="backup module" alt="backup module" src="/images/icons/archive.png">
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td valign="bottom" align="right" colspan="3">
+                                            <input type="submit" value="Guardar" name="validate">
+                                            
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="table_admin_foot"></div>
+                    </div>
+                </form>
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>
+<script type="text/javascript">
+    function modalDetalle(){	
+        $("#editar-menu").html('');
+        $.ajax({
+            data:'name=10',
+            async:1,
+            type:"POST",dataType:"html",
+            contentType: "application/x-www-form-urlencoded",
+            url:"/admin/index/boxmenu/id/",
+            beforeSend:beforeload,
+            success:successload,
+            timeout:80000,
+            error:errorload 
+        });
+        /*$('#editar-menu').dialog({
+		autoOpen : true,modal : true,width : 390,height : 380,			
+		open:$.ajax({
+			data:'name=10',
+			async:1,
+			type:"POST",dataType:"html",
+			contentType: "application/x-www-form-urlencoded",
+			url:"/admin/index/boxmenu/id/",
+			beforeSend:beforeload,
+			success:successload,
+			timeout:80000,
+			error:errorload 
+		})
+	});
+	$('#editar-menu').dialog('open');*/
+    }
+    
+    function beforeload(){
+        $("#editar-menu").html("<img src='/images/cargando.gif'>");
+    }
+
+    function successload(datos){
+        $("#editar-menu").html(datos);
+    }
+
+    function errorload(){
+        $("#editar-menu").text("Problemas en el servidor.");
+    } 
+    
+    function getComboIdioma(value){
+        
+        location.href='<?php echo $this->baseUrl() . '/' . $this->params['module'] . '/' . $this->params['controller'] . '/' . $this->params['action'] ?>/idlang/'+ value
+    }
+</script>
