@@ -120,7 +120,7 @@ class Admin_ProductoController
         
         if ($this->_request->isPost()) {
             $extn = pathinfo($form->nombreFoto->getFileName(), PATHINFO_EXTENSION);
-            $idFoto = $foto->maxId();
+            $idFoto = $foto->maxId();            
             $rename = 'producto-'.$idFoto.'-'.$idDetArticulo.'.'.$extn;
             $form->nombreFoto->addFilter(new Zend_Filter_File_Rename(
                       array('target' => $rename))
@@ -128,6 +128,7 @@ class Admin_ProductoController
             $params = $this->_getAllParams();                
                 if ($form->isValid($params)) {
                     $values = $form->getValues();
+                    
                     $tfoto = array('nombreFoto' => $rename);
                     
                     $fotodet = array(

@@ -21,7 +21,7 @@ class Application_Form_FormPhoto extends Zend_Form {
         $this->addElement($element);
                 
         $e = new Zend_Form_Element_Textarea('descripcionFoto');
-        $v = new Zend_Validate_StringLength(array('min' => 10));
+        $v = new Zend_Validate_StringLength(array('min' => 2));
         $e->addValidator($v);
         $e->setAttrib('name', 'descripcionFoto');
         $this->addElement($e);        

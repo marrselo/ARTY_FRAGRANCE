@@ -90,15 +90,13 @@ class Application_Model_Articulo extends ZExtraLib_Model {
     function maxId() {
         $db = $this->_articulo
                 ->getAdapter();        
+        $select = "SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+            WHERE TABLE_SCHEMA = 'artyfrag_fragance' AND TABLE_NAME = 'articulo'";
         
-        $result=$db->fetchRow(
-                $db->select()->from($this->_articulo->getName(), 
-                        array(new Zend_Db_Expr('max(idArticulo)+1 as max'))));
-        if(is_null($result))
-            $id=1;
-        else
-            $id=$result['max'];
-        return $id;
-    }
+        $result = $db->fetchOne($select);
+        
+        return $result;
+        
+        }
     
 }
