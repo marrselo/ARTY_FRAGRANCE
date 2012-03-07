@@ -41,19 +41,7 @@ CKEDITOR.replace('parrafoDetalle');
                                                                 <a href="/admin/producto/addphoto/id/<?php echo $this->idDetalle?>" target="_blank" onClick="window.open(this.href, this.target, 'width=710,height=690'); return false;">Add Photo
                                                             </a>
                                                         </td>
-                                                    </tr>
-                                                    <?php foreach ($this->foto as $foto):?>
-                                                    <tr>
-                                                        <td>
-                                                            <?php //$file = APPLICATION_PATH. '/../public/imagen-producto/'.$foto["nombreFoto"]; 
-                                                            $file = '/imagen-producto/'.$foto["nombreFoto"];
-                                                            ?>
-                                                            <img id="fotodet" src="<?php echo $file ?>" title="foto1" style="width: 80px; height: 80px;" />
-                                                        </td>
-                                                        <td><a href="/admin/producto/deletefoto/info1/<?php echo $foto["idFoto"]."/info2/".$foto["idDetalleArticulo"]?>">Delete</a></td>
-                                                    </tr>
-                                                    <?php endforeach;?>
-                                                    
+                                                    </tr>                                                    
                                                 </table>
                                             </td>                                            
                                         </tr>

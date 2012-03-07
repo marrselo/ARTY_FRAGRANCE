@@ -33,6 +33,18 @@ class Application_Model_FotoDetalleArticulo extends ZExtraLib_Model {
         
         return $result;
     }
+    
+    function buscaFoto($id) {
+        $db = $this->_fotodetalle
+                ->getAdapter()->select()
+                ->from('foto')
+                ->where('idFoto = ? ', $id);
+        
+        $result = $db->query()->fetch();
+        
+        return $result;
+    }
+    
     function updateProducto($values=array()) {
         $db = $this->_fotodetalle->getAdapter();        
         $data = array(
@@ -56,10 +68,23 @@ class Application_Model_FotoDetalleArticulo extends ZExtraLib_Model {
     
     function deleteFoto($idFoto, $idDetalleArticulo) {
         $db = $this->_fotodetalle->getAdapter();
+        
         $where = $db->quoteInto('idDetalleArticulo = ?', $idDetalleArticulo);
+        $where.= " AND ";
+        $where.= $db->quoteInto('idFoto = ?', $idFoto);;
         $db->delete('foto_detallearticulo', $where);
+        
         $where = $db->quoteInto('idFoto = ?', $idFoto);
         $db->delete('foto', $where);
+        
+        return true;
+    }
+    
+    function insertFoto($foto, $det) {
+        $db = $this->_fotodetalle->getAdapter();
+        
+        $db->insert('foto_detallearticulo', $det);
+        $db->insert('foto', $foto);
         
         return true;
     }

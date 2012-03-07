@@ -62,6 +62,9 @@ class Admin_ProductoController
             $this->_redirect('/');
         
         $this->view->form = $form;
+        $this->view->idDetalle = $idArticulo;
+        
+        
         
     }
     public function deleteproductAction()
@@ -88,9 +91,87 @@ class Admin_ProductoController
         $idFoto = $this->_getParam('info1', NULL);
         $idDetalleArticulo = $this->_getParam('info2', NULL);
         if($idFoto and $idDetalleArticulo) {
-            $this->_foto->deleteFoto($idFoto, $idDetalleArticulo); 
-            $this->_redirect('/admin/producto/editproduct/id/'.$idDetalleArticulo);
+            $name = $this->_foto->buscaFoto($idFoto);            
+            $dir = APPLICATION_PATH.'/../public/imagen-producto/'.$name["nombreFoto"];
+            if(file_exists($dir))
+            {
+                if(unlink($dir))
+                {
+                    $this->_foto->deleteFoto($idFoto, $idDetalleArticulo); 
+                    $this->_redirect('/admin/producto/editproduct/id/'.$idDetalleArticulo);
+                }
+            }
+            else  
+                print "El archivo no fue borrado"; 
+            
         }
+        
+    }
+    
+    public function addphotoAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $form = new Application_Form_FormPhoto();
+        $foto = new Application_Model_Foto();
+        $this->view->form = $form;
+        
+        $idDetArticulo = $this->_getParam('id');
+        
+        
+        if ($this->_request->isPost()) {
+            $extn = pathinfo($form->nombreFoto->getFileName(), PATHINFO_EXTENSION);
+            $idFoto = $foto->maxId();
+            $rename = 'producto-'.$idFoto.'-'.$idDetArticulo.'.'.$extn;
+            $form->nombreFoto->addFilter(new Zend_Filter_File_Rename(
+                      array('target' => $rename))
+                   );
+            $params = $this->_getAllParams();                
+                if ($form->isValid($params)) {
+                    $values = $form->getValues();
+                    $tfoto = array('nombreFoto' => $rename);
+                    
+                    $fotodet = array(
+                        'idFoto' => $idFoto,
+                        'idDetalleArticulo' => $idDetArticulo,
+                        'tituloFoto' => $values["tituloFoto"],
+                        'descripcionFoto' => $values["descripcionFoto"],                        
+                        'link' => 1,
+                        'ordenFoto' => 1,
+                        'flagPublicar' => 1,
+                    );
+                    $form->nombreFoto->receive();                    
+                    if($this->_foto->insertFoto($tfoto, $fotodet))
+                        $this->_redirect ('/admin/index/collections');
+                    else
+                        $this->view->msg = "ERROR EN ACTUALIZACIÓN";
+                    
+                    
+                    
+                } else {
+                    $this->view->msg = "verifique los datos ingresados";
+                }
+            }
+    }
+    
+    public function addproductAction()
+    {        
+        $form = new Application_Form_FormProduct();
+        $this->view->form = $form;
+        
+        if ($this->_request->isPost()) {  
+            $params = $this->_getAllParams();
+                //if ($form->isValid($this->_request->getPost())) {
+                if ($form->isValid($params)) {
+                        $values = $form->getValues();                        
+                        if($this->_articulo->updateProducto($values))
+                            $this->_redirect ('/admin/index/collections');
+                        else
+                            $this->view->msg = "ERROR EN ACTUALIZACIÓN";
+                    
+                } else {
+                    $this->view->msg = "verifique los datos ingresados";
+                }
+            }
         
     }
 
