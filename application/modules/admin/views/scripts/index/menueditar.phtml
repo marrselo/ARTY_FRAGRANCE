@@ -9,7 +9,7 @@
         <div id="main">
             <!--   <h2 class="top"></h2>-->
             <div id="form">
-                <form id="frmActualites" enctype="multipart/form-data" method="post" action="">
+                <form id="frmActualites" method="post" action="" onsubmit="return saveMenuEdita(this);">
                     <div class="table_admin">
                         <div class="table_admin_head"></div>
                         <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
@@ -33,27 +33,28 @@
                     <div class="table_admin">
                         <div class="table_admin_head"></div>
                         <div align="center" class="table_admin_body">
-                            <input type="hidden" value="9" name="id">
                             <table width="100%" cellspacing="0" cellpadding="0" border="0" class="table_form">
                                 <tbody>
-                                    <input type="hidden" name="idMenu">
-                                    <input type="hidden" name="idMenuBase">
+                                    <input type="hidden" value="<?php echo $this->idiomaDefault['idIdioma']?>" name="idIdioma">
+                                    <input type="hidden" name="idMenu" id="idMenu">
+                                    <input type="hidden" name="idMenuBase" id="idMenuBase">
                                     <tr>
                                         <td>Código :</td>
-                                        <td><input type="text" name="hidMenu" disabled="disabled"></td>
+                                        <td><input type="text" name="hidMenu" id="hidMenu" disabled="disabled"></td>
                                     </tr>
                                     <tr>
                                         <td>Nombre :</td>
-                                        <td><input type="text" name="nombreMenu"></td>
+                                        <td><input type="text" name="nombreMenu" id="nombreMenu"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td valign="bottom" align="right" colspan="3">
-                                            <input type="submit" value="Agregar" name="validate">
-                                            
+                                            <input type="submit" value="Guardar" name="validate">
+
                                     </tr>
                                 </tfoot>
+                               
                             </table>
                         </div>
                         <div class="table_admin_foot"></div>
@@ -71,53 +72,36 @@
 </td>
 <script type="text/javascript">
     
-    function returnCalendarTalleres(id){
-	
-        $.getJSON('/admin/json/json/case/getEditMenu', {COD:id}, 
+   
+        $.getJSON('/admin/json/json/case/getEditMenu', {cod:'<?php echo $this->cod?>'}, 
             function(json){
                 $.each(json, function(i,item){
-                    $("#anocob").attr('value',json[i].anocal); 
-                    $("#concob").attr('value',json[i].concob); 
-                    $("#condes").attr('value',json[i].condes); 
-                    $("#instrudes").attr('value',json[i].instrudes);
-                    $("#instrucod").attr('value',json[i].instrucod);
-                    $("#gradocod").attr('value',json[i].gradocod);
-                    $("#ini").attr('value',json[i].ini);
-                    $("#fin").attr('value',json[i].fin);
+                    $("#idMenu").attr('value',json[i].idMenu); 
+                    $("#idMenuBase").attr('value',json[i].idMenuBase); 
+                    $("#hidMenu").attr('value',json[i].idMenu); 
+                    $("#nombreMenu").attr('value',json[i].nombreMenu);
                 });
             });
-    }
+    
 	//$('#id').attr('value',id);
 	//comboNotaAnual(id);
 
-    function modalDetalle(){	
-        $("#editar-menu").html('');
+    function saveMenuEdita(id){	
+        var data = $(id).serialize();
+        
         $.ajax({
-            data:'name=10',
+            data: data,
             async:1,
             type:"POST",dataType:"html",
             contentType: "application/x-www-form-urlencoded",
-            url:"/admin/index/boxmenu/id/",
+            url:"/admin/index/ajax/case/saveMenuEdita",
             beforeSend:beforeload,
             success:successload,
             timeout:80000,
             error:errorload 
         });
-        /*$('#editar-menu').dialog({
-		autoOpen : true,modal : true,width : 390,height : 380,			
-		open:$.ajax({
-			data:'name=10',
-			async:1,
-			type:"POST",dataType:"html",
-			contentType: "application/x-www-form-urlencoded",
-			url:"/admin/index/boxmenu/id/",
-			beforeSend:beforeload,
-			success:successload,
-			timeout:80000,
-			error:errorload 
-		})
-	});
-	$('#editar-menu').dialog('open');*/
+        return false;
+       
     }
     
     function beforeload(){
@@ -125,7 +109,8 @@
     }
 
     function successload(datos){
-        $("#editar-menu").html(datos);
+       
+        return false;
     }
 
     function errorload(){

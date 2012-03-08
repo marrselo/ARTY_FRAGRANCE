@@ -5,16 +5,39 @@
  * and open the template in the editor.
  */
 class Admin_JsonController extends ZExtraLib_Controller_Action {
-     public function jsonAction(){
+    
+    protected $_menu;
+    protected $_default;
+    
+    function init(){
+        $this->_menu = new Application_Model_DbTable_Menu();
+        
+        $this->params = $this->_getAllParams();
+        
+        $idioma = isset($this->params['idlang']) ?
+            $colIdioma[$this->params['idlang']] :
+            $this->params['idmDefault'];
+        
+        //var_dump($idioma); exit;
+        $this->_default = $idioma['idIdioma'];  
+    }
+    
+    public function jsonAction(){
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        $select = $this->_helper->DBAdapter()->select();	    			
-        $case = $this->getRequest()->getParam('case',0);
         
+        $select = $this->_menu->getAdapter()->select();    			
+        $case = $this->_getParam('case',0);
+        $cod = $this->_getParam('cod',0);
         switch ($case):
-            
             case 'getEditMenu':
+                $select->from(array('t1' => 'menu'),array('idMenu','idMenuBase','nombreMenu'))
+                        ->where('idIdioma = ?',$this->_default)
+                        ->where('idMenu = ?',$cod);
                 
+                //echo $select; exit;
+                $dta = $select->query()->fetchAll();
+                echo json_encode($dta);
                 break;
         endswitch;
      }

@@ -44,7 +44,7 @@ class Application_Model_Menu extends ZExtraLib_Model {
         return $result;
     }
 
-    public function menuSuperior($idIdioma,$modulo = 1) {
+    public function getMenu($idIdioma,$modulo = 1) {
         $select = $this->_menu->getAdapter()->select();
 
         $select->from(array('t1' => 'menu'), array('idMenu', 'nombreMenu'))
@@ -55,6 +55,23 @@ class Application_Model_Menu extends ZExtraLib_Model {
         $result = $select->query()->fetchAll();
 
         return $result;
+    }
+    
+    public function saveMenuSuperior($data){
+        $id = $data['idMenu'];
+        unset($data['idMenu']);
+        var_dump('listo pa guardar'); exit;
+        $where = $this->getAdapter()->quoteInto('idMenu = ?', $id);
+        $this->update($data, $where);
+        
+        if($data['idIdioma'] == '1'):
+            $db = $this->_menuBase->getAdapter();
+            $where = $db->getAdapter()->quoteInto('idMenu = ?', $id);
+        endif;
+    }
+    
+    public function deleteMenu($data){
+        var_dump($data); exit;
     }
 
 }

@@ -151,13 +151,41 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
         $this->_articulo = new Application_Model_Articulo();
         $this->_menuObj = new Application_Model_Menu();
         $idIdioma = $this->_getParam('lang_code', 1);
-        $data = $this->_menuObj->menuSuperior($idIdioma);
+        $data = $this->_menuObj->getMenu($idIdioma);
         
         $this->view->data = $data;
     }
     
     public function menueditarAction(){
+        $cod = $this->_getParam('id',0);
+        $this->view->cod = $cod;
+    }
+    
+    public function menufooterAction() {
+        $this->_articulo = new Application_Model_Articulo();
+        $this->_menuObj = new Application_Model_Menu();
+        $idIdioma = $this->_getParam('lang_code', 1);
+        $cod = $this->_getParam('idMenu', 1);
+        $data = $this->_menuObj->getMenu($idIdioma, $cod);
         
+        $this->view->data = $data;
+    }
+    
+    
+    public function ajaxAction(){
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_menuObj = new Application_Model_Menu();
+        $case = $this->_getParam('case',0);
+        
+        switch ($case):
+            case 'saveMenuEdita':
+                $this->_menuObj->saveMenuSuperior($_POST);
+                break;
+            case 'deleteMenu':
+                $this->_menuObj->deleteMenu($_POST);
+                break;
+        endswitch;
     }
 
 }
