@@ -27,6 +27,26 @@ class ZExtraLib_Model {
         return $arrayResponse;
     }
     
+    function resultTransaccion($num,$error = '',$save = '',$roll = ''){
+        
+        switch ($num):
+            case '1':
+                if(empty($save))
+                    $msn = 'Registro actualizado correctamente';
+                else
+                    $msn = $save;
+                break;
+            case '0':
+                if(empty($error))
+                    $msn = 'Error!!!';
+                else
+                    $msn = $error;
+                break;
+                
+        endswitch;
+        
+        return $msn;
+    }
 }
 
 ?>

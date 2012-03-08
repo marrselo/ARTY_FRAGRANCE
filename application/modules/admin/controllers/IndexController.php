@@ -2,14 +2,40 @@
 
 class Admin_IndexController extends ZExtraLib_Controller_Action {
 
-    
+    private $_sesion;
     public function init() {
         parent::init();
+        $this->idioma = new Application_Model_Idioma();
+        $this->params = $this->_getAllParams();
+        
+        
+        $this->_sesion = new Zend_Session_Namespace('web');
+     
+        if(isset($this->params['idlang'])):
+            $default = $this->params['idmDefault']['idIdioma'];
+            $idioma = $this->_getParam('idlang', $default);
+            $this->_sesion->lg = $idioma;
+
+            $dta = $this->idioma->getIdiomaSelect($this->_sesion->lg);
+            $this->_sesion->name = $dta['NombreIdioma'];
+            $this->_sesion->abr = $dta['PrefIdioma'];
+
+        else:
+            if(empty($this->_sesion->lg)){
+                
+                $this->_sesion->lg = $this->params['idmDefault']['idIdioma'];
+                $this->_sesion->name = $this->params['idmDefault']['NombreIdioma'];
+                $this->_sesion->abr = $this->params['idmDefault']['PrefIdioma'];
+
+            }
+        endif;
+        
+       
         $this->_articulo = new Application_Model_Articulo();
         $this->modulo = new Application_Model_Modulo();
         $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
       
-        $this->idioma = new Application_Model_Idioma();
+        
         
         /*$this->params = $this->_getAllParams();
         
@@ -18,15 +44,16 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
         foreach ($this->idioma->getAllIdiomas() as $ind => $val) {
             $colIdioma[$val['idIdioma']] = $val;
         };
-        //var_dump($colIdioma); exit;
+        
         $this->view->colIdioma = $colIdioma; // $this->idioma->getAllIdiomas();
         
-        $this->params = $this->_getAllParams();
         $this->view->params = $this->params;
 
         $this->view->idiomaDefault = isset($this->params['idlang']) ?
                 $colIdioma[$this->params['idlang']] :
                 $this->params['idmDefault'];
+        
+        $this->view->idioma = $this->_sesion;
     }
 
     public function indexAction() {
@@ -150,7 +177,7 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
     public function menusuperiorAction() {
         $this->_articulo = new Application_Model_Articulo();
         $this->_menuObj = new Application_Model_Menu();
-        $idIdioma = $this->_getParam('lang_code', 1);
+        $idIdioma = $this->_getParam('idlang', 1);
         $data = $this->_menuObj->getMenu($idIdioma);
         
         $this->view->data = $data;
@@ -159,15 +186,16 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
     public function menueditarAction(){
         $cod = $this->_getParam('id',0);
         $this->view->cod = $cod;
+        $this->view->idiomaName = $this->_sesion->name;
     }
     
     public function menufooterAction() {
         $this->_articulo = new Application_Model_Articulo();
         $this->_menuObj = new Application_Model_Menu();
-        $idIdioma = $this->_getParam('lang_code', 1);
-        $cod = $this->_getParam('idMenu', 1);
-        $data = $this->_menuObj->getMenu($idIdioma, $cod);
-        
+        $idIdioma = $this->_getParam('idlang', 1);
+        $menu = $this->_getParam('idMenu', 1);
+        $data = $this->_menuObj->getMenu($idIdioma, $menu);
+        $this->view->menu = $menu;
         $this->view->data = $data;
     }
     
@@ -180,10 +208,12 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
         
         switch ($case):
             case 'saveMenuEdita':
-                $this->_menuObj->saveMenuSuperior($_POST);
+                $action = $this->_menuObj->saveMenuSuperior($_POST,$this->params['idmDefault']['idIdioma']);
+                echo $action;
                 break;
             case 'deleteMenu':
-                $this->_menuObj->deleteMenu($_POST);
+                $action = $this->_menuObj->deleteMenu($_POST);
+                echo $action;
                 break;
         endswitch;
     }

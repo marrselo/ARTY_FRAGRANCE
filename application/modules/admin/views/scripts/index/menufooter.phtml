@@ -14,7 +14,7 @@
                                 <tbody><tr>
                                         <td>
                                             Version actuel: 
-                                            <strong><?php echo $this->idiomaDefault['NombreIdioma'] ?></strong>
+                                            <strong><?php echo $this->idioma->name ?></strong>
                                             &nbsp;&nbsp;&nbsp;
                                             Langue disponible:
 
@@ -26,8 +26,8 @@
 
                                                     <?php
                                                     foreach ($this->colIdioma as $index => $value):
-                                                        if (isset($this->params['idlang'])) {
-                                                            $selected = ($value['idIdioma'] == $this->params['idlang']) ? 'selected' : '';
+                                                        if (isset($this->idioma->lg)) {
+                                                            $selected = ($value['idIdioma'] == $this->idioma->lg) ? 'selected' : '';
                                                         } else {
                                                             $selected = ($value['FlagDefaultIdioma'] == 1) ? 'selected' : '';
                                                         }
@@ -83,7 +83,7 @@
                                             <td width="40%"><a class="link" href="/mod_actualites/actualites"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></a></td>
                                             <td width="45%"><?php echo $value['nombreMenu'];?></td>
                                             <td align="right" width="15%">
-                                               <a class="status-module" href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Ne pas montrer ce module">
+                                               <a href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Ne pas montrer ce module">
                                                     <img border="0" alt="enabled.gif" src="/images/icons/_status.png">
                                                </a>
 <!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
@@ -147,6 +147,6 @@
     
     function getComboIdioma(value){
         
-        location.href='<?php echo $this->baseUrl() . '/' . $this->params['module'] . '/' . $this->params['controller'] . '/' . $this->params['action'] ?>/idlang/'+ value
+        location.href='<?php echo $this->baseUrl() . '/' . $this->params['module'] . '/' . $this->params['controller'] . '/' . $this->params['action'] ?>/idMenu/<?php echo $this->menu;?>/idlang/'+ value
     }
 </script>

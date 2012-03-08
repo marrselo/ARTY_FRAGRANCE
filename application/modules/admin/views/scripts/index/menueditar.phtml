@@ -1,6 +1,3 @@
-<div id="editar-menu">
-    
-</div>
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
@@ -17,10 +14,8 @@
                                 <tbody><tr>
                                         <td>
                                             Version actuel: 
-                                            <strong><?php echo $this->idiomaDefault['NombreIdioma'] ?></strong>
+                                            <strong><?php echo $this->idiomaName ?></strong>
                                             &nbsp;&nbsp;&nbsp;
-                                            Langue disponible:
-
                                         </td>
                                     </tr>
                                 </tbody></table>
@@ -46,15 +41,18 @@
                                         <td>Nombre :</td>
                                         <td><input type="text" name="nombreMenu" id="nombreMenu"></td>
                                     </tr>
+                                    
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td valign="bottom" align="right" colspan="3">
+                                          <td valign="bottom" align="right" colspan="3">
                                             <input type="submit" value="Guardar" name="validate">
-
+                                          </td>
                                     </tr>
                                 </tfoot>
-                               
+                                 <div id="menu-action" class="menu-action">
+                                            
+                                        </div>
                             </table>
                         </div>
                         <div class="table_admin_foot"></div>
@@ -71,8 +69,6 @@
     </div>
 </td>
 <script type="text/javascript">
-    
-   
         $.getJSON('/admin/json/json/case/getEditMenu', {cod:'<?php echo $this->cod?>'}, 
             function(json){
                 $.each(json, function(i,item){
@@ -82,10 +78,8 @@
                     $("#nombreMenu").attr('value',json[i].nombreMenu);
                 });
             });
-    
 	//$('#id').attr('value',id);
 	//comboNotaAnual(id);
-
     function saveMenuEdita(id){	
         var data = $(id).serialize();
         
@@ -105,16 +99,16 @@
     }
     
     function beforeload(){
-        $("#editar-menu").html("<img src='/images/cargando.gif'>");
+        $("#menu-action").html("<img src='/images/cargando.gif'>");
     }
 
     function successload(datos){
-       
+        $("#menu-action").html(datos);
         return false;
     }
 
     function errorload(){
-        $("#editar-menu").text("Problemas en el servidor.");
+        $("#menu-action").text("Problemas en el servidor.");
     } 
     
     

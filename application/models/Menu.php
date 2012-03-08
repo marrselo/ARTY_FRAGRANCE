@@ -46,32 +46,47 @@ class Application_Model_Menu extends ZExtraLib_Model {
 
     public function getMenu($idIdioma,$modulo = 1) {
         $select = $this->_menu->getAdapter()->select();
-
-        $select->from(array('t1' => 'menu'), array('idMenu', 'nombreMenu'))
-                ->join(array('t2' => 'menubase'), 't1.idMenuBase = t2.idMenuBase', array(''))
+        $sesion = new Zend_Session_Namespace('web');
+        $select->from(array('t1' => 'menu'), array('idMenu', 'nombreMenu','idMenuBase'))
+                ->join(array('t2' => 'menubase'), 't1.idMenuBase = t2.idMenuBase', array('estadoMenuBase'))
                 ->where('t2.idModulo = ? ', $modulo)
-               ->where('idIdioma = ? ', $idIdioma);
-
+              //  ->where('t2.estadoMenuBase = ? ', 1)
+               ->where('idIdioma = ? ', $sesion->lg);
+        //echo $select; exit;
         $result = $select->query()->fetchAll();
 
         return $result;
     }
     
-    public function saveMenuSuperior($data){
-        $id = $data['idMenu'];
-        unset($data['idMenu']);
-        var_dump('listo pa guardar'); exit;
-        $where = $this->getAdapter()->quoteInto('idMenu = ?', $id);
-        $this->update($data, $where);
+    public function saveMenuSuperior($data, $default){
         
-        if($data['idIdioma'] == '1'):
-            $db = $this->_menuBase->getAdapter();
-            $where = $db->getAdapter()->quoteInto('idMenu = ?', $id);
+        $sesion = new Zend_Session_Namespace('web');
+        //$where = $this->_menu->getAdapter()->quoteInto('idMenu = ?', $id);
+        $this->_menu->update(array('nombreMenu' => $data['nombreMenu']), 
+                "idMenu = '{$data['idMenu']}' and idIdioma = '{$sesion->lg}'");
+
+        if($sesion->lg == $default):
+            $this->_menuBase->update(array('nombreMenuBase' => $data['nombreMenu']),
+                    "idMenuBase = '{$data['idMenuBase']}'");
         endif;
+        $action = $this->resultTransaccion('1', '', 'Registro actualizado Correctamente', '');
+        return $action;
     }
     
     public function deleteMenu($data){
-        var_dump($data); exit;
+        //Viendo el estado Actual
+        $select = $this->_menuBase->getAdapter()->select();
+        $select->from($this->_menuBase->getName(), array('estadoMenuBase'))
+               ->where('idMenuBase = ? ', $data['id']);
+        $dtaMenu = $select->query()->fetch();
+        //cambiando el edtado
+        $estado = ($dtaMenu['estadoMenuBase']=='1')?'0':'1';
+        //Actualizando el nuevo estado
+        $this->_menuBase->update(array('estadoMenuBase' => $estado), 
+                "idMenuBase = '{$data['id']}'");
+        
+        $action = $this->resultTransaccion('1', '', 'Registro Desactivado Correctamente', '');
+        return $action;
     }
 
 }
