@@ -76,18 +76,28 @@
                         <div class="table_admin_head"></div>
                         <div align="center" class="table_admin_body">
                             <input type="hidden" value="9" name="id">
-                            <table width="100%" cellspacing="0" cellpadding="0" border="0" class="table_form">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
                                 <tbody>
-                                    <?php foreach ($this->data as $value): ?>
-                                        <tr class="shadow">
-                                            <td width="40%"><a class="link" href="/mod_actualites/actualites"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></a></td>
+                                    <?php foreach ($this->data as $value): 
+                                        if((int)$value['estadoMenuBase'] == 1):
+                                            $css = "shadow";
+                                            $alert = CAlertMenuON;
+                                            $title = CTitleMenuON;
+                                        else:
+                                            $css = 'column-admin';
+                                            $alert = CAlertMenuOFF;
+                                            $title = CTitleMenuOFF;
+                                        endif;
+                                        ?>
+                                        <tr class="<?php echo $css?>">
+                                            <td width="40%"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></td>
                                             <td width="45%"><?php echo $value['nombreMenu'];?></td>
                                             <td align="right" width="15%">
-                                               <a href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Ne pas montrer ce module">
-                                                    <img border="0" alt="enabled.gif" src="/images/icons/_status.png">
+                                               <a href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Modifier">
+                                                    <img border="0" alt="enabled.gif" src="/images/icons/edit.gif">
                                                </a>
 <!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
-                                                    <img border="0" alt="process_remove.png" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $value['idMenu']?>')" style="cursor: pointer;" >
+                                                    <img border="0" alt="<?php echo $title;?>" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $value['idMenuBase']?>','<?php echo $alert;?>')" style="cursor: pointer;" >
 <!--                                                </a>-->
 
                                             </td>
@@ -114,12 +124,12 @@
 </td>
 <script type="text/javascript">
   
-    function deleteMenu(id){
+    function deleteMenu(id,mensaje){
 
-        confirmacion=confirm("Atención-Desea eliminar un Menu?");
+        confirmacion=confirm(mensaje);
         if(confirmacion){
             $.ajax({
-                data:'id = ' + id,
+                data:'id=' + id,
                 async:1,
                 type:"POST",dataType:"html",
                 contentType: "application/x-www-form-urlencoded",
@@ -138,7 +148,8 @@
     }
 
     function successdel(datos){
-        $("#editar-menu").html(datos);
+        location.href = document.URL
+
     }
 
     function errordel(){

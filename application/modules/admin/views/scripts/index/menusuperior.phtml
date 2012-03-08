@@ -80,20 +80,25 @@
                                 <tbody>
                                     <?php foreach ($this->data as $value):
                                        
-                                        if((int)$value['estadoMenuBase'] == 1)
+                                        if((int)$value['estadoMenuBase'] == 1):
                                             $css = "shadow";
-                                        else
+                                            $alert = CAlertMenuOFF;
+                                            $title = CTitleMenuOFF;
+                                        else:
                                             $css = 'column-admin';
+                                            $alert = CAlertMenuOFF;
+                                            $title = CTitleMenuOFF;
+                                        endif;
                                         ?>
                                         <tr class="<?php echo $css;?>">
-                                            <td width="40%"><a class="link" href="/mod_actualites/actualites"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></a></td>
+                                            <td width="40%"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></td>
                                             <td width="45%"><?php echo $value['nombreMenu'];?></td>
                                             <td align="right" width="15%">
-                                               <a href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Ne pas montrer ce module">
-                                                    <img border="0" alt="enabled.gif" src="/images/icons/_status.png">
+                                               <a href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Modifier">
+                                                    <img border="0" src="/images/icons/edit.gif">
                                                </a>
 <!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
-                                                    <img border="0" alt="process_remove.png" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $value['idMenuBase']?>')" style="cursor: pointer;" >
+                                                    <img border="0" title="<?php echo $title;?>" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $value['idMenuBase']?>','<?php echo $alert;?>')" style="cursor: pointer;" >
 <!--                                                </a>-->
 
                                             </td>
@@ -120,9 +125,9 @@
 </td>
 <script type="text/javascript">
   
-    function deleteMenu(id){
+    function deleteMenu(id,mensaje){
 
-        confirmacion=confirm("Atención-Desea cambiar de estado a un Menu?");
+        confirmacion=confirm(mensaje);
         if(confirmacion){
             $.ajax({
                 data:'id=' + id,
@@ -143,7 +148,8 @@
     }
 
     function successdel(datos){
-        $("#menu-action").html(datos);
+         $("#menu-action").html('');
+        location.href = document.URL
     }
 
     function errordel(){

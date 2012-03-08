@@ -78,10 +78,12 @@ class Application_Model_Menu extends ZExtraLib_Model {
         $select = $this->_menuBase->getAdapter()->select();
         $select->from($this->_menuBase->getName(), array('estadoMenuBase'))
                ->where('idMenuBase = ? ', $data['id']);
+        //echo $select; exit;
         $dtaMenu = $select->query()->fetch();
         //cambiando el edtado
         $estado = ($dtaMenu['estadoMenuBase']=='1')?'0':'1';
         //Actualizando el nuevo estado
+        //var_dump("idMenuBase = '{$data['id']}'"); exit;
         $this->_menuBase->update(array('estadoMenuBase' => $estado), 
                 "idMenuBase = '{$data['id']}'");
         

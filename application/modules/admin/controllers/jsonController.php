@@ -6,7 +6,7 @@
  */
 class Admin_JsonController extends ZExtraLib_Controller_Action {
     
-    protected $_menu;
+    protected $_menu; 
     protected $_default;
     private $_sesion;
     
