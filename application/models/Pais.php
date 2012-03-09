@@ -20,6 +20,7 @@ class Application_Model_Pais extends ZExtraLib_Model {
                     ->join(array('pi' => $this->_paisIdioma->getName()), 'pi.idPais = p.idPais', '')
                     ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = pi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma);
+            
             $result = $this->_pais->getAdapter()->fetchAssoc($result);
             $this->_cache->save($result, 'listaPais' . $idioma);
         }

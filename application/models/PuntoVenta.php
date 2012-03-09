@@ -63,7 +63,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
 
     function listarPuntoVenta() {
         if (!($result = $this->_cache->load('listarPuntoVenta'))) {
-            $result = $this->_puntoventa->getAdapter()
+            $select = $this->_puntoventa->getAdapter()
                     ->select()
                     ->from(array('pv' => $this->_puntoventa->getName()), array(
                         'c.nombreCiudad',
@@ -72,9 +72,11 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
                         'pv.telefonoPuntoVenta',
                         'pv.direccionPuntoVenta',
                         'pv.direccionWebPuntoVenta'))
-                    ->join(array('c' => $this->_ciudad->getName()), 'pv.idCiudad = c.idCiudad', '')
-                    ->query()
-                    ->fetchAll();
+                    ->join(array('c' => $this->_ciudad->getName()), 'pv.idCiudad = c.idCiudad', '');
+            //echo $select; exit;
+            $result = $select->query()->fetchAll();
+                    
+            $this->_cache->save($result, 'listarPuntoVentaConPortal');
         }
         return $result;
     }
@@ -102,8 +104,35 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         return $result;
     }
 
-    function insertarPtoVenta($idPtoVenta) {
+    function insertarPtoVenta($data) {
+        $punto = array(
+            'idPais' => $data['idPais'],
+            //'idCiudad' => $data['idCiudad'],
+            'nombrePuntoVenta' => $data['nombrePuntoVenta'],
+            'direccionPuntoVenta' => $data['direccionPuntoVenta'],
+            'telefonoPuntoVenta' => $data['telefonoPuntoVenta'],
+            'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
+                    
+        );
         
+        $this->_puntoventa->insert($punto); 
+        
+        $id = $this->_puntoventa->getAdapter()->lastInsertId();
+        $idiomObj = new Application_Model_Idioma();
+        $dtaIdioma = $idiomObj->getAllIdiomas();
+        
+        $idioma = array(
+                'idPuntoVenta' =>$id,
+                'nombrePuntoVenta' => $data['nombrePuntoVenta'],
+                'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
+            );
+        
+        foreach ($dtaIdioma as $value):
+            $idioma['idIdioma'] = $value['idIdioma'];
+            $this->_puntoventaIdioma->insert($idioma);
+        endforeach;
+        $this->_cache->save(array(), 'listarPuntoVentaConPortal');
+        return 1;
     }
 
     function eliminarPtoVenta($idPtoVenta) {

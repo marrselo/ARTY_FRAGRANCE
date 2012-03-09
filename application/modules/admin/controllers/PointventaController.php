@@ -1,10 +1,12 @@
 <?php
 
-class Admin_PointventaController
-        extends ZExtraLib_Controller_Action
-{
+class Admin_PointventaController extends ZExtraLib_Controller_Action{
+    private $_puntoventa;
+    
     public function init() {
         parent::init();
+        
+        $this->_puntoventa = new Application_Model_PuntoVenta;
         $this->modulo = new Application_Model_Modulo();
         $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
         
@@ -19,14 +21,15 @@ class Admin_PointventaController
         
         $this->view->idiomaDefault = isset($this->params['idlang'])? 
                                     $colIdioma[$this->params['idlang']] : 
-                                     $this->params['idmDefault'];
+                                    $this->params['idmDefault'];
         //print_r($this->view->idiomaDefault);exit;
         $this->pointventa = new Application_Model_PuntoVenta();       
     }
     public function indexAction()
     {
-        
         $this->view->colPointventa = $this->pointventa->listarPuntoVenta();
+        
+        
     }
     public function editarAction()
     {
@@ -67,9 +70,19 @@ class Admin_PointventaController
         //$this->view->detallePtoVenta[0]['idPais'];
     }
     function newPointAction(){
-        $idIdioma = $this->view->idiomaDefault['idIdioma']; 
-        $pais = new Application_Model_Pais();
-        $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);   
+        
+        if(!empty($_POST)){
+            
+            $action = $this->_puntoventa->insertarPtoVenta($_POST);
+            if($action == '1')
+                $this->_redirect ('/admin/pointventa/index/idMenu/7');
+            
+        }else{
+            $idIdioma = $this->view->idiomaDefault['idIdioma']; 
+            $pais = new Application_Model_Pais();
+            $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);       
+        }
+        
     }
     
 }
