@@ -12,9 +12,14 @@ class Application_Form_FormPhoto extends Zend_Form {
         $e->setRequired(true);
         $this->addElement($e);
 
+        $fc = Zend_Controller_Front::getInstance();
+        $array = $fc->getParam('bootstrap')->getOption('file');
+        $destination = $array['ruta3']==''?APPLICATION_PATH. '/../public/imagen-producto/':$array['ruta3'];
+
+        
         $element = new Zend_Form_Element_File('nombreFoto');
         $element->setLabel('Cargar Imagen:')
-                ->setDestination(APPLICATION_PATH. '/../public/imagen-producto/');
+                ->setDestination($destination);
         $element->addValidator('Count', false, 1);
         $element->addValidator('Size', false, 409600);        
         $element->addValidator('Extension', false, 'jpg,png,gif');
