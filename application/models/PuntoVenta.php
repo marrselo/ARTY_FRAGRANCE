@@ -107,7 +107,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
     function insertarPtoVenta($data) {
         $punto = array(
             'idPais' => $data['idPais'],
-            //'idCiudad' => $data['idCiudad'],
+            'idCiudad' => 1,
             'nombrePuntoVenta' => $data['nombrePuntoVenta'],
             'direccionPuntoVenta' => $data['direccionPuntoVenta'],
             'telefonoPuntoVenta' => $data['telefonoPuntoVenta'],
