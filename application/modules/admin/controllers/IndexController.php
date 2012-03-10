@@ -15,7 +15,6 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
             $default = $this->params['idmDefault']['idIdioma'];
             $idioma = $this->_getParam('idlang', $default);
             $this->_sesion->lg = $idioma;
-
             $dta = $this->idioma->getIdiomaSelect($this->_sesion->lg);
             $this->_sesion->name = $dta['NombreIdioma'];
             $this->_sesion->abr = $dta['PrefIdioma'];
