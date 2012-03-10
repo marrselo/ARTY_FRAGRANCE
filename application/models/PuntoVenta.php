@@ -124,12 +124,12 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         
         $this->_puntoventa->insert($punto); 
         
-        //$id = $this->_puntoventa->getAdapter()->lastInsertId();
+        $id = $this->_puntoventa->getAdapter()->lastInsertId();
         $idiomObj = new Application_Model_Idioma();
         $dtaIdioma = $idiomObj->getAllIdiomas();
         
         $idioma = array(
-            'idPuntoVenta' => $this->_puntoventa->getAdapter()->lastInsertId(),
+            'idPuntoVenta' => $id,
             'nombrePuntoVenta' => $data['nombrePuntoVenta'],
             'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
         );
