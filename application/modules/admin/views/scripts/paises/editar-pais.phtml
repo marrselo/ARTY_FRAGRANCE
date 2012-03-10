@@ -1,0 +1,143 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Liste Point Vente</a> &gt; <a class="actualités" href="<?php $this->baseUrl()?>/admin/index/actualites/"><?php echo $this->params['action']?></a> &gt; Modifier               
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody><tr>
+                                        <td>
+                                            Version actuel: 
+                                            <strong><?php echo $this->idiomaDefault['NombreIdioma'] ?></strong>
+                                            &nbsp;&nbsp;&nbsp;
+                                            Langue disponible:
+
+                                        </td>
+                                        <td>
+                                            <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
+                                                <select onchange="getComboIdioma(this.value)" id="lang_code" name="lang_code">
+                                                    <?php
+                                                    foreach ($this->colIdioma as $index => $value):
+                                                        if (isset($this->idioma->lg)) {
+                                                            $selected = ($value['idIdioma'] == $this->idioma->lg) ? 'selected' : '';
+                                                        } else {
+                                                            $selected = ($value['FlagDefaultIdioma'] == 1) ? 'selected' : '';
+                                                        }
+                                                        ?>
+                                                        <option <?php echo $selected ?> title="/images/flags/<?php echo $value['PrefIdioma'] ?>.png" value="<?php echo $value['idIdioma'] ?>">
+                                                            <?php echo $value['NombreIdioma'] ?>
+                                                        </option>
+
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="dd" id="lang_code_msdd" style="width: 73px;">
+                                                <?php echo $this->idiomaDefault['PrefIdioma'] ?>.png
+                                                <div class="ddTitle" id="lang_code_title">
+                                                    <span class="arrow" id="lang_code_arrow" style="background-position: 0pt 0pt;"></span>
+                                                    <span id="lang_code_titletext" class="textTitle">
+                                                        <img align="left" src="/images/flags/<?php echo $this->idiomaDefault['PrefIdioma'] ?>.png"><?php echo $this->idiomaDefault['NombreIdioma'] ?>
+                                                    </span>
+                                                </div>
+                                                <?php
+                                                foreach ($this->colIdioma as $index => $value):
+                                                    if (isset($this->idioma->lg)) {
+                                                        $enabled = ($value['idIdioma'] == $this->idioma->lg) ? 'enabled' : '';
+                                                    } else {
+                                                        $enabled = ($value['FlagDefaultIdioma'] == 1) ? 'enabled' : '';
+                                                    }
+                                                    ?>
+                                                    <div class="ddChild" id="lang_code_child" style="width: 71px;">               
+                                                        <a id="lang_code_msa_<?php echo $index ?>" style="undefined" class="selected <?php echo $enabled ?>" href="javascript:void(0);">
+                                                            <img align="left" src="/images/flags/<?php echo $value['PrefIdioma'] ?>.png"> <?php echo $value['NombreIdioma'] ?>
+                                                        </a>
+                                                    <?php endforeach; ?>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+
+
+                        </div>        
+                        <div class="table_admin_foot"></div>
+                    </div>
+
+
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" class="table_admin_body">
+                            <input type="hidden" value="3" name="id">
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                <tbody>
+                                    <tr><th colspan="2">
+                                        </th></tr>
+                                    
+                                    <tr><th colspan="2">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Cod : *</td>
+                                        <td align="left" width="80%"> 
+                                            <input type="hidden" name="idPais" value="<?php echo $this->data['idPais']?>" />
+                                            
+                                            <input type="text" value="<?php echo $this->data['idPais']?>"  size="20" name="hidPais" disabled="disabled" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Nom : *</td>
+                                        <td align="left" width="80%">
+                                            <input type="text" value="<?php echo $this->data['nombrePaisIdioma']?>" class="required" size="40" maxlength="100" name="nombrePaisIdioma" />
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <input type="submit" value="Valider" name="">
+                                            <input type="button" onclick="location.href='/admin/pointventa';" value="Back" name="cancel">    </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="table_admin_foot"></div>
+                    </div>
+                </form>
+                <script>
+                    contenido_textarea = ""
+                    num_caracteres_permitidos = 5000
+                    function valida_longitud(){
+                        num_caracteres = document.forms[0].description.value.length
+	
+                        if (num_caracteres == num_caracteres_permitidos){
+                            contenido_textarea = document.forms[0].description.value	
+                        }else{
+                            document.forms[0].description.value = contenido_textarea
+                        }
+                    }
+
+                </script>
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>
+
+<script>
+
+function getComboIdioma(value){
+    var urls = document.URL;
+    var data = urls.split('/idlang/');
+    location.href = data[0] + '/idlang/' +  value
+}
+</script>

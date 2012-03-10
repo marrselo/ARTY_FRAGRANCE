@@ -2,82 +2,83 @@
 
 class Admin_PaisesController extends ZExtraLib_Controller_Action {
 
-    private $_puntoventa;
-    public $_default;
     public $_pais;
+    private $_sesion;
+    public $_default;
     public function init() {
         parent::init();
-
-        $this->_puntoventa = new Application_Model_PuntoVenta;
-     
-        $this->pointventa = new Application_Model_PuntoVenta();
-        
         $this->_pais = new Application_Model_Pais();
+        $this->idioma = new Application_Model_Idioma();
+        $this->params = $this->_getAllParams();
+        $this->_default = $this->params['idmDefault']['idIdioma'];
         
+        $this->_sesion = new Zend_Session_Namespace('web');
+     
+        if(isset($this->params['idlang'])):
+            $default = $this->params['idmDefault']['idIdioma'];
+            $idioma = $this->_getParam('idlang', $default);
+            $this->_sesion->lg = $idioma;
+
+            $dta = $this->idioma->getIdiomaSelect($this->_sesion->lg);
+            $this->_sesion->name = $dta['NombreIdioma'];
+            $this->_sesion->abr = $dta['PrefIdioma'];
+
+        else:
+            if(empty($this->_sesion->lg)){
+                
+                $this->_sesion->lg = $this->params['idmDefault']['idIdioma'];
+                $this->_sesion->name = $this->params['idmDefault']['NombreIdioma'];
+                $this->_sesion->abr = $this->params['idmDefault']['PrefIdioma'];
+
+            }
+        endif;
+        
+        $this->view->idioma = $this->_sesion;
     }
 
     public function indexAction() {
         $this->view->data = $this->_pais->listaPais();
     }
 
-    public function editarAction() {
-        $idIdioma = $this->view->idiomaDefault['idIdioma'];
-        $pais = new Application_Model_Pais();
-        $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);
-
-        $idPtoVenta = (!empty($this->params['idPtoVenta'])) ? $this->params['idPtoVenta'] : '';
-        if ($idPtoVenta == "") {
-            $idPtoVenta = $this->session->idPtoVenta;
-        } else {
-            $this->session->idPtoVenta = $idPtoVenta;
-        }
-
-        $this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma($idPtoVenta, $idIdioma);
+    public function editarPaisAction() {
+        
+        //$this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma($id, $idIdioma);
         if ($this->_request->isPost()) {
             $post = $this->getRequest()->getParams();
-            
-            $this->_puntoventa->updatePointVenta($post, $this->_default);
-            $this->_redirect('/admin/pointventa/index');
-           /*
-            $params = $this->_getAllParams();
+            $this->_pais->updatePais($post, $this->_default);
+            $this->_redirect('/admin/paises/');
+       
+        }else{
+            $this->params = $this->_getAllParams();
 
-            $idPuntoVenta = $params['idPuntoVenta'];
-            $idPuntoVentaIdioma = $params['idPuntoVentaIdioma'];
-            $data = array();
-            $data2 = array();
+            $idIdioma = $this->params['idmDefault'];
 
-            $data['idIdioma'] = $params['idIdioma2'];
-            $data['nombrePuntoVenta'] = $params['nombrePuntoVenta'];
-            $data['direccionWebPuntoVenta'] = $params['web'];
+            $this->view->colPais = $this->_pais->listarPaisPorIdioma($this->_sesion->lg);
+
+            $data = $this->_pais->getPais($this->params['id'],$this->_sesion->lg);
+            $this->view->data = $data;
             
-            $data2['direccionPuntoVenta'] = $params['direccionPuntoVenta'];
-            $data2['telefonoPuntoVenta'] = $params['telefono'];
+            foreach ($this->idioma->getAllIdiomas() as $ind => $val) {
+                $colIdioma[$val['idIdioma']] = $val;
+            };
             
-            
-            $ptoVentaIdioma->modificarPtoVentaIdioma($data, $idPuntoVentaIdioma);
-            if ($params['idmDefault']['idIdioma'] == $params['idIdioma2']) {
-                $data2['idPais'] = $params['idPais'];
-                $data2['idCiudad'] = $params['idCiudad'];
-                $data2['nombrePuntoVenta'] = $data['nombrePuntoVenta'];
-                $data2['direccionWebPuntoVenta'] = $params['web'];
-                $this->pointventa->modificarPtoVenta($data2, $idPtoVenta);
-            }
-            $this->_redirect('/admin/pointventa/index');*/
+            $this->view->params = $this->params;
+            $this->view->colIdioma = $colIdioma; // $this->idioma->getAllIdiomas();
         }
         //$this->view->detallePtoVenta[0]['idPais'];
     }
 
-    function newPointAction() {
+    function newPaisAction() {
 
         if (!empty($_POST)) {
 
-            $action = $this->_puntoventa->insertarPtoVenta($_POST);
+            $action = $this->_pais->insertData($_POST);
             if ($action == '1')
-                $this->_redirect('/admin/pointventa/index/idMenu/7');
+                $this->_redirect('/admin/paises/');
         }else {
-            $idIdioma = $this->view->idiomaDefault['idIdioma'];
-            $pais = new Application_Model_Pais();
-            $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);
+            $idIdioma = $this->params['idmDefault'];
+
+            $this->view->colPais = $this->_pais->listarPaisPorIdioma($this->_sesion->lg);
         }
     }
     
@@ -88,7 +89,7 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
         
         switch ($case):
             case 'delete':
-                $action = $this->_puntoventa->deleteData($_POST);
+                $action = $this->_pais->deleteData($_POST);
                 echo $action;
                 break;
         endswitch;
