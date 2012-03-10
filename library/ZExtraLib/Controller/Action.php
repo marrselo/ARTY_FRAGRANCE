@@ -15,6 +15,13 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     public function init() {
         parent::init();
         
+        
+        define('CAlertMenuON', 'Est-vous sûr de voiloir cacher ce lien?');
+        define('CAlertMenuOFF', 'Est-vous sûr de voiloir montrer ce lien?');
+        
+        define('CTitleMenuOFF', 'Montrer ce lien');
+        define('CTitleMenuON', 'Cacher ce lien');
+        
         $this->headMeta();
         $this->setAtributes();
         $this->_identity = Zend_Auth::getInstance()->getIdentity();
