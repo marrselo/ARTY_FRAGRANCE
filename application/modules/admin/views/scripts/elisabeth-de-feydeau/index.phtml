@@ -1,13 +1,17 @@
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('parrafo');
+}
+</script>
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
-            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
-        </div>
-        <div id="main">
-            <!--   <h2 class="top"></h2>-->
-            <div id="form">
-                <form id="frmActualites" enctype="multipart/form-data" method="post" action="">
-                    <div class="table_admin">
+            <a class="modules" href="<?php //$this->baseUrl() ?>/admin/collection/index">Collections</a> &gt; <a class="actualités" href="<?php //$this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; New
+            <div id="main">
+                <!--   <h2 class="top"></h2>-->
+                <div id="form">
+                        <div class="table_admin">
                         <div class="table_admin_head"></div>
                         <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
                             <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -65,100 +69,61 @@
                                             </div>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                </tbody></table>
 
 
                         </div>        
                         <div class="table_admin_foot"></div>
                     </div>
-                    <!-- End Language -->
-                    <div class="table_admin">
-                        <div class="table_admin_head"></div>
-                        <div align="center" class="table_admin_body">
-                            <input type="hidden" value="9" name="id">
-                            <table width="100%" cellspacing="0" cellpadding="0" border="0"><?php //class="table_form";?>
-                                <tbody>
-                                    <?php foreach ($this->data as $value):
-                                       
-                                        if((int)$value['estadoMenuBase'] == 1):
-                                            $css = "shadow";
-                                            $alert = CAlertMenuOFF;
-                                            $title = CTitleMenuOFF;
-                                        else:
-                                            $css = 'column-admin';
-                                            $alert = CAlertMenuOFF;
-                                            $title = CTitleMenuOFF;
-                                        endif;
-                                        ?>
-                                        <tr class="<?php echo $css;?>">
-                                            <td width="40%"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></td>
-                                            <td width="45%"><?php echo $value['nombreMenu'];?></td>
-                                            <td align="right" width="15%">
-                                               <a href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Modifier">
-                                                    <img border="0" src="/images/icons/edit.gif">
-                                               </a>
-<!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
-                                                    <img border="0" title="<?php echo $title;?>" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $value['idMenuBase']?>','<?php echo $alert;?>')" style="cursor: pointer;" >
-<!--                                                </a>-->
-
+                        
+                        
+                        <div class="table_admin">                            
+                            <div class="table_admin_head"></div>
+                            <div align="center" class="table_admin_body">                                
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                    <tbody>
+                                        <tr><th colspan="2">
+                                            </th></tr>
+                                        <tr>
+                                            <td align="left" width="20%">Title *</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->titulo; ?>
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                                <tfoot>
-                                <div id="menu-action" class="menu-action"></div>
-                                </tfoot>
-                            </table>
+                                        
+                                        <tr>
+                                            <td align="left" width="20%">Imagen *</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->fotoPrincipal; ?>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td align="left" width="14%" valign="top">Description *</td>
+                                            <td align="left" colspan="2">                                                
+                                                <?php echo $this->form->parrafo; ?>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td align="right" valign="bottom" colspan="3">
+                                                <?php echo $this->form->submit?>
+                                                <input type="button" onclick="location.href='/admin/index/collections/idMenu/3';" value="Annuler" name="cancel">    
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="table_admin_foot"></div>
                         </div>
-                        <div class="table_admin_foot"></div>
-                    </div>
-                </form>
-
-                <!-- jQuery -->
+                               
+                </div>
             </div>
+
+            <!-- <div id="options" class="column" >
+                                 </div>-->
+
         </div>
-
-        <!-- <div id="options" class="column" >
-                             </div>-->
-
-    </div>
 </td>
-<script type="text/javascript">
-  
-    function deleteMenu(id,mensaje){
-
-        confirmacion=confirm(mensaje);
-        if(confirmacion){
-            $.ajax({
-                data:'id=' + id,
-                async:1,
-                type:"POST",dataType:"html",
-                contentType: "application/x-www-form-urlencoded",
-                url:"/admin/index/ajax/case/deleteMenu",
-                beforeSend:beforedel,
-                success:successdel,
-                timeout:80000,
-                error:errordel 
-            });
-        }
-    }
-    
-    function beforedel(){
-        $("#menu-action").html("<img src='/images/cargando.gif'>");
-    }
-
-    function successdel(datos){
-         $("#menu-action").html('');
-        location.href = document.URL
-    }
-
-    function errordel(){
-        $("#menu-action").text("Problemas en el servidor.");
-    } 
-    
-    function getComboIdioma(value){
-        
-        location.href='<?php echo $this->baseUrl() . '/' . $this->params['module'] . '/' . $this->params['controller'] . '/' . $this->params['action'] ?>/idlang/'+ value
-    }
-</script>
