@@ -18,7 +18,6 @@ class Application_Plugin_Langselector
         $request->setParam('idms', $arrayIdiomas);
         $request->setParam('idmDefault', $dataIdiomaDefault);
         $request->setParam('lang', $lang);
-        //print_r($request->getParams());
     }
 }
 ?>
