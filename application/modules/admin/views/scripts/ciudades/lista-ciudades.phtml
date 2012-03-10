@@ -28,20 +28,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php if(is_array($this->data)):
-                                                    foreach($this->data as $val):?>
+                                               
+                                                foreach($this->data as $val):?>
                                                 <tr class="shadow">
                                                     <td width="85%"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
-                                                            <?php echo $val['nombrePais'] ?></td>
+                                                            <?php echo $val['nombreCiudad'] ?></td>
                                                   
                                                     <td align="center" width="15%">
-                                                        <a href="<?php echo $this->baseUrl()?>/admin/paises/editar-pais/id/<?php echo $val['idPais']?>">
+                                                        <a href="<?php echo $this->baseUrl()?>/admin/paises/editar-pais/id/<?php echo $val['idCiudad']?>">
                                                             <img border="0" src="/images/icons/edit.gif" title="Modifier">
                                                         </a>
-                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $val['idPais']?>')" style="cursor: pointer;" >
+                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteAction('<?php echo $val['idCiudad']?>')" style="cursor: pointer;" >
                                                     </td>
                                                 </tr>
-                                                <?php endforeach; endif;?>
+                                               
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -68,3 +68,38 @@
         </div>        
     </div>
 </td>
+
+<script>
+
+
+    function deleteMenu(id){
+
+        confirmacion=confirm("Etes-vous sûr de vouloir supprimer l'enregistrement?");
+        if(confirmacion){
+            $.ajax({
+                data:'id=' + id,
+                async:1,
+                type:"POST",dataType:"html",
+                contentType: "application/x-www-form-urlencoded",
+                url:"/admin/paises/ajax/case/delete",
+                beforeSend:beforedel,
+                success:successdel,
+                timeout:80000,
+                error:errordel 
+            });
+        }
+    }
+    
+    function beforedel(){
+        $("#menu-action").html("<img src='/images/cargando.gif'>");
+    }
+
+    function successdel(datos){
+         $("#menu-action").html(datos);
+        location.href = document.URL
+    }
+
+    function errordel(){
+        $("#menu-action").text("Problemas en el servidor.");
+    } 
+</script>

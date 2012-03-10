@@ -84,12 +84,12 @@ class Application_Model_Pais extends ZExtraLib_Model {
         
         $this->_pais->insert($pais); 
         
-        //$id = $this->_puntoventa->getAdapter()->lastInsertId();
+        $id = $this->_pais->getAdapter()->lastInsertId();
         $idiomObj = new Application_Model_Idioma();
         $dtaIdioma = $idiomObj->getAllIdiomas();
         
         $idioma = array(
-            'idPais' => $this->_pais->getAdapter()->lastInsertId(),
+            'idPais' => $id,
             'nombrePaisIdioma' => $data['nombrePais']
         );
         
