@@ -12,12 +12,12 @@ CKEDITOR.replace('parrafo');
                 <!--   <h2 class="top"></h2>-->
                 <div id="form">
                         <?php 
-                                echo $this->render(
-                                'render/listaIdioma.phtml',
+                            echo $this->render('render/listaIdioma.phtml',
                                 array(
                                     'idms' => $this->idms,
                                     'lang' => $this->lang,
-                                    ));
+                                )
+                            );
                         ?>
                         <div class="table_admin">                            
                             <div class="table_admin_head"></div>
