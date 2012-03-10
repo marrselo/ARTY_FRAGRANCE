@@ -49,7 +49,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
                 }else{
                     $this->setIdiomaAdmin();
                     $this->_layout->setLayout('layoutadmin');
-                    $this->view->lang = $this->sessionAdmin->idiomaDetaful;
+                    $this->view->lang = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
                 }
             }elseif($this->getRequest()->getControllerName() == 'login'){
                 $this->_layout->setLayout('layoutlogin');
@@ -101,7 +101,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     }
     protected function setIdiomaAdmin(){
         if(!isset($this->sessionAdmin->idiomaDetaful)){
-            $this->sessionAdmin->idiomaDetaful = $this->_params['idmDefault']['PrefIdioma'];
+            $this->sessionAdmin->idiomaDetaful = $this->_params['idmDefault'];
         }
     }
     protected function cleanCache(){
