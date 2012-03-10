@@ -15,7 +15,6 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
             $default = $this->params['idmDefault']['idIdioma'];
             $idioma = $this->_getParam('idlang', $default);
             $this->_sesion->lg = $idioma;
-
             $dta = $this->idioma->getIdiomaSelect($this->_sesion->lg);
             $this->_sesion->name = $dta['NombreIdioma'];
             $this->_sesion->abr = $dta['PrefIdioma'];
@@ -181,7 +180,6 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
         $this->_menuObj = new Application_Model_Menu();
         $idIdioma = $this->_getParam('idlang', 1);
         $data = $this->_menuObj->getMenu($idIdioma);
-        
         $this->view->data = $data;
     }
     

@@ -1,14 +1,17 @@
 <?php
 
-class Admin_PaisesController extends ZExtraLib_Controller_Action {
+class Admin_CiudadesController extends ZExtraLib_Controller_Action {
 
     public $_pais;
+    private $_ciudad;
     private $_sesion;
     public $_default;
     public function init() {
         parent::init();
         $this->_pais = new Application_Model_Pais();
+        $this->_pais = new Application_Model_Pais();
         $this->idioma = new Application_Model_Idioma();
+        $this->_ciudad = new Application_Model_Ciudad;
         $this->params = $this->_getAllParams();
         $this->_default = $this->params['idmDefault']['idIdioma'];
         
@@ -37,9 +40,14 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
     }
 
     public function indexAction() {
+
         $this->view->data = $this->_pais->listaPais();
     }
 
+    public function listaCiudadesAction(){
+        $this->view->data = $this->_ciudad->getListaCiudad($this->params['id']);
+    }
+            
     public function editarPaisAction() {
         
         //$this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma($id, $idIdioma);

@@ -12,5 +12,5 @@
  */
 class Application_Model_DbTable_PresseIdioma extends ZExtraLib_Db_Table
 {
-    protected  $_name = "presseIdioma";
+    protected  $_name = "presseidioma";
 }

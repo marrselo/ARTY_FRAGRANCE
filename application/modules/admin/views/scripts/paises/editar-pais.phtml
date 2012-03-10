@@ -1,12 +1,11 @@
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
-            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
-        </div>
+           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Liste Point Vente</a> &gt; <a class="actualités" href="<?php $this->baseUrl()?>/admin/index/actualites/"><?php echo $this->params['action']?></a> &gt; Modifier               
         <div id="main">
             <!--   <h2 class="top"></h2>-->
             <div id="form">
-                <form id="frmActualites" enctype="multipart/form-data" method="post" action="">
+                <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
                     <div class="table_admin">
                         <div class="table_admin_head"></div>
                         <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
@@ -14,16 +13,14 @@
                                 <tbody><tr>
                                         <td>
                                             Version actuel: 
-                                            <strong><?php echo $this->idioma->name ?></strong>
+                                            <strong><?php echo $this->idiomaDefault['NombreIdioma'] ?></strong>
                                             &nbsp;&nbsp;&nbsp;
                                             Langue disponible:
 
                                         </td>
                                         <td>
                                             <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
-
-                                                <select onchange="getComboIdioma(this.value);" id="lang_code" name="lang_code">
-
+                                                <select onchange="getComboIdioma(this.value)" id="lang_code" name="lang_code">
                                                     <?php
                                                     foreach ($this->colIdioma as $index => $value):
                                                         if (isset($this->idioma->lg)) {
@@ -49,8 +46,8 @@
                                                 </div>
                                                 <?php
                                                 foreach ($this->colIdioma as $index => $value):
-                                                    if (isset($this->params['idlang'])) {
-                                                        $enabled = ($value['idIdioma'] == $this->params['idlang']) ? 'enabled' : '';
+                                                    if (isset($this->idioma->lg)) {
+                                                        $enabled = ($value['idIdioma'] == $this->idioma->lg) ? 'enabled' : '';
                                                     } else {
                                                         $enabled = ($value['FlagDefaultIdioma'] == 1) ? 'enabled' : '';
                                                     }
@@ -65,57 +62,68 @@
                                             </div>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                </tbody></table>
 
 
                         </div>        
                         <div class="table_admin_foot"></div>
                     </div>
-                    <!-- End Language -->
+
+
                     <div class="table_admin">
                         <div class="table_admin_head"></div>
                         <div align="center" class="table_admin_body">
-                            <input type="hidden" value="9" name="id">
-                            <table width="100%" cellspacing="0" cellpadding="0" border="0"><?php //class="table_form";?>
+                            <input type="hidden" value="3" name="id">
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
                                 <tbody>
-                                    <?php foreach ($this->data as $value):
-                                       
-                                        if((int)$value['estadoMenuBase'] == 1):
-                                            $css = "shadow";
-                                            $alert = CAlertMenuOFF;
-                                            $title = CTitleMenuOFF;
-                                        else:
-                                            $css = 'column-admin';
-                                            $alert = CAlertMenuOFF;
-                                            $title = CTitleMenuOFF;
-                                        endif;
-                                        ?>
-                                        <tr class="<?php echo $css;?>">
-                                            <td width="40%"><img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png"><?php echo $value['nombreMenu'];?></td>
-                                            <td width="45%"><?php echo $value['nombreMenu'];?></td>
-                                            <td align="right" width="15%">
-                                               <a href="/admin/index/menueditar/id/<?php echo $value['idMenu']?>" title="Modifier">
-                                                    <img border="0" src="/images/icons/edit.gif">
-                                               </a>
-<!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
-                                                    <img border="0" title="<?php echo $title;?>" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $value['idMenuBase']?>','<?php echo $alert;?>')" style="cursor: pointer;" >
-<!--                                                </a>-->
+                                    <tr><th colspan="2">
+                                        </th></tr>
+                                    
+                                    <tr><th colspan="2">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Cod : *</td>
+                                        <td align="left" width="80%"> 
+                                            <input type="hidden" name="idPais" value="<?php echo $this->data['idPais']?>" />
+                                            
+                                            <input type="text" value="<?php echo $this->data['idPais']?>"  size="20" name="hidPais" disabled="disabled" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Nom : *</td>
+                                        <td align="left" width="80%">
+                                            <input type="text" value="<?php echo $this->data['nombrePaisIdioma']?>" class="required" size="40" maxlength="100" name="nombrePaisIdioma" />
+                                        </td>
+                                    </tr>
 
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
                                 </tbody>
                                 <tfoot>
-                                <div id="menu-action" class="menu-action"></div>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <input type="submit" value="Valider" name="">
+                                            <input type="button" onclick="location.href='/admin/pointventa';" value="Back" name="cancel">    </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
                         <div class="table_admin_foot"></div>
                     </div>
                 </form>
+                <script>
+                    contenido_textarea = ""
+                    num_caracteres_permitidos = 5000
+                    function valida_longitud(){
+                        num_caracteres = document.forms[0].description.value.length
+	
+                        if (num_caracteres == num_caracteres_permitidos){
+                            contenido_textarea = document.forms[0].description.value	
+                        }else{
+                            document.forms[0].description.value = contenido_textarea
+                        }
+                    }
 
-                <!-- jQuery -->
+                </script>
             </div>
         </div>
 
@@ -124,41 +132,12 @@
 
     </div>
 </td>
-<script type="text/javascript">
-  
-    function deleteMenu(id,mensaje){
 
-        confirmacion=confirm(mensaje);
-        if(confirmacion){
-            $.ajax({
-                data:'id=' + id,
-                async:1,
-                type:"POST",dataType:"html",
-                contentType: "application/x-www-form-urlencoded",
-                url:"/admin/index/ajax/case/deleteMenu",
-                beforeSend:beforedel,
-                success:successdel,
-                timeout:80000,
-                error:errordel 
-            });
-        }
-    }
-    
-    function beforedel(){
-        $("#menu-action").html("<img src='/images/cargando.gif'>");
-    }
+<script>
 
-    function successdel(datos){
-         $("#menu-action").html('');
-        location.href = document.URL
-    }
-
-    function errordel(){
-        $("#menu-action").text("Problemas en el servidor.");
-    } 
-    
-    function getComboIdioma(value){
-        
-        location.href='<?php echo $this->baseUrl() . '/' . $this->params['module'] . '/' . $this->params['controller'] . '/' . $this->params['action'] ?>/idlang/'+ value
-    }
+function getComboIdioma(value){
+    var urls = document.URL;
+    var data = urls.split('/idlang/');
+    location.href = data[0] + '/idlang/' +  value
+}
 </script>

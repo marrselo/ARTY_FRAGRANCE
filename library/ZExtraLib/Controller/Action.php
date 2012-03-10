@@ -28,6 +28,10 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->view->identity = $this->_identity;
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         
+        $this->view->idms = $this->_params['idms'];   
+        $this->view->idmDefault = $this->_params['idmDefault'];
+        $this->view->lang = $this->_params['lang'];   
+        
         if ($this->getRequest()->getModuleName() == 'default') {
             if ($this->getRequest()->getControllerName() != 'index') {
                 $this->view->menuSup = $this->loadMenuIdioma($this->_params['lang'], 1);
@@ -36,9 +40,6 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
             } else {
                 $this->setLayout('layout-index');
             }
-            $this->view->idms = $this->_params['idms'];   
-            $this->view->idmDefault = $this->_params['idmDefault'];
-            $this->view->lang = $this->_params['lang'];   
 
         }else { 
             if ($this->getRequest()->getModuleName() == 'admin' && $this->getRequest()->getControllerName() != 'login') {
@@ -46,7 +47,9 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
                     $this->_redirect('/admin/login');
                     $this->_layout->setLayout('layoutlogin');
                 }else{
+                    $this->setIdiomaAdmin();
                     $this->_layout->setLayout('layoutadmin');
+                    $this->view->lang = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
                 }
             }elseif($this->getRequest()->getControllerName() == 'login'){
                 $this->_layout->setLayout('layoutlogin');
@@ -68,7 +71,8 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
 
     private function setAtributes() {
         $this->_params = $this->_getAllParams();
-        $this->session = (!isset($this->session)) ? new Zend_Session_Namespace('dojo') : null;
+        //$this->session = (!isset($this->session)) ? new Zend_Session_Namespace('webArty') : null;
+        $this->sessionAdmin = (!isset($this->session)) ? new Zend_Session_Namespace('admin') : null;
         $this->_identity = Zend_Auth::getInstance()->getIdentity();
         $this->view->identity = $this->_identity;
         $this->_layout = Zend_Layout::getMvcInstance();
@@ -94,6 +98,11 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->view->headMeta()->setProperty('og:image', 'http://deliverypremiumsac.com/f/img/logo.png');
         $this->view->headMeta()->setProperty('og:site_name', 'Delivery Premium');
         $this->view->headMeta()->setProperty('og:admins', '698823485');
+    }
+    protected function setIdiomaAdmin(){
+        if(!isset($this->sessionAdmin->idiomaDetaful)){
+            $this->sessionAdmin->idiomaDetaful = $this->_params['idmDefault'];
+        }
     }
     protected function cleanCache(){
         $this->_cache = Zend_Registry::get('cache');

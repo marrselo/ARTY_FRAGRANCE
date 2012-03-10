@@ -12,5 +12,5 @@
  */
 class Application_Model_DbTable_BlogFotos extends ZExtraLib_Db_Table
 {
-    protected  $_name = "blogFotos";
+    protected  $_name = "blogfotos";
 }

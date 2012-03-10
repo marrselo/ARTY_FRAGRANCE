@@ -35,4 +35,70 @@ class Application_Model_Pais extends ZExtraLib_Model {
         //echo $select; exit;
         return $select->query()->fetchAll();
     }
+    
+    public function getPais($id, $idioma){
+        $select = $this->_pais->getAdapter()->select();
+        $select->from(array('t1' => 'pais'), 
+                array('idPais'))
+                ->join(array('t2' => 'paisidioma'),'t1.idPais = t2.idPais', 
+                        array('nombrePaisIdioma','idIdioma'))
+                ->where('t1.idPais = ?',$id)
+                ->where('idIdioma = ?',$idioma);
+        //echo $select; exit;
+        return $select->query()->fetch();
+    }
+    
+    public function updatePais($data){
+         $idioma = array(
+            'nombrePaisIdioma' => $data['nombrePaisIdioma']
+        );
+        
+        $where = "idPais = '{$data['idPais']}' and idIdioma = '{$data['lang_code']}'";
+        $this->_paisIdioma->update($idioma, $where); 
+        if($default == $data['lang_code']){
+            $punto = array(
+                'nombrePais' => $data['nombrePaisIdioma']
+            );
+            $where = "idPais = '{$data['idPais']}'";
+            $this->_pais->update($punto, $where); 
+        }
+        
+        //$this->clearCache();
+        
+        return 1;
+    }
+    
+    
+    public function deleteData($data){
+         $this->_paisIdioma->delete("idPais = '{$data['id']}'");
+        
+        $this->_pais->delete("idPais = '{$data['id']}'");
+        $action = $this->resultTransaccion('1', '', 'Registro eliminado Correctamente', '');
+        return $action;
+    }
+    
+    public function insertData($data){
+         $pais = array(
+            'nombrePais' => $data['nombrePais']
+        );
+        
+        $this->_pais->insert($pais); 
+        
+        $id = $this->_pais->getAdapter()->lastInsertId();
+        $idiomObj = new Application_Model_Idioma();
+        $dtaIdioma = $idiomObj->getAllIdiomas();
+        
+        $idioma = array(
+            'idPais' => $id,
+            'nombrePaisIdioma' => $data['nombrePais']
+        );
+        
+        foreach ($dtaIdioma as $value):
+            $idioma['idIdioma'] = $value['idIdioma'];
+            $this->_paisIdioma->insert($idioma);
+        endforeach;
+        //$this->_cache->save(array(), 'listarPuntoVentaConPortal');
+        return 1;
+    }
+    
 }
