@@ -29,9 +29,11 @@ class Application_Form_FormArt extends Zend_Form {
                       array('target' => $this->_foo.'.'.$originalFilename['extension']))
                    );*/
         //$this->addElement($e);
+        $frontController = Zend_Controller_Front::getInstance();
+        $file = $frontController->getParam('bootstrap')->getOption('file');
         $element = new Zend_Form_Element_File('fotoPrincipal');
         $element->setLabel('Cargar Imagen:')
-                ->setDestination(APPLICATION_PATH. '/../public/imagen-articulo/');
+                ->setDestination($file["ruta"]);
         $element->addValidator('Count', false, 1);
         $element->addValidator('Size', false, 409600);        
         $element->addValidator('Extension', false, 'jpg,png,gif');

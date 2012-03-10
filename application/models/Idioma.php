@@ -26,7 +26,13 @@ class Application_Model_Idioma extends ZExtraLib_Model {
         return $result;
     }
     
-    
+    public function getIdiomaSelect($idioma){
+        $select = $this->_idioma->getAdapter()->select();
+        $select->from(array('t1' => 'idioma'), array('idIdioma','PrefIdioma', 'NombreIdioma','icono'))
+               ->where('idIdioma = ? ', $idioma);
+        $result = $select->query()->fetch();
+        return $result;
+    }
 
     public function getIdiomaDefault() {
         if (!($result = $this->_cache->load('listaIdiomaDefault'))) {
@@ -44,6 +50,22 @@ class Application_Model_Idioma extends ZExtraLib_Model {
         $this->clearCache('listaIdiomas');
         return $this->_idioma->getAdapter()->lastInsertId();
     }
+    /*
+    public function getComboIdioma($data){
+        $default = $data['idmDefault']['idIdioma'];
+        $dtaIdioma = $this->getAllIdiomas();
+        var_dump($dtaIdioma,$default); exit;
+        $html = '';
+        foreach($dtaIdioma as $value):
+            //$value = '';
+            if($default == $value['idIdioma'])
+                $select = 'selected';
+            else
+                $select = '';
+            $html .= '<option '.$select.' title="images/flags" value="'.$value['idIdioma'].'">'.$value['NombreIdioma'].'</option>';
+        endforeach;
+        return $html;
+    }*/
 
 }
 

@@ -1,0 +1,16 @@
+/* 
+    Document   : styles
+    Created on : 08/03/2012, 12:16:07 PM
+    Author     : JMIKE
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.column-admin{
+    background-color: #FFE9E8; 
+}
+
+.menu-action{
+    color: #2F6FAB;
+    font-weight: bold;
+}

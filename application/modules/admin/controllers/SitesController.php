@@ -1,7 +1,6 @@
 <?php
 
-class Admin_SitesController
-        extends ZExtraLib_Controller_Action
+class Admin_SitesController extends ZExtraLib_Controller_Action
 {
     public function init() {
         parent::init();

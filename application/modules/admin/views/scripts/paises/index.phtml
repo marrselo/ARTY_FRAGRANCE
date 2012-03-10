@@ -19,7 +19,7 @@
                                             <thead>
                                                 <tr>
                                                     <th align="left">Intitulé </th>
-                                                    <th align="left">Adresse</th>
+                                                   
                                                     <th align="center">Actions</th>
                                                 </tr>
                                                 <tr>
@@ -28,17 +28,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php if(is_array($this->colPointventa)):
-                                                    foreach($this->colPointventa as $val):?>
+                                                <?php if(is_array($this->data)):
+                                                    foreach($this->data as $val):?>
                                                 <tr class="shadow">
-                                                    <td width="40%"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
-                                                            <?php echo $val['nombrePuntoVenta'] ?></td>
-                                                    <td width="45%"><?php echo $val['nombreCiudad'].'--->'.$val['direccionPuntoVenta']?> </td>
+                                                    <td width="85%"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
+                                                            <?php echo $val['nombrePais'] ?></td>
+                                                  
                                                     <td align="center" width="15%">
-                                                        <a href="<?php echo $this->baseUrl()?>/admin/pointventa/editar/idPtoVenta/<?php echo $val['idPuntoVenta']?>">
+                                                        <a href="<?php echo $this->baseUrl()?>/admin/pointventa/editar/idPtoVenta/<?php echo $val['idPais']?>">
                                                             <img border="0" src="/images/icons/edit.gif" title="Modifier">
                                                         </a>
-                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $val['idPuntoVenta']?>')" style="cursor: pointer;" >
+                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $val['idPais']?>')" style="cursor: pointer;" >
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; endif;?>
