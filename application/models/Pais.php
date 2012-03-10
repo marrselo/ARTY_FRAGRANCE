@@ -12,6 +12,7 @@ class Application_Model_Pais extends ZExtraLib_Model {
         $this->_paisIdioma = new Application_Model_DbTable_PaisIdioma();
     
     }
+    
     function listarPaisPorIdioma($idioma) {
         if (!($result = $this->_cache->load('listaPais' . $idioma))) {
             $result = $this->_pais->getAdapter()
@@ -25,5 +26,13 @@ class Application_Model_Pais extends ZExtraLib_Model {
             $this->_cache->save($result, 'listaPais' . $idioma);
         }
         return $result;
+    }
+    
+    public function listaPais(){
+        $select = $this->_pais->getAdapter()->select();
+        $select->from(array('t1' => 'pais'), 
+                array('idPais','nombrePais'));
+        //echo $select; exit;
+        return $select->query()->fetchAll();
     }
 }

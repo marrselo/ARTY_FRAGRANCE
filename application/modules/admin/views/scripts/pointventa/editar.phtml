@@ -96,7 +96,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="left" width="20%">Titre *</td>
+                                        <td align="left" width="20%">Intitulé *</td>
                                         <td align="left" width="80%">
                                             <input type="hidden" name='idPuntoVenta' value="<?php echo $this->detallePtoVenta['idPuntoVenta']?>" />
                                             <input type="hidden" name="idPuntoVentaIdioma" value="<?php echo $this->detallePtoVenta['idPuntoVentaIdioma']?>" />
@@ -106,7 +106,7 @@
                                             <input type="text" value="<?php echo $this->detallePtoVenta['nombrePuntoVenta']?>" class="required" size="50" maxlength="100" id="title" name="nombrePuntoVenta"></td>
                                     </tr>
                                     <tr>
-                                        <td align="left" width="20%">Dirección *</td>
+                                        <td align="left" width="20%">Adresse *</td>
                                         <td align="left" width="80%">
                                             <input value='<?php echo $this->detallePtoVenta['direccionPuntoVenta']?>' type="text" size="50" name="direccionPuntoVenta" >
                                         </td>
@@ -121,7 +121,7 @@
                                      <tr>
                                         <td align="left" width="14%" valign="top">Web *</td>
                                         <td align="left" colspan="2">
-                                            <input type="text" size='50' value="<?php echo $this->detallePtoVenta['direccionWebPuntoVenta']?>" name="web">
+                                            <input type="text" size='50' value="<?php echo $this->detallePtoVenta['direccionWebPuntoVenta']?>" name="direccionWebPuntoVenta">
                                             <br><br>                                            
                                         </td>
                                     </tr>
@@ -131,7 +131,7 @@
                                     <tr>
                                         <td align="right" valign="bottom" colspan="3">
                                             <input type="submit" value="Valider" name="">
-                                            <input type="button" onclick="location.href='/mod_devenir/devenir/index/tipo/0';" value="Annuler" name="cancel">    </td>
+                                            <input type="button" onclick="location.href='/admin/pointventa';" value="Back" name="cancel">    </td>
                                     </tr>
                                 </tfoot>
                             </table>

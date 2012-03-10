@@ -82,7 +82,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
     }
 
     function detallePuntoVentaIdioma($idPtoVentaIdioma, $idIdioma) {
-        $result = $this->_puntoventaIdioma->getAdapter()
+        /*$select = $this->_puntoventaIdioma->getAdapter()
                 ->select()
                 ->from(array('pvi' => $this->_puntoventaIdioma->getName()), array(
                     'pvi.idPuntoVenta',
@@ -98,9 +98,17 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
                 ->join(array('pv' => $this->_puntoventa->getName()), 'pv.idPuntoVenta = pv.idPuntoVenta', '')
                 ->join(array('p' => $this->_pais->getName()), 'p.idPais = pv.idPais', '')
                 ->where('pvi.idIdioma = ? ', $idIdioma)
-                ->where('idPuntoVentaIdioma =?', $idPtoVentaIdioma)
-                ->query()
-                ->fetch();
+                ->where('idPuntoVentaIdioma =?', $idPtoVentaIdioma);*/
+        
+        $select = $this->_puntoventaIdioma->getAdapter()->select();
+        $select->from(array('t1' => 'puntoventa'), 
+                array('idPais','idCiudad','idPuntoVenta','telefonoPuntoVenta','direccionPuntoVenta'))
+                ->join(array('t2' => 'puntoventaIdioma'), 't1.idPuntoVenta = t2.idPuntoVenta and t2.idIdioma = ' . "'{$idIdioma}'", 
+                        array('nombrePuntoVenta','idPuntoVentaIdioma','idIdioma','direccionWebPuntoVenta'))
+                ->join(array('t3' => 'pais'), 't1.idPais = t3.idPais', array('nombrePais'))
+                ->where('t1.idPuntoVenta = ?',$idPtoVentaIdioma);
+        //echo $select; exit;
+        $result = $select->query()->fetch();
         return $result;
     }
 
@@ -112,20 +120,19 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
             'direccionPuntoVenta' => $data['direccionPuntoVenta'],
             'telefonoPuntoVenta' => $data['telefonoPuntoVenta'],
             'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
-                    
         );
         
         $this->_puntoventa->insert($punto); 
         
-        $id = $this->_puntoventa->getAdapter()->lastInsertId();
+        //$id = $this->_puntoventa->getAdapter()->lastInsertId();
         $idiomObj = new Application_Model_Idioma();
         $dtaIdioma = $idiomObj->getAllIdiomas();
         
         $idioma = array(
-                'idPuntoVenta' =>$id,
-                'nombrePuntoVenta' => $data['nombrePuntoVenta'],
-                'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
-            );
+            'idPuntoVenta' => $this->_puntoventa->getAdapter()->lastInsertId(),
+            'nombrePuntoVenta' => $data['nombrePuntoVenta'],
+            'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
+        );
         
         foreach ($dtaIdioma as $value):
             $idioma['idIdioma'] = $value['idIdioma'];
@@ -139,12 +146,47 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         
     }
 
-    function modificarPtoVenta($data,$idPtoVenta) {
-        $where = $this->_puntoventa
-                ->getAdapter()
-                ->quoteInto('idPuntoVenta = ?', $idPtoVenta);
-        $this->_puntoventa->update($data, $where);
+    function updatePointVenta($data,$default) {
+        //var_dump($data);exit;
+         $idioma = array(
+            'nombrePuntoVenta' => $data['nombrePuntoVenta'],
+            'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
+        );
+        
+        $where = "idPuntoVenta = '{$data['idPuntoVenta']}' and idIdioma = '{$data['idIdioma2']}'";
+        $this->_puntoventaIdioma->update($idioma, $where); 
+        
+        if($default == $data['idIdioma2']){
+            $punto = array(
+                'idPais' => $data['idPais'],
+                'idCiudad' => 1,
+                'nombrePuntoVenta' => $data['nombrePuntoVenta'],
+                'direccionPuntoVenta' => $data['direccionPuntoVenta'],
+                'telefonoPuntoVenta' => $data['telefonoPuntoVenta'],
+                'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
+            );
+            $where = "idPuntoVenta = '{$data['idPuntoVenta']}'";
+            $this->_puntoventa->update($punto, $where); 
+        }
+        
         //$this->clearCache();
+        
+        return 1;
+        
+//        $where = $this->_puntoventa->getAdapter()
+//                ->quoteInto('idPuntoVenta = ?', $idPtoVenta);
+//        $this->_puntoventa->update($data, $where);
+        //$this->clearCache();
+    }
+    
+    public function deleteData($data){
+        //Viendo el estado Actual
+       
+        $this->_puntoventaIdioma->delete("idPuntoVenta = '{$data['id']}'");
+        
+        $this->_puntoventa->delete("idPuntoVenta = '{$data['id']}'");
+        $action = $this->resultTransaccion('1', '', 'Registro eliminado Correctamente', '');
+        return $action;
     }
 
 }

@@ -1,36 +1,23 @@
 <?php
 
-class Admin_PointventaController extends ZExtraLib_Controller_Action {
+class Admin_PaisesController extends ZExtraLib_Controller_Action {
 
     private $_puntoventa;
     public $_default;
+    public $_pais;
     public function init() {
         parent::init();
 
         $this->_puntoventa = new Application_Model_PuntoVenta;
-        $this->modulo = new Application_Model_Modulo();
-        $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
-
-        $this->idioma = new Application_Model_Idioma();
-        foreach ($this->idioma->getAllIdiomas() as $ind => $val) {
-            $colIdioma[$val['idIdioma']] = $val;
-        };
-        $this->view->colIdioma = $colIdioma; // $this->idioma->getAllIdiomas();
-        $this->params = $this->_getAllParams();
-        
-        $this->_default = $this->params['idmDefault']['idIdioma'];
-
-        $this->view->params = $this->params;
-
-        $this->view->idiomaDefault = isset($this->params['idlang']) ?
-                $colIdioma[$this->params['idlang']] :
-                $this->params['idmDefault'];
-        //print_r($this->view->idiomaDefault);exit;
+     
         $this->pointventa = new Application_Model_PuntoVenta();
+        
+        $this->_pais = new Application_Model_Pais();
+        
     }
 
     public function indexAction() {
-        $this->view->colPointventa = $this->pointventa->listarPuntoVenta();
+        $this->view->data = $this->_pais->listaPais();
     }
 
     public function editarAction() {
