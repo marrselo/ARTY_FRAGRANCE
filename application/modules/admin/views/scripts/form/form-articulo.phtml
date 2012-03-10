@@ -1,0 +1,35 @@
+<form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+    <div class="table_admin">                            
+        <div class="table_admin_head"></div>
+        <div align="center" class="table_admin_body">                                
+            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                <tbody>
+                    <tr><th colspan="2">
+                        </th></tr>
+                    <tr>
+                        <td align="left" width="20%">Title *</td>
+                        <td align="left" width="80%">
+                            <?php echo $this->element->titulo; ?>
+                        </td>
+                    </tr>                                       
+                    <tr>
+                        <td align="left" width="14%" valign="top">Description *</td>
+                        <td align="left" colspan="2">                                                
+                            <?php ///echo// $this->form->parrafo; ?>
+                        </td>
+                    </tr>
+                        
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td align="right" valign="bottom" colspan="3">
+                            <?php echo $this->element->submit ?>
+                            <input type="button" onclick="location.href='/admin/index/collections/idMenu/3';" value="Annuler" name="cancel">    
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="table_admin_foot"></div>
+    </div>
+</form>            

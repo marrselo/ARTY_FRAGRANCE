@@ -1,30 +1,30 @@
-<?php 
-if ($this->pageCount&&count($this->pagesInRange)>1){?>
-    <div class="paginationControl">
-    <!-- Previous page link -->
-    <?php if (isset($this->previous)){?>
-      <a href="<?php echo $this->url(array('page'=> $this->previous)); ?>">&laquo; <?php echo $this->getTranslation('Anterior'); ?> </a> |
-    <?php }else{ ?>
-      <span class="disabled">&laquo; <?php echo $this->getTranslation('Anterior'); ?> </span>
-    <?php }?>
-
-    <!-- Numbered page links -->
-    <?php
-        foreach ($this->pagesInRange as $page){ ?>
-          <?php if ($page != $this->current){ ?>
-            <a href="<?php echo $this->url(array('page'
-            => $page)); ?>"><?php echo $page; ?></a>
-          <?php }else{ ?>
-            [<?php echo $page; ?>]
-          <?php } ?>
-        <?php }
-    ?>
-
-    <!-- Next page link -->
-    <?php if (isset($this->next)){ ?>
-      <a href="<?php echo $this->url(array('page'=> $this->next)); ?>"><?php echo $this->getTranslation('Siguiente'); ?>  &raquo;</a>
-    <?php }else{ ?>
-      <span class="disabled"><?php echo $this->getTranslation('Siguiente'); ?> &raquo;</span>
-    <?php } ?>
-    </div>
+<?php 
+if ($this->pageCount&&count($this->pagesInRange)>1){?>
+    <div class="paginationControl">
+    <!-- Previous page link -->
+    <?php if (isset($this->previous)){?>
+      <a href="<?php echo $this->url(array('page'=> $this->previous)); ?>">&laquo; <?php echo $this->getTranslation('Anterior'); ?> </a> |
+    <?php }else{ ?>
+      <span class="disabled">&laquo; <?php echo $this->getTranslation('Anterior'); ?> </span>
+    <?php }?>
+
+    <!-- Numbered page links -->
+    <?php
+        foreach ($this->pagesInRange as $page){ ?>
+          <?php if ($page != $this->current){ ?>
+            <a href="<?php echo $this->url(array('page'
+            => $page)); ?>"><?php echo $page; ?></a>
+          <?php }else{ ?>
+            [<?php echo $page; ?>]
+          <?php } ?>
+        <?php }
+    ?>
+
+    <!-- Next page link -->
+    <?php if (isset($this->next)){ ?>
+      <a href="<?php echo $this->url(array('page'=> $this->next)); ?>"><?php echo $this->getTranslation('Siguiente'); ?>  &raquo;</a>
+    <?php }else{ ?>
+      <span class="disabled"><?php echo $this->getTranslation('Siguiente'); ?> &raquo;</span>
+    <?php } ?>
+    </div>
     <?php }?>
