@@ -38,7 +38,6 @@ class Application_Model_Menu extends ZExtraLib_Model {
                 ->from($this->_menu->getName(), array('idMenu', 'nombreMenu'))
                 ->where('idMenuBase = ? ', $idMenuBase)
                 ->where('idIdioma = ? ', $idIdioma);
-
         $result = $db->query()->fetch();
 
         return $result;

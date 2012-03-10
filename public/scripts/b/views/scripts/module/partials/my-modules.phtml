@@ -1,37 +1,37 @@
-<div id="menumodules">
- <?php echo $this->MenuModules();
- $accordionmodule = new Zend_Session_Namespace('accordionmodule');
- ?>
-</div>
-<?php	$this->jQuery()->onLoadCaptureStart();
-?>
-    	$('#menumodules div').hide();
-        $('#menumodules h3').removeClass('select').css({'cursor':'pointer', 'display':'block'});
-        /*
-        $.get(getBaseUrl+'/admin/module/getaccodion/', function(data){
-			$('#' + data).next().show();
-                        $('#' + data).addClass('select');
-        });
-        */
-        var data=<?php echo (trim($accordionmodule->id)=='')?'1':$accordionmodule->id;?>;
-        $('#' + data).next().show();
-        $('#' + data).addClass('select');
-
-
-        $('.modulecategory').click(function(){
-			var checkElement = $(this).next();
-			if((checkElement.is('div')) && (!checkElement.is(':visible'))) {
-				$('#menumodules div:visible').slideUp('normal');
-				checkElement.slideDown('normal');
-                                $.ajax({
-                                    type: "POST",
-                                    url: getBaseUrl+'/admin/module/setaccodion/',
-                                    data: "id="+this.id
-                                 });
-			}
-	 });
-<?php
-    $this->jQuery()->onLoadCaptureEnd();
-?>
-
-
+<div id="menumodules">
+ <?php echo $this->MenuModules();
+ $accordionmodule = new Zend_Session_Namespace('accordionmodule');
+ ?>
+</div>
+<?php	$this->jQuery()->onLoadCaptureStart();
+?>
+    	$('#menumodules div').hide();
+        $('#menumodules h3').removeClass('select').css({'cursor':'pointer', 'display':'block'});
+        /*
+        $.get(getBaseUrl+'/admin/module/getaccodion/', function(data){
+			$('#' + data).next().show();
+                        $('#' + data).addClass('select');
+        });
+        */
+        var data=<?php echo (trim($accordionmodule->id)=='')?'1':$accordionmodule->id;?>;
+        $('#' + data).next().show();
+        $('#' + data).addClass('select');
+
+
+        $('.modulecategory').click(function(){
+			var checkElement = $(this).next();
+			if((checkElement.is('div')) && (!checkElement.is(':visible'))) {
+				$('#menumodules div:visible').slideUp('normal');
+				checkElement.slideDown('normal');
+                                $.ajax({
+                                    type: "POST",
+                                    url: getBaseUrl+'/admin/module/setaccodion/',
+                                    data: "id="+this.id
+                                 });
+			}
+	 });
+<?php
+    $this->jQuery()->onLoadCaptureEnd();
+?>
+
+

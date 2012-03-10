@@ -22,7 +22,10 @@ class Application_Model_Idioma extends ZExtraLib_Model {
     }
 
     public function getAllIdiomas() {
+        if (!($result = $this->_cache->load('getAllIdiomas'))) {
         $result = $this->_idioma->select()->query()->fetchAll();
+        $this->_cache->save($result, 'getAllIdiomas');
+        }
         return $result;
     }
     

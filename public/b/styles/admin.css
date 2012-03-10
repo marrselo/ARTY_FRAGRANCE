@@ -1,73 +1,73 @@
-
-input.login {
-   border:1px solid #696969;
-   color: #000000;
-   font-family:Arial;
-   font-size:11px;
-}
-#login_content #error{
-    height:10px;
-    margin-top:0px;
-    color:maroon;
-    font-weight:bold;
-}
-.load_img{
-    background: no-repeat url(../images/load.gif) center center;
-}
-
-/*****Login*****/
-#login_body {
-    padding-top:200px;
-    height:575px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
-}
-#login_content{
-    background: #ffffff url(../images/bg_login02.jpg) no-repeat top left;
-    width:310px;
-    height:159px;
-    padding-top:130px;
-}
-#login_content form div{
-    width:230px;
-    color:#666666;
-    font-size:10px;
-    font-weight:bold;
-    padding-top:5px;
-    padding-bottom:5px;
-}
-#login_content ul{
-	list-style: none;
-	text-align: left;
-	margin: 0px; border:0px; padding:0px 0px 0px 20px;
-	color:#ff0000;
-}
-#login_content #error{
-    height:25px;
-    margin-top:10px;
-    color:maroon;
-    font-weight:bold;
-}
-
-input[type="button"], input[type="submit"] {
-background:transparent url(../images/bg_boton.jpg) repeat-x scroll left top;
-border:1px solid #969696;
-color:#303030;
-cursor:pointer;
-font-size:12px;
-font-weight:normal;
-padding:1px 10px;
-}
-.mdp{
-    height:11px;
-    color:red;
-    font-weight:bold;
-    text-decoration:none;
-}
-.mdp a{
-    text-decoration:none;
-}
-
-
-
-
+
+input.login {
+   border:1px solid #696969;
+   color: #000000;
+   font-family:Arial;
+   font-size:11px;
+}
+#login_content #error{
+    height:10px;
+    margin-top:0px;
+    color:maroon;
+    font-weight:bold;
+}
+.load_img{
+    background: no-repeat url(../images/load.gif) center center;
+}
+
+/*****Login*****/
+#login_body {
+    padding-top:200px;
+    height:575px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+#login_content{
+    background: #ffffff url(../images/bg_login02.jpg) no-repeat top left;
+    width:310px;
+    height:159px;
+    padding-top:130px;
+}
+#login_content form div{
+    width:230px;
+    color:#666666;
+    font-size:10px;
+    font-weight:bold;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+#login_content ul{
+	list-style: none;
+	text-align: left;
+	margin: 0px; border:0px; padding:0px 0px 0px 20px;
+	color:#ff0000;
+}
+#login_content #error{
+    height:25px;
+    margin-top:10px;
+    color:maroon;
+    font-weight:bold;
+}
+
+input[type="button"], input[type="submit"] {
+background:transparent url(../images/bg_boton.jpg) repeat-x scroll left top;
+border:1px solid #969696;
+color:#303030;
+cursor:pointer;
+font-size:12px;
+font-weight:normal;
+padding:1px 10px;
+}
+.mdp{
+    height:11px;
+    color:red;
+    font-weight:bold;
+    text-decoration:none;
+}
+.mdp a{
+    text-decoration:none;
+}
+
+
+
+
