@@ -12,5 +12,5 @@
  */
 class Application_Model_DbTable_IdiomaTipoSite extends ZExtraLib_Db_Table
 {
-    protected  $_name = "idiomaTipoSite";
+    protected  $_name = "idiomatiposite";
 }

@@ -12,5 +12,5 @@
  */
 class Application_Model_DbTable_PaisIdioma extends ZExtraLib_Db_Table
 {
-    protected  $_name = "paisIdioma";
+    protected  $_name = "paisidioma";
 }
