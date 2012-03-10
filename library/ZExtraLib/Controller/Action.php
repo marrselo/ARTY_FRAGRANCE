@@ -101,7 +101,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     }
     protected function setIdiomaAdmin(){
         if(!isset($this->sessionAdmin->idiomaDetaful)){
-            $this->sessionAdmin->idiomaDetaful = $this->_params['idmDefault'];
+            $this->sessionAdmin->idiomaDetaful = $this->_params['idiomaAllSelect'];
         }
     }
     protected function cleanCache(){

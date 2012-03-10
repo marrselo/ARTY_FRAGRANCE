@@ -7,7 +7,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     
     public function indexAction()
     {
-        
+        print_r($this->sessionAdmin->idiomaDetaful);
     }
     public function ouvragesAction()
     {
