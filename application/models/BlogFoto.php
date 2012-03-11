@@ -33,4 +33,28 @@ class Application_Model_BlogFoto extends ZExtraLib_Model {
         }
         return $result;
     }
+    
+    
+    function ifExistBlogIdioma($idLang){
+        return $this->_blogFoto->select()->where('idIdioma = ?',$idLang)->query()->fetch();
+    }
+    
+    function InsertInfoBlog($data,$idLang,$prefIdioma) {
+        if($this->ifExistBlogIdioma($idLang)){
+            $where = $this->_blogFoto->getAdapter()->quoteInto('idIdioma = ?', $idLang);
+            $this->_blogFoto->update($data, $where);
+        }else{
+            $this->_blogFoto->insert($data);
+        }    
+        
+        $this->_cache->remove('listarBlogFotoPorIdioma'.$prefIdioma);
+    }
+    function InsertFotoBlog($arrayFoto){
+        $this->_fotoBlogFoto->delete('1=1');
+        foreach($arrayFoto as $index) {
+            $data['nombre']=$index;
+            $this->_fotoBlogFoto->insert($data);
+        }
+        $this->_cache->remove('listarFotosBlogFoto');
+    }
 }

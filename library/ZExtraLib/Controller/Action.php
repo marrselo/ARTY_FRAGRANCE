@@ -50,6 +50,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
                     $this->setIdiomaAdmin();
                     $this->_layout->setLayout('layoutadmin');
                     $this->view->lang = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
+                    $this->eliminarSessiones();
                 }
             }elseif($this->getRequest()->getControllerName() == 'login'){
                 $this->_layout->setLayout('layoutlogin');
@@ -108,5 +109,16 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->_cache = Zend_Registry::get('cache');
         $this->_cache->clean();
     }
+    protected function redimencionarImagen($file,$w,$h,$mode) {
+        $resizeObj = new ZExtraLib_ResizeImage($file);
+        $resizeObj->resizeImage($w,$h,$mode);
+        $resizeObj->saveImage($file);
+    }
+    protected function eliminarSessiones(){
+        if($this->_controllerName!=='elisabeth-de-feydeau' )
+        unset($this->sessionAdmin->imagenBiografia);
+        
+    }
+
 
 }
