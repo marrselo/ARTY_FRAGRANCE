@@ -115,8 +115,24 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $resizeObj->saveImage($file);
     }
     protected function eliminarSessiones(){
-        if($this->_controllerName!=='elisabeth-de-feydeau' )
-        unset($this->sessionAdmin->imagenBiografia);
+        if($this->_controllerName!=='elisabeth-de-feydeau')
+        {   unset($this->sessionAdmin->imagenBiografia);
+            unset($this->sessionAdmin->imagenBlog);
+        }else{
+           if($this->_actionName!=='index' && 
+                   $this->_actionName!=='listar-imagenes-biografia' && 
+                   $this->_actionName!=='eliminar-foto-biografia'&&
+                   $this->_actionName!=='subir-imagenes-biografia')
+                   unset($this->sessionAdmin->imagenBiografia);
+           
+           if($this->_actionName!=='blog-et-photos' && 
+                   $this->_actionName!=='listar-imagenes-blog' && 
+                   $this->_actionName!=='eliminar-foto-blog'&& 
+                   $this->_actionName!=='subir-imagenes-biografia'
+                   )
+                   unset($this->sessionAdmin->imagenBlog);
+        }
+        
         
     }
 

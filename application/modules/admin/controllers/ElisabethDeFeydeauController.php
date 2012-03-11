@@ -5,7 +5,6 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     public function init() {
         parent::init();
     }
-
     public function indexAction() {
         $formulario = new Application_Form_FormBiografieElizabet();
         $modelBio = new Application_Model_Biografia();
@@ -104,18 +103,6 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
                         $confUpload['rutaBlog'], 'img_elisafey_blog_', $this->sessionAdmin->imagenBlog, '404', '495','100','50');
                 break;
         }
-        /* $adapter->setDestination($confUpload['rutaBiografia']);
-          $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);
-          $name = 'img_elisafey_bio_' . time('H:i:s');
-          $adapter->addFilter('Rename', array('target' => $confUpload['rutaBiografia'] . '/' . $name . '.' . $extn));
-          $arrayResponse = array();
-          if (!$adapter->receive()) {
-          $arrayResponse = 'Error al subir el archivo';
-          } else {
-          $fileImagen = $adapter->getFileName();
-          $this->sessionAdmin->imagenBiografia[] = $name . '.' . $extn;
-          $this->redimencionarImagen($fileImagen, '404', '495', 'crop');
-          } */
     }
 
     public function subirImagenes(
