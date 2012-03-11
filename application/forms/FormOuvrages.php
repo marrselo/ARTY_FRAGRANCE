@@ -45,6 +45,13 @@ class Application_Form_FormOuvrages extends Zend_Form {
     function insertElment($nombreElemento,$value) {
             $this->getElement($nombreElemento)->setValue($value);
         }
-
-
+    function insertId($nombreId,$valorId){
+        $e = new Zend_Form_Element_Hidden($nombreId);
+        $e->setRequired(true);
+        $e->setValue($valorId);
+        $e->removeDecorator('DtDdWrapper');
+        $e->removeDecorator('Label');
+        $e->removeDecorator('HtmlTag');
+        $this->addElement($e);
+    }
 }

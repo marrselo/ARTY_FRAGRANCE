@@ -41,6 +41,9 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     }
 
     public function ouvragesAction() {
+        
+        $this->view->mensaje = $this->_flashMessenger->getMessages();
+        print_r($this->view->mensaje);
         $modelObra = new Application_Model_Obra();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
         $this->view->dataObra = $modelObra->listarObraPorIdioma($idioma);
@@ -52,10 +55,35 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     $modelObra = new Application_Model_Obra();
     $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
     $datosObra = $modelObra->listarDatosObra($idioma,$this->_params['id']);
-    //print_r($datosObra);
+    $fc = Zend_Controller_Front::getInstance();
+    $confUpload = $fc->getParam('bootstrap')->getOption('upload');
+    $this->view->rutaImagenObra = 'imgOuverages'.'/'.$datosObra['imgObra'];
+    $formulario->insertId('idObra', $datosObra['idObra']);
     if ($this->_request->isPost()) {
     if($formulario->isValid($this->_params)){
-        
+        $this->cleanCache();
+        $arrayImagenes =$this->subirImagenes(
+                $formulario->imgObra->getDestination(), 
+                'img_ourages_', 
+                $arrayImagenes, 
+                '274', 
+                '281', 
+                '278', 
+                '99');
+        unlink($confUpload['rutaOuvrages'].'/'.$datosObra['imgObra']);
+        $dataObraIdioma = array(
+            'tituloObraIdioma'=>$this->_params['tituloObra'],
+            'parrafoObraIdioma'=>$this->_params['parrafoObra'],
+            );
+        $modelObra->updateObraIdioma($dataObraIdioma, $idioma, $this->_params['idObra']);
+        $dataObra = array(
+                    'anioObra' => $this->_params['anioObra'],
+                    'link' => $this->_params['link'],
+                    'imgObra' => $arrayImagenes[0],
+                );
+        $modelObra->updateObra($dataObra, $this->_params['idObra']);
+        $this->_flashMessenger->addMessage('Se Registro Correctamente');
+        $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');
     }    
     }else{
         $formulario->insertElment('anioObra', $datosObra['anioObra']);
@@ -67,6 +95,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     }
     
     public function newOuvragesAction() {
+        
     $formulario = new Application_Form_FormOuvrages();
     $modelObra = new Application_Model_Obra();
     $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
@@ -74,6 +103,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     if ($this->_request->isPost()) {
        
     if($formulario->isValid($this->_params)){
+        $this->cleanCache();
         $arrayImagenes =$this->subirImagenes(
                 $formulario->imgObra->getDestination(), 
                 'img_ourages_', 
@@ -97,7 +127,10 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
             'parrafoObraIdioma'=>$this->_params['parrafoObra'],
             'idObra'=>$idObra
             );
+        
         $modelObra->insertObraIdioma($dataObra);
+        $this->_flashMessenger->addMessage('Se Registro Correctamente');
+        $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');
     }else{
         
     }

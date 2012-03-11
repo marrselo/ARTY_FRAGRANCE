@@ -72,6 +72,11 @@ class Application_Model_Obra extends ZExtraLib_Model {
         }else{
         $this->_obraIdioma->insert($data);
         }
+        
+    }
+    function updateObra($data,$idObra){
+        $where = $this->_obra->getAdapter()->quoteInto('idObra = ?', $idObra);
+        $this->_obra->update($data, $where);
     }
     function insertIdioma($data){
         $this->_obra->insert($data);
