@@ -4,7 +4,9 @@ class Application_Model_Pais extends ZExtraLib_Model {
     protected $_idioma;
     protected $_pais;
     protected $_paisIdioma;
-    
+    protected $_ciudad;
+    protected $_ciudadIdioma;
+
     function __construct() {
         parent::__construct();
         $this->_idioma = new Application_Model_DbTable_Idioma();
@@ -48,37 +50,8 @@ class Application_Model_Pais extends ZExtraLib_Model {
         return $select->query()->fetch();
     }
     
-    public function updatePais($data){
-         $idioma = array(
-            'nombrePaisIdioma' => $data['nombrePaisIdioma']
-        );
-        
-        $where = "idPais = '{$data['idPais']}' and idIdioma = '{$data['lang_code']}'";
-        $this->_paisIdioma->update($idioma, $where); 
-        if($default == $data['lang_code']){
-            $punto = array(
-                'nombrePais' => $data['nombrePaisIdioma']
-            );
-            $where = "idPais = '{$data['idPais']}'";
-            $this->_pais->update($punto, $where); 
-        }
-        
-        //$this->clearCache();
-        
-        return 1;
-    }
-    
-    
-    public function deleteData($data){
-         $this->_paisIdioma->delete("idPais = '{$data['id']}'");
-        
-        $this->_pais->delete("idPais = '{$data['id']}'");
-        $action = $this->resultTransaccion('1', '', 'Registro eliminado Correctamente', '');
-        return $action;
-    }
-    
     public function insertData($data){
-         $pais = array(
+        $pais = array(
             'nombrePais' => $data['nombrePais']
         );
         
@@ -99,6 +72,40 @@ class Application_Model_Pais extends ZExtraLib_Model {
         endforeach;
         //$this->_cache->save(array(), 'listarPuntoVentaConPortal');
         return 1;
+    }
+    
+     public function updatePais($data){
+        $idioma = array(
+            'nombrePaisIdioma' => $data['nombrePaisIdioma']
+        );
+        
+        $where = "idPais = '{$data['idPais']}' and idIdioma = '{$data['lang_code']}'";
+        $this->_paisIdioma->update($idioma, $where); 
+        if($default == $data['lang_code']){
+            $punto = array(
+                'nombrePais' => $data['nombrePaisIdioma']
+            );
+            $where = "idPais = '{$data['idPais']}'";
+            $this->_pais->update($punto, $where); 
+        }
+        //$this->clearCache();
+        return 1;
+    }
+    
+    public function deleteData($data){
+        try{
+            /*$this->_ciudad = new Application_Model_DbTable_Ciudad();
+            $this->_ciudadIdioma = new Application_Model_DbTable_CiudadIdioma();
+            $this->_ciudadIdioma->delete($where);
+            $this->_ciudad->delete();
+            $this->_paisIdioma->delete("idPais = '{$data['id']}'");
+            $this->_pais->delete("idPais = '{$data['id']}'");*/
+            $action = $this->resultTransaccion('0', 'Existen Datos Relacionados', 'Registro eliminado Correctamente', '');
+            return $action;
+        }  catch (Exception $e){
+            return '0';
+        }
+        
     }
     
 }

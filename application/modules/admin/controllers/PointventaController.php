@@ -94,6 +94,10 @@ class Admin_PointventaController extends ZExtraLib_Controller_Action {
         }
     }
     
+    public function imagesAction(){
+        
+    }
+    
     public function ajaxAction(){
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
