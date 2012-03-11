@@ -12,7 +12,7 @@
                         <div align="left" class="table_admin_body">
 
                             <!--LIST MODULES-->
-                            <fieldset><legend style="cursor : pointer" onclick="openCloseLayer('listmodules')"><img align="top" src="/images/icons/package.png"> Liste de points de vente </legend>
+                            <fieldset><legend style="cursor : pointer" onclick="openCloseLayer('listmodules')"><img align="top" src="/images/icons/package.png"> City - <?php echo $this->data[0]['nombrePais']?> </legend>
                                 <div id="listmodules" style="display: block; padding: 2px 10px;">
                                     <form action="/admin/module/order/" method="post">
                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -28,6 +28,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                               <?php
                                                
                                                 foreach($this->data as $val):?>
                                                 <tr class="shadow">
@@ -35,13 +36,13 @@
                                                             <?php echo $val['nombreCiudad'] ?></td>
                                                   
                                                     <td align="center" width="15%">
-                                                        <a href="<?php echo $this->baseUrl()?>/admin/paises/editar-pais/id/<?php echo $val['idCiudad']?>">
+                                                        <a href="<?php echo $this->baseUrl()?>/admin/ciudades/editar-ciudades/ciudad/<?php echo $val['idCiudad']?>">
                                                             <img border="0" src="/images/icons/edit.gif" title="Modifier">
                                                         </a>
                                                         <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteAction('<?php echo $val['idCiudad']?>')" style="cursor: pointer;" >
                                                     </td>
                                                 </tr>
-                                               
+                                               <?php endforeach;?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -53,7 +54,7 @@
                                                 <div id="menu-action" class="menu-action"></div>
                                             </tfoot>
                                         </table>
-                                        <a href="/admin/paises/new-pais"> Nouveau</a>
+                                        <a href="/admin/paises/new-ciudad/idpais/<?php echo $this->data[0]['idPais']?>"> Nouveau</a>
                                     </form>
                                 </div>
                             </fieldset>
@@ -68,38 +69,3 @@
         </div>        
     </div>
 </td>
-
-<script>
-
-
-    function deleteMenu(id){
-
-        confirmacion=confirm("Etes-vous sûr de vouloir supprimer l'enregistrement?");
-        if(confirmacion){
-            $.ajax({
-                data:'id=' + id,
-                async:1,
-                type:"POST",dataType:"html",
-                contentType: "application/x-www-form-urlencoded",
-                url:"/admin/paises/ajax/case/delete",
-                beforeSend:beforedel,
-                success:successdel,
-                timeout:80000,
-                error:errordel 
-            });
-        }
-    }
-    
-    function beforedel(){
-        $("#menu-action").html("<img src='/images/cargando.gif'>");
-    }
-
-    function successdel(datos){
-         $("#menu-action").html(datos);
-        location.href = document.URL
-    }
-
-    function errordel(){
-        $("#menu-action").text("Problemas en el servidor.");
-    } 
-</script>
