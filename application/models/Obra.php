@@ -16,14 +16,43 @@ class Application_Model_Obra extends ZExtraLib_Model {
             $result = $this->_obra
                     ->getAdapter()
                     ->select()
-                    ->from(array('o' => $this->_obra->getName()), array('o.idObra', 'oi.tituloObraIdioma','oi.parrafoObraIdioma','o.link','o.imgObra'))
+                    ->from(array('o' => $this->_obra->getName()), 
+                            array('o.idObra', 
+                                'oi.tituloObraIdioma',
+                                'o.anioObra',
+                                'o.estadoObra',
+                                'oi.parrafoObraIdioma',
+                                'o.link',
+                                'o.imgObra'))
                     ->join(array('oi' => $this->_obraIdioma->getName()), 'oi.idObra = o.idObra','')
                     ->join(array('idi' => $this->_idioma->getName()), 'oi.idIdioma = oi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
+                    ->order('o.anioObra DESC');
             ;
             $result = $this->_obra->getAdapter()->fetchAssoc($result);
             $this->_cache->save($result, 'listaObrasIdioma'.$idioma);
         }
+        return $result;
+    }
+    function listarDatosObra($idioma,$idObra) {
+        
+            $result = $this->_obra
+                    ->getAdapter()
+                    ->select()
+                    ->from(array('o' => $this->_obra->getName()), 
+                            array('o.idObra', 
+                                'oi.tituloObraIdioma',
+                                'o.anioObra',
+                                'o.estadoObra',
+                                'oi.parrafoObraIdioma',
+                                'o.link',
+                                'o.imgObra'))
+                    ->join(array('oi' => $this->_obraIdioma->getName()), 'oi.idObra = o.idObra','')
+                    ->join(array('idi' => $this->_idioma->getName()), 'oi.idIdioma = oi.idIdioma', '')
+                    ->where('idi.idIdioma = ? ', $idioma)
+                    ->where('o.idObra = ? ', $idObra)->query()->fetch();
+            ;
+            
         return $result;
     }
 }

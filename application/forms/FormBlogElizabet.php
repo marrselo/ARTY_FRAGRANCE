@@ -23,7 +23,6 @@ class Application_Form_FormBlogElizabet extends Zend_Form {
             $element->removeDecorator('DtDdWrapper');
             $element->removeDecorator('Label');
             $element->removeDecorator('HtmlTag');
-            //$element->removeDecorator('Errors');    
         }        
         
     }

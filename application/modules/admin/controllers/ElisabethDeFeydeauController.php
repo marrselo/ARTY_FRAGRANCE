@@ -41,9 +41,47 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     }
 
     public function ouvragesAction() {
+        $modelObra = new Application_Model_Obra();
+        $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
+        $this->view->dataObra = $modelObra->listarObraPorIdioma($idioma);
+        
+    }
+    
+    public function editOuvragesAction(){
+    $formulario = new Application_Form_FormOuvrages();
+    $modelObra = new Application_Model_Obra();
+    $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+    $datosObra = $modelObra->listarDatosObra($idioma,$this->_params['id']);
+    //print_r($datosObra);
+    if ($this->_request->isPost()) {
+    if($formulario->isValid($this->_params)){
+        
+    }    
+    }else{
+        $formulario->insertElment('anioObra', $datosObra['anioObra']);
+        $formulario->insertElment('tituloObra', $datosObra['tituloObraIdioma']);
+        $formulario->insertElment('link', $datosObra['link']);
+        $formulario->insertElment('parrafoObra', $datosObra['parrafoObraIdioma']);
+    }
+    $this->view->form = $formulario;
+    }
+    
+    public function newOuvragesAction() {
+    $formulario = new Application_Form_FormOuvrages();
+    $modelObra = new Application_Model_Obra();
+    $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+    
+    if ($this->_request->isPost()) {
+    if($formulario->isValid($this->_params)){
+        
+    }    
+    }
+    $this->view->form = $formulario;
         
     }
 
+    
+    
     public function realisationsAction() {
         
     }
