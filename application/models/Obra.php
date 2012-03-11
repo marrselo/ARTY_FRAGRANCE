@@ -55,4 +55,36 @@ class Application_Model_Obra extends ZExtraLib_Model {
             
         return $result;
     }
+    function ifExistObraIdioma($idObra,$idIdioma){
+        return $this->_obraIdioma
+                ->select()
+                ->where('idIdioma = ?', $idIdioma)
+                ->where('idObra = ?', $idObra)
+                ->query()->fetch();
+    }
+    function updateObraIdioma($data,$idIdioma,$idObra){
+        if($this->ifExistObraIdioma($idObra, $idIdioma)){
+        $data['idIdioma'] = $idIdioma;        
+        $data['idObra'] = $idObra;
+        $where[]=$this->_obraIdioma->getAdapter()->quoteInto('idIdioma = ?', $idIdioma);
+        $where[]=$this->_obraIdioma->getAdapter()->quoteInto('idObra = ?', $idObra);
+        $this->_obraIdioma->update($data,$where);
+        }else{
+        $this->_obraIdioma->insert($data);
+        }
+    }
+    function insertIdioma($data){
+        $this->_obra->insert($data);
+        return $this->_obra->getAdapter()->lastInsertId();
+    }
+    
+    function insertObraIdioma($data){
+        $arrayIdioma = $this->_idioma->select()->query()->fetchAll();
+        foreach($arrayIdioma as $index){
+            $data['idIdioma'] = $index['idIdioma'];
+            $this->_obraIdioma->insert($data);
+        }
+        
+    }
+    
 }
