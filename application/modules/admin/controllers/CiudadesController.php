@@ -8,19 +8,12 @@ class Admin_CiudadesController extends ZExtraLib_Controller_Action {
     public $_default;
     public function init() {
         parent::init();
-        
-        
         $this->_pais = new Application_Model_Pais();
         $this->_pais = new Application_Model_Pais();
         $this->idioma = new Application_Model_Idioma();
         $this->_ciudad = new Application_Model_Ciudad;
         $this->params = $this->_getAllParams();
         $this->_default = $this->params['idmDefault']['idIdioma'];
-        
-        $this->_sesion = new Zend_Session_Namespace('web');
-     
-     
-       
     }
 
     public function indexAction() {
@@ -33,7 +26,7 @@ class Admin_CiudadesController extends ZExtraLib_Controller_Action {
     }
             
    public function editarCiudadesAction(){
-       var_dump($_SESSION); exit;
+       
        $this->view->data = $this->_ciudad->getCiudadIdioma($this->params['ciudad'],'1');
    }
     
