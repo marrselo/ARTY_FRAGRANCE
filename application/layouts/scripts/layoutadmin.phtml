@@ -345,8 +345,41 @@
             });
             //]]>
 
+
+            function deleteAction(id,urls){
+
+                confirmacion=confirm("Etes-vous sûr de vouloir supprimer l'enregistrement?");
+                if(confirmacion){
+                    $.ajax({
+                        data:'id=' + id,
+                        async:1,
+                        type:"POST",dataType:"html",
+                        contentType: "application/x-www-form-urlencoded",
+                        url:urls,
+                        beforeSend:beforedel,
+                        success:successdel,
+                        timeout:80000,
+                        error:errordel 
+                    });
+                }
+            }
+
+            function beforedel(){
+                $("#menu-action").html("<img src='/images/cargando.gif'>");
+            }
+
+            function successdel(datos){
+                $("#menu-action").html(datos);
+                //location.href = document.URL
+            }
+
+            function errordel(){
+                $("#menu-action").text("Problemas en el servidor.");
+            } 
+
+
+
         </script>
         <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-helper-hidden-accessible" id="ui-datepicker-div"></div>                        
     </body>
 </html>
->>>>>>> 5581bdfe53ad48f95af0487b1cee4f973299ec33

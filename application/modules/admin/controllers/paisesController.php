@@ -69,10 +69,10 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
     }
 
     function newPaisAction() {
+        $post = $this->getRequest()->getParams();
+        if (!empty($post)) {
 
-        if (!empty($_POST)) {
-
-            $action = $this->_pais->insertData($_POST);
+            $action = $this->_pais->insertData($post);
             if ($action == '1')
                 $this->_redirect('/admin/paises/');
         }else {
@@ -86,10 +86,10 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $case = $this->_getParam('case',0);
-        
+        $post = $this->getRequest()->getParams();
         switch ($case):
             case 'delete':
-                $action = $this->_pais->deleteData($_POST);
+                $action = $this->_pais->deleteData($post);
                 echo $action;
                 break;
         endswitch;

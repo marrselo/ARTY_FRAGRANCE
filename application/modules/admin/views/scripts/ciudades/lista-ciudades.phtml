@@ -39,7 +39,7 @@
                                                         <a href="<?php echo $this->baseUrl()?>/admin/ciudades/editar-ciudades/ciudad/<?php echo $val['idCiudad']?>">
                                                             <img border="0" src="/images/icons/edit.gif" title="Modifier">
                                                         </a>
-                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteAction('<?php echo $val['idCiudad']?>')" style="cursor: pointer;" >
+                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteAction('<?php echo $val['idCiudad']?>','/admin/ciudades/ajax/case/delete')" style="cursor: pointer;" >
                                                     </td>
                                                 </tr>
                                                <?php endforeach;?>
@@ -54,7 +54,7 @@
                                                 <div id="menu-action" class="menu-action"></div>
                                             </tfoot>
                                         </table>
-                                        <a href="/admin/paises/new-ciudad/idpais/<?php echo $this->data[0]['idPais']?>"> Nouveau</a>
+                                        <a href="/admin/ciudades/new-ciudades/id/ <?php echo $this->pais?>"> Nouveau</a>
                                     </form>
                                 </div>
                             </fieldset>

@@ -1,7 +1,7 @@
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
-           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Ciudades</a> -&gt; <a class="actualités" href="<?php $this->baseUrl()?>/admin/index/actualites/"><?php echo $this->params['action']?></a> -&gt; Modifier               
+           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Ciudades</a> -&gt; <a class="actualités" href="<?php $this->baseUrl()?>/admin/index/actualites/"><?php echo $this->params['action']?></a> -&gt; Nouveau               
         <div id="main">
             <!--   <h2 class="top"></h2>-->
             <div id="form">
@@ -24,24 +24,17 @@
                                             </th></tr>
 
                                         <tr>
-                                            <td align="left" width="20%">Pais : *</td>
+                                            <td align="left" width="20%">Pais : </td>
                                             <td align="left" width="80%"> 
                                                 <input type="hidden" name="idPais" value="<?php echo $this->data['idPais']?>" />
                                                 <input type="text" value="<?php echo $this->data['nombrePaisIdioma']?>"  size="20" name="hnombrePais" disabled="disabled" />
                                             </td>
                                         </tr>
+                                       
                                         <tr>
-                                            <td align="left" width="20%">Cod : *</td>
-                                            <td align="left" width="80%"> 
-                                                <input type="hidden" name="idCiudad" value="<?php echo $this->data['idCiudad']?>" />
-
-                                                <input type="text" value="<?php echo $this->data['idCiudad']?>"  size="20" name="hidCiudad" disabled="disabled" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="left" width="20%">Nom : *</td>
+                                            <td align="left" width="20%">City : *</td>
                                             <td align="left" width="80%">
-                                                <input type="text" value="<?php echo $this->data['nombreCiudadIdioma']?>" class="required" size="40" maxlength="100" name="nombreCiudad" />
+                                                <input type="text" class="required" size="40" maxlength="100" name="nombreCiudad" />
                                             </td>
                                         </tr>
 
@@ -50,7 +43,7 @@
                                         <tr>
                                             <td align="right" valign="bottom" colspan="3">
                                                 <input type="submit" value="Valider" name="">
-                                                <input type="button" onclick="location.href='/admin/ciudades/';" value="Back" name="cancel">    </td>
+                                                <input type="button" onclick="location.href='/admin/lista-ciudades/id/' . <?php echo $this->data['idPais']?>;" value="Back" name="cancel">    </td>
                                         </tr>
                                     </tfoot>
                                 </table>
