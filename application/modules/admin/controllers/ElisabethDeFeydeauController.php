@@ -130,7 +130,6 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         }
         return $nameSession;
     }
-
     public function eliminarFotoBiografiaAction() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
@@ -200,6 +199,14 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
             echo $this->_helper->json($html);
         }
     }
+    
+    public function adminSubMenuAction(){
+        $this->_articulo = new Application_Model_Articulo();
+        $this->_menuObj = new Application_Model_Menu();
+        $data = $this->_menuObj->getMenu($this->sessionAdmin->idiomaDetaful['idIdioma'],6);
+        $this->view->data = $data;
+    }
+
 
 }
 
