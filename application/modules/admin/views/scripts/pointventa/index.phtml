@@ -37,7 +37,10 @@
                                                         <a href="<?php echo $this->baseUrl()?>/admin/pointventa/editar/idPtoVenta/<?php echo $val['idPuntoVenta']?>">
                                                             <img border="0" src="/images/icons/edit.gif" title="Modifier">
                                                         </a>
-                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $val['idPuntoVenta']?>')" style="cursor: pointer;" >
+                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteAction('<?php echo $val['idPuntoVenta']?>','/admin/pointventa/ajax/case/delete')" style="cursor: pointer;" >
+                                                         <a href="<?php echo $this->baseUrl()?>/admin/pointventa/images/idPtoVenta/<?php echo $val['idPuntoVenta']?>">
+                                                            <img border="0" src="/images/icons/image.png" title="Images">
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; endif;?>
@@ -66,38 +69,3 @@
         </div>        
     </div>
 </td>
-
-<script>
-
-
-function deleteMenu(id){
-
-        confirmacion=confirm("Etes-vous sûr de vouloir supprimer l'enregistrement?");
-        if(confirmacion){
-            $.ajax({
-                data:'id=' + id,
-                async:1,
-                type:"POST",dataType:"html",
-                contentType: "application/x-www-form-urlencoded",
-                url:"/admin/pointventa/ajax/case/delete",
-                beforeSend:beforedel,
-                success:successdel,
-                timeout:80000,
-                error:errordel 
-            });
-        }
-    }
-    
-    function beforedel(){
-        $("#menu-action").html("<img src='/images/cargando.gif'>");
-    }
-
-    function successdel(datos){
-         $("#menu-action").html(datos);
-        location.href = document.URL
-    }
-
-    function errordel(){
-        $("#menu-action").text("Problemas en el servidor.");
-    } 
-</script>

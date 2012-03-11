@@ -38,7 +38,7 @@
                                                         <a href="<?php echo $this->baseUrl()?>/admin/paises/editar-pais/id/<?php echo $val['idPais']?>">
                                                             <img border="0" src="/images/icons/edit.gif" title="Modifier">
                                                         </a>
-                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteMenu('<?php echo $val['idPais']?>')" style="cursor: pointer;" >
+                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteAction('<?php echo $val['idPais']?>','/admin/paises/ajax/case/delete')" style="cursor: pointer;" >
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; endif;?>

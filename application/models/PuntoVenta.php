@@ -142,10 +142,6 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         return 1;
     }
 
-    function eliminarPtoVenta($idPtoVenta) {
-        
-    }
-
     function updatePointVenta($data,$default) {
         //var_dump($data);exit;
          $idioma = array(
@@ -188,5 +184,6 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         $action = $this->resultTransaccion('1', '', 'Registro eliminado Correctamente', '');
         return $action;
     }
+    
 
 }
