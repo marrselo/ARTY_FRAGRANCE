@@ -29,7 +29,7 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
 
             }
         endif;
-        
+
        
         $this->_articulo = new Application_Model_Articulo();
         $this->modulo = new Application_Model_Modulo();
