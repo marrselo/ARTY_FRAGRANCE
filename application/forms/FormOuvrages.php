@@ -7,6 +7,10 @@ class Application_Form_FormOuvrages extends Zend_Form {
         $this->setMethod('post')->setAttrib('id', 'frmDevenir');
         $e = new Zend_Form_Element_Text('anioObra');
         $e->setRequired(true);
+        $validators = array(
+          new Zend_Validate_Int()
+        );
+        $e->setValidators($validators);
         $this->addElement($e);
         $e = new Zend_Form_Element_Text('link');
         $e->setRequired(true);
@@ -18,7 +22,9 @@ class Application_Form_FormOuvrages extends Zend_Form {
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $element = new Zend_Form_Element_File('imgObra');
         $element->setLabel('Cargar Imagen:')
+                ->setRequired()
                 ->setDestination($confUpload["rutaOuvrages"]);
+        
         $element->addValidator('Count', false, 1);
         $element->addValidator('Size', false, 409600);        
         $element->addValidator('Extension', false, 'jpg,png,gif');

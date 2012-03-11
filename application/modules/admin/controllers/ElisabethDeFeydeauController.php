@@ -70,11 +70,38 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     $formulario = new Application_Form_FormOuvrages();
     $modelObra = new Application_Model_Obra();
     $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
-    
+    echo $idioma;
     if ($this->_request->isPost()) {
+       
     if($formulario->isValid($this->_params)){
+        $arrayImagenes =$this->subirImagenes(
+                $formulario->imgObra->getDestination(), 
+                'img_ourages_', 
+                $arrayImagenes, 
+                '274', 
+                '281', 
+                '278', 
+                '99');
+        $dataIdioma = array(
+            'anioObra'=>$this->_params['anioObra'],
+            'tituloObra'=>$this->_params['tituloObra'],
+            'parrafoObra'=>$this->_params['parrafoObra'],
+            'link'=>$this->_params['link'],
+            'imgObra'=>$arrayImagenes[0],
+            'estadoObra'=>1
+                );
+        $idObra = $modelObra->insertIdioma($dataIdioma);
         
-    }    
+        $dataObra = array(
+            'tituloObraIdioma'=>$this->_params['tituloObra'],
+            'parrafoObraIdioma'=>$this->_params['parrafoObra'],
+            'idObra'=>$idObra
+            );
+        $modelObra->insertObraIdioma($dataObra);
+    }else{
+        
+    }
+    
     }
     $this->view->form = $formulario;
         
@@ -155,7 +182,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         }
         $adapter->addFilter('Rename', array('target' => $destination . '/' . $name . '.' . $extn));
         if (!$adapter->receive()) {
-            $arrayResponse = 'Error al subir el archivo';
+            $nameSession = 'Error al subir el archivo';
         } else {
             $fileImagen = $adapter->getFileName();
             $nameSession[] = $name . '.' . $extn;
