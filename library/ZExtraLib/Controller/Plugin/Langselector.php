@@ -27,7 +27,6 @@ class ZExtraLib_Controller_Plugin_Langselector
         $request->setParam('idmDefault', $dataIdiomaDefault);
         $request->setParam('lang', $lang);
         $request->setParam('idiomaAllSelect', $idiomaAllSelect);
-
         
     }
 }
