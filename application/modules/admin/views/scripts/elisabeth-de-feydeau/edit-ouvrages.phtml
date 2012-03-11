@@ -24,7 +24,8 @@ CKEDITOR.replace('tituloObra',{toolbar : 'Basic'});
                 <div class="table_admin">
                     <div class="table_admin_head"></div>
                     <div align="center" class="table_admin_body">
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data" >
+                            <?php echo $this->form->idObra; ?>
                             <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
                                 <tbody>
                                     <tr><th colspan="2">
@@ -52,6 +53,7 @@ CKEDITOR.replace('tituloObra',{toolbar : 'Basic'});
                                         <td align="left" width="20%">Imagen *</td>
                                         <td align="left" width="80%">
                                             <?php echo $this->form->imgObra; ?>
+                                            <a href="<?php echo $this->baseUrl().'/'.$this->rutaImagenObra; ?>" target="_black">imagen</a>
                                         </td>
 
                                     </tr>
