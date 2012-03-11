@@ -1,13 +1,16 @@
 <script type="text/javascript">
 window.onload = function()
 {
-CKEDITOR.replace('parrafo');
+CKEDITOR.replace('contenidoBio');
 }
 </script>
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
-            <a class="modules" href="<?php //$this->baseUrl() ?>/admin/collection/index">Collections</a> &gt; <a class="actualités" href="<?php //$this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; New
+            <a class="modules" 
+               href="<?php echo $this->baseUrl() ?>/admin/collection/index">Collections</a> &gt; <a class="actualités" href="<?php //$this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?>
+            </a> 
+               &gt; New
             <div id="main">
                 <div id="form">
                         <?php 
@@ -20,7 +23,8 @@ CKEDITOR.replace('parrafo');
                         ?>
                         <div class="table_admin">                            
                             <div class="table_admin_head"></div>
-                            <div align="center" class="table_admin_body">                                
+                            <div align="center" class="table_admin_body">
+                                <form action="" method="POST">
                                 <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
                                     <tbody>
                                         <tr><th colspan="2">
@@ -28,7 +32,7 @@ CKEDITOR.replace('parrafo');
                                         <tr>
                                             <td align="left" width="20%">Title *</td>
                                             <td align="left" width="80%">
-                                                <?php echo $this->form->titulo; ?>
+                                                <?php echo $this->form->tituloBio; ?>
                                             </td>
                                         </tr>
                                         
@@ -36,13 +40,24 @@ CKEDITOR.replace('parrafo');
                                             <td align="left" width="20%">Imagen *</td>
                                             <td align="left" width="80%">
                                                 <?php echo $this->form->fotoPrincipal; ?>
+                                                <button id="upload_button">Upload</button>
+                                                
+                                            </td>
+                                            
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td colspan="4">
+                                                <div id="lista">
+                                                </div>
+                                                
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td align="left" width="14%" valign="top">Description *</td>
                                             <td align="left" colspan="2">                                                
-                                                <?php echo $this->form->parrafo; ?>
+                                                <?php echo $this->form->contenidoBio; ?>
                                             </td>
                                         </tr>
 
@@ -56,6 +71,7 @@ CKEDITOR.replace('parrafo');
                                         </tr>
                                     </tfoot>
                                 </table>
+                                    </form>
                             </div>
                             <div class="table_admin_foot"></div>
                         </div>
@@ -64,3 +80,52 @@ CKEDITOR.replace('parrafo');
             </div>
         </div>
 </td>
+
+<script languaje="javascript"> 
+$(document).ready(function(){
+	var button = $('#upload_button'), interval;
+	new AjaxUpload('#upload_button', {
+        action: '/admin/elisabeth-de-feydeau/subir-imagenes-biografia?moduleAdmin=biografie',
+		onSubmit : function(file , ext){
+		if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){
+			alert('Error: Solo se permiten imagenes');
+			return false;
+		} else {
+			button.text('Uploading....');
+			this.disable();
+		}
+		},
+		onComplete: function(file, response){
+			button.text('Upload');
+			this.enable();
+                        printFotos();               
+		}	
+	});
+        $("[id^=elminarFoto]").live("click",function(){
+        var idImgArray = this.id.split('-');
+        $.ajax({
+                data: "idImg="+idImgArray[1],
+                type: "POST",
+                dataType: "json",
+                url: "/admin/elisabeth-de-feydeau/eliminar-foto-biografia/",
+                success: function(data){
+                    printFotos()
+                }
+            });
+        });
+        
+});
+
+function printFotos(){
+        $.ajax({
+                data: "as=asd",
+                type: "GET",
+                dataType: "json",
+                url: "<?php $this->baseUrl() ?>/admin/elisabeth-de-feydeau/listar-imagenes-biografia",
+                success: function(data){
+                    $("#lista").html(data);
+                }
+            });
+        }
+printFotos();                       
+</script>

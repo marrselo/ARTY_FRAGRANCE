@@ -1,17 +1,16 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <title>
-            WEB Administration        </title>
+            WEB Administration        
+        </title>
         <link href="/b/styles/layout.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="/b/styles/text.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="/b/styles/nav.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="/b/styles/style.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="/b/styles/form.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="/styles/datePicker.css" media="screen" rel="stylesheet" type="text/css" />       
-
         <link href="/styles/adminForms.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="/styles/filetree.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="/styles/menutree.css" media="screen" rel="stylesheet" type="text/css" />
@@ -30,13 +29,16 @@
             <div  class="header-top">Langue 
                 <a href="/admin/site/lang/version/fr" class="adminchangelanguage">
                     <img src="/images/flags/fr.png" alt="" border="0" align="absmiddle" />
-                </a>  <a href="/admin/site/lang/version/es" class="adminchangelanguage">
-                    <img src="/images/flags/es.png" alt="" border=0 align="absmiddle" />
+                </a>  
+                <a href="/admin/site/lang/version/es" class="adminchangelanguage">
+                    <img src="/images/flags/es.png" alt="" border="0" align="absmiddle" />
                 </a> 
                 <a href="/admin/site/lang/version/de" class="adminchangelanguage">
-                    <img src="/images/flags/de.png" alt="" border=0 align="absmiddle" /></a>  
+                    <img src="/images/flags/de.png" alt="" border="0" align="absmiddle" />
+                </a>  
                 <a href="/admin/site/lang/version/jp" class="adminchangelanguage">
-                    <img src="/images/flags/jp.png" alt="" border=0 align="absmiddle" /></a> 
+                    <img src="/images/flags/jp.png" alt="" border="0" align="absmiddle" />
+                </a> 
                 Utilisateur actuel: admin  admin  Tipo: superadmin
                 <a href='/admin/auth/logout/'>Déconnecter</a> 
             </div>
@@ -54,7 +56,7 @@
                         <tbody>
                             <tr>
                                 <td valign="top" height="500" class="sidebar">
-                                    <?php echo $this->render('menuadmin.phtml',array('baseUrl'=>$this->baseUrl())); ?>
+                                    <?php echo $this->render('menuadmin.phtml', array('baseUrl' => $this->baseUrl())); ?>
                                 </td>
                                 <!-- container-->
 
@@ -71,7 +73,6 @@
         </div>
         <link rel="stylesheet" href="/styles/cloner.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="/scripts/msdropdown/dd.css" type="text/css" media="screen" />
-
         <script type="text/javascript" src="/scripts/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="/scripts/jquery-ui-1.8.custom.min.js"></script>
         <script type="text/javascript" src="/scripts/jquery.ifixpng/jquery.ifixpng.js"></script>
@@ -85,6 +86,7 @@
         <script type="text/javascript" src="/scripts/jquery.tablednd_0_5.js"></script>
         <script type="text/javascript" src="/scripts/admin-dnd.js"></script>
         <script type="text/javascript" src="/scripts/jquery.cookie.js"></script>
+        <script type="text/javascript" src="/scripts/jquery.ajaxfileupload.js"></script>
 
         <script type="text/javascript">
             //<![CDATA[
@@ -347,4 +349,4 @@
         <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-helper-hidden-accessible" id="ui-datepicker-div"></div>                        
     </body>
 </html>
->>>>>>> b47f7e23c40f4a11b2d319fe11e7be54efc2a54e
+>>>>>>> 5581bdfe53ad48f95af0487b1cee4f973299ec33

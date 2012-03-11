@@ -16,10 +16,19 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
     public function getListaCiudad($id){
         $select = $this->_pais->getAdapter()->select();
         $select->from(array('t1' => 'ciudad'), array('idCiudad','nombreCiudad'))
-                ->join(array('t2' => 'pais'),'t1.idPais = t2.idPais', array('nombrePais'))
+                ->join(array('t2' => 'pais'),'t1.idPais = t2.idPais', array('idPais','nombrePais'))
                 ->where('t1.idPais = ?', $id);
         //echo $select; exit;
-        return $select->query()->fetch();
+        return $select->query()->fetchAll();
+    }
+    
+    public function getCiudadIdioma($id, $default){
+        $select = $this->_pais->getAdapter()->select();
+        $select->from(array('t1' => 'ciudad'), array('idCiudad','nombreCiudad'))
+                ->join(array('t2' => 'pais'),'t1.idPais = t2.idPais', array('idPais','nombrePais'))
+                ->where('t1.idPais = ?', $id);
+        //echo $select; exit;
+        return $select->query()->fetchAll();
     }
     
 }

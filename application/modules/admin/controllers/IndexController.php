@@ -179,7 +179,7 @@ class Admin_IndexController extends ZExtraLib_Controller_Action {
         $this->_articulo = new Application_Model_Articulo();
         $this->_menuObj = new Application_Model_Menu();
         $idIdioma = $this->_getParam('idlang', 1);
-        $data = $this->_menuObj->getMenu($idIdioma);
+        $data = $this->_menuObj->getMenu($this->sessionAdmin->idiomaDetaful['idIdioma']);
         $this->view->data = $data;
     }
     

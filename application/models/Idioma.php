@@ -33,6 +33,7 @@ class Application_Model_Idioma extends ZExtraLib_Model {
         $select = $this->_idioma->getAdapter()->select();
         $select->from(array('t1' => 'idioma'), array('idIdioma','PrefIdioma', 'NombreIdioma','icono'))
                ->where('idIdioma = ? ', $idioma);
+        echo $select; exit;
         $result = $select->query()->fetch();
         return $result;
     }

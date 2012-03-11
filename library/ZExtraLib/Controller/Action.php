@@ -50,6 +50,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
                     $this->setIdiomaAdmin();
                     $this->_layout->setLayout('layoutadmin');
                     $this->view->lang = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
+                    $this->eliminarSessiones();
                 }
             }elseif($this->getRequest()->getControllerName() == 'login'){
                 $this->_layout->setLayout('layoutlogin');
@@ -108,5 +109,32 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->_cache = Zend_Registry::get('cache');
         $this->_cache->clean();
     }
+    protected function redimencionarImagen($file,$w,$h,$mode) {
+        $resizeObj = new ZExtraLib_ResizeImage($file);
+        $resizeObj->resizeImage($w,$h,$mode);
+        $resizeObj->saveImage($file);
+    }
+    protected function eliminarSessiones(){
+        if($this->_controllerName!=='elisabeth-de-feydeau')
+        {   unset($this->sessionAdmin->imagenBiografia);
+            unset($this->sessionAdmin->imagenBlog);
+        }else{
+           if($this->_actionName!=='index' && 
+                   $this->_actionName!=='listar-imagenes-biografia' && 
+                   $this->_actionName!=='eliminar-foto-biografia'&&
+                   $this->_actionName!=='subir-imagenes-biografia')
+                   unset($this->sessionAdmin->imagenBiografia);
+           
+           if($this->_actionName!=='blog-et-photos' && 
+                   $this->_actionName!=='listar-imagenes-blog' && 
+                   $this->_actionName!=='eliminar-foto-blog'&& 
+                   $this->_actionName!=='subir-imagenes-biografia'
+                   )
+                   unset($this->sessionAdmin->imagenBlog);
+        }
+        
+        
+    }
+
 
 }

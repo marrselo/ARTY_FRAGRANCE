@@ -17,7 +17,7 @@ class Application_Model_Biografia extends ZExtraLib_Model {
             $result = $this->_tbiografia
                     ->getAdapter()
                     ->select()
-                    ->from(array('b' => $this->_tbiografia->getName()), array('b.contenidoBio'))
+                    ->from(array('b' => $this->_tbiografia->getName()), array('b.contenidoBio','b.tituloBio'))
                     ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = b.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)->query()->fetch();
             $this->_cache->save($result, 'listaBiografiaIdioma' . $idioma );
@@ -31,5 +31,28 @@ class Application_Model_Biografia extends ZExtraLib_Model {
             $this->_cache->save($result, 'listarFotosBiografia');
         }
         return $result;
+    }
+    
+    function ifExistBioIdioma($idLang){
+        return $this->_tbiografia->select()->where('idIdioma = ?',$idLang)->query()->fetch();
+    }
+    
+    function InsertInfoBio($data,$idLang,$prefIdioma) {
+        if($this->ifExistBioIdioma($idLang)){
+            $where = $this->_tbiografia->getAdapter()->quoteInto('idIdioma = ?', $idLang);
+            $this->_tbiografia->update($data, $where);
+        }else{
+            $this->_tbiografia->insert($data);
+        }    
+        
+        $this->_cache->remove('listaBiografiaIdioma'.$prefIdioma);
+    }
+    function InsertFotoBio($arrayFoto){
+        $this->_foto->delete('1=1');
+        foreach($arrayFoto as $index) {
+            $data['nombreFotoBio']=$index;
+            $this->_foto->insert($data);
+        }
+        $this->_cache->remove('listarFotosBiografia');
     }
 }
