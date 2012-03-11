@@ -9,6 +9,7 @@ class ZExtraLib_Controller_Plugin_Langselector
         $modelIdioma = new Application_Model_Idioma();
         $dataIdiomaDefault = $modelIdioma->getIdiomaDefault();
         $arrayIdiomas = $modelIdioma->getIdiomas();
+        $arrayAllIdiomas = $modelIdioma->getAllIdiomas();
         if ($lang == '') {
         $lang = $dataIdiomaDefault['PrefIdioma'];
         } else{
@@ -16,9 +17,17 @@ class ZExtraLib_Controller_Plugin_Langselector
                 $lang = $dataIdiomaDefault['PrefIdioma'];
             }
         }
+        foreach($arrayAllIdiomas as $index){
+            if($index['PrefIdioma']==$lang ){
+                $idiomaAllSelect = $index;
+                break;
+            }
+        }
         $request->setParam('idms', $arrayIdiomas);
         $request->setParam('idmDefault', $dataIdiomaDefault);
         $request->setParam('lang', $lang);
+        $request->setParam('idiomaAllSelect', $idiomaAllSelect);
+
         
     }
 }
