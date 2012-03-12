@@ -43,7 +43,6 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     public function ouvragesAction() {
         
         $this->view->mensaje = $this->_flashMessenger->getMessages();
-        print_r($this->view->mensaje);
         $modelObra = new Application_Model_Obra();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
         $this->view->dataObra = $modelObra->listarObraPorIdioma($idioma);
@@ -204,7 +203,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     }
 
     public function subirImagenes(
-    $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
+        $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $adapter->setDestination($destination);
         $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);

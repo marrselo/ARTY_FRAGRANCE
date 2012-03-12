@@ -41,7 +41,7 @@ class Admin_CiudadesController extends ZExtraLib_Controller_Action {
         if ($this->_request->isPost()) {
             $post = $this->getRequest()->getParams();
             $post['default'] = $this->params['idmDefault']['idIdioma'];
-            $action = $this->_ciudad->editCiudadPais($post, $this->sessionAdmin->idiomaDetaful);
+            $action = $this->_ciudad->editCiudadPais($post, $this->sessionAdmin->idiomaDetaful['idIdioma']);
             $this->_redirect('/admin/ciudades/lista-ciudades/id/' . $post['idPais']);
         }
    }

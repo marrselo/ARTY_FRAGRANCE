@@ -10,17 +10,26 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         $this->_idioma = new Application_Model_DbTable_Idioma();
     }
     
-    function listarArticulo($idmenu) {
-        
+
+    function listarArticulo($idmenu, $est = NULL) {
+        if($est)
+
         $db = $this->_articulo
                 ->getAdapter()
                 ->select()
                 ->from(array($this->_articulo->getName()))
                 ->where('idMenu = ? ', $idmenu)
-                //->where('idEstadoArticulo = ? ', 1);
+                ->where('idEstadoArticulo = ? ', 1)
                 ;
-        
-        $result = $db->query()->fetchAll();
+        else
+            $db = $this->_articulo
+                ->getAdapter()
+                ->select()
+                ->from(array($this->_articulo->getName()))
+                ->where('idMenu = ? ', $idmenu)
+                //->where('idEstadoArticulo = ? ', 1)
+                ;
+       $result = $db->query()->fetchAll();
         
         return $result;
     }

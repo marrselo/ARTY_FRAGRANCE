@@ -20,6 +20,48 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         $this->_puntoventaIdioma = new Application_Model_DbTable_PuntoVentaIdioma();
         $this->_fotosPuntoVenta = new Application_Model_DbTable_FotoPuntoVenta();
     }
+    
+    function newIdFotoVenta(){
+        $select = $this->_fotosPuntoVenta->select()->order('idFotoPuntoVenta desc')
+                ->limit(1);
+        $result = $select->query()->fetch();
+        
+        $new = $result['idFotoPuntoVenta'];
+        $new = (int)$new + 1;
+        return $new;
+    }
+    
+    public function returnPaisPuntoVenta($id){
+        $select = $this->_puntoventa->select()
+                ->where('idPuntoVenta = ?',$id)
+                ->limit(1);
+//        echo $select; exit;
+        return $select->query()->fetch();
+    }
+    
+    function getPuntoVentaUni($data){
+        $select = $this->_fotosPuntoVenta->select()
+                ->where('idFotoPuntoVenta = ?', $data['id'])
+                ->limit(1);
+        return $select->query()->fetch();
+
+    }
+    
+    public function saveImagen($data){
+        $num = $this->newIdFotoVenta();
+        $ext = explode('.',$_FILES['imagen']['name']);
+        
+        $imagen = 'imagen' . $num . '.' . $ext[1];
+        
+        $save = array(
+            'nombreFotoPuntoVenta' => $imagen,
+            'idPuntoVenta' => $data['idPtoVenta']
+        );
+        
+        $this->_fotosPuntoVenta->insert($save);
+        
+        copy($_FILES['imagen']['tmp_name'], 'imgPuntoVenta/imagen' . $num . '.' . $ext[1]);
+    }
 
     function listarPuntoVentaConPortal() {
         if (!($result = $this->_cache->load('listarPuntoVentaConPortal'))) {
@@ -115,7 +157,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
     function insertarPtoVenta($data) {
         $punto = array(
             'idPais' => $data['idPais'],
-            'idCiudad' => 1,
+            'idCiudad' => $data['idCiudad'],
             'nombrePuntoVenta' => $data['nombrePuntoVenta'],
             'direccionPuntoVenta' => $data['direccionPuntoVenta'],
             'telefonoPuntoVenta' => $data['telefonoPuntoVenta'],
@@ -143,19 +185,16 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
     }
 
     function updatePointVenta($data,$default) {
-        //var_dump($data);exit;
-         $idioma = array(
+        $idioma = array(
             'nombrePuntoVenta' => $data['nombrePuntoVenta'],
-            'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
+            'direccionWebPuntoVenta' => $data['direccionPuntoVenta']
         );
-        
-        $where = "idPuntoVenta = '{$data['idPuntoVenta']}' and idIdioma = '{$data['idIdioma2']}'";
+        $where = "idPuntoVenta = '{$data['idPuntoVenta']}' and idIdioma = '{$data['default']}'";
         $this->_puntoventaIdioma->update($idioma, $where); 
-        
-        if($default == $data['idIdioma2']){
+        if($default == $data['default']){
             $punto = array(
                 'idPais' => $data['idPais'],
-                'idCiudad' => 1,
+                'idCiudad' => $data['idCiudad'],
                 'nombrePuntoVenta' => $data['nombrePuntoVenta'],
                 'direccionPuntoVenta' => $data['direccionPuntoVenta'],
                 'telefonoPuntoVenta' => $data['telefonoPuntoVenta'],
@@ -185,5 +224,23 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         return $action;
     }
     
+     public function listaImagenes($id){
+        $select = $this->_fotosPuntoVenta->getAdapter()->select();
+        $select->from(array('t1' => $this->_fotosPuntoVenta->getName()), 
+                array('idFotoPuntoVenta','nombreFotoPuntoVenta','idPuntoVenta'))
+                ->where('idPuntoVenta = ?', $id);
+        //echo $select; exit;
+        $result = $select->query()->fetchAll();
+        return $result;
+    }
+    
+    public function deleteImagen($data){
+        try{
+            $this->_fotosPuntoVenta->delete("idFotoPuntoVenta = '{$data['id']}'");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
 
 }
