@@ -5,55 +5,8 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
      private $_sesion;
     public function init() {
         parent::init();
-        $this->idioma = new Application_Model_Idioma();
-        $this->params = $this->_getAllParams();
-        
-        
-        $this->_sesion = new Zend_Session_Namespace('web');
-     
-        if(isset($this->params['idlang'])):
-            $default = $this->params['idmDefault']['idIdioma'];
-            $idioma = $this->_getParam('idlang', $default);
-            $this->_sesion->lg = $idioma;
-
-            $dta = $this->idioma->getIdiomaSelect($this->_sesion->lg);
-            $this->_sesion->name = $dta['NombreIdioma'];
-            $this->_sesion->abr = $dta['PrefIdioma'];
-
-        else:
-            if(empty($this->_sesion->lg)){
-                
-                $this->_sesion->lg = $this->params['idmDefault']['idIdioma'];
-                $this->_sesion->name = $this->params['idmDefault']['NombreIdioma'];
-                $this->_sesion->abr = $this->params['idmDefault']['PrefIdioma'];
-
-            }
-        endif;
-
-       
-        $this->_articulo = new Application_Model_Articulo();
-        $this->modulo = new Application_Model_Modulo();
-        $this->view->colModuloMenu = $this->modulo->listarModuloMenu();
-      
-        
-        
-        /*$this->params = $this->_getAllParams();
-        
-        $this->view->cboidioma = $this->idioma->getComboIdioma($this->params);*/
-        
-        foreach ($this->idioma->getAllIdiomas() as $ind => $val) {
-            $colIdioma[$val['idIdioma']] = $val;
-        };
-        
-        $this->view->colIdioma = $colIdioma; // $this->idioma->getAllIdiomas();
-        
-        $this->view->params = $this->params;
-
-        $this->view->idiomaDefault = isset($this->params['idlang']) ?
-                $colIdioma[$this->params['idlang']] :
-                $this->params['idmDefault'];
-        
-        $this->view->idioma = $this->_sesion;
+        $this->_articulo = new Application_Model_Articulo();        
+        $this->_idIdmDefault = $this->sessionAdmin->idiomaDetaful['idIdioma'];
     }
 
     public function indexAction() {
@@ -62,8 +15,8 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
         $menu = new Application_Model_Menu();
         $idIdioma = $this->_getParam('lang_code', 1);
         $idMenu = $menu->buscaMenu(2, $idIdioma);
-        $this->view->idioma = $idiomas->getAllIdiomas();
-        $this->view->articulo = $articulo->listarArticulo(2);
+        $this->view->idioma = $idiomas->getAllIdiomas();         
+        $this->view->articulo =$articulo->listarArticuloIdiomaDefault(2,$this->_idIdmDefault);
     }
 
 
@@ -87,33 +40,44 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
         else
             $this->_redirect('/');
     }
-
-    public function editcollectionAction() {
+    
+    
+    public function insertarartyAction()
+    {
+            $form = $this->armarFormulario();
+            $this->view->form = $form;
+            if ($this->_request->isPost()) {               
+                $params = $this->_getAllParams();
+                //if ($form->isValid($this->_request->getPost())) {
+                if ($form->isValid($params)) {                                        
+                    $data = $form->getValues(); 
+                    $this->_articulo->insertarArticulo($data);
+                    $this->_redirect('/admin/arty/');
+                } else {
+                    $this->view->msg = "verifique los datos ingresados";
+                }
+            }
+    }
+    
+    
+    public function editartyAction() {
         $idArticulo = $this->_getParam('id', NULL);
-        $form = new Application_Form_FormArt();
+        $form       = $this->armarFormulario();
+        $params     = $this->_getAllParams();
+        $idIdioma   = $this->sessionAdmin->idiomaDetaful['idIdioma'];
         $this->view->form = $form;
         if ($idArticulo) {
-            $articulo = $this->_articulo->buscaArticulo($idArticulo);
+            $articulo = $this->_articulo->buscarArticuloIdioma($idArticulo,$idIdioma);
             $form->populate($articulo);
 
-            if ($this->_request->isPost()) {
-                $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
-                $form->fotoPrincipal->addFilter(new Zend_Filter_File_Rename(
-                                array('target' => 'collection-' . $idArticulo . '.' . $extn))
-                );
+            if ($this->_request->isPost()) {               
                 $params = $this->_getAllParams();
                 //if ($form->isValid($this->_request->getPost())) {
                 if ($form->isValid($params)) {
                     $values = $form->getValues();
-                    $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
-                    $values["fotoPrincipal"] = 'collection-' . $idArticulo . '.' . $extn;
-//                    $form->fotoPrincipal->addFilter(new Zend_Filter_File_Rename(
-//                      array('target' => $values["fotoPrincipal"]))
-//                   );
-
-                    $form->fotoPrincipal->receive();
+                    
                     if ($this->_articulo->updateArticulo($values))
-                        $this->_redirect('/admin/index/collections');
+                        $this->_redirect('/admin/arty');
                     else
                         $this->view->msg = "ERROR EN ACTUALIZACIÓN";
                 } else {
@@ -143,7 +107,7 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
     }
     public function armarFormulario()
     {
-        $form = new Application_Form_FormArt();
+        $form = new Application_Form_FormArty();
         $form->setDecorators(array(array('ViewScript', array('viewScript' => 'form/form-articulo.phtml'))));
         return $form;
     }
@@ -151,28 +115,10 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
         $form = $this->armarFormulario();
         $this->view->form = $form;
         $menu = new Application_Model_Menu();
-
+        
         $idIdioma = $this->_getParam('info', 1);
         $idMenu = $menu->buscaMenu(2, $idIdioma);
-        if ($this->_request->isPost()) {           
-            $idArticulo = $this->_articulo->maxId();            
-            $params = $this->_getAllParams();
-            //if ($form->isValid($this->_request->getPost())) {
-            if ($form->isValid($params)) {               
-                $values = $form->getValues();              
-                $values["idMenu"] = $idMenu["idMenu"];
-               
-                if ($this->_articulo->insertArticulo($values))
-                    $this->_redirect('/admin/arty/index');
-                else
-                    $this->view->msg = "ERROR EN ACTUALIZACIÓN";
-                
-            } else {
-                $this->view->msg = "verifique los datos ingresados";
-                $er = $form->getMessages();
-               
-            }
-        }
+       
     }
 
     public function menusuperiorAction() {
