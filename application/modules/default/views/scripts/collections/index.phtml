@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="es-es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html lang="es-es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html lang="es-es" class="no-js ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="es-es" class="no-js"> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>index</title>
+<link rel="stylesheet/less" type="text/css" href="css/screen.less?id=1">
+<script src="js/less-1.1.5.min.js" type="text/javascript"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.cycle.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+
+<!--[if lt IE 9]>
+  <script src="js/html5.js"></script>
+<![endif]-->
+<!--[if lt IE 10]>
+    <link rel="stylesheet" href="css/ieonly.css" type="text/css" media="screen" />
+<![endif]-->
+
+</head>
+<body id="" class="lyt_collection_intro" onLoad="">
+	<div class="wrapper">
+		<div class="wrapper_l">
+		<div class="wrapper_r">
+			<div class="wrapper_inner"><div id="main_content" class="layout_fluid ">
+					<div id="content" class="layout_fluid_inner">
+						<div class="inside">
+							<aside id="aside">
+                                                            <?php foreach ($this->articulo as $col): ?> 
+                                                            <ul class="lst_aside">
+									<li><h2><?php echo $col["titulo"]?></h2></li>
+                                                                        <?php foreach ($this->producto as $prod): 
+                                                                          if($col["idArticulo"] == $prod["idArticulo"]){
+                                                                        ?>                                                                        
+                                                                        <li><a class="" href="#"><?php echo $prod["titulo"]?></a></li>
+                                                                        <?php } ?>
+                                                                        <?php endforeach; ?>
+							    </ul>
+                                                            <?php endforeach; ?>
+								<ul class="lst_aside selected">
+									<li><h2>Collection de la Cour</h2></li>
+									<li><a class="" href="#">Présentation</a></li>									
+									<li><a class="selected" href="#">La Fleur du Roy</a></li>									
+									<li><a class="" href="#">Le Rêve de la Reine</a></li>									
+									<li><a class="" href="#">Délice des Libertins </a></li>									
+									<li><a class="" href="#">Alcôve Royale </a></li>
+								</ul>
+								
+							</aside>
+							<section id="" class="wrapp_content">
+								<div class="wrapp_content_inner">
+									<img class="float_left;" src="img/temp/img_col_intro.jpg" width="808"/>
+									
+									<h2>Des collections authentiques et inspirées</h2>
+									<p>A partir d’écrits anciens et grâce aux matières les plus nobles de la parfumerie, 
+									l’historienne et expert du parfum Elisabeth de Feydeau a imaginé une ligne de bougies
+									qui recrée l’art de vivre français entre la tradition et la modernité. 
+									</p>
+									<p>Composées de deux collections, ces bougies évoquent les lieux mythiques, les grands 
+									personnages et le prestige du château de Versailles au temps des Rois. Ces bougies 
+									parfumées s’adressent aux amoureux de l’Histoire et d’histoires, et à toutes les personnes
+									en quête de luxe et d’authenticité, que le style de vie « à la française » continue de 
+									fasciner. Les valeurs de création de ces collections de bougies parfumées sont inspirées
+									par le faste de la Cour de Versailles et l’élégance de l’art de vivre français, telles le 
+									luxe, la tradition, l’authenticité, l’expertise et l’hédonisme, qui sont revisitées dans un
+									esprit contemporain.</p>
+								</div>	
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="wrapper_b">
+	</div>
+</body>
+</html>

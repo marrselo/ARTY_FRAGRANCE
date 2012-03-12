@@ -1,0 +1,97 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Liste Point Vente</a> &gt; <a class="actualités" href="<?php $this->baseUrl()?>/admin/index/actualites/"><?php echo $this->params['action']?></a> &gt; Modifier               
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" class="table_admin_body">
+                            <input type="hidden" value="3" name="id">
+                            <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                <tbody>
+                                <input type="hidden" name="idPtoVenta" value="<?php echo $this->idpunto?>" />
+                                <div style="clear: both;"
+                                    <div align="left" width="20%">Imagen *</div>
+                                    <div align="left" width="80%">
+                                       
+                                        <input type="file" name="imagen" />
+
+                                    </div>
+                                    
+                                </div>
+                                <div id="lista-img"></div>
+                                <br><br>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <input type="submit" value="Valider" name="">
+                                            <input type="button" onclick="location.href='/admin/pointventa';" value="Back" name="cancel">    </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </form>
+                        </div>
+                        <div class="table_admin_foot"></div>
+                    </div>
+                
+                <script>
+                    contenido_textarea = ""
+                    num_caracteres_permitidos = 5000
+                    function valida_longitud(){
+                        num_caracteres = document.forms[0].description.value.length
+	
+                        if (num_caracteres <= num_caracteres_permitidos){
+                            contenido_textarea = document.forms[0].description.value	
+                        }else{
+                            document.forms[0].description.value = contenido_textarea
+                        }
+                    }
+
+                </script>
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>
+<script>
+    
+    $(document).ready(function(){
+        $("[id^=elminarFoto]").live("click",function(){
+        var idImgArray = this.id.split('-');
+        $.ajax({
+                data: 'id='+idImgArray[1],
+                async:1,
+                type:"POST",dataType:"html",
+                contentType: "application/x-www-form-urlencoded",
+                url: "/admin/pointventa/ajax/case/deleteImg",
+                success: function(data){
+                   if(data == 1){
+                      printFotos();
+                   }
+                }
+            });
+        });
+
+    });
+    function printFotos(){
+        $.ajax({
+            data: "id=<?php echo $this->idpunto?>",
+            type: "GET",
+            dataType: "json",
+            url: "<?php $this->baseUrl() ?>/admin/pointventa/ajax/case/listaImg",
+            success: function(data){
+                $("#lista-img").html(data);
+            }
+        });
+    }
+    
+    printFotos();
+                       
+</script>

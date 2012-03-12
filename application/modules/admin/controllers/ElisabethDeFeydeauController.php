@@ -203,7 +203,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     }
 
     public function subirImagenes(
-    $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
+        $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $adapter->setDestination($destination);
         $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);

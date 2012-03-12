@@ -80,4 +80,13 @@ class Application_Model_DetalleArticulo extends ZExtraLib_Model {
         $db->update('detallearticulo', $data,$where);
         return true;
     }
+    function listProductos() {
+        $db = $this->_articulo
+                ->getAdapter()->select()
+                ->from(array($this->_articulo->getName()));
+        
+        $result = $db->query()->fetchAll();
+        
+        return $result;
+    }
 }
