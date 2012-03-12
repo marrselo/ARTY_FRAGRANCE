@@ -88,17 +88,17 @@ $(document).ready(function(){
         action: '/admin/elisabeth-de-feydeau/subir-imagenes-biografia?moduleAdmin=biografie',
 		onSubmit : function(file , ext){
 		if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){
-			alert('Error: Solo se permiten imagenes');
-			return false;
+                    alert('Error: Solo se permiten imagenes');
+                    return false;
 		} else {
-			button.text('Uploading....');
-			this.disable();
+                    button.text('Uploading....');
+                    this.disable();
 		}
 		},
 		onComplete: function(file, response){
-			button.text('Upload');
-			this.enable();
-                        printFotos();               
+                    button.text('Upload');
+                    this.enable();
+                    printFotos();               
 		}	
 	});
         $("[id^=elminarFoto]").live("click",function(){
