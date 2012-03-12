@@ -5,7 +5,6 @@
         <div id="main">
             <!--   <h2 class="top"></h2>-->
             <div id="form">
-                <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
                     <?php 
                         echo $this->render('render/listaIdioma.phtml',
                             array(
@@ -20,6 +19,7 @@
                         <div class="table_admin_head"></div>
                         <div align="center" class="table_admin_body">
                             <input type="hidden" value="3" name="id">
+                            <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
                             <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
                                 <tbody>
                                     <tr><th colspan="2">
@@ -39,7 +39,7 @@
                                     <tr>
                                         <td align="left" width="20%">Nom : *</td>
                                         <td align="left" width="80%">
-                                            <input type="text" value="<?php echo $this->data['nombrePaisIdioma']?>" class="required" size="40" maxlength="100" name="nombrePaisIdioma" />
+                                            <input type="text" value="<?php echo $this->data['nombrePaisIdioma']?>" class="required" size="40" maxlength="100" name="nombrePaisIdioma" id="nombrePaisIdioma" />
                                         </td>
                                     </tr>
 
@@ -52,24 +52,11 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            </form>
                         </div>
                         <div class="table_admin_foot"></div>
                     </div>
-                </form>
-                <script>
-                    contenido_textarea = ""
-                    num_caracteres_permitidos = 5000
-                    function valida_longitud(){
-                        num_caracteres = document.forms[0].description.value.length
-	
-                        if (num_caracteres == num_caracteres_permitidos){
-                            contenido_textarea = document.forms[0].description.value	
-                        }else{
-                            document.forms[0].description.value = contenido_textarea
-                        }
-                    }
-
-                </script>
+                
             </div>
         </div>
 
@@ -86,4 +73,19 @@ function getComboIdioma(value){
     var data = urls.split('/idlang/');
     location.href = data[0] + '/idlang/' +  value
 }
+
+    $(document).ready(function(){
+
+        $("#frmDevenir").validate({
+            rules: {
+                nombrePaisIdioma: "required"
+
+            },
+
+            messages: {
+                nombrePaisIdioma: "Ce champ c'est obligatoire"
+            }
+        });
+        $("#frmDevenir").validate();
+    });
 </script>

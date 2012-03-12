@@ -34,7 +34,7 @@
                                         <tr>
                                             <td align="left" width="20%">City : *</td>
                                             <td align="left" width="80%">
-                                                <input type="text" class="required" size="40" maxlength="100" name="nombreCiudad" />
+                                                <input type="text" class="required" size="40" maxlength="100" name="nombreCiudad" id="nombreCiudad" />
                                             </td>
                                         </tr>
 
@@ -74,3 +74,20 @@
 
     </div>
 </td>
+<script>
+  $(document).ready(function(){
+      
+      $("#frmDevenir").validate({
+        rules: {
+            nombreCiudad: "required"
+           
+        },
+
+        messages: {
+            nombreCiudad: "Merci d'ajouter une nouvelle ville"
+            
+        }
+    });
+    $("#frmDevenir").validate();
+  });
+</script>

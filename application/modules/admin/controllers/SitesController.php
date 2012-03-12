@@ -2,11 +2,14 @@
 
 class Admin_SitesController extends ZExtraLib_Controller_Action
 {
-    private $_params;
+    protected $_params;
+    protected $_sites;
     public function init() {
         parent::init();
         $this->modulo = new Application_Model_Modulo();
-        //$this->_params = $this->pa
+        $this->_sites = new Application_Model_Site();
+        $this->_params = $this->_getAllParams();
+        $this->view->params = $this->_params;
         
                
        //print_r($this->view->idiomaDefault);exit;

@@ -44,6 +44,13 @@ class Application_Model_Site extends ZExtraLib_Model {
         }
         return  $result;
     }
+    
+    function getListaTipoSites(){
+        $select = $this->_tipoSite->getAdapter()->select();
+        $select->from(array('t1'=>$this->$_tipoSite->getName()),array('idTipoSite','nombreTipoSite'))
+                ->order('si.nombreTipoSite');
+        return $select->query()->fetchAll();
+    }
 }
 
 ?>

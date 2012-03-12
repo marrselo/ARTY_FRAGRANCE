@@ -1,7 +1,7 @@
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
-           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Point Vente</a> -&gt; <a class="actualités" href="<?php $this->baseUrl()?>/admin/index/actualites/"><?php echo $this->params['action']?></a> &gt; Modifier               
+           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Liste Point Vente</a> -&gt; <?php echo $this->params['action']?>        
         <div id="main">
             <!--   <h2 class="top"></h2>-->
             <div id="form">
@@ -27,7 +27,6 @@
                                         <td align="left" width="20%">Pais *</td>
                                         <td align="left" width="80%">
                                             <select  name="idPais" onchange="changePais(this.value)"  style="width: 150px;">
-
                                                     <?php
                                                     foreach ($this->colPais as $index => $valu):                            
                                                          $selected = ($valu['idPais'] == $this->detallePtoVenta['idPais'])? 'selected = "selected"' : '';                                                       
@@ -43,8 +42,7 @@
                                     <tr>
                                         <td align="left" width="20%">City *</td>
                                         <td align="left" width="80%">
-                                            <select  name="idCiudad" id="idCiudad" style="width: 150px;">
-
+                                            <select  name="idCiudad" id="idCiudad" style="width: 150px;" class="required">
                                                     <?php
                                                     foreach ($this->dtaCiudad as $value):                            
                                                          $selected = ($value['idCiudad'] == $this->detallePtoVenta['idCiudad'])? 'selected = "selected"' : '';                                                       
@@ -62,14 +60,13 @@
                                         <td align="left" width="80%">
                                             <input type="hidden" name='idPuntoVenta' value="<?php echo $this->detallePtoVenta['idPuntoVenta']?>" />
                                             <input type="hidden" name="idPuntoVentaIdioma" value="<?php echo $this->detallePtoVenta['idPuntoVentaIdioma']?>" />
-                                            <input type="hidden" name="idIdioma2" value="<?php echo $this->detallePtoVenta['idIdioma']?>" />
                                             <input type="hidden" name="idDefault" value="<?php echo $this->params['idmDefault']['idIdioma']?>" />
-                                            <input type="text" value="<?php echo $this->detallePtoVenta['nombrePuntoVenta']?>" class="required" size="50" maxlength="100" id="title" name="nombrePuntoVenta"></td>
+                                            <input type="text" value="<?php echo $this->detallePtoVenta['nombrePuntoVenta']?>" class="required" size="50" maxlength="100" id="title" name="nombrePuntoVenta" id="nombrePuntoVenta"></td>
                                     </tr>
                                     <tr>
                                         <td align="left" width="20%">Adresse *</td>
                                         <td align="left" width="80%">
-                                            <input value='<?php echo $this->detallePtoVenta['direccionPuntoVenta']?>' type="text" size="50" name="direccionPuntoVenta" >
+                                            <input value='<?php echo $this->detallePtoVenta['direccionPuntoVenta']?>' type="text" size="50" name="direccionPuntoVenta" id="direccionPuntoVenta" class="required" >
                                         </td>
                                     </tr>
                                     <tr>
@@ -125,6 +122,19 @@
 </td>
 
 <script>
+    
+    $(document).ready(function(){
+        $("#frmDevenir").validate({
+             
+            messages: {
+                idPais: "Ce champ c'est obligatoire",
+                idCiudad: "Ce champ c'est obligatoire",
+                nombrePuntoVenta: "Ce champ c'est obligatoire",
+                direccionPuntoVenta: "Ce champ c'est obligatoire"
+            }
+        });
+        $("#frmDevenir").validate();
+    });
     
     function changePais(value){
         $.ajax({

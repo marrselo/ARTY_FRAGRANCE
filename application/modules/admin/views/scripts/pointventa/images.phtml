@@ -17,7 +17,7 @@
                                     <div align="left" width="20%">Imagen *</div>
                                     <div align="left" width="80%">
                                        
-                                        <input type="file" name="imagen" />
+                                        <input type="file" name="imagen" id="imagen" class="required" />
 
                                     </div>
                                     
@@ -61,8 +61,26 @@
     </div>
 </td>
 <script>
-    
+
     $(document).ready(function(){
+        
+        $("#frmDevenir").validate({
+            rules: {
+                imagen: {
+                    required:true,
+                    accept:'jpg?|png|gif|jpeg'
+                }
+
+            },
+
+            messages: {
+                imagen: "Merci de mettre un fichier avec format valide."
+
+            }
+        });
+        $("#frmDevenir").validate();
+        
+        
         $("[id^=elminarFoto]").live("click",function(){
         var idImgArray = this.id.split('-');
         $.ajax({

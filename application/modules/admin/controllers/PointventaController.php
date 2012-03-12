@@ -14,6 +14,7 @@ class Admin_PointventaController extends ZExtraLib_Controller_Action {
         //print_r($this->view->idiomaDefault);exit;
         $this->pointventa = new Application_Model_PuntoVenta();
         $this->_param = $this->_getAllParams();
+        $this->view->params = $this->_param;
     }
 
     public function indexAction() {

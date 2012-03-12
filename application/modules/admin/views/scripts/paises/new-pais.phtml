@@ -39,7 +39,7 @@
                                     <tr>
                                         <td align="left" width="20%">Nom : *</td>
                                         <td align="left" width="80%">
-                                            <input type="text" value="" class="required" size="30" maxlength="100" id="title" name="nombrePais" />
+                                            <input type="text" value="" class="required" size="30" maxlength="100" id="title" name="nombrePais" id="nombrePais" />
                                         </td>
                                     </tr>
                                    
@@ -78,3 +78,20 @@
 
     </div>
 </td>
+<script>
+  $(document).ready(function(){
+      
+      $("#frmDevenir").validate({
+        rules: {
+            nombrePais: "required"
+           
+        },
+
+        messages: {
+            nombrePais: "Merci d'ajouter un nouveau pays"
+            
+        }
+    });
+    $("#frmDevenir").validate();
+  });
+</script>

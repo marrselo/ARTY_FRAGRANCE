@@ -70,8 +70,8 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
 
     function newPaisAction() {
         $post = $this->getRequest()->getParams();
-        if (!empty($post)) {
-
+        if ($this->_request->isPost()) {
+            var_dump('okas');exit;
             $action = $this->_pais->insertData($post);
             if ($action == '1')
                 $this->_redirect('/admin/paises/');

@@ -41,7 +41,7 @@
                                         <tr>
                                             <td align="left" width="20%">Nom : *</td>
                                             <td align="left" width="80%">
-                                                <input type="text" value="<?php echo $this->data['nombreCiudadIdioma']?>" class="required" size="40" maxlength="100" name="nombreCiudad" />
+                                                <input type="text" value="<?php echo $this->data['nombreCiudadIdioma']?>" class="required" size="40" maxlength="100" name="nombreCiudad" id="nombreCiudad" />
                                             </td>
                                         </tr>
 
@@ -81,3 +81,19 @@
 
     </div>
 </td>
+<script>
+  $(document).ready(function(){
+      
+      $("#frmDevenir").validate({
+        rules: {
+            nombreCiudad: "required"
+           
+        },
+
+        messages: {
+            nombreCiudad: "Ce champ c'est obligatoire"
+            
+        }
+    });
+    $("#frmDevenir").validate();
+});</script>

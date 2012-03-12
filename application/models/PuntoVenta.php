@@ -145,7 +145,7 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
         $select = $this->_puntoventaIdioma->getAdapter()->select();
         $select->from(array('t1' => 'puntoventa'), 
                 array('idPais','idCiudad','idPuntoVenta','telefonoPuntoVenta','direccionPuntoVenta'))
-                ->join(array('t2' => 'puntoventaIdioma'), 't1.idPuntoVenta = t2.idPuntoVenta and t2.idIdioma = ' . "'{$idIdioma}'", 
+                ->join(array('t2' => 'puntoventaidioma'), 't1.idPuntoVenta = t2.idPuntoVenta and t2.idIdioma = ' . "'{$idIdioma}'", 
                         array('nombrePuntoVenta','idPuntoVentaIdioma','idIdioma','direccionWebPuntoVenta'))
                 ->join(array('t3' => 'pais'), 't1.idPais = t3.idPais', array('nombrePais'))
                 ->where('t1.idPuntoVenta = ?',$idPtoVentaIdioma);
