@@ -43,7 +43,6 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     public function ouvragesAction() {
         
         $this->view->mensaje = $this->_flashMessenger->getMessages();
-        print_r($this->view->mensaje);
         $modelObra = new Application_Model_Obra();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
         $this->view->dataObra = $modelObra->listarObraPorIdioma($idioma);

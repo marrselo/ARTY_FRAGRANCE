@@ -3,23 +3,46 @@
 class Application_Model_Articulo extends ZExtraLib_Model {
 
     protected $_articulo;
-    
+    protected $_idioma;
     function __construct() {
         parent::__construct();
-        $this->_articulo = new Application_Model_DbTable_Articulo();        
+        $this->_articulo = new Application_Model_DbTable_Articulo();
+        $this->_idioma = new Application_Model_DbTable_Idioma();
     }
     
-    function listarArticulo($idmenu) {
+
+    function listarArticulo($idmenu, $est = NULL) {
+        if($est)
+
         $db = $this->_articulo
                 ->getAdapter()
                 ->select()
                 ->from(array($this->_articulo->getName()))
                 ->where('idMenu = ? ', $idmenu)
-                //->where('idEstadoArticulo = ? ', 1);
+                ->where('idEstadoArticulo = ? ', 1)
                 ;
+        else
+            $db = $this->_articulo
+                ->getAdapter()
+                ->select()
+                ->from(array($this->_articulo->getName()))
+                ->where('idMenu = ? ', $idmenu)
+                //->where('idEstadoArticulo = ? ', 1)
+                ;
+       $result = $db->query()->fetchAll();
         
-        $result = $db->query()->fetchAll();
-        
+        return $result;
+    }
+    function listarArticuloIdiomaDefault($idMenu,$idIdioma)
+    {
+        $db = $this->_articulo
+                ->getAdapter()
+                ->select()
+                ->from(array($this->_articulo->getName()))
+                ->where('idMenu = ? ', $idMenu)
+                ->where('idIdioma = ?', $idIdioma)
+                ->order('idArticulo ASC');
+        $result = $db->query()->fetchAll();        
         return $result;
     }
     
@@ -27,13 +50,22 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         $db = $this->_articulo
                 ->getAdapter()->select()
                 ->from(array($this->_articulo->getName()))
-                ->where('idArticulo = ? ', $id)
-                //->where('idEstadoArticulo = ? ', 1)
-                ;        
+                ->where('idArticulo = ? ', $id);
         $result = $db->query()->fetch();        
         return $result;
     }
-    
+    function buscarArticuloIdioma($idid,$idIdioma)
+    {
+        $arr = $this->buscaArticulo($idid);
+        $ididArticulo = $arr['ididArticulo'];
+        $db = $this->_articulo
+                ->getAdapter()->select()
+                ->from(array($this->_articulo->getName()))
+                ->where('ididArticulo = ? ', $ididArticulo)
+                ->where('idIdioma = ?', $idIdioma);
+        $result = $db->query()->fetch();        
+        return $result;      
+    }
     function updateArticulo($values=array()) {
         $db = $this->_articulo->getAdapter();        
         $data = array(
@@ -49,6 +81,7 @@ class Application_Model_Articulo extends ZExtraLib_Model {
     }    
     
     function insertArticulo($values=array()) {
+                        
         $db = $this->_articulo->getAdapter();        
         $data = array(
             'titulo' => $values["titulo"],
@@ -62,6 +95,24 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         $db->insert($this->_articulo->getName(),$data); 
         
         return true;
+    }
+    
+    function insertarArticulo($data)
+    {
+        $arrayIdioma = $this->_idioma->select()->query()->fetchAll();
+
+        foreach($arrayIdioma as $key => $index ){
+            $data['idIdioma'] = $index['idIdioma'];
+            $this->_articulo->insert($data);
+            if($key==0){
+                $id = $this->_articulo->getAdapter()->lastInsertId();
+                $data['ididArticulo'] = $id ; 
+                $where = $this->_articulo->getAdapter()->quoteInto('idArticulo = ?', $id);
+                $data2 = array('ididArticulo'=>$id);
+                $this->_articulo->update($data2, $where);                
+            }
+        }
+        
     }
     
     function deleteArticulo($id) {
