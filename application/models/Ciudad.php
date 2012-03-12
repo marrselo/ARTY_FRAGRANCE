@@ -21,8 +21,8 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
         //echo $select; exit;
         return $select->query()->fetchAll();
     }
-    
-    public function getCiudadIdioma($id,$sesion){
+
+    public function getCiudadIdioma($id,$sesion,$tipo = ''){
         $select = $this->_pais->getAdapter()->select();
         $select->from(array('t1' => 'ciudadidioma'), array('idCiudad','idCiudadIdioma','nombreCiudadIdioma','idIdioma'))
                 ->join(array('t3' => 'ciudad'), 't1.idCiudad = t3.idCiudad', array('idCiudad'))
@@ -30,7 +30,10 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
                 ->where('t3.idPais = ?', $id)
                 ->where('t1.idIdioma = ?', $sesion['idIdioma']);
         //echo $select; exit;
-        return $select->query()->fetch();
+        if(empty($tipo))
+            return $select->query()->fetch();
+        else
+            return $select->query()->fetchAll();
     }
     
     public function saveCiudadPais(array $data = Array(), $sesion){
