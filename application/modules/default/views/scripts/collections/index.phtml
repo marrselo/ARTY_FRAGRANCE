@@ -29,7 +29,13 @@
 					<div id="content" class="layout_fluid_inner">
 						<div class="inside">
 							<aside id="aside">
-                                                            <?php foreach ($this->articulo as $col): ?> 
+                                                            <?php 
+                                                            $c = 0;
+                                                            foreach ($this->articulo as $col): 
+                                                                if($c==0){
+                                                                    $first = $col;
+                                                                    $c++;
+                                                                    }?>                                                             
                                                             <ul class="lst_aside">
                                                                 <li><a href="<?php echo "/collections/index/info1/".$col["idArticulo"] ?>"><h2><?php echo $col["titulo"]?></h2></a></li>
                                                                         <?php foreach ($this->producto as $prod): 
@@ -48,7 +54,6 @@
 									<li><a class="" href="#">Délice des Libertins </a></li>									
 									<li><a class="" href="#">Alcôve Royale </a></li>
 								</ul>-->
-								
 							</aside>                                                    
                                                     <?php if($this->idProd) { ?>
                                                     
@@ -92,8 +97,8 @@
                                                             </div>	
                                                         </section>                                                    
                                                     
-                                                    <?php } ?>
-                                                    <?php if($this->idArt){ 
+                                                    <?php } else 
+                                                        if($this->idArt){ 
                                                         ?>                                                    
                                                     <section id="" class="wrapp_content">
 								<div class="wrapp_content_inner">
@@ -105,6 +110,15 @@
 								</div>	
                                                     </section>
                                                     
+                                                    <?php } else { ?>
+                                                    <section id="" class="wrapp_content">
+								<div class="wrapp_content_inner">
+                                                                    <?php $foto = "/imagen-articulo/".$first["fotoPrincipal"]?>
+									<img class="float_left" src="<?php echo $foto ?>" width="808"/>									
+                                                                        <?php echo $first["parrafo"] ?>
+									
+								</div>	
+                                                    </section>
                                                     <?php } ?>
 						</div>
 					</div>

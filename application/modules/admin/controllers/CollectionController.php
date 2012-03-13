@@ -63,9 +63,10 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
         $idiomas = new Application_Model_Idioma();
         $articulo = new Application_Model_Articulo();
         $menu = new Application_Model_Menu();
-
-        $idIdioma = $this->_getParam('lang_code', 1);
-        $idMenu = $menu->buscaMenu(3, $idIdioma);
+        
+//$idIdioma = $this->_getParam('lang_code', 1);
+        $this->view->idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];        
+        $idMenu = $menu->buscaMenu(3, $this->view->idIdioma);
 
         $this->view->idioma = $idiomas->getAllIdiomas();
         $this->view->articulo = $articulo->listarArticulo($idMenu['idMenu']);
@@ -116,7 +117,7 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
             }
         }
         else
-            $this->_redirect('/');
+            $this->_redirect('/admin');
     }
 
     public function deletecollectionAction() {
@@ -136,12 +137,13 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
         }
     }
 
-    public function newcollectionAction() {
+    public function newcollectionAction() {        
         $form = new Application_Form_FormArt();
         $this->view->form = $form;
         $menu = new Application_Model_Menu();
 
-        $idIdioma = $this->_getParam('info', 1);
+        //$idIdioma = $this->_getParam('info', 1);
+        $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];        
         $idMenu = $menu->buscaMenu(3, $idIdioma);
 
         if ($this->_request->isPost()) {

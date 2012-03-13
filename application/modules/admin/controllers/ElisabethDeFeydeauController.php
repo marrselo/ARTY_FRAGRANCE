@@ -51,6 +51,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     
     public function editOuvragesAction(){
     $formulario = new Application_Form_FormOuvrages();
+    $formulario->getElement('imgObra')->setRequired(FALSE);
     $modelObra = new Application_Model_Obra();
     $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
     $datosObra = $modelObra->listarDatosObra($idioma,$this->_params['id']);
@@ -61,6 +62,9 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     if ($this->_request->isPost()) {
     if($formulario->isValid($this->_params)){
         $this->cleanCache();
+        $arrayDatos=$formulario->imgObra->getFileInfo();
+        if($arrayDatos['imgObra']['name']!=''){
+            
         $arrayImagenes =$this->subirImagenes(
                 $formulario->imgObra->getDestination(), 
                 'img_ourages_', 
@@ -70,16 +74,21 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
                 '278', 
                 '99');
         unlink($confUpload['rutaOuvrages'].'/'.$datosObra['imgObra']);
+        }
         $dataObraIdioma = array(
             'tituloObraIdioma'=>$this->_params['tituloObra'],
             'parrafoObraIdioma'=>$this->_params['parrafoObra'],
             );
         $modelObra->updateObraIdioma($dataObraIdioma, $idioma, $this->_params['idObra']);
+        
         $dataObra = array(
                     'anioObra' => $this->_params['anioObra'],
                     'link' => $this->_params['link'],
                     'imgObra' => $arrayImagenes[0],
                 );
+        if($arrayImagenes[0]==''){
+        unset($dataObra['imgObra']);
+        }
         $modelObra->updateObra($dataObra, $this->_params['idObra']);
         $this->_flashMessenger->addMessage('Se Registro Correctamente');
         $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');

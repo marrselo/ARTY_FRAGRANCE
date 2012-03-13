@@ -12,45 +12,19 @@ CKEDITOR.replace('parrafo');
 <div id="main">
 <div id="form">
 <div style="display:show">
+            <?php 
+                            echo $this->render('render/listaIdioma.phtml',
+                                array(
+                                    'idms' => $this->idms,
+                                    'lang' => $this->lang,
+                                )
+                            );
+                        ?>
+
     <div class="table_admin">
         <div class="table_admin_head"></div>
         <div align="left" class="table_admin_body">
-<fieldset>
-    <form method="get">        
-    <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
-        <select onchange="submit()" id="lang_code" name="lang_code">
-    <?php     
-    $id = $_GET["lang_code"];
-    foreach ($this->idioma as $idioma):
-        if($idioma["idIdioma"] == $id)
-            $select = "selected";
-        else 
-            $select = "";
-    ?>            
-            <option <?php echo $select;?> title="/iconos/<?php echo $idioma["icono"]?>" value="<?php echo $idioma["idIdioma"]?>"><?php echo $idioma["NombreIdioma"]?>
-            </option>
-    <?php endforeach;?>
-        </select>
-    </div>
     
-    <div class="dd" id="lang_code_msdd" style="width: 200px;">
-        <div class="ddTitle" id="lang_code_title">
-            <span class="arrow" id="lang_code_arrow" style="background-position: 0pt 0pt;">                
-            </span>
-            <span id="lang_code_titletext" class="textTitle">                
-                <img align="left" src="/iconos/cv.png"> Frances
-            </span>
-        </div>
-        <div class="ddChild" id="lang_code_child" style="width: 71px;">
-        <?php foreach ($this->idioma as $idioma):?>
-            <a id="<?php echo $idioma["idIdioma"]?>" class="selected enabled" href="submit()">
-                <img align="left" src="/iconos/<?php echo $idioma["icono"]?>"> <?php echo $idioma["NombreIdioma"]?>
-            </a>        
-        <?php endforeach;?>
-        </div>
-    </div>
-        </form>
-</fieldset>
             <!--UPLOAD MODULES-->
             <!--LIST MODULES-->
             <fieldset>
@@ -111,8 +85,10 @@ CKEDITOR.replace('parrafo');
                             </tfoot>
                         </table>
                     <?php 
-                        if(is_null($id))
-                        $id = 1;
+                        if(is_null($this->idIdioma))
+                                $id = 1;
+                        else
+                            $id = $this->idIdioma;
                     ?>
                     <a href="/admin/collection/newcollection/info/<?php echo $id ?>">New Collection</a>
                     

@@ -83,17 +83,20 @@ class Application_Model_Articulo extends ZExtraLib_Model {
     function insertArticulo($values=array()) {
                         
         $db = $this->_articulo->getAdapter();        
+        $menu = new Application_Model_Menu();
+        $m = $menu->searchMenu(3);
+        foreach ($m as $men):
         $data = array(
             'titulo' => $values["titulo"],
             'parrafo' => $values["parrafo"],
             'fotoPrincipal' => $values["fotoPrincipal"],
-            'idMenu' => $values["idMenu"],
+            'idMenu' => $men["idMenu"],
             'idEstadoarticulo' => 1,
             'flagPublicar' => 1,
             'slugArticulo' => 1,            
             );
         $db->insert($this->_articulo->getName(),$data); 
-        
+        endforeach;
         return true;
     }
     
