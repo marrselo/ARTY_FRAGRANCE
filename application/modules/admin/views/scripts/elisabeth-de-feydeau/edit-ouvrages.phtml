@@ -24,7 +24,7 @@ CKEDITOR.replace('tituloObra',{toolbar : 'Basic'});
                 <div class="table_admin">
                     <div class="table_admin_head"></div>
                     <div align="center" class="table_admin_body">
-                        <form action="" method="POST" enctype="multipart/form-data" >
+                        <form action="" id="formulario" name="formulario"  method="POST" enctype="multipart/form-data" >
                             <?php echo $this->form->idObra; ?>
                             <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
                                 <tbody>
@@ -83,7 +83,8 @@ CKEDITOR.replace('tituloObra',{toolbar : 'Basic'});
                                     </tr>
                                 </tfoot>
                             </table>
-                        </form>                    </div>
+                        </form>                    
+                    </div>
                     <div class="table_admin_foot"></div>
                 </div>
 

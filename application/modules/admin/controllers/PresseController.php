@@ -45,6 +45,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
                         '70'
                         );
                 print_r($arrayImagen);
+//                exit;
               //  $this->_redirect('/admin/presse/');
                 
             }
@@ -79,7 +80,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
     }
 
     public function subirImagenes(
-    $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
+        $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $adapter->setDestination($destination);
         $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);
@@ -88,7 +89,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         if ($widthThums != null && $heightThums != null) {
             $thums = true;
         }
-        $adapter->addFilter('Rename', array('target' => $destination . '/' . $name . '.' . $extn));
+        $adapter->addFilter('Rename', array('target' => $destination . '/' . $name . '.' . $extn,'overwrite' => true));
         if (!$adapter->receive()) {
             $nameSession = $adapter->getMessages();
         } else {
@@ -96,8 +97,8 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
             $nameSession[] = $name . '.' . $extn;
             $this->redimencionarImagen($fileImagen, $width, $height, 'crop');
             if ($thums) {
-                $nameThums = 'thums_' . $name;
-                copy($fileImagen, $destination . '/' . $nameThums . '.' . $extn);
+                $nameThums ='thums_'.$name;
+                copy($fileImagen,$destination . '/' . $nameThums . '.' . $extn);
                 $this->redimencionarImagen($destination . '/' . $nameThums . '.' . $extn, $widthThums, $heightThums, 'crop');
             }
         }

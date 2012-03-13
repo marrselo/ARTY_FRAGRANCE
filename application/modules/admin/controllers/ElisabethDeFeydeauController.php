@@ -62,9 +62,8 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     if ($this->_request->isPost()) {
     if($formulario->isValid($this->_params)){
         $this->cleanCache();
-        $arrayDatos=$formulario->imgObra->getFileInfo();
+        $arrayDatos = $formulario->imgObra->getFileInfo();
         if($arrayDatos['imgObra']['name']!=''){
-            
         $arrayImagenes =$this->subirImagenes(
                 $formulario->imgObra->getDestination(), 
                 'img_ourages_', 
