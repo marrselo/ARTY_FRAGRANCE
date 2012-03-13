@@ -20,6 +20,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
                 $this->_redirect('/admin/elisabeth-de-feydeau/');
             }
         } else {
+            
             //$formulario->insertElment('contenidoBio', $dataBio['contenidoBio']);
             //$formulario->insertElment('tituloBio', $dataBio['tituloBio']);
         }
