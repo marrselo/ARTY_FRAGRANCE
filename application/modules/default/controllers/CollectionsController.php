@@ -20,7 +20,7 @@ class Default_CollectionsController extends ZExtraLib_Controller_Action
         $this->view->producto = $producto->listProductos();
         
         $idArt = $this->_getParam('info1');
-        $idProd = $this->_getParam('info2');
+        $idProd = $this->_getParam('info2');        
         if($idArt){
             $this->view->detart = $articulo->buscaArticulo($idArt);
             $this->view->idArt = $idArt;
