@@ -12,12 +12,7 @@ CKEDITOR.replace('parrafo');
 <div id="main">
 <div id="form">
 <div style="display:show">
-    <div class="table_admin">
-        <div class="table_admin_head"></div>
-        <div align="left" class="table_admin_body">
-<fieldset>
-    <form method="get">        
-        <?php 
+            <?php 
                             echo $this->render('render/listaIdioma.phtml',
                                 array(
                                     'idms' => $this->idms,
@@ -25,9 +20,11 @@ CKEDITOR.replace('parrafo');
                                 )
                             );
                         ?>
+
+    <div class="table_admin">
+        <div class="table_admin_head"></div>
+        <div align="left" class="table_admin_body">
     
-        </form>
-</fieldset>
             <!--UPLOAD MODULES-->
             <!--LIST MODULES-->
             <fieldset>
