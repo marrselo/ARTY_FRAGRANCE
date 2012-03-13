@@ -137,7 +137,7 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
         }
     }
 
-    public function newcollectionAction() {
+    public function newcollectionAction() {        
         $form = new Application_Form_FormArt();
         $this->view->form = $form;
         $menu = new Application_Model_Menu();
