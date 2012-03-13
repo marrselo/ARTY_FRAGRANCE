@@ -51,6 +51,47 @@ class Application_Model_Site extends ZExtraLib_Model {
                 ->order('si.nombreTipoSite');
         return $select->query()->fetchAll();
     }
+    function insertSite($data){
+        $this->_site->insert($data);
+        return $this->_site->getAdapter()->lastInsertId();
+    }
+function ListarSiteA($idioma){
+        //if (!($result = $this->_cache->load('listaSiteA'.$idioma))) {
+        $sql = $this->_site->getAdapter()
+                ->select()
+                ->from(array('si'=>$this->_site->getName()),array('idtsi.nombreIdiomaTipoSite','si.nombreSite','si.urlSite','si.urlMostrar','si.idSite'))
+                ->join(array('tsi'=>$this->_tipoSite->getName()), 'tsi.idTipoSite=si.idTipoSite','')
+                ->join(array('idtsi'=>$this->_idiomaTipoSite->getName()), 'idtsi.idTipoSite=tsi.idTipoSite','')
+                ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = idtsi.idIdioma', '')
+                //->where('si.estado = ?','1')
+                ->where('idi.prefIdioma = ? ', $idioma)
+                ->order('si.idTipoSite');
+        $result = $this->_site->getAdapter()->fetchAll($sql);
+        $result = $this->arrayAsoccForFirstItem($result);
+        //$this->_cache->save($result, 'listaSiteA'.$idioma);
+        //}
+        return $result;
+    }   
+   function listarDatosSite($idObra) {
+        
+            $result = $this->_site
+                    ->getAdapter()
+                    ->select()
+                    ->from(array('o' => $this->_site->getName()))
+                    ->where('o.idSite = ? ', $idObra)->query()->fetch();
+            ;
+            
+        return $result;
+    }  
+        function updateSite($data,$idObra){
+        $where = $this->_site->getAdapter()->quoteInto('idSite = ?', $idObra);
+        $this->_site->update($data, $where);
+    }
+    function deleteSite($data){
+        $where = $this->_site->getAdapter()->quoteInto('idSite = ?', $data['id']);
+        $this->_site->delete($where);
+    }
+    
 }
 
 ?>
