@@ -6,7 +6,13 @@
             <!--   <h2 class="top"></h2>-->
             <div id="form">
                 <div style="display:show">
-
+<?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
                     <div class="table_admin">
                         <div class="table_admin_head"></div>
                         <div align="left" class="table_admin_body">
@@ -26,21 +32,29 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php if(is_array($this->colPointventa)):
-                                                    foreach($this->colPointventa as $val):?>
+                                                <?php if(is_array($this->dataSite)):
+                                                    foreach($this->dataSite as $data):?>
+                                                <?php foreach($data as $val):?>
                                                 <tr class="shadow">
                                                     <td width="40%"><a href="" class="link"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
-                                                            <?php echo $val['nombrePuntoVenta'] ?></a></td>
-                                                    <td width="45%"><?php echo $val['nombreCiudad'].'--->'.$val['direccionPuntoVenta']?> </td>
-                                                    <td align="right" width="15%">
-<!--                                                        <a title="Ne pas montrer ce module" href="<?php echo $this->baseUrl()?>/admin/pointventa/detalle-vente/idPtoVenta/<?php echo $val['idPuntoVenta']?>" class="status-module">
-                                                            <img border="0" src="/images/icons/_status.png" alt="enabled.gif">
-                                                        </a>-->
-                                                        <a title="Enlever le module" href="<?php echo $this->baseUrl()?>/admin/pointventa/editar/idPtoVenta/<?php echo $val['idPuntoVenta']?>" class="status-config">
-                                                            <img border="0" src="/images/icons/process_remove.png" alt="process_remove.png">
-                                                        </a>
-                                                    </td>
+                                                            <?php echo $val['nombreSite'] ?></a></td>
+                                                    <td width="45%"><?php echo $val['urlSite']?> </td>
+                                                <td align="right" width="15%">
+                                                    <a href="/admin/sites/edit-site/id/<?php echo $val['idSite'] ?>" 
+                                                       title="Modifier">
+                                                        <img border="0" src="/images/icons/edit.gif">
+                                                    </a>
+                                                    <!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
+                                                    <img border="0" 
+                                                         title="<?php echo $title; ?>" 
+                                                         src="/images/icons/process_remove.png" 
+                                                         onclick="deleteAction('<?php echo $val['idSite']?>','/admin/sites/ajax/case/delete')" 
+                                                         style="cursor: pointer;" >
+                                                    <!--                                                </a>-->
+
+                                                </td>
                                                 </tr>
+                                                <?php endforeach; ?>
                                                 <?php endforeach; endif;?>
                                             </tbody>
                                             <tfoot>
@@ -53,6 +67,7 @@
                                             </tfoot>
                                         </table>
                                 </div>
+                                <a href="/admin/sites/new-site"> Nouveau</a>
                             </fieldset>
                             <!-- FIN TIPO SITE-->
                             <!--LIST MODULES-->
