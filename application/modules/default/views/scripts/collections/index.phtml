@@ -24,50 +24,88 @@
 	<div class="wrapper">
 		<div class="wrapper_l">
 		<div class="wrapper_r">
-			<div class="wrapper_inner"><div id="main_content" class="layout_fluid ">
+			<div class="wrapper_inner">
+                            <div id="main_content" class="layout_fluid ">
 					<div id="content" class="layout_fluid_inner">
 						<div class="inside">
 							<aside id="aside">
                                                             <?php foreach ($this->articulo as $col): ?> 
                                                             <ul class="lst_aside">
-									<li><h2><?php echo $col["titulo"]?></h2></li>
+                                                                <li><a href="<?php echo "/collections/index/info1/".$col["idArticulo"] ?>"><h2><?php echo $col["titulo"]?></h2></a></li>
                                                                         <?php foreach ($this->producto as $prod): 
                                                                           if($col["idArticulo"] == $prod["idArticulo"]){
                                                                         ?>                                                                        
-                                                                        <li><a class="" href="#"><?php echo $prod["titulo"]?></a></li>
+                                                                        <li><a class="" href="<?php echo "/collections/index/info2/".$prod["idDetalleArticulo"] ?>"><?php echo $prod["titulo"]?></a></li>
                                                                         <?php } ?>
                                                                         <?php endforeach; ?>
 							    </ul>
                                                             <?php endforeach; ?>
-								<ul class="lst_aside selected">
+								<!--<ul class="lst_aside selected">
 									<li><h2>Collection de la Cour</h2></li>
 									<li><a class="" href="#">Présentation</a></li>									
 									<li><a class="selected" href="#">La Fleur du Roy</a></li>									
 									<li><a class="" href="#">Le Rêve de la Reine</a></li>									
 									<li><a class="" href="#">Délice des Libertins </a></li>									
 									<li><a class="" href="#">Alcôve Royale </a></li>
-								</ul>
+								</ul>-->
 								
-							</aside>
-							<section id="" class="wrapp_content">
+							</aside>                                                    
+                                                    <?php if($this->idProd) { ?>
+                                                    
+                                                    <section id="" class="wrapp_content">
+                                                            <div class="wrapp_content_inner">
+                                                                <!--<h2>La Fleur du Roy
+                                                                    <span><em>Bougies</em> - Savons - Huiles essentielles</span>
+                                                                </h2>-->
+                                                                <h2><?php echo $this->detaprod["titulo"]?>
+                                                                    <span><?php echo $this->detaprod["tituloDetalle"]?></span>
+                                                                </h2>
+                                                                <div class="slide_collection">
+                                                                    <div class="mainphoto">
+                                                                        <div class="photo">
+                                                                            <?php foreach ($this->foto as $foto): 
+                                                                                $foto = "/imagen-producto/".$foto["nombreFoto"];
+                                                                                ?>
+                                                                            <div class="item">                                                                                
+                                                                                <img class="" src="<?php echo $foto;?>" width="808" height="500"/>
+                                                                                                                
+                                                                                <div class="box_slide">
+                                                                                    <a href="#" class="slideC slideUp"></a>
+                                                                                    <div class="inner">
+                                                                                    <?php echo $foto["descripcionFoto"] ?>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <?php endforeach;?>                                                                            
+                                                                          							
+                                                                        </div>                                                                        
+                                                                        <div id="pager" class=""></div>
+                                                                    </div>
+                                                                    
+                                                                                        
+                                                                    <div class="description">
+                                                                        <div class="description_l">                                                                            
+                                                                            <?php echo $this->detaprod["parrafoDetalle"]?>                                                                            
+                                                                        </div>
+                                                                    </div>						
+                                                                </div>	
+                                                            </div>	
+                                                        </section>                                                    
+                                                    
+                                                    <?php } ?>
+                                                    <?php if($this->idArt){ 
+                                                        ?>                                                    
+                                                    <section id="" class="wrapp_content">
 								<div class="wrapp_content_inner">
-									<img class="float_left;" src="img/temp/img_col_intro.jpg" width="808"/>
+                                                                    <?php $foto = "/imagen-articulo/".$this->detart["fotoPrincipal"]?>
+									<img class="float_left" src="<?php echo $foto ?>" width="808"/>
 									
-									<h2>Des collections authentiques et inspirées</h2>
-									<p>A partir d’écrits anciens et grâce aux matières les plus nobles de la parfumerie, 
-									l’historienne et expert du parfum Elisabeth de Feydeau a imaginé une ligne de bougies
-									qui recrée l’art de vivre français entre la tradition et la modernité. 
-									</p>
-									<p>Composées de deux collections, ces bougies évoquent les lieux mythiques, les grands 
-									personnages et le prestige du château de Versailles au temps des Rois. Ces bougies 
-									parfumées s’adressent aux amoureux de l’Histoire et d’histoires, et à toutes les personnes
-									en quête de luxe et d’authenticité, que le style de vie « à la française » continue de 
-									fasciner. Les valeurs de création de ces collections de bougies parfumées sont inspirées
-									par le faste de la Cour de Versailles et l’élégance de l’art de vivre français, telles le 
-									luxe, la tradition, l’authenticité, l’expertise et l’hédonisme, qui sont revisitées dans un
-									esprit contemporain.</p>
+                                                                        <?php echo $this->detart["parrafo"] ?>
+									
 								</div>	
-							</section>
+                                                    </section>
+                                                    
+                                                    <?php } ?>
 						</div>
 					</div>
 				</div>
