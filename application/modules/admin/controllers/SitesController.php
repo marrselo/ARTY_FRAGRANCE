@@ -23,7 +23,7 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
         $this->view->dataSite = $modelSite->ListarSiteA($this->sessionAdmin->idiomaDetaful['PrefIdioma']);       
     }
     public function newSiteAction() {
-    $formulario = new Application_Form_FormSite();
+    $formulario = new Application_Form_FormSite($this->sessionAdmin->idiomaDetaful['PrefIdioma']);
     $modelObra = new Application_Model_Site();
     $modelTipoSite = new Application_Model_TipoSite();
     
