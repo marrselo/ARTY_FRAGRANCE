@@ -16,7 +16,7 @@ class Application_Model_Pais extends ZExtraLib_Model {
     }
     
     function listarPaisPorIdioma($idioma) {
-        if (!($result = $this->_cache->load('listaPais' . $idioma))) {
+        //if (!($result = $this->_cache->load('listaPais' . $idioma))) {
             $result = $this->_pais->getAdapter()
                     ->select()
                     ->from(array('p' => $this->_pais->getName()), array('p.idPais', 'p.nombrePais','p.slugPais'))
@@ -25,8 +25,8 @@ class Application_Model_Pais extends ZExtraLib_Model {
                     ->where('idi.prefIdioma = ? ', $idioma);
             
             $result = $this->_pais->getAdapter()->fetchAssoc($result);
-            $this->_cache->save($result, 'listaPais' . $idioma);
-        }
+          //  $this->_cache->save($result, 'listaPais' . $idioma);
+       // }
         return $result;
     }
     

@@ -1,6 +1,12 @@
 <?php
 
 class Application_Form_FormSite extends Zend_Form {
+    private $_foo;
+    public function __construct($idioma)
+      {
+        $this->_foo = $idioma;
+        parent::__construct();
+      }
     
     public function init(){
         
@@ -16,7 +22,9 @@ class Application_Form_FormSite extends Zend_Form {
         $this->addElement($e);
         $e = new Zend_Form_Element_Select('idTipoSite');
         $e->setRequired(true);
-        $e->addMultiOptions(array('1'=>'Site Internet','2'=>'Blog'));
+        $tipo= new Application_Model_TipoSite;
+        $tipos=$tipo->listarTipoSitePorIdioma($this->_foo);
+        $e->addMultiOptions($tipos);
         $this->addElement($e);
         $e = new Zend_Form_Element_Select('estado');
         $e->setRequired(true);
@@ -35,6 +43,9 @@ class Application_Form_FormSite extends Zend_Form {
     function insertElment($nombreElemento,$value) {
             $this->getElement($nombreElemento)->setValue($value);
         }
+    function insertMultiOption($nombreElemento,$value){
+        $this->getElement($nombreElemento)->addMultiOptions($value);
+    }
     function insertId($nombreId,$valorId){
         $e = new Zend_Form_Element_Hidden($nombreId);
         $e->setRequired(true);
