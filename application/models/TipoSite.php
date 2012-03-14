@@ -31,7 +31,7 @@ class Application_Model_TipoSite extends ZExtraLib_Model {
                     ->select()
                     ->from(array('o' => $this->_tipoSite->getName()), 
                             array('o.idTipoSite', 
-                                'o.nombreTipoSite'))
+                                'nombreTipoSite'=>'oi.nombreIdiomaTipoSite'))
                     ->join(array('oi' => $this->_idiomaTipoSite->getName()), 'oi.idTipoSite = o.idTipoSite','')
                     ->join(array('idi' => $this->_idioma->getName()), 'oi.idIdioma = idi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
@@ -54,20 +54,27 @@ class Application_Model_TipoSite extends ZExtraLib_Model {
         $this->_tipoSite->insert($data);
         return $this->_tipoSite->getAdapter()->lastInsertId();
     }
-function listarDatosTipoSite($idObra) {
+function listarDatosTipoSite($idObra,$idIdioma) {
         
-            $result = $this->_tipoSite
+            $result = $this->_idiomaTipoSite
                     ->getAdapter()
                     ->select()
-                    ->from(array('o' => $this->_tipoSite->getName()))
-                    ->where('o.idTipoSite = ? ', $idObra)->query()->fetch();
+                    ->from(array('o' => $this->_idiomaTipoSite->getName()))
+                    ->where('o.idTipoSite = ? ', $idObra)
+                    ->where('o.idIdioma = ? ', $idIdioma)
+                    ->query()->fetch();
             ;
             
         return $result;
     }
-function updateTipoSite($data,$idObra){
-        $where = $this->_tipoSite->getAdapter()->quoteInto('idTipoSite = ?', $idObra);
-        $this->_tipoSite->update($data, $where);
+function updateTipoSite($data,$idTipoSite,$idIdioma){
+        $where[] = $this->_idiomaTipoSite
+                ->getAdapter()
+                ->quoteInto('idTipoSite = ?', $idTipoSite);
+        $where[] = $this->_idiomaTipoSite
+                ->getAdapter()
+                ->quoteInto('idIdioma = ?', $idIdioma);
+        $this->_idiomaTipoSite->update($data, $where);
     }  
         function deleteTipoSite($data){
         $where = $this->_tipoSite->getAdapter()->quoteInto('idTipoSite = ?', $data['id']);

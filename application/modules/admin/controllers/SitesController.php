@@ -20,7 +20,7 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
     {
         //$this->view->itemSelect=19;
         $modelSite = new Application_Model_Site();
-        $this->view->dataSite = $modelSite->ListarSiteA($this->_params['lang']);       
+        $this->view->dataSite = $modelSite->ListarSiteA($this->view->idiomaDefault['PrefIdioma']);       
     }
     public function editarAction()
     {
@@ -202,8 +202,8 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
       public function editTipoSiteAction(){
     $formulario = new Application_Form_FormTipoSite();
     $modelObra = new Application_Model_TipoSite();
-    //$idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
-    $datosObra = $modelObra->listarDatosTipoSite($this->_params['id']);
+    $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+    $datosObra = $modelObra->listarDatosTipoSite($this->_params['id'],$idioma);
     $formulario->insertId('idTipoSite', $datosObra['idTipoSite']);
     if ($this->_request->isPost()) {
     if($formulario->isValid($this->_params)){
@@ -212,18 +212,14 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
             'tituloObraIdioma'=>$this->_params['tituloObra'],
             'parrafoObraIdioma'=>$this->_params['parrafoObra'],
             );*/
-        $dataObraIdioma=$formulario->getValues();
-        $modelObra->updateTipoSite($dataObraIdioma, $this->_params['idTipoSite']);
+        //$dataObraIdioma=$formulario->getValues();
+        $dataValue= array('nombreIdiomaTipoSite'=>$this->_params['nombreTipoSite']);
+        $modelObra->updateTipoSite($dataValue, $this->_params['idTipoSite'],$idioma);
         $this->_flashMessenger->addMessage('Se Registro Correctamente');
         $this->_redirect('/admin/sites/tipo-site');
     }    
     }else{
-        /*$formulario->insertElment('nombreSite', $datosObra['anioObra']);
-        $formulario->insertElment('tituloObra', $datosObra['tituloObraIdioma']);
-        $formulario->insertElment('link', $datosObra['link']);
-        $formulario->insertElment('parrafoObra', $datosObra['parrafoObraIdioma']);
-        $formulario->insertElment('parrafoObra', $datosObra['parrafoObraIdioma']);*/
-        $formulario->populate($datosObra);
+        $formulario->insertElment('nombreTipoSite', $datosObra['nombreIdiomaTipoSite']);
     }
     $this->view->form = $formulario;
     }
