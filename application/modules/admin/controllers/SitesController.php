@@ -20,7 +20,8 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
     {
         //$this->view->itemSelect=19;
         $modelSite = new Application_Model_Site();
-        $this->view->dataSite = $modelSite->ListarSiteA($this->view->idiomaDefault['PrefIdioma']);       
+        //$this->view->dataSite = $modelSite->ListarSiteA($this->view->idiomaDefault['PrefIdioma']);       
+        $this->view->dataSite = $modelSite->ListarSiteA($this->_params['lang']);       
     }
     public function editarAction()
     {
