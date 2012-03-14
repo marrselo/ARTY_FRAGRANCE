@@ -9,7 +9,7 @@
             <?php } else { ?>   
             <a class="<?php echo $this->itemSelect==$index?'selected':'' ?>"    
             <?php }  ?>   
-               href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $this->controllerName.$rutCont.'/'.$valor['rutaMenuBase'] ?>"><?php echo $valor['nombreMenu']?>
+               href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $this->controllerName.$rutCont.'/'.$valor['rutaMenuBase'] ?>"><?php echo ucwords(strtolower($valor['nombreMenu']))?>
             </a>
         </li>
         <?php endforeach; ?>

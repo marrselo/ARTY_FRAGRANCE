@@ -6,7 +6,7 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
         $arrayMenu = $this->loadMenuIdioma($this->_params['lang'], 6);
         $this->view->menuIzquierda = $arrayMenu;
         $this->_menu = $arrayMenu;
-        $this->view->classBody = 'lyt_elisafey_bio';
+        $this->view->classBody = 'lyt_elisafey_bio slide';
     }
     
     public function indexAction()

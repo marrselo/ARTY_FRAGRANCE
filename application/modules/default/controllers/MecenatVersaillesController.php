@@ -11,6 +11,7 @@ class Default_MecenatVersaillesController extends ZExtraLib_Controller_Action
     }
     public function indexAction()
     {
+        $this->view->headScript()->appendFile('/f/js/jquery.cycle.all.js');
         $arrayKey = array_keys($this->_menu);
         $this->view->itemSelect = $arrayKey[0];
     }

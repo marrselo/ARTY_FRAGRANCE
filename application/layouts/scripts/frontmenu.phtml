@@ -3,7 +3,7 @@
 foreach($this->menuSup as $index=>$value):
 ?>
     <li>
-        <a class="<?php echo $this->controllerName==$value['rutaMenuBase']?'selected':'' ?>" href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $value['rutaMenuBase'] ?>"><?php echo $value['nombreMenu'] ?></a>
+        <a class="<?php echo $this->controllerName==$value['rutaMenuBase']?'selected':'' ?>" href="/<?php echo $this->lang==''?'':$this->lang.'/' ?><?php echo $value['rutaMenuBase'] ?>"><?php echo ucwords(strtolower(($value['nombreMenu']))) ?></a>
     </li>
 <?php endforeach; ?>
 

@@ -525,11 +525,59 @@ body{
 
 
 }
-.lyt_mecenat{
+.lyt_mecenat, .lyt_mecenat_historique{
 	.wrapp_content h2{
 		font-size: 14px;
 	}
+	
+	.cnt_slide{
+		float: right;
+		width: 810px;
+		height: 308px;
+		margin: 0 0 10px 0;
+		overflow: hidden;
+		position: relative;
+		.photo{
+			float: left;
+		}
+		.item{
+			float: left;
+			width: 810px;
+			height: 308px;
+		}
+	
+	
+		#pager{
+			position:absolute;
+			top: 10px;
+			right: 10px;
+			z-index: 100;
+			a{
+				background: #fff;
+				color: #fff;
+				float: left;
+				font-size: 7px;
+				margin: 0 5px 0 0;
+				padding: 4px 6px;
+				&.activeSlide{
+					-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=50)"; 
+					filter: alpha(opacity=50); /* for IE6-IE8 */
+					opacity: .5;
+				}
+			}
+		}
+	}
+	p{
+		font-size: 14px;
+		font-family: @tnr;
+	}
+	a{
+		color: #000;
+	}
 }
+
+
+
 .lyt_presse{
 	.box_presse{
 		height: auto;
@@ -623,22 +671,24 @@ body{
 		overflow: hidden;
 		.mainphoto{
 			position: relative;
+			overflow: hidden;
+			margin: 0 0 20px;
 		}
 		.photo{
 			display: block;
-			height: 540px;
-			margin: 0 0 20px;
+			height: 540px;			
 			overflow: hidden;
 			.item{
-				height: 543px;
+				height: 540px;
 				width: 809px;
 			}
 			img{
 				float: left;
+				height: 540px;
 			}
 		}
 		.box_slide {
-			bottom: -116px;
+			bottom: -120px;
 			left: 0;			
 			position: absolute;
 			.inner{

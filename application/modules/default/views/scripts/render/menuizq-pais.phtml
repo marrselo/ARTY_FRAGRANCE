@@ -1,7 +1,7 @@
 <aside id="aside">
     <ul class="lst_aside">
         <?php foreach ($this->listaPais as $index => $data): ?>
-            <li><a class="<?php echo $this->itemSelect==$index?'selected':'' ?>" href="/<?php echo $this->lang == '' ? '' : $this->lang . '/' ?><?php echo $this->controllerName; ?>/<?php echo $data['slugPais'] ?>-<?php echo $index ?>"><?php echo $data['nombrePais'] ?></a></li>									
+            <li><a class="<?php echo $this->itemSelect==$index?'selected':'' ?>" href="/<?php echo $this->lang == '' ? '' : $this->lang . '/' ?><?php echo $this->controllerName; ?>/<?php echo $data['slugPais'] ?>-<?php echo $index ?>"><?php echo ucwords(strtolower($data['nombrePais'])) ?></a></li>									
         <?php endforeach; ?>
         <li><a class="<?php echo $this->actionName=='internet'?'selected':''; ?>" 
                href="/<?php echo $this->lang == '' ? '' : $this->lang . '/' ?><?php echo $this->controllerName.'/internet' ?>">
