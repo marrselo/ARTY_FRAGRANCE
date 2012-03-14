@@ -20,13 +20,13 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
     {
         //$this->view->itemSelect=19;
         $modelSite = new Application_Model_Site();
-        $this->view->dataSite = $modelSite->ListarSiteA($this->view->idiomaDefault['PrefIdioma']);       
+        $this->view->dataSite = $modelSite->ListarSiteA($this->sessionAdmin->idiomaDetaful['PrefIdioma']);       
     }
     public function editarAction()
     {
         $idIdioma = $this->view->idiomaDefault['idIdioma']; 
         $pais = new Application_Model_Pais();
-        $this->view->colPais = $pais->listarPaisPorIdioma($this->view->idiomaDefault['PrefIdioma']);   
+        $this->view->colPais = $pais->listarPaisPorIdioma($this->sessionAdmin->idiomaDetaful['PrefIdioma']);   
         
         $idPtoVenta = (!empty($this->params['idPtoVenta']))? $this->params['idPtoVenta'] : '';                
         if( $idPtoVenta=="") { $idPtoVenta = $this->session->idPtoVenta; }else { $this->session->idPtoVenta = $idPtoVenta; }
