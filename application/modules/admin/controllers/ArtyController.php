@@ -30,7 +30,7 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
         $this->view->articulo = $articulo->listarArticulo($idMenu['idMenu']);
     }
 
-    public function listproductosAction() {
+    public function detalleAction() {
         $idArticulo = $this->_getParam('id', NULL);
         if ($idArticulo) {
             $articulo = new Application_Model_DetalleArticulo();
@@ -68,15 +68,18 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
         $this->view->form = $form;
         if ($idArticulo) {
             $articulo = $this->_articulo->buscarArticuloIdioma($idArticulo,$idIdioma);
+            //print_r($articulo); exit;
             $form->populate($articulo);
 
             if ($this->_request->isPost()) {               
                 $params = $this->_getAllParams();
                 //if ($form->isValid($this->_request->getPost())) {
+                $data = array();
                 if ($form->isValid($params)) {
                     $values = $form->getValues();
-                    
-                    if ($this->_articulo->updateArticulo($values))
+                    $data['idArticulo'] = $articulo['idArticulo'];
+                    $data['titulo']     = $params['titulo'];                   
+                    if ($this->_articulo->updateArticulo($data))
                         $this->_redirect('/admin/arty');
                     else
                         $this->view->msg = "ERROR EN ACTUALIZACIÓN";
@@ -89,11 +92,11 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
             $this->_redirect('/');
     }
 
-    public function deletecollectionAction() {
+    public function deleteartyAction() {
         $idArticulo = $this->_getParam('id', NULL);
         if ($idArticulo) {
             $this->_articulo->deletearticulo($idArticulo);
-            $this->_redirect('/admin/index/collections');
+            $this->_redirect('/admin/arty/index');
         }
     }
 
@@ -114,11 +117,9 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
     public function newartyAction() {
         $form = $this->armarFormulario();
         $this->view->form = $form;
-        $menu = new Application_Model_Menu();
-        
+        $menu = new Application_Model_Menu();        
         $idIdioma = $this->_getParam('info', 1);
-        $idMenu = $menu->buscaMenu(2, $idIdioma);
-       
+        $idMenu = $menu->buscaMenu(2, $idIdioma);       
     }
 
     public function menusuperiorAction() {
@@ -130,11 +131,7 @@ class Admin_ArtyController extends ZExtraLib_Controller_Action {
         $this->view->data = $data;
     }
     
-    public function menueditarAction(){
-        $cod = $this->_getParam('id',0);
-        $this->view->cod = $cod;
-        $this->view->idiomaName = $this->_sesion->name;
-    }
+
     
     public function menufooterAction() {
         $this->_articulo = new Application_Model_Articulo();

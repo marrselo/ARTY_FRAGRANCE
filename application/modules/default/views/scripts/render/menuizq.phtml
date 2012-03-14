@@ -1,8 +1,10 @@
 <aside id="aside">
     <ul class="lst_aside">
         <?php 
-        foreach($this->menuIzquierda as $index=>$valor): 
-            $rutCont = $valor['idTipoMenu']==1?'/cont':'';
+        //$arr = $this->menuIzquierdo;
+        //print_r($arr);
+        foreach($this->menuIzquierdo as $index=>$valor): 
+            $rutCont = '/cont';
             ?>
         <li><?php if($valor['idTipoMenu']==2 && $this->itemSelect==''){?>
             <a class="<?php echo $this->actionName==$valor['rutaMenuBase']?'selected':'' ?>" 
