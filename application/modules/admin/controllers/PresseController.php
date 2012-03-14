@@ -35,6 +35,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         if ($this->_request->isPost()) {    
             if ($formulario->isValid($this->_params)) {
                 $arrayImagen= array();
+                
                 $arrayImagen = $this->subirImagenes(
                         $formulario->imgPresse->getDestination(), 
                         'img_presse_', 
@@ -45,7 +46,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
                         '70'
                         );
                 print_r($arrayImagen);
-//                exit;
+                exit;
               //  $this->_redirect('/admin/presse/');
                 
             }

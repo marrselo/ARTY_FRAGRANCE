@@ -10,8 +10,8 @@ $(function(){
 			});		
 		
 		
-			$('.slide_collection .photo, .cnt_slide_bio .photo').cycle({ 
-				fx:     'fade', 
+			$('.slide_collection .photo, .cnt_slide_bio .photo, .lyt_mecenat_historique .cnt_slide .photo').cycle({ 
+				fx:     'scrollLeft',
 				speed:  'fast', 				
 				timeout: 5000,
 				pager: '#pager' 
@@ -20,7 +20,7 @@ $(function(){
 		}
 
 		$(".row_slide ").hide();
-		$(".row_slide:first").show();
+		//$(".row_slide:first").show();
 		$(".row_inner .photo a").each(function(){
 			$(this).click(function(e){
 			e.preventDefault();
@@ -61,7 +61,7 @@ $(function(){
 				$(".box_slide").animate({bottom: '0' }, "fast", function() {  });			
 			}else if(  $(this).hasClass("slideDown") ){				
 				$(".slideDown").addClass("slideUp").removeClass("slideDown");
-				$(".box_slide").animate({bottom: '-116px' }, "fast", function() {  });		
+				$(".box_slide").animate({bottom: '-120px' }, "fast", function() {  });		
 			}
 		
 		});
