@@ -25,11 +25,12 @@ class Application_Model_Obra extends ZExtraLib_Model {
                                 'o.link',
                                 'o.imgObra'))
                     ->join(array('oi' => $this->_obraIdioma->getName()), 'oi.idObra = o.idObra','')
-                    ->join(array('idi' => $this->_idioma->getName()), 'oi.idIdioma = oi.idIdioma', '')
+                    ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = oi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
                     ->order('o.anioObra DESC');
             ;
             $result = $this->_obra->getAdapter()->fetchAssoc($result);
+            
             $this->_cache->save($result, 'listaObrasIdioma'.$idioma);
         }
         return $result;

@@ -18,17 +18,26 @@ $(function(){
 			});
 			
 		}
+                
+                $(".row_slide ").hide();
+               $(".row_inner .photo a").each(function(){
+                       $(this).click(function(e){
+                       e.preventDefault();
+                               $(".row_slide").slideUp();                        
+                               $(this).parents(".row").find(".row_slide").slideDown();                
+                       });                
+               });
 
-		$(".row_slide ").hide();
-		//$(".row_slide:first").show();
-		$(".row_inner .photo a").each(function(){
-			$(this).click(function(e){
-			e.preventDefault();
-				$(".row_slide").hide();
-				console.log(  $(this).parents(".row").find(".row_slide") )
-				$(this).parents(".row").find(".row_slide").show();		
-			});		
-		});
+//		$(".row_slide ").hide();
+//		//$(".row_slide:first").show();
+//		$(".row_inner .photo a").each(function(){
+//			$(this).click(function(e){
+//			e.preventDefault();
+//				$(".row_slide").hide();
+//				console.log(  $(this).parents(".row").find(".row_slide") )
+//				$(this).parents(".row").find(".row_slide").show();		
+//			});		
+//		});
 	
 		
 		
