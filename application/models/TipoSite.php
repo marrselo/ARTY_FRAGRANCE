@@ -24,7 +24,55 @@ class Application_Model_TipoSite extends ZExtraLib_Model {
              ->query()
              ->fetchAll();               
     }
+    function listarTipoSitePorIdioma($idioma) {
+        //if (!($result = $this->_cache->load('listaTipoSiteIdioma'.$idioma ))) {
+            $result = $this->_tipoSite
+                    ->getAdapter()
+                    ->select()
+                    ->from(array('o' => $this->_tipoSite->getName()), 
+                            array('o.idTipoSite', 
+                                'o.nombreTipoSite'))
+                    ->join(array('oi' => $this->_idiomaTipoSite->getName()), 'oi.idTipoSite = o.idTipoSite','')
+                    ->join(array('idi' => $this->_idioma->getName()), 'oi.idIdioma = idi.idIdioma', '')
+                    ->where('idi.prefIdioma = ? ', $idioma)
+                    ->order('o.nombreTipoSite');
+            ;
+            $result = $this->_tipoSite->getAdapter()->fetchAssoc($result);
+          //  $this->_cache->save($result, 'listaTipoSiteIdioma'.$idioma);
+        //}
+        return $result;
+    }
+       function insertTipoSiteIdioma($data){
+        $arrayIdioma = $this->_idioma->select()->query()->fetchAll();
+        foreach($arrayIdioma as $index){
+            $data['idIdioma'] = $index['idIdioma'];
+            $this->_idiomaTipoSite->insert($data);
+        }
         
+    }
+    function insertTipoSite($data){
+        $this->_tipoSite->insert($data);
+        return $this->_tipoSite->getAdapter()->lastInsertId();
+    }
+function listarDatosTipoSite($idObra) {
+        
+            $result = $this->_tipoSite
+                    ->getAdapter()
+                    ->select()
+                    ->from(array('o' => $this->_tipoSite->getName()))
+                    ->where('o.idTipoSite = ? ', $idObra)->query()->fetch();
+            ;
+            
+        return $result;
+    }
+function updateTipoSite($data,$idObra){
+        $where = $this->_tipoSite->getAdapter()->quoteInto('idTipoSite = ?', $idObra);
+        $this->_tipoSite->update($data, $where);
+    }  
+        function deleteTipoSite($data){
+        $where = $this->_tipoSite->getAdapter()->quoteInto('idTipoSite = ?', $data['id']);
+        $this->_tipoSite->delete($where);
+    }
 }
 
 ?>

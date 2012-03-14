@@ -8,6 +8,7 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
         parent::init();
         $this->modulo = new Application_Model_Modulo();
         $this->_sites = new Application_Model_Site();
+        $this->_tiposites = new Application_Model_TipoSite();
         $this->_params = $this->_getAllParams();
         $this->view->params = $this->_params;
         
@@ -146,6 +147,10 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
                 $action = $this->_sites->deleteSite($post);
                 echo $action;
                 break;
+            case 'deletetipo':
+                $action = $this->_tiposites->deleteTipoSite($post);
+                echo $action;
+                break;
             
             case 'comboPais':
                 $ciudad = new Application_Model_Ciudad();
@@ -155,5 +160,72 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
                 break;
         endswitch;
     }
+    public function tipoSiteAction()
+    {
+        $this->view->mensaje = $this->_flashMessenger->getMessages();
+        $modelObra = new Application_Model_TipoSite();
+        $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
+        $this->view->dataObra = $modelObra->listarTipoSitePorIdioma($idioma);
+    }
+    public function newTipoSiteAction() {
+        
+    $formulario = new Application_Form_FormTipoSite();
+    $modelObra = new Application_Model_TipoSite();
+    $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+    echo $idioma;
+    if ($this->_request->isPost()) {
+       
+    if($formulario->isValid($this->_params)){
+        $this->cleanCache();        
+        /*$dataIdioma = array(
+            'anioObra'=>$this->_params['anioObra']
+                );*/
+        $dataIdioma=$formulario->getValues();
+        $idObra = $modelObra->insertTipoSite($dataIdioma);
+        
+        $dataObra = array(
+            'nombreIdiomaTipoSite'=>$this->_params['nombreTipoSite'],
+            'idTipoSite'=>$idObra
+            );
+        
+        $modelObra->insertTipoSiteIdioma($dataObra);
+        $this->_flashMessenger->addMessage('Se Registro Correctamente');
+        $this->_redirect('/admin/sites/tipo-site');
+    }else{
+        
+    }
     
+    }
+    $this->view->form = $formulario;
+        
+    }
+      public function editTipoSiteAction(){
+    $formulario = new Application_Form_FormTipoSite();
+    $modelObra = new Application_Model_TipoSite();
+    //$idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+    $datosObra = $modelObra->listarDatosTipoSite($this->_params['id']);
+    $formulario->insertId('idTipoSite', $datosObra['idTipoSite']);
+    if ($this->_request->isPost()) {
+    if($formulario->isValid($this->_params)){
+        $this->cleanCache();
+        /*$dataObraIdioma = array(
+            'tituloObraIdioma'=>$this->_params['tituloObra'],
+            'parrafoObraIdioma'=>$this->_params['parrafoObra'],
+            );*/
+        $dataObraIdioma=$formulario->getValues();
+        $modelObra->updateTipoSite($dataObraIdioma, $this->_params['idTipoSite']);
+        $this->_flashMessenger->addMessage('Se Registro Correctamente');
+        $this->_redirect('/admin/sites/tipo-site');
+    }    
+    }else{
+        /*$formulario->insertElment('nombreSite', $datosObra['anioObra']);
+        $formulario->insertElment('tituloObra', $datosObra['tituloObraIdioma']);
+        $formulario->insertElment('link', $datosObra['link']);
+        $formulario->insertElment('parrafoObra', $datosObra['parrafoObraIdioma']);
+        $formulario->insertElment('parrafoObra', $datosObra['parrafoObraIdioma']);*/
+        $formulario->populate($datosObra);
+    }
+    $this->view->form = $formulario;
+    }
+  
 }
