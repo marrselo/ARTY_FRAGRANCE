@@ -32,11 +32,11 @@ CREATE TABLE `articulo` (
   `slugArticulo` char(150) character set utf8 default NULL,
   `idIdioma` tinyint(2) default NULL,
   PRIMARY KEY  (`idArticulo`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 /*Data for the table `articulo` */
 
-insert  into `articulo`(`idArticulo`,`titulo`,`parrafo`,`fotoPrincipal`,`ididArticulo`,`idMenu`,`idEstadoArticulo`,`flagPublicar`,`ordenArticulo`,`slugArticulo`,`idIdioma`) values (6,'ingles','<p>\r\n	ingles</p>\r\n','collection-6.',NULL,6,0,1,NULL,'1',1),(2,'Collection cure1','<p>\r\n	<strong>is the more ch<span style=\"background-color:#ffff00;\">eap in the word, you can do sell and buy all your pr</span>oductsfdsfd 1</strong></p>\r\n','collection-2.jpg',NULL,5,0,1,0,'collection-cure',NULL),(3,'nueva','<p>\r\n	nuevaaa</p>\r\n','collection-3.jpg',NULL,5,1,1,NULL,'1',NULL),(4,'dasdas','<p>\r\n	fdsfds</p>\r\n','collection-4.jpg',NULL,6,1,1,NULL,'1',NULL),(5,'dasd2','<p>\r\n	22fdsfdsfs</p>\r\n','collection-5.',NULL,5,1,1,NULL,'1',NULL),(7,'ingles 2','<p>\r\n	ingles 2</p>\r\n','collection-7.png',NULL,6,1,1,NULL,'1',NULL),(8,'frances 22','<p>\r\n	frances 22</p>\r\n','collection-8.',NULL,5,1,1,NULL,'1',NULL),(9,'zgfdg','<p>\r\n	sdsdfasdf</p>\r\n','collection-9.',NULL,5,1,1,NULL,'1',NULL),(10,'asdfasfasfasdfasf','<p>\r\n	asdfasfa</p>\r\n','collection-10.',NULL,5,1,1,NULL,'1',NULL),(12,'Presentation',NULL,NULL,NULL,3,1,1,NULL,'1',NULL),(13,'numero 1',NULL,NULL,NULL,2,NULL,NULL,NULL,NULL,1);
+insert  into `articulo`(`idArticulo`,`titulo`,`parrafo`,`fotoPrincipal`,`ididArticulo`,`idMenu`,`idEstadoArticulo`,`flagPublicar`,`ordenArticulo`,`slugArticulo`,`idIdioma`) values (6,'ingles','<p>\r\n	ingles</p>\r\n','collection-6.',NULL,6,0,1,NULL,'1',1),(2,'Collection cure1','<p>\r\n	<strong>is the more ch<span style=\"background-color:#ffff00;\">eap in the word, you can do sell and buy all your pr</span>oductsfdsfd 1</strong></p>\r\n','collection-2.jpg',NULL,5,1,1,0,'collection-cure',NULL),(14,'z<c<zc<',NULL,NULL,14,2,NULL,NULL,NULL,NULL,1),(4,'dasdas','<p>\r\n	fdsfds</p>\r\n','collection-4.jpg',NULL,6,1,1,NULL,'1',NULL),(5,'dasd2','<p>\r\n	22fdsfdsfs</p>\r\n','collection-5.',NULL,5,0,1,NULL,'1',NULL),(7,'ingles 2','<p>\r\n	ingles 2</p>\r\n','collection-7.png',NULL,6,1,1,NULL,'1',NULL),(8,'frances 22','<p>\r\n	frances 22</p>\r\n','collection-8.',NULL,5,0,1,NULL,'1',NULL),(9,'zgfdg','<p>\r\n	sdsdfasdf</p>\r\n','collection-9.',NULL,5,0,1,NULL,'1',NULL),(10,'asdfasfasfasdfasf','<p>\r\n	asdfasfa</p>\r\n','collection-10.',NULL,5,0,1,NULL,'1',NULL),(12,'Presentation',NULL,NULL,NULL,3,1,1,NULL,'1',NULL),(13,'numero 1',NULL,NULL,NULL,2,NULL,NULL,NULL,NULL,1),(15,'z<c<zc<',NULL,NULL,14,2,NULL,NULL,NULL,NULL,2);
 
 /*Table structure for table `biografia` */
 
@@ -52,7 +52,7 @@ CREATE TABLE `biografia` (
 
 /*Data for the table `biografia` */
 
-insert  into `biografia`(`idBio`,`tituloBio`,`contenidoBio`,`idIdioma`) values (3,'asdasdadasd','<p>\r\n	nazart jara huamana</p>\r\n',2),(4,'asdfasdfasdf','<p>\r\n	asdfasdfasdfasdf</p>\r\n',1);
+insert  into `biografia`(`idBio`,`tituloBio`,`contenidoBio`,`idIdioma`) values (3,'asdasdadasd','<p>\r\n	Passionate about literature and history, Elisabeth de Feydeau obtained her doctorate in Contemporary History at the University Paris-Sorbonne (Paris IV) in 1997, unanimously approved by the jury. Her dissertation was entitled &ldquo;De l&rsquo;hygi&egrave;ne au R&ecirc;ve : l&rsquo;industrie fran&ccedil;aise du parfum, de 1830 &agrave; 1945&rdquo; (From Hygiene to Dream: the French perfume industry from 1830 to 1945).</p>\r\n<p>\r\n	She began working as head of cultural affairs at Chanel and Bourjois, where she set up and managed the conservatory. Curious and determined by nature, Elisabeth learned about the ingredients used in perfumery through her olfactory training at the Laboratoire des Parfums.</p>\r\n<p>\r\n	Her qualities and knowledge encouraged her to launch her own consulting company specialized in olfactory and cultural development. Arty Fragrance redefined values, involved in olfactory design, communication and training for prestigious names in perfumery.</p>\r\n<p>\r\n	Elisabeth has written several books on luxury and fragrance, organizes various exhibitions and gives workshops and conferences around the world.</p>\r\n<p>\r\n	Elisabeth de Feydeau has used her sensitivity and expertise to dedicate all of these years to developing French heritage and the art of perfumery throughout the world. Her in-depth knowledge of history and developed sense of smell enable her to analyze past experience, understand modern aspirations and anticipate trends. Since 1999, she has been passionately sharing this expertise with students and future perfumers from Essec and Isipca, where she teaches in parallel to her other projects.</p>\r\n<p>\r\n	In 2010, Elisabeth de Feydeau was named Chevalier des Arts et des Lettres by the Minister of Culture, Fr&eacute;d&eacute;ric Mitterrand.</p>\r\n<p>\r\n	In September 2010, she was made a &ldquo;Dame de la Jurade&rdquo; of Saint Emilion (honorary title of the Association of the Jurade, which seeks to promote the St Emilion wine region).</p>\r\n',2),(4,'asdfasdfasdf','<p>\r\n	Passionn&eacute;e de litt&eacute;rature et d&rsquo;Histoire, Elisabeth de Feydeau &eacute;tudie &agrave; l&rsquo;universit&eacute; Paris IV-Sorbonne, o&ugrave; elle obtient en 1997 son doctorat d&rsquo;Histoire Contemporaine, salu&eacute; &agrave; l&rsquo;unanimit&eacute; par le jury. Elle avait choisi d&rsquo;intituler sa th&egrave;se &laquo;&nbsp;De l&rsquo;Hygi&egrave;ne au R&ecirc;ve&nbsp;: l&rsquo;industrie fran&ccedil;aise du parfum, de 1830 &agrave; 1945&nbsp;&raquo;.</p>\r\n<p>\r\n	Elle est d&rsquo;abord responsable des affaires culturelles chez Chanel et Bourjois, o&ugrave; elle met en place et g&egrave;re le conservatoire. Elisabeth y acquiert la connaissance des mati&egrave;res premi&egrave;res de la parfumerie, gr&acirc;ce &agrave; une formation olfactive au sein du Laboratoire des parfums.</p>\r\n<p style=\\\"\\\\&quot;margin-left:.25in;\\\\&quot;\\\">\r\n	Ses atouts et connaissances l&rsquo;encouragent &agrave; cr&eacute;er sa propre soci&eacute;t&eacute; de conseil en d&eacute;veloppement olfactif et culturel. Arty Fragrance voit alors le jour, red&eacute;finissant les valeurs et collaborant au design olfactif, &agrave; la communication ou &agrave; la formation pour des noms prestigieux de la parfumerie.</p>\r\n<p style=\\\"\\\\&quot;margin-left:.25in;\\\\&quot;\\\">\r\n	Auteure de plusieurs ouvrages sur le luxe et le parfum, Elisabeth met &eacute;galement en sc&egrave;ne diverses expositions, anime ateliers et conf&eacute;rences &agrave; travers le monde. Au fil des ann&eacute;es, les sens et qualit&eacute;s de cette historienne sp&eacute;cialiste du parfum l&rsquo;ont plac&eacute;e au c&oelig;ur de ce m&eacute;tier, investie dans les domaines les plus divers. Sa profonde compr&eacute;hension de l&rsquo;Histoire et son sens olfactif lui permettent d&rsquo;analyser le chemin parcouru afin de comprendre les aspirations modernes et d&rsquo;anticiper les tendances&nbsp;: un savoir faire qu&rsquo;elle transmet depuis 1998 aux &eacute;tudiants et futurs parfumeurs des groupes Essec et Isipca.</p>\r\n<p>\r\n	En 2010, Elisabeth de Feydeau elle est nomm&eacute;e Chevalier des Arts et des Lettres par le Ministre de la Culture, Fr&eacute;d&eacute;ric Mitterrand. La m&ecirc;me ann&eacute;e, elle est intronis&eacute;e &laquo;&nbsp;Dame de la Jurade&nbsp;&raquo; &agrave; Saint &Eacute;milion.</p>\r\n',1);
 
 /*Table structure for table `blogfotos` */
 
@@ -114,11 +114,11 @@ CREATE TABLE `ciudad` (
   `nombreCiudad` char(200) default NULL,
   `idPais` int(11) default NULL,
   PRIMARY KEY  (`idCiudad`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ciudad` */
 
-insert  into `ciudad`(`idCiudad`,`nombreCiudad`,`idPais`) values (1,'PARIS',1);
+insert  into `ciudad`(`idCiudad`,`nombreCiudad`,`idPais`) values (1,'PARIS',1),(2,'Marsella',1),(3,'Otro',1);
 
 /*Table structure for table `ciudadIdioma` */
 
@@ -146,11 +146,11 @@ CREATE TABLE `ciudadidioma` (
   `idIdioma` int(11) default NULL,
   `idCiudad` int(11) default NULL,
   PRIMARY KEY  (`idCiudadIdioma`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ciudadidioma` */
 
-insert  into `ciudadidioma`(`idCiudadIdioma`,`nombreCiudadIdioma`,`idIdioma`,`idCiudad`) values (1,'PARIS',1,1),(2,'PARIS',2,1);
+insert  into `ciudadidioma`(`idCiudadIdioma`,`nombreCiudadIdioma`,`idIdioma`,`idCiudad`) values (1,'PARIS',1,1),(2,'PARIS',2,1),(3,'Marsella',1,2),(4,'Marsella',2,2),(5,'Otro',1,3),(6,'Otro',2,3);
 
 /*Table structure for table `core_session` */
 
@@ -184,11 +184,11 @@ CREATE TABLE `detallearticulo` (
   `slugDetalle` char(100) character set utf8 default NULL,
   `estado` char(1) NOT NULL,
   PRIMARY KEY  (`idDetalleArticulo`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `detallearticulo` */
 
-insert  into `detallearticulo`(`idDetalleArticulo`,`idArticulo`,`titulo`,`tituloDetalle`,`parrafoDetalle`,`fotoPrincipalDetalle`,`slugDetalle`,`estado`) values (1,1,'Presentation','','Check mi first presentation','presentacion.jpg','presentacion',''),(2,1,'Lux','Lux - Roi The Box','Lux offer the best way of sell in the web ','lux.jpg','lux',''),(3,1,'Baracko','Baracko - The way','check all the answersss','baracko.jpg','baracko',''),(4,2,'Presentation','','Cour is the best way in all the word','presentation.jpg','presentation',''),(5,2,'The fleur','The Fleur in our house','in your house, work, land in all the world','fleur.jpg','the-fleur',''),(6,2,'The Reyne','The reyne is sick','can you help thw queen ?? XD','reyne.jpg','the-reyne','');
+insert  into `detallearticulo`(`idDetalleArticulo`,`idArticulo`,`titulo`,`tituloDetalle`,`parrafoDetalle`,`fotoPrincipalDetalle`,`slugDetalle`,`estado`) values (1,1,'Presentation','','Check mi first presentation','presentacion.jpg','presentacion',''),(2,1,'Lux','Lux - Roi The Box','Lux offer the best way of sell in the web ','lux.jpg','lux',''),(3,1,'Baracko','Baracko - The way','check all the answersss','baracko.jpg','baracko',''),(4,2,'Presentation','','Cour is the best way in all the word','presentation.jpg','presentation',''),(5,2,'The fleur','The Fleur in our house','in your house, work, land in all the world','fleur.jpg','the-fleur',''),(6,2,'The Reyne','The reyne is sick','can you help thw queen ?? XD','reyne.jpg','the-reyne',''),(7,8,'Presentacion','wow! new presentacion','<p>\r\n	fdsfdskjf&nbsp; dashdiu defkehjf fdekjfhds iubnbm</p>\r\n',NULL,'1','1'),(8,15,'fdasdfaf','asdfasdf','<p>\r\n	asdfasdfasdfadfasdfasd</p>\r\n<p>\r\n	as</p>\r\n<p>\r\n	dfas</p>\r\n<p>\r\n	df</p>\r\n<p>\r\n	asdf</p>\r\n<p>\r\n	asdf</p>\r\n<p>\r\n	a</p>\r\n',NULL,'1','1');
 
 /*Table structure for table `estadoarticulo` */
 
@@ -241,11 +241,11 @@ CREATE TABLE `fotobio` (
   `idFotoBio` int(11) NOT NULL auto_increment,
   `nombreFotoBio` char(200) default NULL,
   PRIMARY KEY  (`idFotoBio`)
-) ENGINE=MyISAM AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=289 DEFAULT CHARSET=latin1;
 
 /*Data for the table `fotobio` */
 
-insert  into `fotobio`(`idFotoBio`,`nombreFotoBio`) values (241,'img_elisafey_bio_1331432436.jpg'),(242,'img_elisafey_bio_1331433042.jpg'),(243,'img_elisafey_bio_1331434600.jpg'),(244,'img_elisafey_bio_1331437408.jpg'),(245,'img_elisafey_bio_1331441883.jpg'),(246,'img_elisafey_bio_1331497166.jpg'),(247,'img_elisafey_bio_1331497202.jpg');
+insert  into `fotobio`(`idFotoBio`,`nombreFotoBio`) values (288,'img_elisafey_bio_1331434600.jpg');
 
 /*Table structure for table `fotoblogfoto` */
 
@@ -256,11 +256,11 @@ CREATE TABLE `fotoblogfoto` (
   `nombre` char(200) default NULL,
   `idBlogFoto` int(11) default NULL,
   PRIMARY KEY  (`idFotoBlogFoto`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 /*Data for the table `fotoblogfoto` */
 
-insert  into `fotoblogfoto`(`idFotoBlogFoto`,`nombre`,`idBlogFoto`) values (19,'img_elisafey_blog_1331441628.jpg',NULL),(20,'img_elisafey_blog_1331441801.jpg',NULL),(21,'img_elisafey_blog_1331441807.jpg',NULL),(22,'img_elisafey_blog_1331441814.jpg',NULL);
+insert  into `fotoblogfoto`(`idFotoBlogFoto`,`nombre`,`idBlogFoto`) values (29,'img_elisafey_blog_1331441628.jpg',NULL);
 
 /*Table structure for table `fotoobra` */
 
@@ -286,11 +286,11 @@ CREATE TABLE `fotopuntoventa` (
   `nombreFotoPuntoVenta` char(100) default NULL,
   `idPuntoVenta` int(11) default NULL,
   PRIMARY KEY  (`idFotoPuntoVenta`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `fotopuntoventa` */
 
-insert  into `fotopuntoventa`(`idFotoPuntoVenta`,`nombreFotoPuntoVenta`,`idPuntoVenta`) values (1,'imagen1.jpg',1),(2,'imagen2.jpg',1);
+insert  into `fotopuntoventa`(`idFotoPuntoVenta`,`nombreFotoPuntoVenta`,`idPuntoVenta`) values (1,'imagen1.jpg',1),(2,'imagen2.jpg',1),(3,'imagen3.jpg',2),(4,'imagen4.jpg',2),(5,'imagen5.jpg',6);
 
 /*Table structure for table `history` */
 
@@ -485,11 +485,11 @@ CREATE TABLE `pais` (
   `nombrePais` char(200) default NULL,
   `slugPais` char(200) default NULL,
   PRIMARY KEY  (`idPais`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pais` */
 
-insert  into `pais`(`idPais`,`nombrePais`,`slugPais`) values (1,'Francia','francia'),(2,'Belgica','belgica'),(3,'Core du sur','core-du-sur'),(4,'peru',NULL);
+insert  into `pais`(`idPais`,`nombrePais`,`slugPais`) values (1,'France','francia'),(2,'Belgique','belgica'),(3,'Corée du sud','core-du-sur'),(5,'Russie',NULL);
 
 /*Table structure for table `paisidioma` */
 
@@ -501,11 +501,11 @@ CREATE TABLE `paisidioma` (
   `idIdioma` int(11) default NULL,
   `idPais` int(11) default NULL,
   PRIMARY KEY  (`idPaisIdioma`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 /*Data for the table `paisidioma` */
 
-insert  into `paisidioma`(`idPaisIdioma`,`nombrePaisIdioma`,`idIdioma`,`idPais`) values (1,'Francia',1,1),(2,'Francia',2,1),(3,'Belgica',1,2),(4,'Belgica',2,2),(5,'Core du sur',1,3),(6,'Core du sur',2,3),(7,'peru',1,0),(8,'peru',2,0);
+insert  into `paisidioma`(`idPaisIdioma`,`nombrePaisIdioma`,`idIdioma`,`idPais`) values (1,'Francia',1,1),(2,'Francia',2,1),(3,'Belgica',1,2),(4,'Belgica',2,2),(5,'Core du sur',1,3),(6,'Core du sur',2,3),(7,'peru',1,0),(8,'peru',2,0),(9,NULL,1,5),(10,NULL,2,5);
 
 /*Table structure for table `presse` */
 
@@ -518,12 +518,13 @@ CREATE TABLE `presse` (
   `linkPresse` text,
   `imgPresse` char(200) default NULL,
   `linkMostrarPresse` char(200) default NULL,
+  `estadoPresse` tinyint(4) NOT NULL default '1',
   PRIMARY KEY  (`idPresse`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `presse` */
 
-insert  into `presse`(`idPresse`,`tituloPresse`,`subTituloPresse`,`linkPresse`,`imgPresse`,`linkMostrarPresse`) values (1,'Septembre 2011','Vogue','#\r\n','presse.jpg','Lire l\'article'),(2,'Septembre 2011','Vogue','#','presse.jpg','Lire l\'article');
+insert  into `presse`(`idPresse`,`tituloPresse`,`subTituloPresse`,`linkPresse`,`imgPresse`,`linkMostrarPresse`,`estadoPresse`) values (1,'Septembre 2011','Vogue','#\r\n','presse.jpg','Lire l\'article',1),(2,'Septembre 2011','Vogue','#','presse.jpg','Lire l\'article',1);
 
 /*Table structure for table `presseIdioma` */
 
@@ -607,11 +608,11 @@ CREATE TABLE `puntoventa` (
   `direccionWebPuntoVenta` char(200) default NULL,
   `telefonoPuntoVenta` char(200) default NULL,
   PRIMARY KEY  (`IdPuntoVenta`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `puntoventa` */
 
-insert  into `puntoventa`(`IdPuntoVenta`,`idPais`,`idCiudad`,`nombrePuntoVenta`,`direccionPuntoVenta`,`direccionWebPuntoVenta`,`telefonoPuntoVenta`) values (2,1,1,'Boutique Jovoy2','29, rue Danielle Casanova','www.jovoy1.com','123 234 12'),(5,1,1,'asdasd','asdasd','asdasd','asdasd');
+insert  into `puntoventa`(`IdPuntoVenta`,`idPais`,`idCiudad`,`nombrePuntoVenta`,`direccionPuntoVenta`,`direccionWebPuntoVenta`,`telefonoPuntoVenta`) values (2,1,1,'Boutique Jovoy – Parfums Rares','29, rue Danielle Casanova 75001 Paris','www.29casanova.com','+33 (0)1 40 20 06 19'),(6,1,1,'Sens Unique','13, rue du Roi de Sicile 75004 Paris','http://www.sensuniqueparis.com','+33 (0)1 71 50 30 09'),(7,1,1,'Lafayette Maison','40, boulevard Haussmann 75009 Paris','','+33 (0)1 42 82 34 56'),(8,1,1,'Aliette Massenet','169, avenue Victor Hugo 75116 Paris','','+33 (0)1 47 27 24 05');
 
 /*Table structure for table `puntoventaidioma` */
 
@@ -624,11 +625,11 @@ CREATE TABLE `puntoventaidioma` (
   `idIdioma` int(11) default NULL,
   `direccionWebPuntoVenta` varchar(250) default NULL,
   PRIMARY KEY  (`idPuntoVentaIdioma`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `puntoventaidioma` */
 
-insert  into `puntoventaidioma`(`idPuntoVentaIdioma`,`idPuntoVenta`,`nombrePuntoVenta`,`idIdioma`,`direccionWebPuntoVenta`) values (1,1,'Boutique Jovoy',1,NULL),(2,1,'Boutique Jovoy',2,NULL),(3,2,'Boutique Jovoy2',1,NULL),(4,2,'Boutique Jovoy2',2,NULL),(5,0,'asdasd',1,'asdasd'),(6,0,'asdasd',2,'asdasd');
+insert  into `puntoventaidioma`(`idPuntoVentaIdioma`,`idPuntoVenta`,`nombrePuntoVenta`,`idIdioma`,`direccionWebPuntoVenta`) values (1,1,'Boutique Jovoy',1,NULL),(2,1,'Boutique Jovoy',2,NULL),(3,2,'Boutique Jovoy – Parfums Rares',1,'29, rue Danielle Casanova 75001 Paris'),(4,2,'Boutique Jovoy2',2,NULL),(5,0,'asdasd',1,'asdasd'),(6,0,'asdasd',2,'asdasd'),(7,6,'Sens Unique',1,'13, rue du Roi de Sicile 75004 Paris'),(8,6,'Sens Unique',2,''),(9,7,'Lafayette Maison',1,''),(10,7,'Lafayette Maison',2,''),(11,8,'Aliette Massenet',1,''),(12,8,'Aliette Massenet',2,'');
 
 /*Table structure for table `realisations` */
 
