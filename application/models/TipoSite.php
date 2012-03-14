@@ -15,14 +15,16 @@ class Application_Model_TipoSite extends ZExtraLib_Model {
     }
     function listarTipoSite($idIdioma)
     {
-        $this->_tipoSite->getAdapter()
+        $result = $this->_tipoSite->getAdapter()
              ->select()
-             ->from(array('TS'=>$this->_site->getName()),array(''))
+             ->from(array('TS'=>$this->_tipoSite->getName()))
              ->join(array('ITS'=>$this->_idiomaTipoSite->getName()),'TS.idTipoSite = ITS.idTipoSite',
                     array('nombreTipoSite'=>'nombreIdiomaTipoSite','idIdiomaSite','idTipoSite'))
              ->where('ITS.idIdioma = ?',$idIdioma)
              ->query()
              ->fetchAll();               
+        
+        return $result;
     }
     function listarTipoSitePorIdioma($idioma) {
         //if (!($result = $this->_cache->load('listaTipoSiteIdioma'.$idioma ))) {
