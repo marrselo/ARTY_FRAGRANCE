@@ -74,12 +74,13 @@ class Application_Model_Pais extends ZExtraLib_Model {
         return 1;
     }
     
-     public function updatePais($data){
+     public function updatePais($data, $id){
         $idioma = array(
             'nombrePaisIdioma' => $data['nombrePaisIdioma']
         );
         
-        $where = "idPais = '{$data['idPais']}' and idIdioma = '{$data['lang_code']}'";
+        //$where = "idPais = '{$data['idPais']}' and idIdioma = '{$data['lang_code']}'";
+        $where = "idPais = '{$data['idPais']}' and idIdioma = '{$id}'";
         $this->_paisIdioma->update($idioma, $where); 
         if($default == $data['lang_code']){
             $punto = array(
