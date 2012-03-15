@@ -14,12 +14,13 @@
             <div class="wrapp_content_inner">
                 <?php
                 $clasArray = array('box_presse float_left right','box_presse float_right left');
+                $clasImgArray = array('imgRight','imgLeft');
                 $count=2;
 
                 
                 foreach($this->dataPresse as $index): ?>
                 <div class="<?php echo $clasArray[$count%2];  ?>">							
-                    <img class="imgRight" src="/presse/<?php echo $index['imgPresse']; ?>"/>
+                    <img class="<?php echo $clasImgArray[$count%2];  ?>" src="/imagen-presse/thums_<?php echo $index['imgPresse']; ?>"/>
                     <div class="inner">
                         <h3><?php echo $index['tituloPresseIdioma']; ?></h3>
                         <span><?php echo $index['subTituloPresseIdioma']; ?></span>
