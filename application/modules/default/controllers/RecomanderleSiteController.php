@@ -24,7 +24,7 @@ class Default_RecomanderleSiteController extends ZExtraLib_Controller_Action
             $mail->addTo($this->_params['recipientemail'], $this->_params['recipientname']);
             $mail->setFrom($this->_params['youremail'], $this->_params['yourname']);
             $mail->setSubject('Recommendation');
-            $mail->setBodyHtml($this->_params['message']);   // <-------
+            $mail->setBodyHtml($this->view->modeRecomendate['labelTextoModRecomendarSite']);   // <-------
             try {
             $mail->send();
             $this->_flashMessenger->addMessage('Se Envio Correctamente');            

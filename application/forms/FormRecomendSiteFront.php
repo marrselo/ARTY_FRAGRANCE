@@ -25,11 +25,6 @@ class Application_Form_FormRecomendSiteFront extends Zend_Form {
         );
         $e->setValidators($validators);
         $this->addElement($e);
-        $e = new Zend_Form_Element_Textarea('message');
-        $e->setAttrib('cols', '40')
-          ->setAttrib('rows', '4');
-        $e->setRequired(true);
-        $this->addElement($e);
         $e = new Zend_Form_Element_Submit('submit');
         $e->setLabel('Enviar');
         $this->addElement($e);

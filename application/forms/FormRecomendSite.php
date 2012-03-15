@@ -20,7 +20,7 @@ class Application_Form_FormRecomendSite extends Zend_Form {
         $e = new Zend_Form_Element_Text('labelEmailDestinatarioModRecomendarSite');
         $e->setRequired(true);
         $this->addElement($e);
-        $e = new Zend_Form_Element_Text('labelTextoModRecomendarSite');
+        $e = new Zend_Form_Element_Textarea('labelTextoModRecomendarSite');
         $e->setRequired(true);
         $this->addElement($e);
         $e = new Zend_Form_Element_Submit('submit');
