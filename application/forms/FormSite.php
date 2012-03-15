@@ -23,8 +23,9 @@ class Application_Form_FormSite extends Zend_Form {
         $e = new Zend_Form_Element_Select('idTipoSite');
         $e->setRequired(true);
         $tipo= new Application_Model_TipoSite;
-        $tipos=$tipo->listarTipoSitePorIdioma($this->_foo);
-        $e->addMultiOptions($tipos);
+        $tipos=$tipo->listarTipoSite($this->_foo);
+        foreach ($tipos as $index)
+            $e->addMultiOption($index['idTipoSite'],$index['nombreTipoSite']);           
         $this->addElement($e);
         $e = new Zend_Form_Element_Select('estado');
         $e->setRequired(true);
