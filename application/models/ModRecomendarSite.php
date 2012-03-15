@@ -21,4 +21,13 @@ class Application_Model_ModRecomendarSite extends ZExtraLib_Model {
         }
         return $result;
     }
+    function insertRecomendSite($data){
+        $this->_modRecomendarSite->insert($data);
+        return $this->_modRecomendarSite->getAdapter()->lastInsertId();
+    }
+        function updateRecomendSite($data,$idObra){
+        $where = $this->_modRecomendarSite->getAdapter()->quoteInto('idIdioma = ?', $idObra);
+        $this->_modRecomendarSite->update($data, $where);
+    }
+    
 }
