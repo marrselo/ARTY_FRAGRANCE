@@ -21,7 +21,7 @@ class Admin_PointventaController extends ZExtraLib_Controller_Action {
         $this->view->colPointventa = $this->pointventa->listarPuntoVenta();
     }
 
-    public function editarAction() {
+    public function editarAction() {        
         $pais = new Application_Model_Pais();
         $ciudad = new Application_Model_Ciudad();
         //$this->params['ciudad'],$this->sessionAdmin->idiomaDetaful
