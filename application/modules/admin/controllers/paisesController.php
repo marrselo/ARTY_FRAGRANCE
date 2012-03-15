@@ -41,30 +41,23 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
     }
 
     public function editarPaisAction() {        
-        //$this->view->detallePtoVenta = $this->pointventa->detallePuntoVentaIdioma($id, $idIdioma);
+        $this->params = $this->_getAllParams();
+        $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+        $this->view->colPais = $this->_pais->listarPaisPorIdioma($this->_sesion->lg);
+        $data = $this->_pais->getPais($this->params['id'], $idIdioma);
+        $this->view->data = $data;
+        
+        foreach ($this->idioma->getAllIdiomas() as $ind => $val) {
+            $colIdioma[$val['idIdioma']] = $val;            
+            };
+        $this->view->params = $this->params;
+        $this->view->colIdioma = $colIdioma;         
         
         if ($this->_request->isPost()) {            
-            $post = $this->getRequest()->getParams();
-            $this->_pais->updatePais($post, $this->_default);
+            $post = $this->getRequest()->getParams();            
+            $this->_pais->updatePais($post, $this->sessionAdmin->idiomaDetaful['idIdioma']);
             $this->_redirect('/admin/paises/');       
         }
-            $this->params = $this->_getAllParams();            
-            $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
-            
-            $this->view->colPais = $this->_pais->listarPaisPorIdioma($this->_sesion->lg);
-            
-            $data = $this->_pais->getPais($this->params['id'], $idIdioma);
-            
-            $this->view->data = $data;
-                        
-            foreach ($this->idioma->getAllIdiomas() as $ind => $val) {
-                $colIdioma[$val['idIdioma']] = $val;
-            };
-            
-            $this->view->params = $this->params;
-            $this->view->colIdioma = $colIdioma; // $this->idioma->getAllIdiomas();
-        
-        //$this->view->detallePtoVenta[0]['idPais'];
     }
 
     function newPaisAction() {
