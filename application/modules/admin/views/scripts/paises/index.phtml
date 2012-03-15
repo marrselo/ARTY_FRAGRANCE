@@ -40,7 +40,7 @@
                                                     foreach($this->data as $val):?>
                                                 <tr class="shadow">
                                                     <td width="85%"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
-                                                            <?php echo $val['nombrePaisIdioma'] ?></td>
+                                                        <a href="<?php echo $this->baseUrl()?>/admin/ciudades/index/id/<?php echo $val['idPais']?>">        <?php echo $val['nombrePaisIdioma'] ?></a></td>
                                                   
                                                     <td align="center" width="15%">
                                                         <a href="<?php echo $this->baseUrl()?>/admin/paises/editar-pais/id/<?php echo $val['idPais']?>">
