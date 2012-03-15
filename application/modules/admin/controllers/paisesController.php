@@ -37,7 +37,7 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
     }
 
     public function indexAction() {
-        $this->view->data = $this->_pais->listaPais();
+        $this->view->data = $this->_pais->listarPaisPorIdioma($this->sessionAdmin->idiomaDetaful['PrefIdioma']);
     }
 
     public function editarPaisAction() {        
