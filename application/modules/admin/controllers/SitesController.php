@@ -182,5 +182,25 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
     }
     $this->view->form = $formulario;
     }
-  
+      public function recomendSiteAction(){
+    $formulario = new Application_Form_FormRecomendSite();
+    $modelObra = new Application_Model_ModRecomendarSite();
+    $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
+    $datosObra = $modelObra->listarModRecomendarSitePorIdioma($idioma);
+    if(is_array($datosObra))
+        $formulario->populate($datosObra); 
+    $formulario->insertId('idIdioma', $this->sessionAdmin->idiomaDetaful['idIdioma']);
+    if ($this->_request->isPost()) {
+    if($formulario->isValid($this->_params)){
+        $this->cleanCache();
+        $dataObraIdioma=$formulario->getValues();
+        if(is_array($datosObra))
+            $modelObra->updateRecomendSite($dataObraIdioma, $this->sessionAdmin->idiomaDetaful['idIdioma']);
+        else
+            $modelObra->insertRecomendSite($dataObraIdioma);
+        $this->_flashMessenger->addMessage('Se Registro Correctamente');
+    }    
+    }
+    $this->view->form = $formulario;
+    }
 }

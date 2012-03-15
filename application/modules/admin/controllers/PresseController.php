@@ -41,7 +41,8 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
             $formulario->getElement('linkPresse')->setRequired(false);
             if ($formulario->isValid($this->_params)) {
                 $editPrese = false;
-                if ($formulario->imgPresse->getFileName() != '') {
+                
+                if (!is_array($formulario->imgPresse->getFileName())) {
                     $extn = pathinfo($formulario->imgPresse->getFileName(), PATHINFO_EXTENSION);
                     $nameFile = 'Press_Img_' . time('H:i:s') . '.' . $extn;
                     $rutaFileAbs = $formulario->imgPresse->getDestination() . '/' . $nameFile;
@@ -53,18 +54,21 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
                     copy($rutaFileAbs, $rutaFileAbsThums);
                     $this->redimencionarImagen($rutaFileAbsThums, '100', '200', 'crop');
                     $params['imgPresse'] = $nameFile;
-                    unlink($formulario->imgPresse->getDestination() . '/' . $dataPresse['imgPresse']);
+                    @unlink($formulario->imgPresse->getDestination() . '/' . $dataPresse['imgPresse']);
+                    @unlink($formulario->imgPresse->getDestination() . '/thums_' . $dataPresse['imgPresse']);
+                    $dataPresse['imgPresse']=$nameFile;
                     $editPrese = true;
         
                 }
-                if ($formulario->linkPresse->getFileName()) {
+                if (!is_array($formulario->linkPresse->getFileName())) {
                     $extn = pathinfo($formulario->linkPresse->getFileName(), PATHINFO_EXTENSION);
                     $nameFile = 'Press_' . time('H:i:s') . '.' . $extn;
                     $nameFileAbs = $formulario->linkPresse->getDestination() . '/' . $nameFile;
                     $formulario->linkPresse->addFilter('Rename', array('target' => $nameFileAbs, 'overwrite' => true));
                     $formulario->linkPresse->receive();
                     $params['linkPresse'] = $nameFile;
-                    unlink($formulario->imgPresse->getDestination() . '/' . $dataPresse['linkPresse']);
+                    @unlink($formulario->imgPresse->getDestination() . '/' . $dataPresse['linkPresse']);
+                    $dataPresse['linkPresse'] = $nameFile;
                     $editPrese = true;
                 }
                     
