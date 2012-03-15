@@ -23,17 +23,17 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
         $this->view->dataSite = $modelSite->ListarSiteA($this->sessionAdmin->idiomaDetaful['PrefIdioma']);       
     }
     public function newSiteAction() {
-    $formulario = new Application_Form_FormSite($this->sessionAdmin->idiomaDetaful['PrefIdioma']);
+    $formulario = new Application_Form_FormSite($this->sessionAdmin->idiomaDetaful['idIdioma']);
     $modelObra = new Application_Model_Site();
     $modelTipoSite = new Application_Model_TipoSite();
     
-    $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+    /*$idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
     $datosIdioma =$modelTipoSite->listarTipoSite($idioma);
     $arraySelec = array();
     foreach ($datosIdioma as $index){
         $arraySelec[$index['idTipoSite']]=$index['nombreTipoSite'];
     }
-    $formulario->insertMultiOption('idTipoSite', $arraySelec);
+    $formulario->insertMultiOption('idTipoSite', $arraySelec);*/
     if ($this->_request->isPost()) {
     if($formulario->isValid($this->_params)){
         $this->cleanCache();
@@ -49,10 +49,10 @@ class Admin_SitesController extends ZExtraLib_Controller_Action
     $this->view->form = $formulario;
         
     }
-    public function editSiteAction(){
-    $formulario = new Application_Form_FormSite();
+    public function editSiteAction(){    
     $modelObra = new Application_Model_Site();
     //$idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+    $formulario = new Application_Form_FormSite($this->sessionAdmin->idiomaDetaful['idIdioma']);
     $datosObra = $modelObra->listarDatosSite($this->_params['id']);
     $formulario->insertId('idSite', $datosObra['idSite']);
     if ($this->_request->isPost()) {
