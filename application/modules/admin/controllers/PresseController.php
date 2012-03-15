@@ -11,6 +11,10 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         $modelPresse = new Application_Model_Presse();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
         $this->view->listaPresse = $modelPresse->listarPressePorIdioma($idioma);
+        $fc = Zend_Controller_Front::getInstance();
+        $confUpload = $fc->getParam('bootstrap')->getOption('upload');
+        $this->view->destination = $confUpload["rutaPresse"];
+
     }
 
     public function newPresseAction() {
@@ -36,6 +40,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
             $formulario->getElement('imgPresse')->setRequired(false);
             $formulario->getElement('linkPresse')->setRequired(false);
             if ($formulario->isValid($this->_params)) {
+                $editPrese = false;
                 if ($formulario->imgPresse->getFileName() != '') {
                     $extn = pathinfo($formulario->imgPresse->getFileName(), PATHINFO_EXTENSION);
                     $nameFile = 'Press_Img_' . time('H:i:s') . '.' . $extn;
@@ -49,7 +54,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
                     $this->redimencionarImagen($rutaFileAbsThums, '100', '200', 'crop');
                     $params['imgPresse'] = $nameFile;
                     unlink($formulario->imgPresse->getDestination() . '/' . $dataPresse['imgPresse']);
-                    
+                    $editPrese = true;
         
                 }
                 if ($formulario->linkPresse->getFileName()) {
@@ -60,12 +65,13 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
                     $formulario->linkPresse->receive();
                     $params['linkPresse'] = $nameFile;
                     unlink($formulario->imgPresse->getDestination() . '/' . $dataPresse['linkPresse']);
+                    $editPrese = true;
                 }
                     
                     $paramsIdioma['tituloPresseIdioma'] = $this->_params['tituloPresse'];
                     $paramsIdioma['subTituloPresseIdioma'] = $this->_params['subTituloPresse'];
                     $paramsIdioma['linkMostrarPresseIdioma'] = $this->_params['linkMostrarPresse'];
-                    
+                    if($editPrese)
                     $modelPresse->editPresse($params, $this->_params['id']);
                     $modelPresse->editPresseIdioma($paramsIdioma,$this->_params['id'], $this->sessionAdmin->idiomaDetaful['idIdioma']);
                 $this->cleanCache();
