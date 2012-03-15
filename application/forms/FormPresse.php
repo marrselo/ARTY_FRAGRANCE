@@ -24,7 +24,7 @@ class Application_Form_FormPresse extends Zend_Form {
 
         $element = new Zend_Form_Element_File('linkPresse');
         $element->setLabel('Cargar Imagen:')
-                ->setRequired()
+                //->setRequired()
                 ->setDestination($confUpload["rutaPresse"]);
 
         $element->addValidator('Count', false, 1);

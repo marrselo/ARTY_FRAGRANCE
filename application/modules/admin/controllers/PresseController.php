@@ -34,19 +34,45 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         $dataPresse = $modelPresse->listarPressePorIdiomaDetalle($idIdioma, $this->_params['id']);
         if ($this->_request->isPost()) {    
             if ($formulario->isValid($this->_params)) {
-                $arrayImagen= array();
-                
-                $arrayImagen = $this->subirImagenes(
-                        $formulario->imgPresse->getDestination(), 
-                        'img_presse_', 
-                        $arrayImagen, 
-                        '404', 
-                        '495',
-                        '100', 
-                        '70'
-                        );
-                print_r($arrayImagen);
+                if($formulario->imgPresse->getFileName()!=''){
+                $extn = pathinfo($formulario->imgPresse->getFileName(), PATHINFO_EXTENSION);
+                $nameFile = 'Press_Img_' . time('H:i:s');
+                $formulario->imgPresse->addFilter('Rename',
+                        array('target' => 
+                            $formulario->imgPresse->getDestination() . '/' 
+                            . $nameFile . '-' 
+                            . '.' 
+                            . $extn,'overwrite' => true));
+                $formulario->imgPresse->receive();         
+                }
+                if($formulario->linkPresse->getFileName()){
+                $nameFile = 'Press_' . time('H:i:s');
+                $extn = pathinfo($formulario->linkPresse->getFileName(), PATHINFO_EXTENSION);
+                $nameFile = 'Press_' . time('H:i:s');
+                $formulario->linkPresse->addFilter('Rename',
+                        array('target' => 
+                            $formulario->linkPresse->getDestination() . '/' 
+                            . $nameFile . '-' 
+                            . '.' 
+                            . $extn,'overwrite' => true));
+                $formulario->linkPresse->receive();        
+                            }
+                        
+                       
                 exit;
+//                
+//                
+//                $arrayImagen = $this->subirImagenes(
+//                        $formulario->imgPresse->getDestination(), 
+//                        'img_presse_', 
+//                        $arrayImagen, 
+//                        '404', 
+//                        '495',
+//                        '100', 
+//                        '70'
+//                        );
+//                print_r($arrayImagen);
+//                exit;
               //  $this->_redirect('/admin/presse/');
                 
             }
