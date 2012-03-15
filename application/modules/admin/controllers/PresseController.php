@@ -33,33 +33,33 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
         $dataPresse = $modelPresse->listarPressePorIdiomaDetalle($idIdioma, $this->_params['id']);
         if ($this->_request->isPost()) {    
+            $formulario->getElement('imgPresse')->setRequired(false);
+            $formulario->getElement('imgPresse')->setRequired(false);
             if ($formulario->isValid($this->_params)) {
                 if($formulario->imgPresse->getFileName()!=''){
                 $extn = pathinfo($formulario->imgPresse->getFileName(), PATHINFO_EXTENSION);
-                $nameFile = 'Press_Img_' . time('H:i:s');
+                $nameFile = 'Press_Img_' . time('H:i:s').'.'.$extn;
+                $rutaFileAbs = $formulario->imgPresse->getDestination() . '/' . $nameFile;
                 $formulario->imgPresse->addFilter('Rename',
-                        array('target' => 
-                            $formulario->imgPresse->getDestination() . '/' 
-                            . $nameFile . '-' 
-                            . '.' 
-                            . $extn,'overwrite' => true));
+                        array('target' => $rutaFileAbs,'overwrite' => true));
                 $formulario->imgPresse->receive();         
+                $this->redimencionarImagen($rutaFileAbs, '500', '500', 'crop');
+            
+                $nameThums ='thums_'.$nameFile;
+                $rutaFileAbsThums = $formulario->imgPresse->getDestination() . '/' . $nameThums;
+                copy($rutaFileAbs,$rutaFileAbsThums);
+                $this->redimencionarImagen($rutaFileAbsThums, '100', '200', 'crop');
                 }
                 if($formulario->linkPresse->getFileName()){
-                $nameFile = 'Press_' . time('H:i:s');
+                
                 $extn = pathinfo($formulario->linkPresse->getFileName(), PATHINFO_EXTENSION);
-                $nameFile = 'Press_' . time('H:i:s');
+                $nameFileAbs = $formulario->linkPresse->getDestination() .'/'.'Press_' . time('H:i:s'). '.' . $extn;
                 $formulario->linkPresse->addFilter('Rename',
-                        array('target' => 
-                            $formulario->linkPresse->getDestination() . '/' 
-                            . $nameFile . '-' 
-                            . '.' 
-                            . $extn,'overwrite' => true));
+                        array('target' => $nameFileAbs,'overwrite' => true));
                 $formulario->linkPresse->receive();        
-                            }
-                        
+                }
                        
-                exit;
+         //       exit;
 //                
 //                
 //                $arrayImagen = $this->subirImagenes(
@@ -108,9 +108,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
 
     public function subirImagenes(
         $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
-        $adapter = new Zend_File_Transfer_Adapter_Http();
-        $adapter->setDestination($destination);
-        $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);
+        $extn = pathinfo($rutaFile, PATHINFO_EXTENSION);
         $name = $prefNameImg . time('H:i:s');
         $thums = false;
         if ($widthThums != null && $heightThums != null) {
