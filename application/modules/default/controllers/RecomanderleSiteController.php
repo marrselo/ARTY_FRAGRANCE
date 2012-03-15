@@ -12,10 +12,33 @@ class Default_RecomanderleSiteController extends ZExtraLib_Controller_Action
     }
     public function indexAction()
     {
+        $formulario=new Application_Form_FormRecomendSiteFront();
         $arrayKey = array_keys($this->_menu);
         $this->view->itemSelect = $arrayKey[0];
         $modeRecomendate = new Application_Model_ModRecomendarSite();
         $this->view->modeRecomendate = $modeRecomendate->listarModRecomendarSitePorIdioma($this->_params['lang']);
+        if ($this->_request->isPost()) {
+
+        if($formulario->isValid($this->_params)){
+            $mail = new Zend_Mail();
+            $mail->addTo($this->_params['recipientemail'], $this->_params['recipientname']);
+            $mail->setFrom($this->_params['youremail'], $this->_params['yourname']);
+            $mail->setSubject('Recommendation');
+            $mail->setBodyHtml($this->_params['message']);   // <-------
+            try {
+            $mail->send();
+            $this->_flashMessenger->addMessage('Se Envio Correctamente');            
+            } catch (Zend_Mail_Exception $e) {
+            $this->_flashMessenger->addMessage('No Se Envio Correctamente');
+            }
+
+            $this->_flashMessenger->addMessage('Se Registro Correctamente');
+        }else{
+
+        }
+
+        }
+        $this->view->form=$formulario;
     }
 }
 

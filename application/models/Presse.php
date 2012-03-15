@@ -35,6 +35,7 @@ class Application_Model_Presse extends ZExtraLib_Model {
         }
         return $result;
     }
+    
 
     function listarPressePorIdiomaDetalle($idIdioma, $idPresse) {
         $result = $this->_presse

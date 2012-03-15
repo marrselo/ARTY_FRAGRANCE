@@ -1,4 +1,9 @@
-
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('message');
+}
+</script>
 <div id="content" class="layout_fluid_inner">
     <div class="inside">
         <?php
@@ -14,36 +19,42 @@
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
                 <p><?php echo $this->modeRecomendate['tituloPaginaModRecomendarSite'] ?></p>
-                <form class="frm_recomender dlgrid">
+                <form action="" method="POST" class="frm_recomender dlgrid">
                     <fieldset class="dlinline">
                         <div class="w100">
                             <dl class="dt50 dd50">
                                 <dt><label><?php echo $this->modeRecomendate['labelNombreModRecomendarSite'] ?></label></dt>
-                                <dd><input type="text" class="text" /></dd>
+                                <dd><?php echo $this->form->yourname; ?></dd>
                             </dl>
                         </div>
                         <div class="w100">
                             <dl class="dt50 dd50">
                                 <dt><label><?php echo $this->modeRecomendate['labelEmailModRecomendarSite'] ?></label></dt>
-                                <dd><input type="text" class="text" /></dd>
+                                <dd><?php echo $this->form->youremail; ?></dd>
                             </dl>
                         </div>	
                         <div class="w100">
                             <dl class="dt50 dd50 box_sep">
                                 <dt><label><?php echo $this->modeRecomendate['labelNombreDestinatarioModRecomendarSite'] ?></label></dt>
-                                <dd><input type="text" class="text" /></dd>
+                                <dd><?php echo $this->form->recipientname; ?></dd>
                             </dl>
                         </div>	
                         <div class="w100 ">
                             <dl class="dt50 dd50 ">
                                 <dt><label><?php echo $this->modeRecomendate['labelEmailDestinatarioModRecomendarSite'] ?></label></dt>
-                                <dd><input type="text" class="text" /></dd>
+                                <dd><?php echo $this->form->recipientemail; ?></dd>
+                            </dl>
+                        </div>	
+                        <div class="w100 ">
+                            <dl class="dt50 dd50 ">
+                                <dt><label><?php echo $this->modeRecomendate['labelTextoModRecomendarSite'] ?></label></dt>
+                                <dd><?php echo $this->form->message; ?></dd>
                             </dl>
                         </div>	
                         <div class="w100">
                             <dl class="dt50 dd50">
                                 <dt>&nbsp;</dt>
-                                <dd><input type="submit" class="btn btn_submit whitegradient float_right" value="ENVOYER"/></dd>
+                                <dd><?php echo $this->form->submit; ?></dd>
                             </dl>
                         </div>	
                     </fieldset>						
