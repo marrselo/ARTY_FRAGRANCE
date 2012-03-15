@@ -63,10 +63,10 @@
                                                     <?php echo $value['subTituloPresseIdioma']; ?>
                                                 </td>
                                                 <td width="25%">
-                                                    <img width="70" src="/imagen-presse/thums_<?php echo $value['imgPresse']; ?>" >
+                                                    <img width="70" src="<?php echo $this->baseUrl() ?>/imagen-presse/thums_<?php echo $value['imgPresse']; ?>" >
                                                 </td>
                                                 <td width="10%">
-                                                    <a href="<?php echo $value['linkPresse']; ?>" target="_Black">Link</a>
+                                                    <a href="<?php echo $this->baseUrl() ?>/imagen-presse/<?php echo $value['linkPresse']; ?>" target="_Black"><?php echo $value['linkMostrarPresseIdioma']?></a>
                                                 </td>
                                                 <td align="right" width="15%">
                                                     <a href="/admin/presse/edit-presse/id/<?php echo $value['idpresse'] ?>" 

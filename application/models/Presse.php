@@ -61,21 +61,21 @@ class Application_Model_Presse extends ZExtraLib_Model {
         return $this->_presseIdioma
                 ->select()
                 ->where('idIdioma = ?', $idIdioma)
-                ->where('idPress = ?', $idPress)
+                ->where('idPresse = ?', $idPress)
                 ->query()->fetch();
     }
 
     function editPresse($data, $idPress) {
-        $where = $this->_presse->getAdapter()->quoteInto('idPress = ?', $idPress);
+        $where = $this->_presse->getAdapter()->quoteInto('idPresse = ?', $idPress);
         $this->_presse->update($data, $where);
     }
 
-    function editPresseIdioma($idPress, $idIdioma) {
+    function editPresseIdioma($data,$idPress, $idIdioma) {
         if($this->ifExistPresseIdioma($idPress, $idIdioma)){
             $data['idIdioma'] = $idIdioma;        
-            $data['idPress'] = $idPress;
+            $data['idPresse'] = $idPress;
             $where[]=$this->_presseIdioma->getAdapter()->quoteInto('idIdioma = ?', $idIdioma);
-            $where[]=$this->_presseIdioma->getAdapter()->quoteInto('idPress = ?', $idPress);
+            $where[]=$this->_presseIdioma->getAdapter()->quoteInto('idPresse = ?', $idPress);
             $this->_presseIdioma->update($data,$where);
         }else{
             $this->_presseIdioma->insert($data);

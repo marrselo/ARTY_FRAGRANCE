@@ -19,7 +19,7 @@ class Application_Model_Pais extends ZExtraLib_Model {
         //if (!($result = $this->_cache->load('listaPais' . $idioma))) {
             $result = $this->_pais->getAdapter()
                     ->select()
-                    ->from(array('p' => $this->_pais->getName()), array('p.idPais', 'p.nombrePais','p.slugPais'))
+                    ->from(array('p' => $this->_pais->getName()), array('p.idPais', 'pi.nombrePaisIdioma','p.nombrePais','p.slugPais'))
                     ->join(array('pi' => $this->_paisIdioma->getName()), 'pi.idPais = p.idPais', '')
                     ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = pi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma);
@@ -74,12 +74,13 @@ class Application_Model_Pais extends ZExtraLib_Model {
         return 1;
     }
     
-     public function updatePais($data){
+     public function updatePais($data, $id){
         $idioma = array(
             'nombrePaisIdioma' => $data['nombrePaisIdioma']
         );
         
-        $where = "idPais = '{$data['idPais']}' and idIdioma = '{$data['lang_code']}'";
+        //$where = "idPais = '{$data['idPais']}' and idIdioma = '{$data['lang_code']}'";
+        $where = "idPais = '{$data['idPais']}' and idIdioma = '{$id}'";
         $this->_paisIdioma->update($idioma, $where); 
         if($default == $data['lang_code']){
             $punto = array(
