@@ -80,7 +80,7 @@ class Admin_PaisesController extends ZExtraLib_Controller_Action {
         $case = $this->_getParam('case',0);
         $post = $this->getRequest()->getParams();
         switch ($case):
-            case 'delete':
+            case 'delete':                
                 $action = $this->_pais->deleteData($post);
                 echo $action;
                 break;

@@ -95,14 +95,25 @@ class Application_Model_Pais extends ZExtraLib_Model {
     
     public function deleteData($data){
         try{
-            /*$this->_ciudad = new Application_Model_DbTable_Ciudad();
-            $this->_ciudadIdioma = new Application_Model_DbTable_CiudadIdioma();
-            $this->_ciudadIdioma->delete($where);
-            $this->_ciudad->delete();
+//            $this->_ciudad = new Application_Model_Ciudad();
+//            $ciudades = $this->_ciudad->listCiudadPais($data['id']);
+//            var_dump($ciudades);
+//            exit;
             $this->_paisIdioma->delete("idPais = '{$data['id']}'");
-            $this->_pais->delete("idPais = '{$data['id']}'");*/
-            $action = $this->resultTransaccion('0', 'Existen Datos Relacionados', 'Registro eliminado Correctamente', '');
-            return $action;
+            $this->_pais->delete("idPais = '{$data['id']}'");
+            
+            $this->_ciudad = new Application_Model_DbTable_Ciudad();
+            $cid = new Application_Model_Ciudad();
+            $ciudades = $cid->listCiudadPais($data['id']);
+            
+            $this->_ciudad->delete("idPais = '{$data['id']}'");
+            $this->_ciudadIdioma = new Application_Model_DbTable_CiudadIdioma();
+            foreach ($ciudades as $ciu):
+                $this->_ciudadIdioma->delete("idCiudad = '{$ciu['idCiudad']}'");
+            endforeach;
+            
+            $action = $this->resultTransaccion('0', 'OK', 'OK', '');
+            return ;
         }  catch (Exception $e){
             return '0';
         }
