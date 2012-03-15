@@ -5,6 +5,14 @@
         <div id="main">
             <!--   <h2 class="top"></h2>-->
             <div id="form">
+                                <?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
+
                 <div style="display:show">
 
                     <div class="table_admin">
