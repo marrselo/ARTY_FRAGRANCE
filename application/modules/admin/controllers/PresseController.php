@@ -127,7 +127,13 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         
     }
 
-
+    public function eliminarPresseAction(){
+        $modelPresse = new Application_Model_Presse();
+        $modelPresse->eliminarPresse($idPresse);
+        $this->_params['id'];
+        
+        
+    }
 
     public function adminSubMenuAction() {
         $this->_articulo = new Application_Model_Articulo();

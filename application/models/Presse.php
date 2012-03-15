@@ -12,6 +12,11 @@ class Application_Model_Presse extends ZExtraLib_Model {
         $this->_presse = new Application_Model_DbTable_Presse();
         $this->_presseIdioma = new Application_Model_DbTable_PresseIdioma();
     }
+    function eliminarPresse($idPrese){
+        
+        $where = $this->_presse->getAdapter()->quoteInto($text, $value);
+        $this->_presse->delete($where);
+    }
 
     function listarPressePorIdioma($idioma) {
         if (!($result = $this->_cache->load('listarPressePorIdioma' . $idioma))) {

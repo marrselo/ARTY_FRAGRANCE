@@ -4,7 +4,7 @@
         //$arr = $this->menuIzquierdo;
         //print_r($arr);
         foreach($this->menuIzquierda as $index=>$valor): 
-            $rutCont = '/cont';
+            $rutCont = $valor['idTipoMenu']==1?'/cont':'';
             ?>
         <li><?php if($valor['idTipoMenu']==2 && $this->itemSelect==''){?>
             <a class="<?php echo $this->actionName==$valor['rutaMenuBase']?'selected':'' ?>" 
