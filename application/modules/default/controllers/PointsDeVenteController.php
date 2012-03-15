@@ -6,6 +6,9 @@ class Default_PointsDeVenteController extends ZExtraLib_Controller_Action
     
     public function init() {
         parent::init();
+        $this->view->headLink()->appendStylesheet("/f/css/jquery.fancybox-1.3.4.css");
+        $this->view->headScript()->appendFile('/f/js/jquery.fancybox-1.3.4.pack.js');
+
         $this->view->classBody = 'lyt_pointvente fancyBox';
         $modePais = new Application_Model_Pais();
         $this->view->listaPais = $modePais->listarPaisPorIdioma($this->_params['lang']);

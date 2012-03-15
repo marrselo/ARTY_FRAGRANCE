@@ -35,7 +35,7 @@
 	left: 0;
 	width: 40px;
 	height: 480px;
-	background-image: url('/f/img/fancybox.png');
+	background-image: url('/f/css/img/fancybox.png');
 }
 
 #fancybox-overlay {
@@ -100,7 +100,7 @@
 	right: 0;
 	width: 70px;
 	height: 10px;
-	background: transparent url('/f/img/fancy_cerrar.png') no-repeat;
+	background: transparent url('/f/css/img/fancy_cerrar.png') no-repeat;
 	cursor: pointer;
 	z-index: 1103;
 	display: none;
@@ -164,12 +164,12 @@
 }
 
 #fancybox-left-ico {
-	background-image: url('/f/img/fancybox.png');
+	background-image: url('/f/css/img/fancybox.png');
 	background-position: -40px -30px;
 }
 
 #fancybox-right-ico {
-	background-image: url('/f/img/fancybox.png');
+	background-image: url('/f/css/img/fancybox.png');
 	background-position: -40px -60px;
 }
 
@@ -206,7 +206,7 @@
 #fancybox-bg-ne {
 	top: -20px;
 	right: -20px;
-	background-image: url('/f/img/fancybox.png');
+	background-image: url('/f/css/img/fancybox.png');
 	background-position: -40px -162px;
 }
 
@@ -221,7 +221,7 @@
 #fancybox-bg-se {
 	bottom: -20px;
 	right: -20px;
-	background-image: url('/f/img/fancybox.png');
+	background-image: url('/f/css/img/fancybox.png');
 	background-position: -40px -182px; 
 }
 
@@ -236,7 +236,7 @@
 #fancybox-bg-sw {
 	bottom: -20px;
 	left: -20px;
-	background-image: url('/f/img/fancybox.png');
+	background-image: url('/f/css/img/fancybox.png');
 	background-position: -40px -142px;
 }
 
@@ -250,7 +250,7 @@
 #fancybox-bg-nw {
 	top: -20px;
 	left: -20px;
-	background-image: url('/f/img/fancybox.png');
+	background-image: url('/f/css/img/fancybox.png');
 	background-position: -40px -122px;
 }
 
@@ -307,7 +307,7 @@
 
 #fancybox-title-float-left {
 	padding: 0 0 0 15px;
-	background: url('/f/img/fancybox.png') -40px -90px no-repeat;
+	background: url('/f/css/img/fancybox.png') -40px -90px no-repeat;
 }
 
 #fancybox-title-float-main {
@@ -320,7 +320,7 @@
 
 #fancybox-title-float-right {
 	padding: 0 0 0 15px;
-	background: url('/f/img/fancybox.png') -55px -90px no-repeat;
+	background: url('/f/css/img/fancybox.png') -55px -90px no-repeat;
 }
 
 /* IE6 */
