@@ -1,0 +1,29 @@
+<div id="content" class="layout_fluid_inner">
+    <div class="inside">
+<?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
+        <section id="" class="wrapp_content">
+            <div class="wrapp_content_inner">
+                <?php 
+                foreach($this->dataSite as $index=>$data):?>
+                <h2><?php echo $index; ?></h2>
+                <div class="cf">
+                    <?php foreach($data as $index2):?>
+                    <div class="box_border box_lienamis">
+                        <h3><?php echo $index2['nombreSite']?></h3>
+                        <a href="<?php echo $index2['urlSite']?>"><?php echo $index2['urlMostrar']?></a>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php endforeach; ?>
+            </div>					
+        </section>
+    </div>
+</div>

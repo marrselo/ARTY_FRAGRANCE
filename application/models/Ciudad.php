@@ -22,15 +22,44 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
         return $select->query()->fetchAll();
     }
 
-    public function listCiudadPais($idPais){
+    public function listCiudadPais($idPais, $idIdioma){
+        $where = new Zend_Db_Expr("(SELECT idCiudad from ciudad where idPais = ".$idPais.")");
+        
         $select = $this->_ciudad->getAdapter()->select();
-        $select->from(array('t1' => 'ciudad'), array('idCiudad'))                
-                ->where('t1.idPais = ?', $idPais);        
+        $select->from(array('t1' => 'ciudadidioma'))                
+                ->where('t1.idCiudad IN ?', $where)
+                ->where('t1.idIdioma = ?', $idIdioma);        
         
         $result = $select->query()->fetchAll();
         
         return $result;
     }
+    
+    public function ciudadesPais($idPais){
+        
+        $select = $this->_ciudad->getAdapter()->select();
+        $select->from(array('t1' => 'ciudad'))                
+                ->where('t1.idPais = ?', $idPais);
+        
+        $result = $select->query()->fetchAll();
+        
+        return $result;
+    }
+    
+    public function getCiudad($id, $idIdioma){
+        $select = $this->_ciudad->getAdapter()->select();
+        $select->from(array('t1' => 'ciudadidioma'))
+                ->join(array('c' => 'ciudad'), 't1.idCiudad = c.idCiudad', array())
+                ->join(array('p' => 'pais'), 'c.idPais = p.idPais', array())
+                ->join(array('pi' => 'paisidioma'), 'p.idPais = pi.idPais', array('nombrePaisIdioma', 'idIdioma'))
+                ->where('t1.idCiudadIdioma = ?', $id)
+                ->where('pi.idIdioma = ?', $idIdioma);
+        //echo $select;exit;
+        $result = $select->query()->fetch();
+        
+        return $result;
+    }
+    
     public function getCiudadIdioma($id,$sesion,$tipo = ''){
         $select = $this->_pais->getAdapter()->select();
         $select->from(array('t1' => 'ciudadidioma'), array('idCiudad','idCiudadIdioma','nombreCiudadIdioma','idIdioma'))
@@ -45,7 +74,7 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
             return $select->query()->fetchAll();
     }
     
-    public function saveCiudadPais(array $data = Array(), $sesion){
+    public function saveCiudadPais(array $data = Array()){
        $pais = array(
             'nombreCiudad' => $data['nombreCiudad'],
             'idPais' => $data['idPais']
@@ -54,6 +83,7 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
         $this->_ciudad->insert($pais); 
         
         $id = $this->_ciudad->getAdapter()->lastInsertId();
+        
         $idiomObj = new Application_Model_Idioma();
         $dtaIdioma = $idiomObj->getAllIdiomas();
         $idioma = array(
@@ -69,22 +99,23 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
         return 1;
     }
     
-    public function editCiudadPais(array $data = Array(), $sesion){
+    public function editCiudadPais(array $data = Array(), $idIdioma){
       
         $idioma = array(
             'nombreCiudadIdioma' => $data['nombreCiudad']
         );
         
-        $where = "idCiudad = '{$data['idCiudad']}' and idIdioma = '{$sesion['idIdioma']}'";
+        $where = "idCiudad = '{$data['idCiudad']}' and idIdioma = '{$idIdioma}'";
+        
         $this->_ciudadIdioma->update($idioma, $where); 
         
-        if($sesion['idIdioma'] == $data['default']){
-            $save = array(
-                'nombreCiudad' => $data['nombreCiudad']
-            );
-            $where = "idCiudad = '{$data['idCiudad']}'";
-            $this->_ciudad->update($save, $where); 
-        }
+//        if($sesion['idIdioma'] == $data['default']){
+//            $save = array(
+//                'nombreCiudad' => $data['nombreCiudad']
+//            );
+//            $where = "idCiudad = '{$data['idCiudad']}'";
+//            $this->_ciudad->update($save, $where); 
+//        }
         //$this->clearCache();
         return 1;
     }

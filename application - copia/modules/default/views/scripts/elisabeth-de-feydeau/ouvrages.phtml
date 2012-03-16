@@ -1,0 +1,88 @@
+<div id="content" class="layout_fluid_inner">
+    <div class="inside">
+<?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>        <section id="" class="wrapp_content">
+            <div class="wrapp_content_inner">								
+
+                <div class="cf"	>
+                    <?php 
+                    $clasArray = array('row even','row odd');
+                    $count=1;
+                    foreach($this->dataObras as $index):?>
+                    <div class="<?php echo $clasArray[$count%2];  ?>">
+                        <div class="row_inner">
+                            <div class="detail">
+                                <h3><?php echo $index['anioObra'] ?></h3>
+                            <?php echo $index['tituloObraIdioma'] ?>
+                            </div>
+                            <div class="photo">
+                                <a href="#">
+                                    <img class="" src="/imgOuverages/thums_<?php echo $index['imgObra'] ?>" width=""/>	
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="row_slide">
+                            <div class="detail">
+                                <p>
+                                <?php echo $index['parrafoObraIdioma'] ?>
+                                </p>
+                                <a href="<?php echo $index['linkObra'] ?>" class="">aqui</a>
+                            </div>
+                            <div class="photo">
+                                <img class="" src="/imgOuverages/<?php echo $index['imgObra'] ?>" width=""/>	
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    $count++;
+                    endforeach; ?>
+<!--                    <div class="row even">	
+                        
+                        <div class="row_inner">
+                            <div class="detail">
+                                <h3>2011</h3>												
+                                <p>
+                                    Les Parfums : dictionnaire, anthologie, histoire <br/>
+                                    Ouvrage complet<br/>
+                                    (éditions R. Laffont) 
+                                </p>
+
+                            </div>
+                            <div class="photo">
+                                <a href="#">
+                                    <img class="" src="/imgOuverages/thums_img_elisafey_ouvrages.jpg" width="278"/>	
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="row_slide">
+                            <div class="detail">
+                                <p>
+                                    Les Parfums : dictionnaire, anthologie, histoire <br/>
+                                    Ouvrage complet<br/>
+                                    (éditions R. Laffont)													
+                                </p>
+                                <a href="#" class="">aqui</a>
+                            </div>
+                            <div class="photo">
+                                <img class="" src="/imgOuverages/img_elisafey_ouvrages.jpg" width="278"/>	
+                            </div>
+                        </div>
+                        
+                    </div>-->
+
+
+                </div>
+
+            </div>	
+        </section>
+    </div>
+</div>

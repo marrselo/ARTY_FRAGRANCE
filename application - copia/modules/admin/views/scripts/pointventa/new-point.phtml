@@ -1,0 +1,153 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Liste Point Vente</a> &gt; <?php echo $this->params['action']?>          
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                    <?php 
+                        echo $this->render('render/listaIdioma.phtml',
+                            array(
+                                'idms' => $this->idms,
+                                'lang' => $this->lang,
+                            )
+                        );
+                    ?>
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" class="table_admin_body">
+                            <input type="hidden" value="3" name="id">
+                            <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                <tbody>
+                                    <tr><th colspan="2">
+                                        </th><br></tr>
+                                    <tr>
+                                        <td align="left" width="20%">Pays : *</td>
+                                        <td align="left" width="80%">
+                                            <select  name="idPais" onchange="changePais(this.value)"  style="width: 150px;" id="idPais" class="required">
+                                                 <option value=""> - Seleccionar - </option>
+                                                <?php
+                                                foreach ($this->colPais as $index => $valu):                            
+                                                        $selected = ($valu['idPais'] == $this->detallePtoVenta['idPais'])? 'selected = "selected"' : '';                                                       
+                                                    ?>
+                                                    <option <?php echo $selected ?> value="<?php echo $valu['idPais'] ?>">
+                                                        <?php echo $valu['nombrePais'] ?>
+                                                    </option>
+
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">City *</td>
+                                        <td align="left" width="80%">
+                                            <select name="idCiudad" id="idCiudad" style="width: 150px;" id="idCiudad" class="required">
+                                                <option value=""> - - </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Nom : *</td>
+                                        <td align="left" width="80%">
+                                           
+                                            <input type="text" class="required" size="50" maxlength="100" id="title" name="nombrePuntoVenta" id="nombrePuntoVenta"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Adresse : *</td>
+                                        <td align="left" width="80%">
+                                            <input class="required" type="text" size="50" name="direccionPuntoVenta" id="direccionPuntoVenta" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="14%" valign="top">Téléphone : *</td>
+                                        <td align="left" colspan="2">
+                                            <input type="text" name="telefonoPuntoVenta">
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td align="left" width="14%" valign="top">Web : *</td>
+                                        <td align="left" colspan="2">
+                                            <input type="text" size='50' name="direccionWebPuntoVenta">
+                                            <br><br>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <input type="submit" value="Valider" name="">
+                                            <input type="button" onclick="location.href='/admin/pointventa';" value="Back" name="cancel">    </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </form>
+                        </div>
+                        <div class="table_admin_foot"></div>
+                    </div>
+                <script>
+                    contenido_textarea = ""
+                    num_caracteres_permitidos = 5000
+                    function valida_longitud(){
+                        num_caracteres = document.forms[0].description.value.length
+	
+                        if (num_caracteres == num_caracteres_permitidos){
+                            contenido_textarea = document.forms[0].description.value	
+                        }else{
+                            document.forms[0].description.value = contenido_textarea
+                        }
+                    }
+
+                </script>
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>
+
+<script>
+    $(document).ready(function(){
+        $("#frmDevenir").validate({
+             
+            messages: {
+                idPais: "Ce champ c'est obligatoire",
+                idCiudad: "Ce champ c'est obligatoire",
+                nombrePuntoVenta: "Ce champ c'est obligatoire",
+                direccionPuntoVenta: "Ce champ c'est obligatoire"
+            }
+        });
+        $("#frmDevenir").validate();
+    });
+    
+    
+    function changePais(value){
+        $.ajax({
+            data:'id=' + value,
+            async:1,
+            type:"POST",dataType:"html",
+            contentType: "application/x-www-form-urlencoded",
+            url:'/admin/pointventa/ajax/case/comboPais',
+            beforeSend:beforeCbo,
+            success:successCbo,
+            timeout:80000,
+            error:errorCbo 
+        });
+    }
+
+    function beforeCbo(){
+        $("#idCiudad").html("<img src='/images/cargando.gif'>");
+    }
+
+    function successCbo(datos){
+        $("#idCiudad").html(datos);
+    }
+
+    function errorCbo(){
+        $("#idCiudad").text("Problemas en el servidor.");
+    } 
+
+</script>

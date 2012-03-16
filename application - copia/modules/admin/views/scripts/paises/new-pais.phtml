@@ -1,0 +1,97 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+           <a class="modules" href="<?php $this->baseUrl()?>/admin/pointventa/index">Liste Point Vente</a> &gt; <a class="actualités" href="<?php $this->baseUrl()?>/admin/index/actualites/"><?php echo $this->params['action']?></a> &gt; Modifier               
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tbody><tr>
+                                        <td>
+                                            Version actuel: 
+                                            <strong>All</strong>
+                                            &nbsp;&nbsp;&nbsp;
+                                            
+                                        </td>
+                                       
+                                    </tr>
+                                </tbody></table>
+
+
+                        </div>        
+                        <div class="table_admin_foot"></div>
+                    </div>
+
+
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="center" class="table_admin_body">
+                            <input type="hidden" value="3" name="id">
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                <tbody>
+                                    <tr><th colspan="2">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Nom : *</td>
+                                        <td align="left" width="80%">
+                                            <input type="text" value="" class="required" size="30" maxlength="100" id="title" name="nombrePais" id="nombrePais" />
+                                        </td>
+                                    </tr>
+                                   
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <input type="submit" value="Valider" name="">
+                                            <input type="button" onclick="location.href='/admin/paises/';" value="Back" name="cancel">    </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="table_admin_foot"></div>
+                    </div>
+                </form>
+                <script>
+                    contenido_textarea = ""
+                    num_caracteres_permitidos = 5000
+                    function valida_longitud(){
+                        num_caracteres = document.forms[0].description.value.length
+	
+                        if (num_caracteres == num_caracteres_permitidos){
+                            contenido_textarea = document.forms[0].description.value	
+                        }else{
+                            document.forms[0].description.value = contenido_textarea
+                        }
+                    }
+
+                </script>
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>
+<script>
+  $(document).ready(function(){
+      
+      $("#frmDevenir").validate({
+        rules: {
+            nombrePais: "required"
+           
+        },
+
+        messages: {
+            nombrePais: "Merci d'ajouter un nouveau pays"
+            
+        }
+    });
+    $("#frmDevenir").validate();
+  });
+</script>

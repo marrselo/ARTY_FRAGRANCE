@@ -1,0 +1,49 @@
+
+<div id="content" class="layout_fluid_inner">
+    <div class="inside">
+<?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
+<!--        <aside id="aside">
+
+            <ul class="lst_aside selected">														
+                <li><a class="" href="#">Biographie</a></li>									
+                <li><a class="selected" href="#">Ouvrages</a></li>									
+                <li><a class="" href="#">Réalisations</a></li>									
+                <li><a class="" href="#">Blog et Photos</a></li>
+            </ul>			
+
+
+
+        </aside>-->
+        <section id="" class="wrapp_content">
+            <div class="wrapp_content_inner">								
+                <div class="cf">
+                    <h2><?php echo $this->bio['tituloBio'];?></h2>
+                    <div class="inside">
+                        <div class="cnt_slide_bio">
+                            
+                            <div class="photo">										
+                                <?php foreach($this->fotos as $index):?>
+                                <div class="item">
+                                    <img class="" src="/biographie/<?php echo $index['nombreFotoBio'];?>" width=""/>	
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            
+                            <div id="pager" class=""></div>
+                        </div>
+                        <?php echo $this->bio['contenidoBio']?>
+                    </div>
+
+                </div>
+            </div>	
+        </section>
+    </div>
+</div>

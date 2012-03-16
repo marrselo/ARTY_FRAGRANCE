@@ -1,0 +1,103 @@
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('labelTextoModRecomendarSite');
+}
+</script>
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
+                <!-- End Language -->
+                <div class="table_admin">
+                    <div class="table_admin_head"></div>
+                    <div align="center" class="table_admin_body">
+                        <form action="" method="POST" enctype="multipart/form-data" >
+                            <?php echo $this->form->idIdioma; ?>
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                <tbody>
+                                    <tr><th colspan="2">
+                                        </th></tr>
+                                    <tr>
+                                        <td align="left" width="20%">Titulo Pagina</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->tituloPaginaModRecomendarSite; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Label Nombre</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->labelNombreModRecomendarSite; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Label Email</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->labelEmailModRecomendarSite; ?>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left" width="20%">Label Nombre Destinatario</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->labelNombreDestinatarioModRecomendarSite; ?>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Label Email Destinatario</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->labelEmailDestinatarioModRecomendarSite; ?>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Plantilla</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->labelTextoModRecomendarSite; ?>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <div id="lista">
+                                                
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <?php echo $this->form->submit ?>
+                                            <input type="button" onclick="location.href='/admin/index/collections/idMenu/3';" value="Annuler" name="cancel">    
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </form>                    </div>
+                    <div class="table_admin_foot"></div>
+                </div>
+
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>

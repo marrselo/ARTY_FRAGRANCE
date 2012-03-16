@@ -1,0 +1,40 @@
+<div id="content" class="layout_fluid_inner">
+    <div class="inside">
+        <?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
+
+        <section id="" class="wrapp_content">
+            <div class="wrapp_content_inner">
+                <img class="imgRight" src="/f/img/temp/img_contact.jpg"/>
+                <p>Vous souhaitez nous faire part de vos remarques ou nous poser une question? </p>
+
+                <p>Nous nous ferons un plaisir d'y répondre.</p>
+
+                <p><strong>Siège social</strong><br />
+                    Arty Création<br />
+                    49 boulevard de la République<br />
+                    78000 VERSAILLES</p>
+
+                <p><a href="#">contact@arty-fragrance.com</a><br />
+                    Tel : 01 39 50 50 66</p>
+
+
+                <p><strong>Service Clients<br />
+                        Commandes Spéciales<br />
+                        Distribution ou partenariat commerciaux<br />
+                        Presse<br />  </strong>                  
+                    <a href="#">contact@arty-fragrance.com</a><br />
+                    Tel : 01 39 50 50 66   </p>               
+
+
+            </div>
+        </section>
+    </div>
+</div>

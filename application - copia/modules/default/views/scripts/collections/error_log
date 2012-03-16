@@ -1,0 +1,1 @@
+[11-Dec-2011 17:06:09] PHP Fatal error:  Using $this when not in object context in /home/delivery/public_html/application/modules/default/views/scripts/index/index.phtml on line 5
