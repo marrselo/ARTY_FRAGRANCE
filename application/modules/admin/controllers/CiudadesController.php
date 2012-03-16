@@ -17,8 +17,11 @@ class Admin_CiudadesController extends ZExtraLib_Controller_Action {
     }
 
     public function indexAction() {
-
-        $this->view->data = $this->_pais->listaPais();
+        $this->view->idPais = $this->_getParam('id');        
+        $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+        $ciudades = new Application_Model_Ciudad();        
+        
+        $this->view->data = $ciudades->listCiudadPais($this->view->idPais, $idIdioma);
     }
 
     public function listaCiudadesAction(){
@@ -29,20 +32,21 @@ class Admin_CiudadesController extends ZExtraLib_Controller_Action {
     public function newCiudadesAction(){
         $this->view->data = $this->_pais->getPais($this->params['id'],$this->sessionAdmin->idiomaDetaful['idIdioma']);
         if ($this->_request->isPost()) {
-            $post = $this->getRequest()->getParams();
-            $post['default'] = $this->params['idmDefault']['idIdioma'];
-            $action = $this->_ciudad->saveCiudadPais($post, $this->sessionAdmin->idiomaDetaful);
-            $this->_redirect('/admin/ciudades/lista-ciudades/id/' . $post['idPais']);
+            $post = $this->getRequest()->getParams();            
+            $action = $this->_ciudad->saveCiudadPais($post);
+            $this->_redirect('/admin/ciudades/index/id/' . $post['idPais']);
         }
     }
     
-    public function editarCiudadesAction(){
-       $this->view->data = $this->_ciudad->getCiudadIdioma($this->params['ciudad'],$this->sessionAdmin->idiomaDetaful);
-        if ($this->_request->isPost()) {
-            $post = $this->getRequest()->getParams();
-            $post['default'] = $this->params['idmDefault']['idIdioma'];
-            $action = $this->_ciudad->editCiudadPais($post, $this->sessionAdmin->idiomaDetaful['idIdioma']);
-            $this->_redirect('/admin/ciudades/lista-ciudades/id/' . $post['idPais']);
+    public function editCiudadAction(){
+        $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
+        $this->view->data = $this->_ciudad->getCiudad($this->_getParam('id'), $idIdioma);        
+        $idPais = $this->_getParam('info1');
+        if ($this->_request->isPost()) {            
+            $post = $this->getRequest()->getParams();                        
+            $action = $this->_ciudad->editCiudadPais($post, $idIdioma);
+            //var_dump($post);exit;
+            $this->_redirect('/admin/ciudades/index/id/' . $idPais);    
         }
    }
     

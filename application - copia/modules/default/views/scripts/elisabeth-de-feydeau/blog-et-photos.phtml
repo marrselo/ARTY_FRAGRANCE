@@ -1,0 +1,30 @@
+
+<div id="content" class="layout_fluid_inner">
+    <div class="inside">
+<?php 
+            $arrayOption = array(
+            'menuIzquierda'=>$this->menuIzquierda,
+            'itemSelect'=>$this->itemSelect,
+            'actionName'=>$this->actionName,
+            'lang'=>$this->lang,
+            'controllerName'=>$this->controllerName
+            );
+        echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>        <section id="" class="wrapp_content">
+            <div class="wrapp_content_inner">
+<!--                <p>En 2008, Elisabeth lance son blog, Elisabeth de Feydeau’s News, où elle partage son avis et ses connaissances 
+                    de femme et d’experte sur les tendances olfactives.</p>	-->
+                <?php echo $this->dataBlogFoto['descripcionBlogFotos'];?>
+                <a href="<?php echo $this->dataBlogFoto['linkBlogFotos'];?>"><?php echo $this->dataBlogFoto['nombreLinkBlogFotos'];?></a>
+<!--                <a href="#">http://elisadefeydeau.wordpress.com</a>-->
+
+                <div class="cf cnt_item">
+                    <?php foreach($this->dataFotoBlogFoto as $index): ?>
+                    <a href="/blog/<?php echo $index['nombre']; ?>" class="item zoom">
+                        <img class="" src="/blog/thums_<?php echo $index['nombre']; ?>" width=""/>										
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>	
+        </section>    
+    </div>
+</div>

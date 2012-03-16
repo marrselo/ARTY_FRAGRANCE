@@ -1,0 +1,105 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a href="/admin/module" class="modules">Modules</a>                </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <div style="display:show">
+
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="left" class="table_admin_body">
+
+                            <!--LIST MODULES-->
+                            <fieldset><legend style="cursor : pointer" onclick="openCloseLayer('listmodules')"><img align="top" src="/images/icons/package.png"> Liste de points de vente </legend>
+                                <div id="listmodules" style="display: block; padding: 2px 10px;">
+                                    <form action="/admin/module/order/" method="post">
+                                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th align="left">Intitulé </th>
+                                                   
+                                                    <th align="center">Actions</th>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if(is_array($this->data)):
+                                                    foreach($this->data as $val):?>
+                                                <tr class="shadow">
+                                                    <td width="85%"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
+                                                            <?php echo $val['nombrePais'] ?></td>
+                                                  
+                                                    <td align="center" width="15%">
+                                                        <a href="<?php echo $this->baseUrl()?>/admin/ciudades/lista-ciudades/id/<?php echo $val['idPais']?>">
+                                                            <img border="0" src="/images/icons/page_white_magnify.png" title="View">
+                                                        </a>
+                                                       
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; endif;?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td align="right" valign="bottom" colspan="3">
+
+
+                                                    </td>
+                                                </tr>
+                                                <div id="menu-action" class="menu-action"></div>
+                                            </tfoot>
+                                        </table>
+                                        <a href="/admin/paises/new-pais"> Nouveau</a>
+                                    </form>
+                                </div>
+                            </fieldset>
+                            <!--END LIST MODULES-->                            
+                        </div><a name="leftColumn">
+                            <div class="table_admin_foot"></div>
+                        </a>
+
+                    </div>
+                </div>                
+            </div>           
+        </div>        
+    </div>
+</td>
+
+<script>
+
+
+    function deleteMenu(id){
+
+        confirmacion=confirm("Etes-vous sûr de vouloir supprimer l'enregistrement?");
+        if(confirmacion){
+            $.ajax({
+                data:'id=' + id,
+                async:1,
+                type:"POST",dataType:"html",
+                contentType: "application/x-www-form-urlencoded",
+                url:"/admin/paises/ajax/case/delete",
+                beforeSend:beforedel,
+                success:successdel,
+                timeout:80000,
+                error:errordel 
+            });
+        }
+    }
+    
+    function beforedel(){
+        $("#menu-action").html("<img src='/images/cargando.gif'>");
+    }
+
+    function successdel(datos){
+         $("#menu-action").html(datos);
+        location.href = document.URL
+    }
+
+    function errordel(){
+        $("#menu-action").text("Problemas en el servidor.");
+    } 
+</script>

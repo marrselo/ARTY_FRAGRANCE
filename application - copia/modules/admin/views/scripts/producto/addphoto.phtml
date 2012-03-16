@@ -1,0 +1,80 @@
+        <link href="/b/styles/layout.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/b/styles/text.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/b/styles/nav.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/b/styles/style.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/b/styles/form.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/styles/datePicker.css" media="screen" rel="stylesheet" type="text/css" />       
+
+        <link href="/styles/adminForms.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/styles/filetree.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/styles/menutree.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/styles/spreadsheet.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/styles/sortable.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/styles/ThickBox.css" media="screen" rel="stylesheet" type="text/css" />
+<!--<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>-->
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('dddescripcionFoto');
+}
+</script>
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            Add Photo Product
+            <div id="main">
+                <!--   <h2 class="top"></h2>-->
+                <div id="form">
+                    <form id="frmDevenir" enctype="multipart/form-data" method="post" action="">
+                        <div class="table_admin">                            
+                            <div class="table_admin_head"></div>
+                            <div align="center" class="table_admin_body">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                    <tbody>
+                                        <tr><th colspan="2">
+                                            </th></tr>
+                                        <tr>
+                                            <td align="left" width="20%">Title *</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->tituloFoto; ?>
+                                            </td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td align="left" width="20%">Title *</td>
+                                            <td align="left" width="80%">
+                                                <?php echo $this->form->nombreFoto; ?>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td align="left" width="14%" valign="top">Description *</td>
+                                            <td align="left" colspan="2">                                                
+                                                <?php echo $this->form->descripcionFoto; ?>
+                                            </td>
+                                        </tr>
+                                    <input type="hidden" value="ffsd" id="id">
+                                    
+                                    <input type="hidden" value="<?php echo $this->idDetalleArticulo?>" id="id1">
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td align="right" valign="bottom" colspan="3">
+                                                <?php echo $this->form->submit?>
+                                                <input type="button" onclick="location.href='/admin/index/collections/idMenu/3';" value="Annuler" name="cancel">                                                
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="table_admin_foot"></div>
+                        </div>
+                    </form>                
+                </div>
+            </div>
+
+            <!-- <div id="options" class="column" >
+                                 </div>-->
+
+        </div>
+</td>

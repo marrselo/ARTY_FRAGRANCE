@@ -5,6 +5,13 @@
         <div id="main">
             <!--   <h2 class="top"></h2>-->
             <div id="form">
+                <?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
                 <div style="display:show">
 
                     <div class="table_admin">
@@ -32,12 +39,13 @@
                                                     foreach($this->data as $val):?>
                                                 <tr class="shadow">
                                                     <td width="85%"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
-                                                            <?php echo $val['nombrePais'] ?></td>
+                                                            <?php echo $val['nombreCiudadIdioma'] ?></td>
                                                   
                                                     <td align="center" width="15%">
-                                                        <a href="<?php echo $this->baseUrl()?>/admin/ciudades/lista-ciudades/id/<?php echo $val['idPais']?>">
+                                                        <a href="<?php echo $this->baseUrl()?>/admin/ciudades/edit-ciudad/id/<?php echo $val['idCiudadIdioma']."/info1/".$this->idPais?>">
                                                             <img border="0" src="/images/icons/page_white_magnify.png" title="View">
                                                         </a>
+                                                        <img border="0" title="Supprimer" src="/images/icons/process_remove.png" onclick="deleteAction('<?php echo $val['idCiudad']?>','/admin/ciudades/ajax/case/delete')" style="cursor: pointer;" >
                                                        
                                                     </td>
                                                 </tr>
@@ -53,7 +61,7 @@
                                                 <div id="menu-action" class="menu-action"></div>
                                             </tfoot>
                                         </table>
-                                        <a href="/admin/paises/new-pais"> Nouveau</a>
+                                        <a href="/admin/ciudades/new-ciudades/id/<?php echo $this->idPais ?>"> Nouveau</a>
                                     </form>
                                 </div>
                             </fieldset>

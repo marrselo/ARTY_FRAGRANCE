@@ -1,0 +1,70 @@
+<div class="table_admin">
+    <div class="table_admin_head">
+    </div>
+    <div align="center" style="background-color:#F7F7F7" class="table_admin_body">
+        <form id="frmActualites" enctype="multipart/form-data" method="post" action="">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            Version actuel: 
+                            <strong><?php echo $this->idms[$this->lang]; ?></strong>
+                            &nbsp;&nbsp;&nbsp;
+                            Langue disponible:
+                        </td>
+                        <td>
+                            <div id="lang_code_msddHolder" style="height: 0px; overflow: hidden; position: absolute;">
+                                <select onchange="getComboIdioma(this.value);" id="lang_code" name="lang_code">
+                                    <?php
+                                    foreach ($this->idms as $index => $value):
+                                        if ($this->lang == $index) {
+                                            $selected = 'selected';
+                                        } else {
+                                            $selected = '';
+                                        }
+                                        ?>
+                                        <option <?php echo $selected ?> 
+                                            title="/images/flags/<?php echo $index ?>.png" 
+                                            value="<?php echo $index; ?>">
+                                                <?php echo $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="dd" id="lang_code_msdd" style="width: 73px;">
+                                <?php echo $this->lang ?>.png
+                                <div class="ddTitle" id="lang_code_title">
+                                    <span class="arrow" id="lang_code_arrow" style="background-position: 0pt 0pt;"></span>
+                                    <span id="lang_code_titletext" class="textTitle">
+                                        <img align="left" src="/images/flags/<?php echo $this->lang ?>.png"><?php echo $this->idms[$this->lang]; ?>
+                                    </span>
+                                </div>
+                                <?php
+                                foreach ($this->idms as $index => $value):
+                                    if ($this->lang == $index) {
+                                        $enabled = 'enabled';
+                                    } else {
+                                        $enabled = '';
+                                    }
+                                    ?>
+                                    <div class="ddChild" id="lang_code_child" style="width: 71px;">               
+                                        <a id="lang_code_msa_<?php echo $index ?>" style="undefined" class="selected <?php echo $enabled ?>" href="javascript:void(0);">
+                                            <img align="left" src="/images/flags/<?php echo $index ?>.png"> <?php echo $value ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>        
+    <div class="table_admin_foot"></div>
+</div>
+
+<script type="text/javascript">
+    function getComboIdioma(value){
+        location.href='<?php echo $this->baseUrl() . '/admin/setidioma/index/lang/' ?>'+ value
+    }
+</script>
