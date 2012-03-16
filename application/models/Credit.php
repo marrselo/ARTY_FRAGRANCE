@@ -26,7 +26,7 @@ class Application_Model_Credit extends ZExtraLib_Model {
                 ->from('credit')
                 ->where('idIdioma = ? ', $idioma);
         
-        $result = $select->query()->fetchAll();
+        $result = $select->query()->fetch();
                 
         return $result;
     }
@@ -47,7 +47,7 @@ class Application_Model_Credit extends ZExtraLib_Model {
             'contenidoCredit' => $values["contenidoCredit"],
             'idIdioma' => $values["idIdioma"],
             );        
-        $where = $db->quoteInto('idCredit = ?', $values["idCredit"]);
+        $where = $db->quoteInto('idIdioma = ?', $values["idIdioma"]);
         $db->update($this->_credit->getName(),$data, $where);         
         return true;
     }
