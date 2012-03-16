@@ -45,7 +45,6 @@ class Application_Model_Actualites extends ZExtraLib_Model {
                 ->from(array('a' => $this->_actualites->getName()), array('a.idActualites',
                                 'ai.titleActualitesIdioma',
                                 'ai.contenidoActualitesIdioma',
-                                'ai.linkMostraractualitesIdioma',
                                 'a.imagen',
                                 'a.fechaRegistro'
                 ))

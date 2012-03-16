@@ -1,3 +1,10 @@
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('contenidoActualites');
+}
+</script>
+
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
@@ -32,13 +39,15 @@
                                     <tr>
                                         <td align="left" width="20%">Contenu</td>
                                         <td align="left" width="80%">
-                                            <?php echo $this->form->contendioActualites; ?>
+                                            <?php echo $this->form->contenidoActualites; ?>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td align="left" width="20%">Image</td>
                                         <td align="left" width="80%">
                                             <?php echo $this->form->imagen; ?>
+                                            <a target="_black" href="<?php echo   $this->baseUrl() ?>/<?php echo $this->rutaImagen;?>">link</a>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>

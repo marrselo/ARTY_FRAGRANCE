@@ -29,9 +29,8 @@
                                     <thead>
                                         <tr>
                                             <th>Title</th>
-                                            <th>Sub Title</th>
                                             <th>Imagen</th>
-                                            <th>Link</th>
+                                            <th>Contenido</th>
                                             <th>Options</th>
                                         </tr>
                                         <tr>
@@ -43,7 +42,7 @@
                                     <tbody>
 
                                         <?php
-                                        foreach ($this->listaactualites as $value):
+                                        foreach ($this->listaActualites as $value):
                                             if ((int) $value['estadoactualites'] == 1):
                                                 $css = "shadow";
                                                 $alert = CAlertMenuOFF;
@@ -56,20 +55,16 @@
                                             ?>
                                             <tr class="<?php echo $css; ?>">
                                                 <td width="35%" >
-<!--                                                    <img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png">-->
-                                                    <?php echo $value['tituloactualitesIdioma']; ?>
+                                                    <?php echo $value['titleActualitesIdioma']; ?>
                                                 </td>
                                                 <td width="25%">
-                                                    <?php echo $value['subTituloactualitesIdioma']; ?>
+                                                    <img width="70" src="<?php echo $this->baseUrl() ?>/actualites/thums_<?php echo $value['imagen']; ?>" >
                                                 </td>
                                                 <td width="25%">
-                                                    <img width="70" src="<?php echo $this->baseUrl() ?>/imagen-actualites/thums_<?php echo $value['imgactualites']; ?>" >
-                                                </td>
-                                                <td width="10%">
-                                                    <a href="<?php echo $this->baseUrl() ?>/imagen-actualites/<?php echo $value['linkactualites']; ?>" target="_Black"><?php echo $value['linkMostraractualitesIdioma']?></a>
+                                                    <?php echo $value['contenidoActualitesIdioma']; ?>
                                                 </td>
                                                 <td align="right" width="15%">
-                                                    <a href="/admin/actualites/edit-actualites/id/<?php echo $value['idactualites'] ?>" 
+                                                    <a href="/admin/actualites/edit-actualite/id/<?php echo $value['idActualites'] ?>" 
                                                        title="Modifier">
                                                         <img border="0" src="/images/icons/edit.gif">
                                                     </a>
