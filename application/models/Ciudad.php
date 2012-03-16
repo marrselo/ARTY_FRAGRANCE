@@ -35,6 +35,17 @@ class Application_Model_Ciudad extends ZExtraLib_Model {
         return $result;
     }
     
+    public function ciudadesPais($idPais){
+        
+        $select = $this->_ciudad->getAdapter()->select();
+        $select->from(array('t1' => 'ciudad'))                
+                ->where('t1.idPais = ?', $idPais);
+        
+        $result = $select->query()->fetchAll();
+        
+        return $result;
+    }
+    
     public function getCiudad($id, $idIdioma){
         $select = $this->_ciudad->getAdapter()->select();
         $select->from(array('t1' => 'ciudadidioma'))
