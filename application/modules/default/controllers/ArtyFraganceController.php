@@ -9,7 +9,7 @@ class Default_ArtyFraganceController extends ZExtraLib_Controller_Action {
         $this->_menu = $arrayMenu;
         $this->view->classBody = 'lyt_news_precaution';
         $menu = new Application_Model_Articulo();
-        $this->view->menuIzquierdo = $menu->listarArticuloIdiomaDefault(2,$this->_idIdmDefault);
+        $this->view->menuIzquierdo = $menu->listarArticuloIdiomaDefault(2,$this->_params['lang']);
         
     }
     public function indexAction() {
