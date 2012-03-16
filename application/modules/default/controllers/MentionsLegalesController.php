@@ -13,6 +13,9 @@ class Default_MentionsLegalesController extends ZExtraLib_Controller_Action
     {
         $arrayKey = array_keys($this->_menu);
         $this->view->itemSelect = $arrayKey[0];
+        $modelObra = new Application_Model_Legal();
+        $idioma = $this->_params['lang'];
+        $this->view->legal = $modelObra->listarLegalPorIdioma($idioma);
     }
 }
 
