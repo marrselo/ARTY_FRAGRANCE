@@ -27,7 +27,7 @@ class Admin_ActualitesController extends ZExtraLib_Controller_Action {
                     $rutaFileAbs = $formulario->imagen->getDestination() . '/' . $nameFile;
                     $formulario->imagen->addFilter('Rename', array('target' => $rutaFileAbs, 'overwrite' => true));
                     $formulario->imagen->receive();
-                    $this->redimencionarImagen($rutaFileAbs, '500', '500', 'crop');
+                    $this->redimencionarImagen($rutaFileAbs, '129', '150', 'crop');
                     $nameThums = 'thums_' . $nameFile;
                     $rutaFileAbsThums = $formulario->imagen->getDestination() . '/' . $nameThums;
                     copy($rutaFileAbs, $rutaFileAbsThums);
@@ -46,8 +46,6 @@ class Admin_ActualitesController extends ZExtraLib_Controller_Action {
             }
         } else {
 
-            //$formulario->insertElment('contenidoBio', $dataBio['contenidoBio']);
-            //$formulario->insertElment('tituloBio', $dataBio['tituloBio']);
         }
         $this->view->form = $formulario;
     }
@@ -67,11 +65,11 @@ class Admin_ActualitesController extends ZExtraLib_Controller_Action {
                     $rutaFileAbs = $formulario->imagen->getDestination() . '/' . $nameFile;
                     $formulario->imagen->addFilter('Rename', array('target' => $rutaFileAbs, 'overwrite' => true));
                     $formulario->imagen->receive();
-                    $this->redimencionarImagen($rutaFileAbs, '500', '500', 'crop');
+                    $this->redimencionarImagen($rutaFileAbs, '129', '150', 'crop');
                     $nameThums = 'thums_' . $nameFile;
                     $rutaFileAbsThums = $formulario->imagen->getDestination() . '/' . $nameThums;
                     copy($rutaFileAbs, $rutaFileAbsThums);
-                    $this->redimencionarImagen($ruitaFileAbsThums, '134', '176', 'crop');
+                    $this->redimencionarImagen($ruitaFileAbsThums,  '50', '50', 'crop');
                     $params['imagen'] = $nameFile;
                     @unlink($formulario->imagen->getDestination() . '/' . $dataActualites['imagen']);
                     @unlink($formulario->imagen->getDestination() . '/thums_' . $dataActualites['imagen']);
@@ -98,11 +96,13 @@ class Admin_ActualitesController extends ZExtraLib_Controller_Action {
     }
 
     public function eliminarActualitesAction(){
+        $fc = Zend_Controller_Front::getInstance();
+        $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $modelActualites = new Application_Model_Actualites();
-        $modelActualites->eliminarActualites($idActualites);
-        $this->_params['id'];
-        
-        
+        $dataActualites = $modelActualites->listaractualitesPorIdiomaDetalle($this->sessionAdmin->idiomaDetaful['idIdioma'], $idActualites);
+        unlink($confUpload["rutaActualites"].'/'.$dataActualites['imagen']);
+        $modelActualites->eliminarActualite($this->_params['id']);
+        $this->_redirect('/admin/Actualites/');
     }
 
     public function adminSubMenuAction() {
