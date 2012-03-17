@@ -1,0 +1,107 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/Realisations/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
+           <!-- End Language -->
+                <div class="table_admin">
+                    <div class="table_admin_head"></div>
+                    <div align="center" class="table_admin_body">
+                        <input type="hidden" value="9" name="id">
+                        <div><?php echo is_array($this->mensaje)?$this->mensaje[0]:''; ?></div>
+                        <fieldset>
+                            <legend 
+                                style="cursor : pointer" 
+                                onclick="openCloseLayer('listmodules')">
+                                <img align="top" src="/images/icons/package.png"> Liste de Realisations</legend>
+                            <div id="listmodules" style="display: block; padding: 2px 10px;">
+                                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Imagen</th>
+                                            <th>Link</th>
+                                            <th>Options</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <?php
+                                        foreach ($this->listaRealisations as $value):
+                                            if ((int) $value['estadoRealisations'] == 1):
+                                                $css = "shadow";
+                                                $alert = CAlertMenuOFF;
+                                                $title = CTitleMenuOFF;
+                                            else:
+                                                $css = 'column-admin';
+                                                $alert = CAlertMenuOFF;
+                                                $title = CTitleMenuOFF;
+                                            endif;
+                                            ?>
+                                            <tr class="<?php echo $css; ?>">
+                                                <td width="35%" >
+                                                    <?php echo $value['titleRealisationsIdioma']; ?>
+                                                </td>
+                                                <td width="25%">
+                                                    <img width="70" src="<?php echo $this->baseUrl() ?>/Realisations/thums_<?php echo $value['imagen']; ?>" >
+                                                </td>
+                                                <td width="25%">
+                                                    <a href="<?php echo $value['link']; ?>">Link</a>
+                                                </td>
+                                                <td align="right" width="15%">
+                                                    <a href="/admin/elisabeth-de-feydeau/edit-Realisation/id/<?php echo $value['idRealisations'] ?>" 
+                                                       title="Modifier">
+                                                        <img border="0" src="/images/icons/edit.gif">
+                                                    </a>
+                                                    <!--                                                <a class="status-config" href="/admin/module/config/id/Realisations/mode/desinstaller" title="Enlever le module">-->
+                                                    <img border="0" 
+                                                         title="<?php echo $title; ?>" 
+                                                         src="/images/icons/process_remove.png" 
+                                                         onclick="deleteMenu('<?php echo $value['idMenuBase'] ?>','<?php echo $alert; ?>')" 
+                                                         style="cursor: pointer;" >
+                                                    <!--                                                </a>-->
+
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td align="right" valign="bottom" colspan="5">
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <a href="/admin/elisabeth-de-feydeau/new-realisation"> Nouveau</a>
+                        </fieldset>
+
+                    </div>
+                    <div class="table_admin_foot"></div>
+                </div>
+
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>

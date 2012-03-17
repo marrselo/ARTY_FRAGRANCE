@@ -10,7 +10,7 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
         $this->view->mensaje = $this->_flashMessenger->getMessages();
         $modelRealisations = new Application_Model_Realisations();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($idioma);
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($idioma,2);
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $this->view->destination = $confUpload["rutaRealisations"];
@@ -37,6 +37,7 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
                     $params['title'] = $this->_params['title'];
                     $params['contenido'] = $this->_params['contenido'];
                     $params['link'] = $this->_params['link'];
+                    $params['tipoRealisations'] = 2;
                     $params['fechaRegistro'] = date('Y-m-d H:i:s');
                     $paramsIdioma['titleRealisationsIdioma'] = $this->_params['title'];
                     $paramsIdioma['contenidoRealisationsIdioma'] = $this->_params['contenido'];
@@ -83,7 +84,7 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
                     
                     if($editPrese)
                     $modelRealisations->editRealisations($params, $this->_params['id']);
-                    $modelRealisations->editRealisationsIdioma($paramsIdioma,$this->_params['id'], $this->sessionAdmin->idiomaDetaful['idIdioma']);
+                    $modelRealisations->editRealisationsIdioma($paramsIdioma,$this->_params['id'], $this->sessionAdmin->idiomaDetaful['idIdioma'],2);
                 $this->cleanCache();
                 $this->_redirect('/admin/realisations/');
             }

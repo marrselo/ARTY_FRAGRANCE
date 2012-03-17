@@ -13,8 +13,8 @@ class Application_Model_Realisations extends ZExtraLib_Model {
         $this->_realisationsIdioma = new Application_Model_DbTable_RealisationsIdioma();
     }
 
-    function listarRealisationsPorIdioma($idioma) {
-        if (!($result = $this->_cache->load('listarRealisationsPorIdioma' . $idioma))) {
+    function listarRealisationsPorIdioma($idioma,$tipo) {
+        if (!($result = $this->_cache->load('listarRealisationsPorIdioma' .$tipo. $idioma))) {
             $result = $this->_realisations
                     ->getAdapter()
                     ->select()
@@ -29,10 +29,11 @@ class Application_Model_Realisations extends ZExtraLib_Model {
                     ->join(array('ri' => $this->_realisationsIdioma->getName()), 'ri.idRealisations = r.idRealisations', '')
                     ->join(array('idi' => $this->_idioma->getName()), 'ri.idIdioma = idi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
+                    ->where('r.tipoRealisations = ? ', $tipo)
                     ->order('r.fechaRegistro DESC');
             ;
             $result = $this->_realisations->getAdapter()->fetchAll($result);
-            $this->_cache->save($result, 'listarRealisationsPorIdioma' . $idioma);
+            $this->_cache->save($result, 'listarRealisationsPorIdioma' .$tipo. $idioma);
         }
         return $result;
     }
@@ -56,7 +57,7 @@ class Application_Model_Realisations extends ZExtraLib_Model {
     }
 
 
-    function ifExistRealisationsIdioma($idRealisations,$idIdioma){
+    function ifExistRealisationsIdioma($idRealisations,$idIdioma,$tipo){
         return $this->_realisationsIdioma
                 ->select()
                 ->where('idIdioma = ?', $idIdioma)
@@ -69,12 +70,13 @@ class Application_Model_Realisations extends ZExtraLib_Model {
         $this->_realisations->update($data, $where);
     }
 
-    function editRealisationsIdioma($data,$idRealisations, $idIdioma) {
-        if($this->ifExistRealisationsIdioma($idRealisations, $idIdioma)){
+    function editRealisationsIdioma($data,$idRealisations, $idIdioma,$idtipo) {
+        if($this->ifExistRealisationsIdioma($idRealisations, $idIdioma,$idtipo)){
             $data['idIdioma'] = $idIdioma;        
             $data['idRealisations'] = $idRealisations;
             $where[]=$this->_realisationsIdioma->getAdapter()->quoteInto('idIdioma = ?', $idIdioma);
             $where[]=$this->_realisationsIdioma->getAdapter()->quoteInto('idRealisations = ?', $idRealisations);
+            //$where[]=$this->_realisationsIdioma->getAdapter()->quoteInto('tipoRealisations = ?', $idtipo);
             $this->_realisationsIdioma->update($data,$where);
         }else{
             $this->_realisationsIdioma->insert($data);
