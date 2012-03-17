@@ -3,12 +3,28 @@
 class Application_Model_Credit extends ZExtraLib_Model {
 
     protected $_credit;
+    protected $_idioma;
 
     function __construct() {
         parent::__construct();
         $this->_credit = new Application_Model_DbTable_Credit();
+        $this->_idioma = new Application_Model_DbTable_Idioma();
     }
 
+    public function listarCreditPorIdioma($idioma){
+        if (!($result = $this->_cache->load('listarCreditPorIdioma' . $idioma ))) {
+            $result = $this->_credit
+                    ->getAdapter()
+                    ->select()
+                    ->from(array('c' => $this->_credit->getName()), 
+                            array('c.contenidoCredit')
+                            )
+                    ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = c.idIdioma', '')
+                    ->where('idi.prefIdioma = ? ', $idioma)->query()->fetch();
+            $this->_cache->save($result, 'listarCreditPorIdioma' . $idioma );
+        }
+        return $result;
+    }
     public function getIdiomas() {
         if (!($result = $this->_cache->load('listaIdiomas'))) {
             $result = $this->_idioma
