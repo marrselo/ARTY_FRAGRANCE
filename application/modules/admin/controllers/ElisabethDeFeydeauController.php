@@ -316,6 +316,10 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $adapter->setDestination($destination);
         $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);
+        $adapter->receive();
+        $fileImagen = $adapter->getFileName();
+        
+        
         $name = $prefNameImg . time('H:i:s');
         $thums = false;
         if ($widthThums != null && $heightThums != null) {
