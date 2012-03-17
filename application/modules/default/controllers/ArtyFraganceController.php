@@ -18,19 +18,29 @@ class Default_ArtyFraganceController extends ZExtraLib_Controller_Action {
         
       
     }
+    
     public function moduleContentAction() {
         $array = explode('-',$this->_params['val']);
         $this->view->itemSelect = $array[(count($array)-1)];
     }
+    
     public function ejemploAction() {
         echo "estoy ejemplo";
     }
+    
     public function actualitesAction() {
         $this->view->itemSelect=18;
         $this->view->classBody = 'lyt_news';
         $modelActualites = new Application_Model_Actualites();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
         $this->view->listaActualites = $modelActualites->listarActualitesPorIdioma($this->_params['lang']);
+    }
+    
+    public function nouveautesAction() {
+        $this->view->itemSelect=31;
+        $this->view->classBody = 'lyt_news';
+        $modelRealisations = new Application_Model_Realisations();
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($this->_params['lang'],3);
     }
 }
 

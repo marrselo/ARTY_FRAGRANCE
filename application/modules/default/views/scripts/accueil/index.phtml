@@ -7,14 +7,11 @@
             </h2>
             <div class="cf">	
                 <div class="box_l">
-                    <img src="/f/img/temp/img_item_home_1.jpg" />
+                    <img class="imgRight" src="/realisations/<?php echo $this->listaNovedades[0]['imagen']?>"/>
                 </div>
                 <div class="box_r">
-                    <h3>Coffret Saint Valentin</h3>
-                    <p>Du portugais « barocco », le terme baroque désigne la forme irrégulière d’une perle.
-                        Dès la fin de la Renaissance, il décrit un contraste artistique fort, mêlant l’ombre à la
-                        lumière. En sculpture, peinture, littérature mais surtout en musique, l’art baroque est 
-                        fait de paradoxes et d’exubérance.</p>
+                    <h3><?php echo $this->listaNovedades[0]['titleRealisationsIdioma']; ?></h3>
+                    <?php echo $this->listaNovedades[0]['contenidoRealisationsIdioma'] ?>
                 </div>
 
             </div>
