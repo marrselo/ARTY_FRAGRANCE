@@ -141,6 +141,18 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         return true;
     }
     
+    function maxIdPuntoventa() {
+        $db = $this->_articulo
+                ->getAdapter();        
+        $select = "SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+            WHERE TABLE_SCHEMA = 'artyfrag_fragance' AND TABLE_NAME = 'puntoventa'";
+        
+        $result = $db->fetchOne($select);
+        
+        return $result;
+        
+        }
+    
     function maxId() {
         $db = $this->_articulo
                 ->getAdapter();        
@@ -152,5 +164,7 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         return $result;
         
         }
+        
+        
     
 }

@@ -9,7 +9,7 @@ class Admin_PointventaController extends ZExtraLib_Controller_Action {
     
     public function init() {
         parent::init();
-
+        $this->_articulo = new Application_Model_Articulo();
         $this->_puntoventa = new Application_Model_PuntoVenta;
         //print_r($this->view->idiomaDefault);exit;
         $this->pointventa = new Application_Model_PuntoVenta();
@@ -67,16 +67,31 @@ class Admin_PointventaController extends ZExtraLib_Controller_Action {
     }
 
     function newPointAction() {
-        if ($this->_request->isPost()) {
-            $post = $this->getRequest()->getParams();
+        $form = new Application_Form_FormImg();
+        $this->view->form = $form;
+        
+        $idIdioma = $this->view->idiomaDefault['idIdioma'];
+        $pais = new Application_Model_Pais();
+        $this->view->colPais = $pais->listarPaisPorIdioma($this->sessionAdmin->idiomaDetaful['PrefIdioma']);
+        if ($this->_request->isPost()) {            
+            $extn = pathinfo($form->imagenPuntoVenta->getFileName(), PATHINFO_EXTENSION);
+            $idArticulo = $this->_articulo->maxIdPuntoventa();
+            $form->imagenPuntoVenta->addFilter(new Zend_Filter_File_Rename(
+                            array('target' => 'puntoventa-' . $idArticulo . '.' . $extn)));            
+            
+            $post = $this->getRequest()->getParams();           
+            if ($form->isValid($post)) {
+            $post["imagenPuntoVenta"] = 'puntoventa-' . $idArticulo . '.' . $extn;            
+            $form->imagenPuntoVenta->receive();
             $action = $this->_puntoventa->insertarPtoVenta($post);
             if ($action == '1')
                 $this->_redirect('/admin/pointventa/index/idMenu/7');
-        }else {
-            $idIdioma = $this->view->idiomaDefault['idIdioma'];
-            $pais = new Application_Model_Pais();
-            $this->view->colPais = $pais->listarPaisPorIdioma($this->sessionAdmin->idiomaDetaful['PrefIdioma']);
+            
         }
+            }
+            
+            
+        
     }
     
     public function imagesAction(){

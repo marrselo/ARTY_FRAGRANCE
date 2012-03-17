@@ -161,7 +161,8 @@ class Application_Model_PuntoVenta extends ZExtraLib_Model {
             'nombrePuntoVenta' => $data['nombrePuntoVenta'],
             'direccionPuntoVenta' => $data['direccionPuntoVenta'],
             'telefonoPuntoVenta' => $data['telefonoPuntoVenta'],
-            'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta']
+            'direccionWebPuntoVenta' => $data['direccionWebPuntoVenta'],
+            'imagenPuntoVenta' => $data['imagenPuntoVenta'],
         );
         
         $this->_puntoventa->insert($punto); 
