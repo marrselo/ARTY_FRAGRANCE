@@ -12,24 +12,23 @@
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
                 <div class="cnt_slide">
-                    <div class="photo">										
+                    <div class="photo">	
+                        <?php 
+                        foreach($this->fotos as $foto)
+                        {                            
+                        ?>
                         <div id="" class="item">
-                            <img src="/imagen-articulo/img_mecenat_historique_1.jpg" width="810" />
+                            <img src="<?php echo $this->baseUrl().'/history/'.$foto['nombreImgHistory'];?>" width="810" />
                         </div>
-                        <div id="" class="item">
-                            <img src="/imagen-articulo/img_mecenat_historique_2.jpg" width="810"  />
-                        </div>
+                        <?php } ?>
                     </div>
                     <div id="pager" class=""></div>
                 </div>
                 <p>
-                    Le mécénat à Versailles permet de maintenir vivant ce lieu de création et d’excellence artistique qu’a toujours été Versailles 
-                    au cours des siècles. ARTY FRAGRANCE by Elisabeth de Feydeau, sensible à la préservation et au rayonnement du patrimoine de Versailles, 
-                    a proposé au château de Versailles d’engager un mécénat pluriannuel afin de collecter des fonds au profit du château de Versailles, 
-                    dans le cadre de la commercialisation de cette collection de bougies. 									
+                    <?php echo $this->historia['contenidoHistory']?> 									
                 </p>
-                <a href="#">
-                    www.chateauversailles.fr/soutenir-versailles-/soutenir-versailles/
+                <a href="<?php echo $this->historia['linkHistory']?>">
+                    <?php echo $this->historia['linkHistory']?> 
                 </a>
             </div>
         </section>
