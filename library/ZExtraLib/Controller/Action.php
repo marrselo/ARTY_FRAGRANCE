@@ -133,6 +133,19 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
                    unset($this->sessionAdmin->imagenBlog);
         }
         
+        if($this->_controllerName!=='mecenat-versailles')
+        {   
+            unset($this->sessionAdmin->imagenHistoria);
+        }else{
+           if($this->_actionName!='index' && 
+                   $this->_actionName!='listar-imagenes-historia' && 
+                   $this->_actionName!='eliminar-foto-historia'&&
+                   $this->_actionName!='subir-imagenes-historia'){
+                   unset($this->sessionAdmin->imagenHistoria);
+                   
+                   }
+        }
+        
         
     }
 
