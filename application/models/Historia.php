@@ -18,9 +18,9 @@ class Application_Model_Historia extends ZExtraLib_Model {
                     ->getAdapter()
                     ->select()
                     ->from(array('o' => $this->_thistoria->getName()), 
-                            array('o.contenidoHistory','o.linkHistory','o.idHistory'))
+                            array('o.contenidoHistory','o.linkHistory'))
                     ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = o.idIdioma', '')
-                    ->where('idi.idIdioma = ? ', $idioma)->query()->fetch();
+                    ->where('idi.prefIdioma = ? ', $idioma)->query()->fetch();
             $this->_cache->save($result, 'listaHistoriaIdioma' . $idioma );
         }
         return $result;
@@ -38,17 +38,11 @@ class Application_Model_Historia extends ZExtraLib_Model {
         }
         return $result;
     }
-    function listarFotosHistoria($idioma) {
-        if (!($result = $this->_cache->load('listarFotosHistoria'.$idioma))) {
-            $result = $this->_foto
-                    ->getAdapter()
-                    ->select()
-                    ->from(array('o' => $this->_foto->getName()), 
-                            array('o.nombreImgHistory','o.idImgHistory'))
-                    ->join(array('idi' => $this->_thistoria->getName()), 'idi.idHistory = o.idHistory', '')
-                    ->where('idi.idIdioma = ? ', $idioma)
+    function listarFotosHistoria() {
+        if (!($result = $this->_cache->load('listarFotosHistoria'))) {
+            $result = $this->_foto->select()
                     ->query()->fetchAll();
-            $this->_cache->save($result, 'listarFotosHistoria'.$idioma);
+            $this->_cache->save($result, 'listarFotosHistoria');
         }
         return $result;
     }
@@ -67,28 +61,27 @@ class Application_Model_Historia extends ZExtraLib_Model {
         }
         return $result;
     }
-     function ifExistBioIdioma($idLang){
+     function ifExistHisIdioma($idLang){
         return $this->_thistoria->select()->where('idIdioma = ?',$idLang)->query()->fetch();
     }
       
     function InsertInfoHistoria($data,$idLang,$prefIdioma) {
-        if($this->ifExistBioIdioma($idLang)){
+        if($this->ifExistHisIdioma($idLang)){
             $where = $this->_thistoria->getAdapter()->quoteInto('idIdioma = ?', $idLang);
             $this->_thistoria->update($data, $where);
         }else{
             $this->_thistoria->insert($data);
         }    
         
-        $this->_cache->remove('listaHistoriaIdioma'.$idLang);
+        $this->_cache->remove('listaHistoriaIdioma'.$prefIdioma);
     }
-    function InsertFotoHistoria($arrayFoto,$idHistory,$idioma){
-        //$this->_foto->delete('1=1');
-        //foreach($arrayFoto as $index) {
-            $data['nombreImgHistory']=$arrayFoto;
-            $data['idHistory']=$idHistory;            
+    function InsertFotoHistoria($arrayFoto){
+        $this->_foto->delete('1=1');
+        foreach($arrayFoto as $index) {
+            $data['nombreImgHistory']=$index;
             $this->_foto->insert($data);
-        //}
-        $this->_cache->remove('listarFotosHistoria'.$idioma);
+        }
+        $this->_cache->remove('listarFotosHistoria');
     }
     function ifExistHistoriaIdioma($idLang){
         return $this->_thistoria->select()->where('idIdioma = ?',$idLang)->query()->fetch();
