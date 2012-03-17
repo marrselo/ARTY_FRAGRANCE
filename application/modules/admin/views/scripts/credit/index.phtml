@@ -1,10 +1,9 @@
 <script type="text/javascript">
 window.onload = function()
 {
-CKEDITOR.replace('contenidoActualites');
+CKEDITOR.replace('contenidoCredit');
 }
 </script>
-
 <td valign="top">
     <div id="centerPane">
         <div id="toolbar">
@@ -20,34 +19,30 @@ CKEDITOR.replace('contenidoActualites');
                     'lang' => $this->lang,
                 ));
                 ?>
-                <!-- End Language -->
+                <!-- End Language -->                
                 <div class="table_admin">
-                    <div class="table_admin_head"></div>
-                    <div align="center" class="table_admin_body">
+                    <div class="table_admin_head">                        
+                    </div>
+                    <div align="center" class="table_admin_body"><?php echo $this->msg;?>
                         <form action="" method="POST" enctype="multipart/form-data" >
-                            <?php echo $this->form->idObra; ?>
+                            <?php echo $this->form->idIdioma; ?>
                             <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
                                 <tbody>
                                     <tr><th colspan="2">
                                         </th></tr>
                                     <tr>
-                                        <td align="left" width="20%">Titre</td>
+                                        <td align="left" width="20%">Credits</td>
                                         <td align="left" width="80%">
-                                            <?php echo $this->form->titleActualites; ?>
+                                            <?php echo $this->form->contenidoCredit; ?>
                                         </td>
+
                                     </tr>
                                     <tr>
-                                        <td align="left" width="20%">Contenu</td>
-                                        <td align="left" width="80%">
-                                            <?php echo $this->form->contenidoActualites; ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left" width="20%">Image</td>
-                                        <td align="left" width="80%">
-                                            <?php echo $this->form->imagen; ?>
-                                            <a target="_black" href="<?php echo   $this->baseUrl() ?>/<?php echo $this->rutaImagen;?>">link</a>
-                                            
+                                        <td colspan="4">
+                                            <div id="lista">
+                                                
+                                            </div>
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -55,7 +50,7 @@ CKEDITOR.replace('contenidoActualites');
                                     <tr>
                                         <td align="right" valign="bottom" colspan="3">
                                             <?php echo $this->form->submit ?>
-                                            <input type="button" onclick="location.href='/admin/actualites';" value="Annuler" name="cancel">    
+                                            <input type="button" onclick="location.href='/admin/credits/';" value="Annuler" name="cancel">    
                                         </td>
                                     </tr>
                                 </tfoot>

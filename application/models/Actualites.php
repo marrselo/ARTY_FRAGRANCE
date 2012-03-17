@@ -12,10 +12,6 @@ class Application_Model_Actualites extends ZExtraLib_Model {
         $this->_actualites = new Application_Model_DbTable_Actualites();
         $this->_actualitesIdioma = new Application_Model_DbTable_ActualitesIdioma();
     }
-    function eliminaractualites($idPrese){
-        $where = $this->_actualites->getAdapter()->quoteInto($text, $value);
-        $this->_actualites->delete($where);
-    }
 
     function listaractualitesPorIdioma($idioma) {
         if (!($result = $this->_cache->load('listaractualitesPorIdioma' . $idioma))) {
@@ -32,6 +28,7 @@ class Application_Model_Actualites extends ZExtraLib_Model {
                     ->join(array('ai' => $this->_actualitesIdioma->getName()), 'ai.idActualites = a.idActualites', '')
                     ->join(array('idi' => $this->_idioma->getName()), 'ai.idIdioma = idi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
+                    ->order('a.fechaRegistro DESC');
             ;
             $result = $this->_actualites->getAdapter()->fetchAll($result);
             $this->_cache->save($result, 'listaractualitesPorIdioma' . $idioma);
@@ -45,7 +42,6 @@ class Application_Model_Actualites extends ZExtraLib_Model {
                 ->from(array('a' => $this->_actualites->getName()), array('a.idActualites',
                                 'ai.titleActualitesIdioma',
                                 'ai.contenidoActualitesIdioma',
-                                'ai.linkMostraractualitesIdioma',
                                 'a.imagen',
                                 'a.fechaRegistro'
                 ))
@@ -93,6 +89,12 @@ class Application_Model_Actualites extends ZExtraLib_Model {
             $this->_actualitesIdioma->insert($data);
         }
         
+    }
+    
+    function eliminarActualite($idActualites){
+        $where = $this->_actualitesIdioma->getAdapter()->quoteInto('idActualites =?', $idActualites);
+        $this->_actualitesIdioma->delete($where);
+        $this->_actualites->delete($where);
     }
 
 

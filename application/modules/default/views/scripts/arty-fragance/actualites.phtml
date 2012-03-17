@@ -12,37 +12,16 @@
         echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
+                <?php 
+                foreach($this->listaActualites as $index):?>
                 <article class="box_article">
-                    <h2>Bougie parfumée</h2>								
-                    <p>Sacrée ou profane, la flamme d’une bougie signe toujours une présence. Elle fait parler le
-                        silence et vous enveloppe de volupté et de lumière mais nécessite quelques précautions.</p>
-                    <ul class="news">
-                        <li>Faire brûler la bougie au moins deux heures lors de la première utilisation. </li>
-                        <li>Veiller à ce que la mèche soit toujours à la verticale, centrée et courte (0,5 cm), la couper régulièrement pour éviter la fumée noire.</li>
-                        <li>Ne jamais laisser une bougie hors de vue.</li>
-                        <li>Toujours protéger la surface sur laquelle la bougie est posée. </li>
-                        <li>Conserver la bougie hors de portée des enfants  et des animaux.</li>
-                        <li>La combustion de chaque bougie dure environ 50 heures.</li>
-                    </ul>																
+                    <h2><?php echo $index['titleActualitesIdioma']; ?></h2>								
+                    <img class="imgLeft" src="/actualites/<?php echo $index['imagen']?>"/>
+                    <?php echo $index['contenidoActualitesIdioma']; ?>
                 </article>
-                <article class="box_article">
-                    <h2>Bougie parfumée</h2>								
+                <?php endforeach; ?>
 
-                    <p>Sacrée ou profane, la flamme d’une bougie signe toujours une présence. Elle fait parler le
-                        silence et vous enveloppe de volupté et de lumière mais nécessite quelques précautions.</p>
-
-                    <ul class="news">
-                        <li>Faire brûler la bougie au moins deux heures lors de la première utilisation. </li>
-                        <li>Veiller à ce que la mèche soit toujours à la verticale, centrée et courte (0,5 cm), la couper régulièrement pour éviter la fumée noire.</li>
-                        <li>Ne jamais laisser une bougie hors de vue.</li>
-                        <li>Toujours protéger la surface sur laquelle la bougie est posée. </li>
-                        <li>Conserver la bougie hors de portée des enfants  et des animaux.</li>
-                        <li>La combustion de chaque bougie dure environ 50 heures.</li>
-                    </ul>																
-                </article>					
             </div>
-            
-            
         </section>
     </div>
 </div>

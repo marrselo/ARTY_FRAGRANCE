@@ -9,7 +9,7 @@ class Default_ArtyFraganceController extends ZExtraLib_Controller_Action {
         $this->_menu = $arrayMenu;
         $this->view->classBody = 'lyt_news_precaution';
         $menu = new Application_Model_Articulo();
-        $this->view->menuIzquierdo = $menu->listarArticuloIdiomaDefault(2,$this->_idIdmDefault);
+        $this->view->menuIzquierdo = $menu->listarArticuloIdiomaDefault(2,$this->_params['lang']);
         
     }
     public function indexAction() {
@@ -27,7 +27,10 @@ class Default_ArtyFraganceController extends ZExtraLib_Controller_Action {
     }
     public function actualitesAction() {
         $this->view->itemSelect=18;
-        echo "estoy ejemplo";
+        $this->view->classBody = 'lyt_news';
+        $modelActualites = new Application_Model_Actualites();
+        $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
+        $this->view->listaActualites = $modelActualites->listarActualitesPorIdioma($this->_params['lang']);
     }
 }
 

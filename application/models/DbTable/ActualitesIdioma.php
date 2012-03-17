@@ -12,5 +12,5 @@
  */
 class Application_Model_DbTable_ActualitesIdioma extends ZExtraLib_Db_Table
 {
-    protected  $_name = "actualitesIdioma";
+    protected  $_name = "actualitesidioma";
 }
