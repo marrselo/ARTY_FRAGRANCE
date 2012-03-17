@@ -1,7 +1,7 @@
 <script type="text/javascript">
 window.onload = function()
 {
-CKEDITOR.replace('contenidoBio');
+CKEDITOR.replace('contenidoHistory');
 }
 </script>
 <td valign="top">
@@ -30,9 +30,9 @@ CKEDITOR.replace('contenidoBio');
                                         <tr><th colspan="2">
                                             </th></tr>
                                         <tr>
-                                            <td align="left" width="20%">Title *</td>
+                                            <td align="left" width="20%">Link *</td>
                                             <td align="left" width="80%">
-                                                <?php echo $this->form->tituloBio; ?>
+                                                <?php echo $this->form->linkHistory; ?>
                                             </td>
                                         </tr>
                                         
@@ -57,7 +57,7 @@ CKEDITOR.replace('contenidoBio');
                                         <tr>
                                             <td align="left" width="14%" valign="top">Description *</td>
                                             <td align="left" colspan="2">                                                
-                                                <?php echo $this->form->contenidoBio; ?>
+                                                <?php echo $this->form->contenidoHistory; ?>
                                             </td>
                                         </tr>
 
@@ -85,7 +85,7 @@ CKEDITOR.replace('contenidoBio');
 $(document).ready(function(){
 	var button = $('#upload_button'), interval;
 	new AjaxUpload('#upload_button', {
-        action: '/admin/elisabeth-de-feydeau/subir-imagenes-biografia?moduleAdmin=biografie',
+        action: '/admin/mecenat-versailles/subir-imagenes-historia?moduleAdmin=history',
 		onSubmit : function(file , ext){
 		if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){
                     alert('Error: Solo se permiten imagenes');
@@ -107,7 +107,7 @@ $(document).ready(function(){
                 data: "idImg="+idImgArray[1],
                 type: "POST",
                 dataType: "json",
-                url: "/admin/elisabeth-de-feydeau/eliminar-foto-biografia/",
+                url: "/admin/mecenat-versailles/eliminar-foto-historia/",
                 success: function(data){
                     printFotos()
                 }
@@ -121,7 +121,7 @@ function printFotos(){
                 data: "as=asd",
                 type: "GET",
                 dataType: "json",
-                url: "<?php $this->baseUrl() ?>/admin/elisabeth-de-feydeau/listar-imagenes-biografia",
+                url: "<?php $this->baseUrl() ?>/admin/mecenat-versailles/listar-imagenes-historia",
                 success: function(data){
                     $("#lista").html(data);
                 }

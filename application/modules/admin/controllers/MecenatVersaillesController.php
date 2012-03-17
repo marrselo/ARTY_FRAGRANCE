@@ -7,210 +7,56 @@ class Admin_MecenatVersaillesController extends ZExtraLib_Controller_Action {
     }
     public function indexAction() {
         $formulario = new Application_Form_FormHistoria();
-        $modelBio = new Application_Model_Historia();
-        $dataBio = $modelBio->listarBiografiaPorIdioma($this->view->lang);
+        $modelHistoria = new Application_Model_Historia();
         if ($this->_request->isPost()) {
             if ($formulario->isValid($this->_params)) {
                 $dataInfo = array(
-                    'tituloBio' => $this->_params['tituloBio'],
-                    'contenidoBio' => $this->_params['contenidoBio'],
+                    'linkHistory' => $this->_params['linkHistory'],
+                    'contenidoHistory' => $this->_params['contenidoHistory'],
                     'idIdioma' => $this->sessionAdmin->idiomaDetaful['idIdioma']
                 );
-                $modelBio->InsertInfoBio(
+                $modelHistoria->InsertInfoHistoria(
                         $dataInfo, $this->sessionAdmin->idiomaDetaful['idIdioma'], $this->sessionAdmin->idiomaDetaful['PrefIdioma']
                 );
-                if (count($this->sessionAdmin->imagenBiografia) > 0) {
-                    $modelBio->InsertFotoBio($this->sessionAdmin->imagenBiografia);
+                /*if (count($this->sessionAdmin->imagenHistoria) > 0) {
+                    $modelHistoria->InsertFotoHistoria($this->sessionAdmin->imagenHistoria);
                     $fc = Zend_Controller_Front::getInstance();
                     $confUpload = $fc->getParam('bootstrap')->getOption('upload');
-                    if (count($this->sessionAdmin->imagenBiografiaPorEliminar) > 0) {
-                        foreach ($this->sessionAdmin->imagenBiografiaPorEliminar as $index) {
-                            unlink($confUpload['rutaBiografia'] . '/' . $this->sessionAdmin->imagenBiografia[$index]);
+                    if (count($this->sessionAdmin->imagenHistoriaPorEliminar) > 0) {
+                        foreach ($this->sessionAdmin->imagenHistoriaPorEliminar as $index) {
+                            unlink($confUpload['rutaHistoria'] . '/' . $this->sessionAdmin->imagenHistoria[$index]);
                         }
                     }
                 }
-                unset($this->sessionAdmin->imagenBiografia);
-                unset($this->sessionAdmin->imagenBiografiaPorEliminar);
-                $this->_redirect('/admin/elisabeth-de-feydeau/');
+                unset($this->sessionAdmin->imagenHistoria);
+                unset($this->sessionAdmin->imagenHistoriaPorEliminar);*/
+                $this->_redirect('/admin/mecenat-versailles/');
             }
         } else {
-            $formulario->insertElment('contenidoBio', $dataBio['contenidoBio']);
-            $formulario->insertElment('tituloBio', $dataBio['tituloBio']);
-        }
-        $this->view->form = $formulario;
-    }
-
-    public function ouvragesAction() {
-        
-        $this->view->mensaje = $this->_flashMessenger->getMessages();
-        $modelObra = new Application_Model_Obra();
-        $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->dataObra = $modelObra->listarObraPorIdioma($idioma);
-        
-    }
-    
-    public function editOuvragesAction(){
-    $formulario = new Application_Form_FormOuvrages();
-    $formulario->getElement('imgObra')->setRequired(FALSE);
-    $modelObra = new Application_Model_Obra();
-    $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
-    $datosObra = $modelObra->listarDatosObra($idioma,$this->_params['id']);
-    $fc = Zend_Controller_Front::getInstance();
-    $confUpload = $fc->getParam('bootstrap')->getOption('upload');
-    $this->view->rutaImagenObra = 'imgOuverages'.'/'.$datosObra['imgObra'];
-    $formulario->insertId('idObra', $datosObra['idObra']);
-    if ($this->_request->isPost()) {
-    if($formulario->isValid($this->_params)){
-        $this->cleanCache();
-        $arrayDatos = $formulario->imgObra->getFileInfo();
-        if($arrayDatos['imgObra']['name']!=''){
-        $arrayImagenes =$this->subirImagenes(
-                $formulario->imgObra->getDestination(), 
-                'img_ourages_', 
-                $arrayImagenes, 
-                '274', 
-                '281', 
-                '278', 
-                '99');
-        unlink($confUpload['rutaOuvrages'].'/'.$datosObra['imgObra']);
-        }
-        $dataObraIdioma = array(
-            'tituloObraIdioma'=>$this->_params['tituloObra'],
-            'parrafoObraIdioma'=>$this->_params['parrafoObra'],
-            );
-        $modelObra->updateObraIdioma($dataObraIdioma, $idioma, $this->_params['idObra']);
-        
-        $dataObra = array(
-                    'anioObra' => $this->_params['anioObra'],
-                    'link' => $this->_params['link'],
-                    'imgObra' => $arrayImagenes[0],
-                );
-        if($arrayImagenes[0]==''){
-        unset($dataObra['imgObra']);
-        }
-        $modelObra->updateObra($dataObra, $this->_params['idObra']);
-        $this->_flashMessenger->addMessage('Se Registro Correctamente');
-        $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');
-    }    
-    }else{
-        $formulario->insertElment('anioObra', $datosObra['anioObra']);
-        $formulario->insertElment('tituloObra', $datosObra['tituloObraIdioma']);
-        $formulario->insertElment('link', $datosObra['link']);
-        $formulario->insertElment('parrafoObra', $datosObra['parrafoObraIdioma']);
-    }
-    $this->view->form = $formulario;
-    }
-    
-    public function newOuvragesAction() {
-        
-    $formulario = new Application_Form_FormOuvrages();
-    $modelObra = new Application_Model_Obra();
-    $idioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
-    echo $idioma;
-    if ($this->_request->isPost()) {
-       
-    if($formulario->isValid($this->_params)){
-        $this->cleanCache();
-        $arrayImagenes =$this->subirImagenes(
-                $formulario->imgObra->getDestination(), 
-                'img_ourages_', 
-                $arrayImagenes, 
-                '274', 
-                '281', 
-                '278', 
-                '99');
-        $dataIdioma = array(
-            'anioObra'=>$this->_params['anioObra'],
-            'tituloObra'=>$this->_params['tituloObra'],
-            'parrafoObra'=>$this->_params['parrafoObra'],
-            'link'=>$this->_params['link'],
-            'imgObra'=>$arrayImagenes[0],
-            'estadoObra'=>1
-                );
-        $idObra = $modelObra->insertIdioma($dataIdioma);
-        
-        $dataObra = array(
-            'tituloObraIdioma'=>$this->_params['tituloObra'],
-            'parrafoObraIdioma'=>$this->_params['parrafoObra'],
-            'idObra'=>$idObra
-            );
-        
-        $modelObra->insertObraIdioma($dataObra);
-        $this->_flashMessenger->addMessage('Se Registro Correctamente');
-        $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');
-    }else{
-        
-    }
-    
-    }
-    $this->view->form = $formulario;
-        
-    }
-
-    
-    
-    public function realisationsAction() {
-        
-    }
-
-    public function blogEtPhotosAction() {
-        $formulario = new Application_Form_FormBlogElizabet();
-        $modelBlog = new Application_Model_BlogFoto();
-        $dataBlog = $modelBlog->listarBlogFotoPorIdioma($this->view->lang);
-        if ($this->_request->isPost()) {
-            if ($formulario->isValid($this->_params)) {
-                $dataInfo = array(
-                    'linkBlogFotos' => $this->_params['linkBlogFotos'],
-                    'nombreLinkBlogFotos' => $this->_params['nombreLinkBlogFotos'],
-                    'descripcionBlogFotos' => $this->_params['descripcionBlogFotos'],
-                    'idIdioma' => $this->sessionAdmin->idiomaDetaful['idIdioma']
-                );
-                $modelBlog->InsertInfoBlog(
-                        $dataInfo, $this->sessionAdmin->idiomaDetaful['idIdioma'], $this->sessionAdmin->idiomaDetaful['PrefIdioma']
-                );
-                if (count($this->sessionAdmin->imagenBlog) > 0) {
-                    $modelBlog->InsertFotoBlog($this->sessionAdmin->imagenBlog);
-                    $fc = Zend_Controller_Front::getInstance();
-                    $confUpload = $fc->getParam('bootstrap')->getOption('upload');
-                    if (count($this->sessionAdmin->imagenBlogPorEliminar) > 0) {
-                        foreach ($this->sessionAdmin->imagenBlogPorEliminar as $index) {
-                            unlink($confUpload['rutaBlog'] . '/' . $this->sessionAdmin->imagenBlog[$index]);
-                        }
-                    }
-                }
-                unset($this->sessionAdmin->imagenBlog);
-                unset($this->sessionAdmin->imagenBlogPorEliminar);
-                $this->_redirect('/admin/elisabeth-de-feydeau/blog-et-photos');
+            $dataHistoria = $modelHistoria->listarHistoriaPorIdioma($this->sessionAdmin->idiomaDetaful['idIdioma']);
+            if(is_array($dataHistoria))
+            {
+                unset($dataHistoria['idHistory']);
+                $formulario->populate($dataHistoria);
             }
-        } else {
-            $formulario->insertElment('linkBlogFotos', $dataBlog['linkBlogFotos']);
-            $formulario->insertElment('nombreLinkBlogFotos', $dataBlog['nombreLinkBlogFotos']);
-            $formulario->insertElment('descripcionBlogFotos', $dataBlog['descripcionBlogFotos']);
         }
-        $this->view->form = $formulario;
+        $this->view->form = $formulario; 
     }
-
-    public function subirImagenesBiografiaAction() {
+    public function subirImagenesHistoriaAction() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         switch ($this->_params['moduleAdmin']) {
-            case 'biografie':
-                $this->sessionAdmin->imagenBiografia =
+            case 'history':
+                $this->sessionAdmin->imagenHistoria =
                         $this->subirImagenes(
-                        $confUpload['rutaBiografia'], 'img_elisafey_bio_', $this->sessionAdmin->imagenBiografia, '404', '495');
-                break;
-            case 'blog':
-                $this->sessionAdmin->imagenBlog =
-                        $this->subirImagenes(
-                        $confUpload['rutaBlog'], 'img_elisafey_blog_', $this->sessionAdmin->imagenBlog, '404', '495','100','50');
+                        $confUpload['rutaHistoria'], 'img_mecenat_his_', $this->sessionAdmin->imagenHistoria, '404', '495');
                 break;
         }
     }
-
-    public function subirImagenes(
+public function subirImagenes(
         $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $adapter->setDestination($destination);
@@ -225,7 +71,11 @@ class Admin_MecenatVersaillesController extends ZExtraLib_Controller_Action {
             $nameSession = 'Error al subir el archivo';
         } else {
             $fileImagen = $adapter->getFileName();
-            $nameSession[] = $name . '.' . $extn;
+            $modelHistoria = new Application_Model_Historia();
+            $dataHistoria = $modelHistoria->listarHistoriaPorIdioma($this->sessionAdmin->idiomaDetaful['idIdioma']);
+            $nameSession[]= $name . '.' . $extn;
+            $imgname=$name . '.' . $extn;
+            $modelHistoria->InsertFotoHistoria($imgname,$dataHistoria['idHistory'],$this->sessionAdmin->idiomaDetaful['idIdioma']);
             $this->redimencionarImagen($fileImagen, $width, $height, 'crop');
             if ($thums) {
                 $nameThums ='thums_'.$name;
@@ -234,21 +84,36 @@ class Admin_MecenatVersaillesController extends ZExtraLib_Controller_Action {
             }
         }
         return $nameSession;
-    }
-    public function eliminarFotoBiografiaAction() {
+    } 
+    public function eliminarFotoHistoriaAction() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        $this->sessionAdmin->imagenBiografiaPorEliminar[] = $this->_params['idImg'];
-        unset($this->sessionAdmin->imagenBiografia[$this->_params['idImg']]);
+        //$this->sessionAdmin->imagenHistoriaPorEliminar[] = $this->_params['idImg'];
+        //unset($this->sessionAdmin->imagenHistoria[$this->_params['idImg']]);
+        $modelBio = new Application_Model_Historia();
+        $img=$modelBio->listarFotoHistoria($this->_params['idImg']);
+        $fc = Zend_Controller_Front::getInstance();
+        $confUpload = $fc->getParam('bootstrap')->getOption('upload');
+        unlink($confUpload['rutaHistoria'] . '/' . $img['nombreImgHistory']);
+        $modelBio->DeleteFotoHistoria($this->_params['idImg'], $this->sessionAdmin->idiomaDetaful['idIdioma']);
     }
-
-    public function eliminarFotoBlogAction() {
+    public function listarImagenesHistoriaAction() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        $this->sessionAdmin->imagenBlogPorEliminar[] = $this->_params['idImg'];
-        unset($this->sessionAdmin->imagenBlog[$this->_params['idImg']]);
+        $modelBio = new Application_Model_Historia();
+        $dataFotosBio = $modelBio->listarFotosHistoria($this->sessionAdmin->idiomaDetaful['idIdioma']);
+        /*if (!isset($this->sessionAdmin->imagenHistoria) && count($dataFotosBio) > 0) {
+            $this->sessionAdmin->imagenHistoria = array();*/
+            foreach ($dataFotosBio as $index) {
+                $dataFotosBio1[$index['idImgHistory']] = $index['nombreImgHistory'];
+            }
+        //}
+        //if (isset($this->sessionAdmin->imagenHistoria) && count($this->sessionAdmin->imagenHistoria > 0)) {
+        if (count($dataFotosBio1) > 0) {
+            $html = $this->listarImagenes($dataFotosBio1, 'history');
+            echo $this->_helper->json($html);
+        }
     }
-
     public function listarImagenes($imagenes, $ruta) {
         $html = '<ul>';
         foreach ($imagenes as $index => $value) {
@@ -268,50 +133,5 @@ class Admin_MecenatVersaillesController extends ZExtraLib_Controller_Action {
         $html.= '</ul>';
         return $html;
     }
-
-    public function listarImagenesBiografiaAction() {
-        $this->_helper->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-        $modelBio = new Application_Model_Biografia();
-        $dataFotosBio = $modelBio->listarFotosBiografia();
-        if (!isset($this->sessionAdmin->imagenBiografia) && count($dataFotosBio) > 0) {
-            $this->sessionAdmin->imagenBiografia = array();
-            foreach ($dataFotosBio as $index) {
-                $this->sessionAdmin->imagenBiografia[] = $index['nombreFotoBio'];
-            }
-        }
-        if (isset($this->sessionAdmin->imagenBiografia) && count($this->sessionAdmin->imagenBiografia > 0)) {
-            $html = $this->listarImagenes($this->sessionAdmin->imagenBiografia, 'biographie');
-            echo $this->_helper->json($html);
-        }
-    }
-
-    public function listarImagenesBlogAction() {
-        $this->_helper->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-        $modelBlog = new Application_Model_BlogFoto();
-        //unset($this->sessionAdmin->imagenBlog);
-        $dataFotosBlog = $modelBlog->listarFotosBlogFoto();
-        if (!isset($this->sessionAdmin->imagenBlog) && count($dataFotosBlog) > 0) {
-            $this->sessionAdmin->imagenBlog = array();
-            foreach ($dataFotosBlog as $index) {
-                $this->sessionAdmin->imagenBlog[] = $index['nombre'];
-            }
-        }
-        if (isset($this->sessionAdmin->imagenBlog) && count($this->sessionAdmin->imagenBlog > 0)) {
-
-            $html = $this->listarImagenes($this->sessionAdmin->imagenBlog, 'blog');
-            echo $this->_helper->json($html);
-        }
-    }
     
-    public function adminSubMenuAction(){
-        $this->_articulo = new Application_Model_Articulo();
-        $this->_menuObj = new Application_Model_Menu();
-        $data = $this->_menuObj->getMenu($this->sessionAdmin->idiomaDetaful['idIdioma'],6);
-        $this->view->data = $data;
-    }
-
-
 }
-
