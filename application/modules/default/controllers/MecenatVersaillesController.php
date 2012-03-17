@@ -15,8 +15,8 @@ class Default_MecenatVersaillesController extends ZExtraLib_Controller_Action
         $arrayKey = array_keys($this->_menu);
         $this->view->itemSelect = $arrayKey[0];
         $modelHistoria=new Application_Model_Historia();
-        $this->view->historia = $modelHistoria->listarHistoriaPorPrefIdioma($this->_params['lang']);
-        $this->view->fotos = $modelHistoria->listarFotosHistoriaPref($this->_params['lang']);
+        $this->view->historia = $modelHistoria->listarHistoriaPorIdioma($this->_params['lang']);
+        $this->view->fotos = $modelHistoria->listarFotosHistoria();
     }
     public function historiqueAction(){
         
