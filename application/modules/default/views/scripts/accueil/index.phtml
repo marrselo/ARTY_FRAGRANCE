@@ -29,24 +29,15 @@
             </h2>
             <div class="cf">							
                 <div class="box_l">
-                    <img src="/f/img/temp/img_item_home_2.jpg" />
+                    <img class="imgLeft" src="/actualites/<?php echo $this->listaActualites[0]['imagen']?>"/>
                 </div>
                 <div class="box_r">
-                    <h3>Marchés de Noël 2011 à Versailles</h3>
-                    <p>Venez découvrir nos collections au Marché de Noël  à Versailles</p>
-                    <ul>
-                        <li>Lieu</li>
-                        <li>Trianon Palace</li>
-                        <li>1 boulevard de la Reine</li>
-                        <li>78000 Versailles </li>
-                    </ul>
-                    <p>Du 03 au 24 décembre 2011 inclus - De 14H00 à 20H00 
-                        Les mercredis, samedis et dimanches et le vendredi 23 </p>									
-
+                    <h3><?php echo $this->listaActualites[0]['titleActualitesIdioma']; ?></h3>
+                        <?php echo $this->listaActualites[0]['contenidoActualitesIdioma']; ?>                    									
                 </div>
             </div>	
             <div class="box_b">									
-                <a href="#">+ Lire la suite</a>	
+                <a href="/<?php echo $this->lang; ?>/arty-fragance/actualites">+ Lire la suite</a>	
             </div>
         </div>
 

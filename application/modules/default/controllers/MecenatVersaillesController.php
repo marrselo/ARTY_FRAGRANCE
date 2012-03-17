@@ -24,7 +24,7 @@ class Default_MecenatVersaillesController extends ZExtraLib_Controller_Action
     public function realisationsAnnuellesAction(){
         $this->view->classBody = 'lyt_mecenat';
         $modelRealisations = new Application_Model_Realisations();
-        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($this->_params['lang']);
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($this->_params['lang'],2);
     }
 }
 
