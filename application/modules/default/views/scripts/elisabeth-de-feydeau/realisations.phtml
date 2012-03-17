@@ -12,6 +12,17 @@
         echo $this->render('render/menuizq.phtml',$arrayOption); //vista rederizada para el menu izquierda ?>
         <section id="" class="wrapp_content">
             <div class="wrapp_content_inner">
+                
+                                <?php
+                foreach($this->listaRealisations as $index): ?>
+                <article class="box_article">
+                    <h2><?php echo strtoupper($index['titleRealisationsIdioma']); ?></h2>								
+                    <img class="imgRight" src="/realisations/<?php echo $index['imagen']?>"/>
+                    <p><?php echo $index['contenidoRealisationsIdioma'] ?></p>
+                    <a href="#"	 class="more"><?php echo $index['link'] ?></a>				
+                </article>
+                <?php endforeach;?>
+
                 <article class="box_article">
                     <h2>Marchés de Noël 2011 à Versailles</h2>								
                     <img class="imgLeft" src="img/temp/img_noticia_1.jpg"/>

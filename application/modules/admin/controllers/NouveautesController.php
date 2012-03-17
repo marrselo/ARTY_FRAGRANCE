@@ -1,6 +1,6 @@
 <?php
 
-class Admin_RealisationsController extends ZExtraLib_Controller_Action {
+class Admin_NouveautesController extends ZExtraLib_Controller_Action {
 
     public function init() {
         parent::init();
@@ -10,12 +10,12 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
         $this->view->mensaje = $this->_flashMessenger->getMessages();
         $modelRealisations = new Application_Model_Realisations();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($idioma,2);
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($idioma,3);
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $this->view->destination = $confUpload["rutaRealisations"];
     }
-    public function newRealisationAction() {
+    public function newNouveautesAction() {
         $formulario = new Application_Form_FormRealisations();
         $modelRealisations = new Application_Model_Realisations();
         $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
@@ -37,14 +37,14 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
                     $params['title'] = $this->_params['title'];
                     $params['contenido'] = $this->_params['contenido'];
                     $params['link'] = $this->_params['link'];
-                    $params['tipoRealisations'] = 2;
+                    $params['tipoRealisations'] = 3;
                     $params['fechaRegistro'] = date('Y-m-d H:i:s');
                     $paramsIdioma['titleRealisationsIdioma'] = $this->_params['title'];
                     $paramsIdioma['contenidoRealisationsIdioma'] = $this->_params['contenido'];
                     $paramsIdioma['idRealisations'] = $modelRealisations->insertRealisations($params);
                     $modelRealisations->insertRealisationsIdioma($paramsIdioma);
                 $this->cleanCache();
-                $this->_redirect('/admin/realisations/');
+                $this->_redirect('/admin/nouveautes/');
             }
         } else {
 
@@ -52,7 +52,7 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
         $this->view->form = $formulario;
     }
 
-    public function editRealisationAction() {
+    public function editNouveautesAction() {
         $formulario = new Application_Form_FormRealisations();
         $modelRealisations = new Application_Model_Realisations();
         $idIdioma = $this->sessionAdmin->idiomaDetaful['idIdioma'];
@@ -84,9 +84,9 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
                     
                     if($editPrese)
                     $modelRealisations->editRealisations($params, $this->_params['id']);
-                    $modelRealisations->editRealisationsIdioma($paramsIdioma,$this->_params['id'], $this->sessionAdmin->idiomaDetaful['idIdioma'],2);
+                    $modelRealisations->editRealisationsIdioma($paramsIdioma,$this->_params['id'], $this->sessionAdmin->idiomaDetaful['idIdioma'],3);
                 $this->cleanCache();
-                $this->_redirect('/admin/realisations/');
+                $this->_redirect('/admin/nouveautes/');
             }
         } else {
             $formulario->insertElment('title', $dataRealisations['titleRealisationsIdioma']);

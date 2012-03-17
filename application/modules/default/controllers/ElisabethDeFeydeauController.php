@@ -31,6 +31,9 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     public function realisationsAction()
     {
         $this->view->classBody = 'lyt_news';
+        $modelRealisations = new Application_Model_Realisations();
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($this->_params['lang'],1);
+
         
     }
     public function blogEtPhotosAction()
