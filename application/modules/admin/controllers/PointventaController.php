@@ -80,15 +80,16 @@ class Admin_PointventaController extends ZExtraLib_Controller_Action {
                             array('target' => 'puntoventa-' . $idArticulo . '.' . $extn)));            
             
             $post = $this->getRequest()->getParams();           
-            
+            if ($form->isValid($post)) {
             $post["imagenPuntoVenta"] = 'puntoventa-' . $idArticulo . '.' . $extn;            
             $form->imagenPuntoVenta->receive();
-            
             $action = $this->_puntoventa->insertarPtoVenta($post);
             if ($action == '1')
                 $this->_redirect('/admin/pointventa/index/idMenu/7');
             
         }
+            }
+            
             
         
     }
