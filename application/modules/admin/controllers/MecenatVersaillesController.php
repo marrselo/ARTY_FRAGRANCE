@@ -8,6 +8,7 @@ class Admin_MecenatVersaillesController extends ZExtraLib_Controller_Action {
     public function indexAction() {
         $formulario = new Application_Form_FormHistoria();
         $modelHistoria = new Application_Model_Historia();
+        $dataHistoria = $modelHistoria->listarHistoriaPorIdioma($this->view->lang);
         if ($this->_request->isPost()) {
             if ($formulario->isValid($this->_params)) {
                 $dataInfo = array(
@@ -18,27 +19,23 @@ class Admin_MecenatVersaillesController extends ZExtraLib_Controller_Action {
                 $modelHistoria->InsertInfoHistoria(
                         $dataInfo, $this->sessionAdmin->idiomaDetaful['idIdioma'], $this->sessionAdmin->idiomaDetaful['PrefIdioma']
                 );
-                /*if (count($this->sessionAdmin->imagenHistoria) > 0) {
+                if (count($this->sessionAdmin->imagenHistoria) > 0) {
                     $modelHistoria->InsertFotoHistoria($this->sessionAdmin->imagenHistoria);
                     $fc = Zend_Controller_Front::getInstance();
                     $confUpload = $fc->getParam('bootstrap')->getOption('upload');
-                    if (count($this->sessionAdmin->imagenHistoriaPorEliminar) > 0) {
+                    /*if (count($this->sessionAdmin->imagenHistoriaPorEliminar) > 0) {
                         foreach ($this->sessionAdmin->imagenHistoriaPorEliminar as $index) {
                             unlink($confUpload['rutaHistoria'] . '/' . $this->sessionAdmin->imagenHistoria[$index]);
                         }
-                    }
+                    }*/
                 }
                 unset($this->sessionAdmin->imagenHistoria);
-                unset($this->sessionAdmin->imagenHistoriaPorEliminar);*/
+                unset($this->sessionAdmin->imagenHistoriaPorEliminar);
                 $this->_redirect('/admin/mecenat-versailles/');
             }
         } else {
-            $dataHistoria = $modelHistoria->listarHistoriaPorIdioma($this->sessionAdmin->idiomaDetaful['idIdioma']);
-            if(is_array($dataHistoria))
-            {
-                unset($dataHistoria['idHistory']);
-                $formulario->populate($dataHistoria);
-            }
+            $formulario->insertElment('linkHistory', $dataHistoria['linkHistory']);
+            $formulario->insertElment('contenidoHistory', $dataHistoria['contenidoHistory']);
         }
         $this->view->form = $formulario; 
     }
@@ -71,11 +68,11 @@ public function subirImagenes(
             $nameSession = 'Error al subir el archivo';
         } else {
             $fileImagen = $adapter->getFileName();
-            $modelHistoria = new Application_Model_Historia();
-            $dataHistoria = $modelHistoria->listarHistoriaPorIdioma($this->sessionAdmin->idiomaDetaful['idIdioma']);
+            //$modelHistoria = new Application_Model_Historia();
+            //$dataHistoria = $modelHistoria->listarHistoriaPorIdioma($this->sessionAdmin->idiomaDetaful['idIdioma']);
             $nameSession[]= $name . '.' . $extn;
-            $imgname=$name . '.' . $extn;
-            $modelHistoria->InsertFotoHistoria($imgname,$dataHistoria['idHistory'],$this->sessionAdmin->idiomaDetaful['idIdioma']);
+            //$imgname=$name . '.' . $extn;
+            //$modelHistoria->InsertFotoHistoria($imgname,$dataHistoria['idHistory'],$this->sessionAdmin->idiomaDetaful['idIdioma']);
             $this->redimencionarImagen($fileImagen, $width, $height, 'crop');
             if ($thums) {
                 $nameThums ='thums_'.$name;
@@ -88,29 +85,28 @@ public function subirImagenes(
     public function eliminarFotoHistoriaAction() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        //$this->sessionAdmin->imagenHistoriaPorEliminar[] = $this->_params['idImg'];
-        //unset($this->sessionAdmin->imagenHistoria[$this->_params['idImg']]);
-        $modelBio = new Application_Model_Historia();
+        $this->sessionAdmin->imagenHistoriaPorEliminar[] = $this->_params['idImg'];
+        unset($this->sessionAdmin->imagenHistoria[$this->_params['idImg']]);
+        /*$modelBio = new Application_Model_Historia();
         $img=$modelBio->listarFotoHistoria($this->_params['idImg']);
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         unlink($confUpload['rutaHistoria'] . '/' . $img['nombreImgHistory']);
-        $modelBio->DeleteFotoHistoria($this->_params['idImg'], $this->sessionAdmin->idiomaDetaful['idIdioma']);
+        $modelBio->DeleteFotoHistoria($this->_params['idImg'], $this->sessionAdmin->idiomaDetaful['idIdioma']);*/
     }
     public function listarImagenesHistoriaAction() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
         $modelBio = new Application_Model_Historia();
-        $dataFotosBio = $modelBio->listarFotosHistoria($this->sessionAdmin->idiomaDetaful['idIdioma']);
-        /*if (!isset($this->sessionAdmin->imagenHistoria) && count($dataFotosBio) > 0) {
-            $this->sessionAdmin->imagenHistoria = array();*/
+        $dataFotosBio = $modelBio->listarFotosHistoria();
+        if (!isset($this->sessionAdmin->imagenHistoria) && count($dataFotosBio) > 0) {
+            $this->sessionAdmin->imagenHistoria = array();
             foreach ($dataFotosBio as $index) {
-                $dataFotosBio1[$index['idImgHistory']] = $index['nombreImgHistory'];
+                $this->sessionAdmin->imagenHistoria[] = $index['nombreImgHistory'];
             }
-        //}
-        //if (isset($this->sessionAdmin->imagenHistoria) && count($this->sessionAdmin->imagenHistoria > 0)) {
-        if (count($dataFotosBio1) > 0) {
-            $html = $this->listarImagenes($dataFotosBio1, 'history');
+        }
+        if (isset($this->sessionAdmin->imagenHistoria) && count($this->sessionAdmin->imagenHistoria > 0)) {
+            $html = $this->listarImagenes($this->sessionAdmin->imagenHistoria, 'history');
             echo $this->_helper->json($html);
         }
     }
