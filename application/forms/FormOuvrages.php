@@ -6,6 +6,7 @@ class Application_Form_FormOuvrages extends Zend_Form {
         
         $this->setMethod('post')->setAttrib('id', 'frmDevenir');
         $e = new Zend_Form_Element_Text('anioObra');
+        $e->setAttrib('maxlength', '4');
         $e->setRequired(true);
         $validators = array(
           new Zend_Validate_Int()

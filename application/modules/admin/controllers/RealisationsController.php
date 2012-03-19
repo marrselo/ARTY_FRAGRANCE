@@ -10,7 +10,7 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
         $this->view->mensaje = $this->_flashMessenger->getMessages();
         $modelRealisations = new Application_Model_Realisations();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($idioma,2);
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdiomaAdmin($idioma,2);
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $this->view->destination = $confUpload["rutaRealisations"];
@@ -103,10 +103,22 @@ class Admin_RealisationsController extends ZExtraLib_Controller_Action {
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $modelRealisations = new Application_Model_Realisations();
-        $dataRealisations = $modelRealisations->listarRealisationsPorIdiomaDetalle($this->sessionAdmin->idiomaDetaful['idIdioma'], $idRealisations);
+        $dataRealisations = 
+        $modelRealisations->listarRealisationsPorIdiomaDetalle(
+                $this->sessionAdmin->idiomaDetaful['idIdioma'], 
+                $this->_params['id']);
         unlink($confUpload["rutaRealisations"].'/'.$dataRealisations['imagen']);
+        unlink($confUpload["rutaRealisations"].'/thums_'.$dataRealisations['imagen']);
         $modelRealisations->eliminarRealisation($this->_params['id']);
-        $this->_redirect('/admin/realisations/');
+        $this->cleanCache();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    public function desactivarRealisationsAction(){
+        $modelRealisations = new Application_Model_Realisations();
+        $estado=$this->_params['estado']==1?'0':'1';
+        $modelRealisations->cambiarEstado($this->_params['id'],$estado);
+        $this->cleanCache();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function adminSubMenuAction() {

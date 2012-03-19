@@ -10,7 +10,7 @@ class Admin_NouveautesController extends ZExtraLib_Controller_Action {
         $this->view->mensaje = $this->_flashMessenger->getMessages();
         $modelRealisations = new Application_Model_Realisations();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($idioma,3);
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdiomaAdmin($idioma,3);
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $this->view->destination = $confUpload["rutaRealisations"];

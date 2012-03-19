@@ -23,6 +23,32 @@ class Application_Model_Realisations extends ZExtraLib_Model {
                                 'ri.titleRealisationsIdioma',
                                 'ri.contenidoRealisationsIdioma',
                                 'r.imagen',
+                                'r.activoRealisations',
+                                'r.link',
+                                'r.fechaRegistro'
+                    ))
+                    ->join(array('ri' => $this->_realisationsIdioma->getName()), 'ri.idRealisations = r.idRealisations', '')
+                    ->join(array('idi' => $this->_idioma->getName()), 'ri.idIdioma = idi.idIdioma', '')
+                    ->where('idi.prefIdioma = ? ', $idioma)
+                    ->where('r.tipoRealisations = ? ', $tipo)
+                    ->where('r.activoRealisations = ? ', '1')
+                    ->order('r.fechaRegistro DESC');
+            ;
+            $result = $this->_realisations->getAdapter()->fetchAll($result);
+            $this->_cache->save($result, 'listarRealisationsPorIdioma' .$tipo. $idioma);
+        }
+        return $result;
+    }
+    function listarRealisationsPorIdiomaAdmin($idioma,$tipo) {
+            $result = $this->_realisations
+                    ->getAdapter()
+                    ->select()
+                    ->from(array('r' => $this->_realisations->getName()), 
+                            array('r.idRealisations',
+                                'ri.titleRealisationsIdioma',
+                                'ri.contenidoRealisationsIdioma',
+                                'r.imagen',
+                                'r.activoRealisations',
                                 'r.link',
                                 'r.fechaRegistro'
                     ))
@@ -31,10 +57,7 @@ class Application_Model_Realisations extends ZExtraLib_Model {
                     ->where('idi.prefIdioma = ? ', $idioma)
                     ->where('r.tipoRealisations = ? ', $tipo)
                     ->order('r.fechaRegistro DESC');
-            ;
             $result = $this->_realisations->getAdapter()->fetchAll($result);
-            $this->_cache->save($result, 'listarRealisationsPorIdioma' .$tipo. $idioma);
-        }
         return $result;
     }
     function listarRealisationsPorIdiomaDetalle($idIdioma, $idRealisations) {
@@ -76,7 +99,6 @@ class Application_Model_Realisations extends ZExtraLib_Model {
             $data['idRealisations'] = $idRealisations;
             $where[]=$this->_realisationsIdioma->getAdapter()->quoteInto('idIdioma = ?', $idIdioma);
             $where[]=$this->_realisationsIdioma->getAdapter()->quoteInto('idRealisations = ?', $idRealisations);
-            //$where[]=$this->_realisationsIdioma->getAdapter()->quoteInto('tipoRealisations = ?', $idtipo);
             $this->_realisationsIdioma->update($data,$where);
         }else{
             $this->_realisationsIdioma->insert($data);
@@ -94,10 +116,15 @@ class Application_Model_Realisations extends ZExtraLib_Model {
         }
         
     }
-    function eliminarActualite($idRealisations){
+    function eliminarRealisation($idRealisations){
         $where = $this->_realisationsIdioma->getAdapter()->quoteInto('idRealisations =?', $idRealisations);
         $this->_realisationsIdioma->delete($where);
         $this->_realisations->delete($where);
+    }
+    function cambiarEstado($idRealisations,$estado){
+        $where = $this->_realisationsIdioma->getAdapter()->quoteInto('idRealisations =?', $idRealisations);
+        $data = array('activoRealisations'=>$estado);
+        $this->_realisations->update($data,$where);
     }
 
 

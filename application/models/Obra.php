@@ -27,12 +27,33 @@ class Application_Model_Obra extends ZExtraLib_Model {
                     ->join(array('oi' => $this->_obraIdioma->getName()), 'oi.idObra = o.idObra','')
                     ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = oi.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
+                    ->where('o.estadoObra = ? ', '1')
                     ->order('o.anioObra DESC');
             ;
             $result = $this->_obra->getAdapter()->fetchAssoc($result);
             
             $this->_cache->save($result, 'listaObrasIdioma'.$idioma);
         }
+        return $result;
+    }
+    function listarObraPorIdiomaAdmin($idioma) {
+            $result = $this->_obra
+                    ->getAdapter()
+                    ->select()
+                    ->from(array('o' => $this->_obra->getName()), 
+                            array('o.idObra', 
+                                'oi.tituloObraIdioma',
+                                'o.anioObra',
+                                'o.estadoObra',
+                                'oi.parrafoObraIdioma',
+                                'o.link',
+                                'o.imgObra'))
+                    ->join(array('oi' => $this->_obraIdioma->getName()), 'oi.idObra = o.idObra','')
+                    ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = oi.idIdioma', '')
+                    ->where('idi.prefIdioma = ? ', $idioma)
+                    ->order('o.anioObra DESC');
+            ;
+            $result = $this->_obra->getAdapter()->fetchAssoc($result);
         return $result;
     }
     function listarDatosObra($idioma,$idObra) {
@@ -74,6 +95,13 @@ class Application_Model_Obra extends ZExtraLib_Model {
         $this->_obraIdioma->insert($data);
         }
         
+    }
+    function deleteObra($idObra){
+        $where = $this->_obraIdioma->getAdapter()->quoteInto('idObra = ?', $idObra);
+        $datosObra = $this->_obra->select()->where($where)->query()->fetch();
+        $this->_obra->delete($where);
+        $this->_obra->delete($where);
+        return $datosObra;
     }
     function updateObra($data,$idObra){
         $where = $this->_obra->getAdapter()->quoteInto('idObra = ?', $idObra);

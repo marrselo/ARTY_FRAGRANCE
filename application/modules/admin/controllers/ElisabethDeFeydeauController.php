@@ -45,8 +45,28 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         $this->view->mensaje = $this->_flashMessenger->getMessages();
         $modelObra = new Application_Model_Obra();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->dataObra = $modelObra->listarObraPorIdioma($idioma);
+        $this->view->dataObra = $modelObra->listarObraPorIdiomaAdmin($idioma);
         
+    }
+    
+    public function deleteOuvragesAction(){
+        $modelObra = new Application_Model_Obra();
+        $datosEliminar = $modelObra->deleteObra($this->_params['id']);
+        $fc = Zend_Controller_Front::getInstance();
+        $confUpload = $fc->getParam('bootstrap')->getOption('upload');
+        unlink($confUpload['rutaOuvrages'].'/'.$datosEliminar['imgObra']);
+        unlink($confUpload['rutaOuvrages'].'/thums_'.$datosEliminar['imgObra']);
+        $this->cleanCache();
+        $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');
+    }
+    
+    public function changeEstatusOuvragesAction(){
+        $modelObra = new Application_Model_Obra();
+        $estado=$this->_params['estado']==1?'0':'1';
+        $data=array('estadoObra'=>$estado);
+        $modelObra->updateObra($data,$this->_params['id']);
+        $this->cleanCache();
+        $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');
     }
     
     public function editOuvragesAction(){
@@ -73,6 +93,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
                 '278', 
                 '99');
         unlink($confUpload['rutaOuvrages'].'/'.$datosObra['imgObra']);
+        unlink($confUpload['rutaOuvrages'].'/thums_'.$datosObra['imgObra']);
         }
         $dataObraIdioma = array(
             'tituloObraIdioma'=>$this->_params['tituloObra'],
@@ -110,7 +131,7 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
     if ($this->_request->isPost()) {
        
     if($formulario->isValid($this->_params)){
-        $this->cleanCache();
+        
         $arrayImagenes =$this->subirImagenes(
                 $formulario->imgObra->getDestination(), 
                 'img_ourages_', 
@@ -137,7 +158,9 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         
         $modelObra->insertObraIdioma($dataObra);
         $this->_flashMessenger->addMessage('Se Registro Correctamente');
+        $this->cleanCache();
         $this->_redirect('/admin/elisabeth-de-feydeau/ouvrages');
+        
     }else{
         
     }
@@ -153,11 +176,10 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         $this->view->mensaje = $this->_flashMessenger->getMessages();
         $modelRealisations = new Application_Model_Realisations();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($idioma,1);
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdiomaAdmin($idioma,1);
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $this->view->destination = $confUpload["rutaRealisations"];
-        
     }
 
     public function newRealisationAction() {
@@ -315,13 +337,9 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         $destination, $prefNameImg, $nameSession, $width, $height, $widthThums=null, $heightThums=null) {
         $adapter = new Zend_File_Transfer_Adapter_Http();
         $adapter->setDestination($destination);
-        $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);
-        $adapter->receive();
-        $fileImagen = $adapter->getFileName();
-        
-        
         $name = $prefNameImg . time('H:i:s');
         $thums = false;
+        $extn = pathinfo($adapter->getFileName(), PATHINFO_EXTENSION);
         if ($widthThums != null && $heightThums != null) {
             $thums = true;
         }
