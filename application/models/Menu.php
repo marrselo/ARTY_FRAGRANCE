@@ -25,6 +25,7 @@ class Application_Model_Menu extends ZExtraLib_Model {
                     ->join(array('idi' => $this->_idioma->getName()), 'idi.idIdioma = men.idIdioma', '')
                     ->where('idi.prefIdioma = ? ', $idioma)
                     ->where('mb.idModulo = ? ', $modulo)
+                    ->where('mb.estadoMenuBase = ? ', '1')
             ;
             $result = $this->_menu->getAdapter()->fetchAssoc($result);
             $this->_cache->save($result, 'listaMenuIdioma' . $idioma . $modulo);

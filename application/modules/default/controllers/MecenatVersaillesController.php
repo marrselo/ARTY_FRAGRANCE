@@ -26,5 +26,13 @@ class Default_MecenatVersaillesController extends ZExtraLib_Controller_Action
         $modelRealisations = new Application_Model_Realisations();
         $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($this->_params['lang'],2);
     }
+        public function moduleContentAction() {
+        $array = explode('-',$this->_params['val']);
+        $this->view->itemSelect = $array[(count($array)-1)];
+        $modelCms = new Application_Model_Cms();
+        $this->view->contenido = $modelCms->listarCmsItemFront($this->view->itemSelect, 
+                $this->_params['lang']);
+    }
+
 }
 

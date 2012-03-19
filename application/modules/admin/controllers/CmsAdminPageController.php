@@ -83,6 +83,7 @@ class Admin_CmsAdminPageController extends ZExtraLib_Controller_Action {
     }
     public function desactiveAction(){
         $this->desactivarMenuCms($this->_params['idMenuBase'], $this->_params['estado']);
+        $this->cleanCache();
         $this->_redirect($_SERVER['HTTP_REFERER']);
     }
     public function desactivarMenuCms($idMenuBase,$estado) {

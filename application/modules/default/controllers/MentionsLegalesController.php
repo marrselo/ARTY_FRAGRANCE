@@ -17,5 +17,13 @@ class Default_MentionsLegalesController extends ZExtraLib_Controller_Action
         $idioma = $this->_params['lang'];
         $this->view->legal = $modelObra->listarLegalPorIdioma($idioma);
     }
+        public function moduleContentAction() {
+        $array = explode('-',$this->_params['val']);
+        $this->view->itemSelect = $array[(count($array)-1)];
+        $modelCms = new Application_Model_Cms();
+        $this->view->contenido = $modelCms->listarCmsItemFront($this->view->itemSelect, 
+                $this->_params['lang']);
+    }
+
 }
 

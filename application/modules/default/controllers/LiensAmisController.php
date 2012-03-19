@@ -16,5 +16,13 @@ class Default_LiensAmisController extends ZExtraLib_Controller_Action
         $modelSite = new Application_Model_Site();
         $this->view->dataSite = $modelSite->ListarSite($this->_params['lang']);
     }
+    public function moduleContentAction() {
+        $array = explode('-',$this->_params['val']);
+        $this->view->itemSelect = $array[(count($array)-1)];
+        $modelCms = new Application_Model_Cms();
+        $this->view->contenido = $modelCms->listarCmsItemFront($this->view->itemSelect, 
+                $this->_params['lang']);
+    }
+
 }
 
