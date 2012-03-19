@@ -434,6 +434,12 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         $data = $this->_menuObj->getMenu($this->sessionAdmin->idiomaDetaful['idIdioma'],6);
         $this->view->data = $data;
     }
+    public function adminPageAction(){
+        $this->view->modulo = 6;
+        $modelMenu = new Application_Model_Menu();
+        $this->view->listaMenu = $modelMenu->listarMenuCms(6, $this->sessionAdmin->idiomaDetaful['idIdioma']);
+    }
+
 
 
 }

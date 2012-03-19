@@ -1,0 +1,109 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
+                <!-- End Language -->                
+                <div class="table_admin">
+                    <div class="table_admin_head">                        
+                    </div>
+                    <div align="center" class="table_admin_body"><?php echo $this->msg; ?>
+
+                        <fieldset>
+                            <legend 
+                                style="cursor : pointer" 
+                                onclick="openCloseLayer('listmodules')">
+                                <img align="top" src="/images/icons/package.png"> Liste de Realisations</legend>
+                            <div id="listmodules" style="display: block; padding: 2px 10px;"></div>
+
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre Menu</th>
+                                        <th>view</th>
+                                        <th>Options</th>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <?php
+                                        $countCoulm = 1;
+                                    
+                                    foreach ($this->listaMenu as $index){ 
+                                        
+                                            $cssColum = (($countCoulm%2)==1)?'':'shadow';
+                                            if ((int) $index['estadoMenuBase'] == 1):
+                                                $iconStatus = "_status.png";
+                                                $alert = CAlertMenuOFF;
+                                                $title = CTitleMenuOFF;
+                                            else:
+                                                $iconStatus = '_status-red.png';
+                                                $alert = CAlertMenuOFF;
+                                                $title = CTitleMenuOFF;
+                                            endif;
+                                            $countCoulm++;
+
+                                        ?>
+                                            <tr class="<?php echo $cssColum; ?>">
+                                            <td>
+                                                <?php echo $index['nombreMenu'] ?>
+                                            </td>
+                                            <td> as</td>
+                                            <td align="right" width="15%">
+                                                    <a href="/admin/cms-admin-page/edit-menu/modulo/<?php echo $this->modulo; ?>/idMenuBase/<?php echo $index['idMenuBase'] ?>/idMenu/<?php echo $index['idMenu'] ?>" 
+                                                       title="Modifier">
+                                                        <img border="0" src="/images/icons/edit.gif">
+                                                    </a>
+                                                    <img border="0" 
+                                                         title="<?php echo $title; ?>" 
+                                                         src="/images/icons/<?php echo $iconStatus;?>" 
+                                                         onclick="desactiveItem('<?php echo $index['idMenuBase'] ?>','<?php echo $alert; ?>','/admin/cms-admin-page/desactive/idMenuBase',<?php echo $index['estadoMenuBase'] ?>)" 
+                                                         style="cursor: pointer;" >
+                                                    <img border="0" 
+                                                         title="<?php echo CTitleDelete; ?>" 
+                                                         src="/images/icons/delete.png" 
+                                                         onclick="deleteItem('<?php echo $index['idMenuBase'] ?>','<?php echo CAlertDelete; ?>','/admin/cms-admin-page/delete/idMenuBase')" 
+                                                         style="cursor: pointer;" >
+                                                </td>
+                                        </tr>        
+                                        <?php
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="5">
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>                    
+                            <a href="/admin/cms-admin-page/crear-menu/modulo/<?php echo $this->modulo; ?>">Nouveau</a>
+                        </fieldset>
+                    </div>
+                    <div class="table_admin_foot"></div>
+                </div>
+
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>

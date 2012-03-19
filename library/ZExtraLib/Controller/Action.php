@@ -160,6 +160,10 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
             8=>array('ruta'=>'/admin/contact/admin-page/'),
             12=>array('ruta'=>'/admin/legal/admin-page/'),
             9=>array('ruta'=>'/admin/presse/admin-page/'),
+            7=>array('ruta'=>'/admin/mecenat-versailles/admin-page/'),
+            10=>array('ruta'=>'/admin/sites/admin-page/'),
+            5=>array('ruta'=>'/admin/sites/admin-page-liens-amis/'),
+            6=>array('ruta'=>'/admin/elisabeth-de-feydeau/admin-page')
             );
     }
 
