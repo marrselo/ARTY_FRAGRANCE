@@ -60,14 +60,19 @@
                                                 <td width="35%" >
                                                     <?php echo $value['titleRealisationsIdioma']; ?>
                                                 </td>
+                                                
                                                 <td width="25%">
-                                                    <img width="70" src="<?php echo $this->baseUrl() ?>/Realisations/thums_<?php echo $value['imagen']; ?>" >
+                                                    <?php if($value['imagen']!=''){ ?>
+                                                    <img width="70" src="<?php echo $this->baseUrl() ?>/realisations/thums_<?php echo $value['imagen']; ?>" >
+                                                    <?php } ?>
                                                 </td>
                                                 <td width="25%">
+                                                    <?php if($value['link']!=''){ ?>
                                                     <a href="<?php echo $value['link']; ?>">Link</a>
+                                                    <?php } ?>
                                                 </td>
                                                 <td align="right" width="15%">
-                                                    <a href="/admin/Realisations/edit-Realisation/id/<?php echo $value['idRealisations'] ?>" 
+                                                    <a href="/admin/realisations/edit-Realisation/id/<?php echo $value['idRealisations'] ?>" 
                                                        title="Modifier">
                                                         <img border="0" src="/images/icons/edit.gif">
                                                     </a>
@@ -96,7 +101,7 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <a href="/admin/Realisations/new-realisation"> Nouveau</a>
+                            <a href="/admin/realisations/new-realisation"> Nouveau</a>
                         </fieldset>
 
                     </div>
