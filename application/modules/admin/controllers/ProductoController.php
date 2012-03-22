@@ -145,7 +145,7 @@ class Admin_ProductoController
                     );
                     $form->nombreFoto->receive();                    
                     if($this->_foto->insertFoto($tfoto, $fotodet))
-                        $this->_redirect ('/admin/index/collections');
+                            $this->_redirect ('/admin/producto/editproduct/id/'.$idDetArticulo);
                     else
                         $this->view->msg = "ERROR EN ACTUALIZACIÓN";
                     

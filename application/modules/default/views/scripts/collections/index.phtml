@@ -127,9 +127,13 @@
                                                                         ?></span>
                                                                 </h2>
                                                                 <div class="slide_collection">
+                                                                    <?php if(!empty ($produ)): ?>
                                                                     <div class="mainphoto">
                                                                         <div class="photo">
-                                                                            <?php foreach ($this->foto as $foto):
+                                                                            <?php 
+                                                                                foreach ($this->foto as $foto):
+                                                                                                                                                                    
+                                                                                
                                                                                 if($foto["idDetalleArticulo"] == $produ["idDetalleArticulo"]):
                                                                                 $foto = "/imagen-producto/".$foto["nombreFoto"];
                                                                                 ?>
@@ -154,7 +158,8 @@
                                                                         <div class="description_l">                                                                            
                                                                             <?php echo $produ["parrafoDetalle"]?>                                                                            
                                                                         </div>
-                                                                    </div>						
+                                                                    </div>
+                                                                    <?php endif;?>
                                                                 </div>	
                                                             </div>	
                                                         </section>                                                    
@@ -172,7 +177,7 @@
 								</div>	
                                                     </section>
                                                     
-                                                    <?php } else { ?>
+                                                    <?php } else { if(!(empty ($first))){ ?>
                                                     <section id="" class="wrapp_content">
 								<div class="wrapp_content_inner">
                                                                     <?php $foto = "/imagen-articulo/".$first["fotoPrincipal"]?>
@@ -181,7 +186,7 @@
 									
 								</div>	
                                                     </section>
-                                                    <?php } ?>
+                                                    <?php } }?>
 						</div>
 					</div>
 				</div>
