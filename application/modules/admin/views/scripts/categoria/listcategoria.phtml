@@ -1,42 +1,27 @@
-<script type="text/javascript">
-window.onload = function()
-{
-CKEDITOR.replace('parrafo');
-}
-</script>
 <td valign="top">
 <div id="centerPane">
 <div id="toolbar">
-<a class="modules" href="/admin/module">Collections</a>
+<a class="modules" href="/admin/module">Products</a>
 </div>
 <div id="main">
 <div id="form">
 <div style="display:show">
-            <?php 
-                            echo $this->render('render/listaIdioma.phtml',
-                                array(
-                                    'idms' => $this->idms,
-                                    'lang' => $this->lang,
-                                )
-                            );
-                        ?>
-
     <div class="table_admin">
         <div class="table_admin_head"></div>
         <div align="left" class="table_admin_body">
-    
             <!--UPLOAD MODULES-->
             <!--LIST MODULES-->
             <fieldset>
                 <legend onclick="openCloseLayer('listmodules')" style="cursor : pointer"><img align="top" src="/images/icons/package.png"> 
-                    Liste de collections
+                    Liste of products 
                 </legend>
                 <div style="display:none;padding:2px 10px;" id="listmodules">
+                    
                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th align="left">Collection </th>
-                                    <th align="left">Description</th>
+                                    <th align="left">ID </th>
+                                    <th align="left">Name</th>
                                     <th align="center">Actions</th>
                                 </tr>
                                 <tr>
@@ -47,27 +32,29 @@ CKEDITOR.replace('parrafo');
                             <tbody>
                                 <?php foreach ($this->articulo as $art):?>
                                 <tr class="">
-                                    <td width="40%">
-                                        <a class="link" href="/admin/categoria/listcategoria/id/<?php echo $art['idArticulo']?>">
-                                        <?php echo $art['titulo']?>
-                                        </a>
+                                    <td width="40%">                                        
+                                        <a class="link" href="/admin/collection/listproductos/id/<?php echo $art['idCat']?>">
+                                        <?php echo $art['idCat']?>                                        
+                                            </a>
                                     </td>
-                                    <td width="45%">                                        
-                                        <?php echo strip_tags($art['parrafo']); ?>
+                                    <td width="45%">
+                                     <a class="link" href="/admin/collection/listproductos/id/<?php echo $art['idCat']?>">
+                                        <?php echo $art['nombre']?>
+                                        </a>   
                                     </td>
                                     <td align="right" width="15%">
-                                        <a href="/admin/collection/editcollection/id/<?php echo $art['idArticulo']?>">
+                                        <a href="/admin/categoria/editcategoria/id/<?php echo $art['idCat']?>">
                                             <!--<img border="0" alt="enabled.gif" src="/images/icons/_status.png">-->
                                             Editar
-                                        </a>                                        
-                                        <a href="/admin/collection/deletecollection/id/<?php echo $art['idArticulo']?>" onclick="return confirm('¿Desea eliminar the collection?')">
+                                        </a>
+                                        <a href="/admin/categoria/deletecategoria/id/<?php echo $art['idCat']?>">
                                             <!--<img border="0" alt="process_remove.png" src="/images/icons/process_remove.png">-->
                                             Eliminar
                                         </a>
-                                        <a href="/admin/collection/activecollection/id/<?php echo $art['idArticulo']."/est/".$art['idEstadoArticulo']?>" onclick="return confirm('¿Desea <?php if($art['idEstadoArticulo']==1) echo "desactive"; else echo "activar"; ?> the collection?')">
+                                        <a href="/admin/categoria/activecategoria/id/<?php echo $art['idCat']."/est/".$art['estado']?>" onclick="return confirm('¿Desea <?php if($art['estado']==1) echo "desactive"; else echo "activar"; ?> the categoria?')">
                             <?php 
-                            if($art['idEstadoArticulo']==1){echo "Desactive";} 
-                            if($art['idEstadoArticulo']==0){echo "Active";} 
+                            if($art['estado']==1){echo "Desactive";} 
+                            if($art['estado']==0){echo "Active";} 
                             ?>
                         </a>
 
@@ -84,14 +71,7 @@ CKEDITOR.replace('parrafo');
                                 </tr>
                             </tfoot>
                         </table>
-                    <?php 
-                        if(is_null($this->idIdioma))
-                                $id = 1;
-                        else
-                            $id = $this->idIdioma;
-                    ?>
-                    <a href="/admin/collection/newcollection/info/<?php echo $id ?>">New Collection</a>
-                    
+                    <a href="/admin/categoria/newcategoria/info1/<?php echo $this->id ?>">New Categoria</a>
                     
                 </div>
             </fieldset>
