@@ -11,27 +11,24 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
         $dataBio = $modelBio->listarBiografiaPorIdioma($this->view->lang);
         if ($this->_request->isPost()) {
             if ($formulario->isValid($this->_params)) {
+                
                 $dataInfo = array(
                     'tituloBio' => $this->_params['tituloBio'],
                     'contenidoBio' => $this->_params['contenidoBio'],
                     'idIdioma' => $this->sessionAdmin->idiomaDetaful['idIdioma']
                 );
-                $modelBio->InsertInfoBio(
-                        $dataInfo, $this->sessionAdmin->idiomaDetaful['idIdioma'], $this->sessionAdmin->idiomaDetaful['PrefIdioma']
-                );
-                if (count($this->sessionAdmin->imagenBiografia) > 0) {
                     $modelBio->InsertFotoBio($this->sessionAdmin->imagenBiografia);
                     $fc = Zend_Controller_Front::getInstance();
                     $confUpload = $fc->getParam('bootstrap')->getOption('upload');
                     if (count($this->sessionAdmin->imagenBiografiaPorEliminar) > 0) {
                         foreach ($this->sessionAdmin->imagenBiografiaPorEliminar as $index) {
-                            unlink($confUpload['rutaBiografia'] . '/' . $this->sessionAdmin->imagenBiografia[$index]);
+                           @unlink($confUpload['rutaBiografia'] . '/' . $this->sessionAdmin->imagenBiografia[$index]);
                         }
                     }
-                }
+                $modelBio->InsertInfoBio($dataInfo, $this->sessionAdmin->idiomaDetaful['idIdioma'], $this->sessionAdmin->idiomaDetaful['PrefIdioma']
+                );
                 unset($this->sessionAdmin->imagenBiografia);
                 unset($this->sessionAdmin->imagenBiografiaPorEliminar);
-                $this->_redirect('/admin/elisabeth-de-feydeau/');
             }
         } else {
             $formulario->insertElment('contenidoBio', $dataBio['contenidoBio']);
@@ -443,4 +440,3 @@ class Admin_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action {
 
 
 }
-
