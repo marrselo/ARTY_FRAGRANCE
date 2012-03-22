@@ -57,7 +57,10 @@
                         <tbody>
                             <tr>
                                 <td valign="top" height="500" class="sidebar">
-                                    <?php echo $this->render('menuadmin.phtml', array('baseUrl' => $this->baseUrl())); ?>
+                                    <?php 
+                                    $controller=Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+                                    if($controller!='site')
+                                        echo $this->render('menuadmin.phtml', array('baseUrl' => $this->baseUrl())); ?>
                                 </td>
                                 <!-- container-->
 
