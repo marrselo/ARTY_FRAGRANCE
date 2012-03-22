@@ -29,4 +29,21 @@ class Application_Model_MenuBase extends ZExtraLib_Model {
         }
         return $result;
     }
+    function editarMenu($datosMenu,$datosMenuBase,$idMenBase,$idIdioma,$idMenu){
+        $whereMenuBase = $this->_menuBase->getAdapter()->quoteInto('idMenuBase = ?', $idMenBase);
+        $whereMenu[] = $whereMenuBase;
+        $whereMenu[] = $this->_menuBase->getAdapter()->quoteInto('idIdioma = ?', $idIdioma); 
+        $this->_menu->update($datosMenu, $whereMenu);
+        $this->_menuBase->update($datosMenuBase, $whereMenuBase);
+    }
+    function eliminarMenuBase($idMenuBase){
+        $where = $this->_menuBase->getAdapter()->quoteInto('idMenuBase = ?', $idMenuBase);
+        $this->_menu->delete($where);
+        $this->_menuBase->delete($where);
+    }
+    function editEstadoMenuBase($idMenuBase,$estado){
+        $where = $this->_menuBase->getAdapter()->quoteInto('idMenuBase = ?', $idMenuBase);
+        $data = array('estadoMenuBase'=>$estado);
+        $this->_menuBase->update($data, $where);    
+    }
 }

@@ -31,6 +31,9 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
     public function realisationsAction()
     {
         $this->view->classBody = 'lyt_news';
+        $modelRealisations = new Application_Model_Realisations();
+        $this->view->listaRealisations = $modelRealisations->listarRealisationsPorIdioma($this->_params['lang'],1);
+
         
     }
     public function blogEtPhotosAction()
@@ -39,9 +42,17 @@ class Default_ElisabethDeFeydeauController extends ZExtraLib_Controller_Action
         $this->view->dataBlogFoto = $modelBlogFoto->listarBlogFotoPorIdioma($this->_params['lang']);
         $this->view->dataFotoBlogFoto = $modelBlogFoto->listarFotosBlogFoto();
         $this->view->classBody = 'lyt_elisafey_fotos fancyBox';
-        
-        
     }
+            
+    public function moduleContentAction() {
+        $array = explode('-',$this->_params['val']);
+        $this->view->itemSelect = $array[(count($array)-1)];
+        $modelCms = new Application_Model_Cms();
+        $this->view->contenido = $modelCms->listarCmsItemFront($this->view->itemSelect, 
+                $this->_params['lang']);
+    }
+
+    
     
 }
 

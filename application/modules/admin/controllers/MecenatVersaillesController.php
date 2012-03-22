@@ -129,5 +129,11 @@ public function subirImagenes(
         $html.= '</ul>';
         return $html;
     }
+    public function adminPageAction(){
+        $this->view->modulo = 7;
+        $modelMenu = new Application_Model_Menu();
+        $this->view->listaMenu = $modelMenu->listarMenuCms(7, $this->sessionAdmin->idiomaDetaful['idIdioma']);
+    }
+
     
 }

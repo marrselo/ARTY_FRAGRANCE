@@ -16,12 +16,12 @@ set_include_path(implode(PATH_SEPARATOR, array(
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
-//require_once('../library/ZExtraLib/PageCache.php');
-//require_once 'Zend/Auth.php';
-//if (PHP_SAPI !== 'cli' && !Zend_Auth::getInstance()->hasIdentity()) {
-  //  ZExtraLib_PageCache::getCache()->start();
-//}
-//
+require_once('../library/ZExtraLib/PageCache.php');
+require_once 'Zend/Auth.php';
+if (PHP_SAPI !== 'cli' && !Zend_Auth::getInstance()->hasIdentity()) {
+    ZExtraLib_PageCache::getCache()->start();
+}
+
 
 
 

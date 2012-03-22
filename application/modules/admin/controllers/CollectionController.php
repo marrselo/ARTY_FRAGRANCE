@@ -137,7 +137,7 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
         }
     }
 
-    public function newcollectionAction() {        
+    public function newcollectionAction() {
         $form = new Application_Form_FormArt();
         $this->view->form = $form;
         $menu = new Application_Model_Menu();
@@ -153,7 +153,7 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
                             array('target' => 'collection-' . $idArticulo . '.' . $extn))
             );
             $params = $this->_getAllParams();
-            print_r($params);            
+            //print_r($params);            
             
             //if ($form->isValid($this->_request->getPost())) {
             if ($form->isValid($params)) {

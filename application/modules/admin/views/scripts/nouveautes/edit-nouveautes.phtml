@@ -1,0 +1,82 @@
+<script type="text/javascript">
+    window.onload = function()
+    {
+        CKEDITOR.replace('contenido');
+    }
+</script>
+
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/Realisations/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
+                <!-- End Language -->
+                <div class="table_admin">
+                    <div class="table_admin_head"></div>
+                    <div align="center" class="table_admin_body">
+                        <form action="" method="POST" enctype="multipart/form-data" >
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                <tbody>
+                                    <tr><th colspan="2">
+                                        </th></tr>
+                                    <tr>
+                                        <td align="left" width="20%">Titre</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->title; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Link</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->link; ?>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left" width="20%">Contenu</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->contenido; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Image</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->imagen; ?>
+                                            <a target="_black" href="<?php echo $this->baseUrl() ?>/<?php echo $this->rutaImagen; ?>">link</a>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <?php echo $this->form->submit ?>
+                                            <input type="button" onclick="location.href='/admin/nouveautes';" value="Annuler" name="cancel">    
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </form>                    </div>
+                    <div class="table_admin_foot"></div>
+                </div>
+
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>

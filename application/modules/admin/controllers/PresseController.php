@@ -10,7 +10,7 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         $this->view->mensaje = $this->_flashMessenger->getMessages();
         $modelPresse = new Application_Model_Presse();
         $idioma = $this->sessionAdmin->idiomaDetaful['PrefIdioma'];
-        $this->view->listaPresse = $modelPresse->listarPressePorIdioma($idioma);
+        $this->view->listaPresse = $modelPresse->listarPressePorIdiomaAdmin($idioma);
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
         $this->view->destination = $confUpload["rutaPresse"];
@@ -129,10 +129,22 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
 
     public function eliminarPresseAction(){
         $modelPresse = new Application_Model_Presse();
-        $modelPresse->eliminarPresse($idPresse);
-        $this->_params['id'];
-        
-        
+        $datosEliminar = $modelPresse->eliminarPresse($this->_params['id']);
+        $fc = Zend_Controller_Front::getInstance();
+        $confUpload = $fc->getParam('bootstrap')->getOption('upload');
+        $rutaPresse = $confUpload["rutaPresse"];
+        unlink($rutaPresse.'/'.$datosEliminar['linkPresse']);
+        unlink($rutaPresse.'/'.$datosEliminar['imgPresse']);
+        unlink($rutaPresse.'/thums_'.$datosEliminar['imgPresse']);
+        $this->cleanCache();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    public function desactivarPresseAction(){
+        $modelPresse = new Application_Model_Presse();
+        $estado=$this->_params['estado']=='1'?'0':'1';
+        $modelPresse->changeEstadoPresse($this->_params['id'],$estado);
+        $this->cleanCache();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function adminSubMenuAction() {
@@ -141,6 +153,12 @@ class Admin_PresseController extends ZExtraLib_Controller_Action {
         $data = $this->_menuObj->getMenu($this->sessionAdmin->idiomaDetaful['idIdioma'], 6);
         $this->view->data = $data;
     }
+        public function adminPageAction() {
+        $this->view->modulo = 9;
+        $modelMenu = new Application_Model_Menu();
+        $this->view->listaMenu = $modelMenu->listarMenuCms(9, $this->sessionAdmin->idiomaDetaful['idIdioma']);
+    }
+
 
 }
 

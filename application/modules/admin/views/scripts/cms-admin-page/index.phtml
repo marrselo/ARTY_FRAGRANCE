@@ -1,0 +1,41 @@
+<script type="text/javascript">
+window.onload = function()
+{
+CKEDITOR.replace('contenidoCredit');
+}
+</script>
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <?php
+                echo $this->render(
+                        'render/listaIdioma.phtml', array(
+                    'idms' => $this->idms,
+                    'lang' => $this->lang,
+                ));
+                ?>
+                <!-- End Language -->                
+                <div class="table_admin">
+                    <div class="table_admin_head">                        
+                    </div>
+                    <div align="center" class="table_admin_body"><?php echo $this->msg;?>
+                        
+                    </div>
+                    <div class="table_admin_foot"></div>
+                </div>
+
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>

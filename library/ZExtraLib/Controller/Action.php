@@ -11,16 +11,21 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
     protected $_controllerName;
     protected $_params;
     protected $_actionName;
+    protected $_listarArrayMenuAdmin;
 
     public function init() {
         parent::init();
         
-        
+        /*desactivar*/
         define('CAlertMenuON', 'Est-vous sûr de voiloir cacher ce lien?');
         define('CAlertMenuOFF', 'Est-vous sûr de voiloir montrer ce lien?');
-        
         define('CTitleMenuOFF', 'Montrer ce lien');
         define('CTitleMenuON', 'Cacher ce lien');
+        
+        /*eliminar*/
+        define('CAlertDelete', 'Desea eliminar este registro');
+        define('CTitleDelete', 'Eliminar');
+        
         
         $this->headMeta();
         $this->setAtributes();
@@ -84,6 +89,7 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         $this->_actionName = $this->getRequest()->getActionName();
         $this->view->controllerName = $this->_controllerName;
         $this->view->actionName = $this->_actionName;
+        $this->_listarArrayMenuAdmin = $this->listarArrayMenuAdmin();
     }
 
     protected function setLayout($layout) {
@@ -147,6 +153,18 @@ class ZExtraLib_Controller_Action extends Zend_Controller_Action {
         }
         
         
+    }
+    function listarArrayMenuAdmin(){
+        return array(
+            11=>array('ruta'=>'/admin/credit/admin-page/'),
+            8=>array('ruta'=>'/admin/contact/admin-page/'),
+            12=>array('ruta'=>'/admin/legal/admin-page/'),
+            9=>array('ruta'=>'/admin/presse/admin-page/'),
+            7=>array('ruta'=>'/admin/mecenat-versailles/admin-page/'),
+            10=>array('ruta'=>'/admin/sites/admin-page/'),
+            5=>array('ruta'=>'/admin/sites/admin-page-liens-amis/'),
+            6=>array('ruta'=>'/admin/elisabeth-de-feydeau/admin-page')
+            );
     }
 
 

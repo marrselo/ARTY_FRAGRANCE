@@ -1,0 +1,1 @@
+$(document).ready(function(){      });function deleteItem(idItem,message,url){    if(confirm(message)){        location.href = url+'/'+idItem;    }    }function desactiveItem(idItem,message,url,estado){    if(confirm(message)){        location.href = url+'/'+idItem+'/estado/'+estado;    }    }

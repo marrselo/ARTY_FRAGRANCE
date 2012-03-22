@@ -14,9 +14,7 @@ class Application_Model_Modulo extends ZExtraLib_Model {
         return $result;
     }
     function listarModuloMenu(){
-        
         if (!($colMenuModulo = $this->_cache->load('listaModuloMenu'))) {
-            
             $colModulos = $this->listarModulo();                      
             $result = $this->_modulo->getAdapter()->select()
                            ->from($this->_modulo->getName())

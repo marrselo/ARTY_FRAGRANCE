@@ -43,18 +43,21 @@
                                     <tbody>
 
                                         <?php
+                                        $countCoulm = 1;
                                         foreach ($this->listaPresse as $value):
+                                            $cssColum = (($countCoulm%2)==1)?'':'shadow';
                                             if ((int) $value['estadoPresse'] == 1):
-                                                $css = "shadow";
+                                                $iconStatus = "_status.png";
                                                 $alert = CAlertMenuOFF;
                                                 $title = CTitleMenuOFF;
                                             else:
-                                                $css = 'column-admin';
+                                                $iconStatus = '_status-red.png';
                                                 $alert = CAlertMenuOFF;
                                                 $title = CTitleMenuOFF;
                                             endif;
+                                            $countCoulm++;
                                             ?>
-                                            <tr class="<?php echo $css; ?>">
+                                            <tr class="<?php echo $cssColum; ?>">
                                                 <td width="35%" >
 <!--                                                    <img border="0" class="icon" alt="" src="/images/icons/layout_sidebar.png">-->
                                                     <?php echo $value['tituloPresseIdioma']; ?>
@@ -76,8 +79,13 @@
                                                     <!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
                                                     <img border="0" 
                                                          title="<?php echo $title; ?>" 
-                                                         src="/images/icons/process_remove.png" 
-                                                         onclick="deleteMenu('<?php echo $value['idMenuBase'] ?>','<?php echo $alert; ?>')" 
+                                                         src="/images/icons/<?php echo $iconStatus;?>" 
+                                                         onclick="desactiveItem('<?php echo $value['idPresse'] ?>','<?php echo $alert; ?>','/admin/presse/desactivar-presse/id',<?php echo $value['estadoPresse']?>)" 
+                                                         style="cursor: pointer;" >
+                                                    <img border="0" 
+                                                         title="<?php echo CTitleDelete; ?>" 
+                                                         src="/images/icons/delete.png" 
+                                                         onclick="deleteItem('<?php echo $value['idPresse'] ?>','<?php echo CAlertDelete; ?>','/admin/presse/eliminar-presse/id')" 
                                                          style="cursor: pointer;" >
                                                     <!--                                                </a>-->
 

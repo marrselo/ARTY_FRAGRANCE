@@ -8,10 +8,13 @@ class Admin_CreditController extends ZExtraLib_Controller_Action
         parent::init();
         $this->_params = $this->_getAllParams();
         $this->view->params = $this->_params;
-        
-               
-       //print_r($this->view->idiomaDefault);exit;
-        
+    }
+    
+    
+    public function adminPageAction(){
+        $this->view->modulo = 11;
+        $modelMenu = new Application_Model_Menu();
+        $this->view->listaMenu = $modelMenu->listarMenuCms(11, $this->sessionAdmin->idiomaDetaful['idIdioma']);
     }
     public function indexAction(){
         $credit = new Application_Model_Credit();
