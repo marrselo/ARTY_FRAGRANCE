@@ -166,9 +166,9 @@ class Admin_ProductoController
                 //if ($form->isValid($this->_request->getPost())) {
                 if ($form->isValid($params)) {                    
                         $values = $form->getValues();
-                        $values =$values + array('idArticulo' => $idArticulo);                         
+                        $values =$values + array('idCat' => $idArticulo);
                         if($this->_articulo->insertProduct($values))
-                            $this->_redirect ('/admin/index/collections');
+                            $this->_redirect ('/admin/collection/listproductos');
                         else
                             $this->view->msg = "ERROR EN ACTUALIZACIÓN";
                     
