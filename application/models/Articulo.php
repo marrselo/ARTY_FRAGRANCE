@@ -121,8 +121,14 @@ class Application_Model_Articulo extends ZExtraLib_Model {
     function deleteArticulo($id) {
         $db = $this->_articulo->getAdapter();
         $where = $db->quoteInto('idArticulo = ?', $id);        
-        $db->delete('articulo', $where);        
-        $db->delete('detallearticulo', $where);
+        //$db->delete('articulo', $where);
+        $cat = new Application_Model_Categoria();
+        $list = $cat->listarCategoria($id);        
+        $db->delete('category', $where);
+        foreach ($list as $l):
+            $where = $db->quoteInto('idCat = ?', $l['idCat']);        
+            $db->delete('detallearticulo', $where);
+        endforeach;
         
         return true;
     }

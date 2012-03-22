@@ -14,7 +14,7 @@ class Application_Model_DetalleArticulo extends ZExtraLib_Model {
                 ->getAdapter()
                 ->select()
                 ->from(array($this->_articulo->getName()))
-                ->where('idArticulo = ? ', $idArticulo);
+                ->where('idCat = ? ', $idArticulo);
                 
         $result = $db->query()->fetchAll();
         
@@ -47,7 +47,7 @@ class Application_Model_DetalleArticulo extends ZExtraLib_Model {
     function insertProduct($values=array()) {
         $db = $this->_articulo->getAdapter();        
         $data = array(
-            'idArticulo' => $values["idArticulo"],
+            'idCat' => $values["idCat"],
             'titulo' => $values["titulo"],
             'tituloDetalle' => $values["tituloDetalle"],
             'parrafoDetalle' => $values["parrafoDetalle"],
