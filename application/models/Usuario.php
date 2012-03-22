@@ -30,6 +30,9 @@ class Application_Model_Usuario  extends Zend_Db_Table {
         $this->insert($data);
         $perfilModel->crearPerfil($menu, $this->getAdapter()->lastInsertId());
     }
+    public function crearUsuarioAdm($data,$menu = null){
+        $this->insert($data);
+    }
     
     public function crearUsuarioCliente($data){
         $this->insert($data);
@@ -42,11 +45,11 @@ class Application_Model_Usuario  extends Zend_Db_Table {
         $data = array('estado'=>'0');
         $this->update($data, $where);
     }
-    public function  actualizarUsuario($idUsuario,$data,$menu){
-        $perfilModel = new Application_Model_Perfil();
+    public function  actualizarUsuario($idUsuario,$data,$menu=null){
+        //$perfilModel = new Application_Model_Perfil();
         $where = $this->getAdapter()->quoteInto('idusuario = ?', $idUsuario);
         $this->update($data, $where);
-        $perfilModel->crearPerfil($menu, $idUsuario);
+        //$perfilModel->crearPerfil($menu, $idUsuario);
     }
 
     public function listarUnUsuario($idUsuario) {
@@ -74,5 +77,28 @@ class Application_Model_Usuario  extends Zend_Db_Table {
             $response->where('idusuario != ?', $idUsuario);
         return $this->getAdapter()->fetchAll($response);
         
+    }
+    public function listaUsuariosAdm($buscar = null) {
+        $estado = 1;
+        if($buscar == ''){
+        return $this->getAdapter()
+                ->select()
+                ->from('usuario')
+                ->where('estado = ?', $estado)
+                ->where('FlagSuperUsuario = ?',1 )
+                ->query()->fetchAll();
+        } else{
+            
+            $where  =  $this->getAdapter()->quoteInto('apellidomaterno like ?', '%'.$buscar.'%');
+            $where .= $this->getAdapter()->quoteInto(' or  apellidopaterno like ?', '%'.$buscar.'%');
+            $where .= $this->getAdapter()->quoteInto(' or nombre like ?', '%'.$buscar.'%');
+            return $this->getAdapter()
+                    ->select()
+                    ->from('usuario')
+                    ->where('estado = ?', $estado)
+                    ->where('FlagSuperUsuario != ?',1 )
+                    ->where($where)
+                    ->query()->fetchAll();
+        }
     }
 }

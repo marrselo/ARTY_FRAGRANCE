@@ -1,0 +1,77 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a href="/admin/module" class="modules">Modules</a>                </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <div style="display:show">
+                    <div class="table_admin">
+                        <div class="table_admin_head"></div>
+                        <div align="left" class="table_admin_body">
+                            <!--LIST TIPO SITE-->
+                            <fieldset><legend style="cursor : pointer" onclick="openCloseLayer('listmodules')"><img align="top" src="/images/icons/package.png"> Liste de Sites Internet </legend>
+                                <div id="listmodules" style="display: block; padding: 2px 10px;">                                    
+                                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th align="left">Correo </th>
+                                                    <th align="left">Nombre</th>
+                                                    <th align="center">Actions</th>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                if(is_array($this->dataSite)):
+                                                    foreach($this->dataSite as $val):?>
+                                                <tr class="shadow">
+                                                    <td width="40%"><a href="" class="link"><img border="0" src="/images/icons/layout_sidebar.png" alt="Actualit�s" class="icon">
+                                                            <?php echo $val['login'] ?></a></td>
+                                                    <td width="45%"><?php echo $val['nombre'].' '.$val['apellidopaterno'].' '.$val['apellidomaterno'] ?> </td>
+                                                <td align="right" width="15%">
+                                                    <a href="/admin/site/edit/id/<?php echo $val['idusuario'] ?>" 
+                                                       title="Modifier">
+                                                        <img border="0" src="/images/icons/edit.gif">
+                                                    </a>
+                                                    <!--                                                <a class="status-config" href="/admin/module/config/id/actualites/mode/desinstaller" title="Enlever le module">-->
+                                                    <img border="0" 
+                                                         title="<?php echo $title; ?>" 
+                                                         src="/images/icons/process_remove.png" 
+                                                         onclick="deleteAction('<?php echo $val['idusuario']?>','/admin/site/ajax/case/delete')" 
+                                                         style="cursor: pointer;" >
+                                                    <!--                                                </a>-->
+
+                                                </td>
+                                                </tr>
+                                                <?php endforeach; endif;?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td align="right" valign="bottom" colspan="3">
+
+
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                </div>
+                                <a href="/admin/site/new"> Nouveau</a>
+                            </fieldset>
+                            <!-- FIN TIPO SITE-->
+                            <!--LIST MODULES-->
+                            
+                            <!--END LIST MODULES-->                            
+                        </div><a name="leftColumn">
+                            <div class="table_admin_foot"></div>
+                        </a>
+
+                    </div>
+                </div>                
+            </div>           
+        </div>        
+    </div>
+</td>
