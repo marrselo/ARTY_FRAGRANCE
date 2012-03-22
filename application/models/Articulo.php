@@ -185,6 +185,17 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         return $result;
         
         }
+        function maxIdTable($tab) {
+        $db = $this->_articulo
+                ->getAdapter();        
+        $select = "SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+            WHERE TABLE_SCHEMA = 'artyfrag_fragance' AND TABLE_NAME = '".$tab."'";
+        //echo $select;exit;
+        $result = $db->fetchOne($select);
+        
+        return $result;
+        
+        }
         
         
     

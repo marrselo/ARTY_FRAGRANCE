@@ -48,7 +48,7 @@ class Admin_ProductoController
                 if ($form->isValid($params)) {
                         $values = $form->getValues();                        
                         if($this->_articulo->updateProducto($values))
-                            $this->_redirect ('/admin/index/collections');
+                            $this->_redirect ('/admin/collection/listproductos/id/'.$articulo["idCat"]);
                         else
                             $this->view->msg = "ERROR EN ACTUALIZACIÓN";
                     
@@ -70,9 +70,10 @@ class Admin_ProductoController
     public function deleteproductAction()
     {
         $idArticulo = $this->_getParam('id', NULL);
+        $articulo = $this->_articulo->buscaArticulo($idArticulo);
         if($idArticulo) {
             $this->_articulo->deleteProduct($idArticulo);  
-            $this->_redirect('/admin/index/collections');
+            $this->_redirect('/admin/collection/listproductos/id/'.$articulo["idCat"]);
         }
         
     }
@@ -112,8 +113,10 @@ class Admin_ProductoController
     {
         $this->_helper->layout->disableLayout();
         $form = new Application_Form_FormPhoto();
-        $foto = new Application_Model_Foto();
+        $foto = new Application_Model_Foto();        
+        
         $this->view->form = $form;
+        
         
         $idDetArticulo = $this->_getParam('id');
         
@@ -160,6 +163,8 @@ class Admin_ProductoController
         if($idArticulo){
         $form = new Application_Form_FormProduct();
         $this->view->form = $form;
+        $f = new Application_Model_Articulo();
+        $this->view->idDetalle=$f->maxIdTable('detallearticulo');
         
         if ($this->_request->isPost()) {  
             $params = $this->_getAllParams();
@@ -168,7 +173,7 @@ class Admin_ProductoController
                         $values = $form->getValues();
                         $values =$values + array('idCat' => $idArticulo);
                         if($this->_articulo->insertProduct($values))
-                            $this->_redirect ('/admin/collection/listproductos');
+                            $this->_redirect ('/admin/collection/listproductos/id/'.$idArticulo);
                         else
                             $this->view->msg = "ERROR EN ACTUALIZACIÓN";
                     
