@@ -1,0 +1,90 @@
+<td valign="top">
+    <div id="centerPane">
+        <div id="toolbar">
+            <a class="modules" href="<?php $this->baseUrl() ?>/admin/index">Ini</a> &gt; <a class="actualités" href="<?php $this->baseUrl() ?>/admin/index/actualites/"><?php echo $this->params['action'] ?></a> &gt; Modifier               
+        </div>
+        <div id="main">
+            <!--   <h2 class="top"></h2>-->
+            <div id="form">
+                <div class="table_admin">
+                    <div class="table_admin_head"></div>
+                    <div align="center" class="table_admin_body">
+                        <form action="" method="POST" enctype="multipart/form-data" >
+                            <?php echo $this->form->FlagSuperUsuario; ?>
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="table_form">
+                                <tbody>
+                                    <tr><th colspan="2">
+                                        </th></tr>
+                                    <tr>
+                                        <td align="left" width="20%">Nombre</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->nombre; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Apellido Paterno</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->apellidopaterno; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Apellido Materno</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->apellidomaterno; ?>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left" width="20%">Login</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->login; ?>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Password</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->password; ?>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="20%">Telefono</td>
+                                        <td align="left" width="80%">
+                                            <?php echo $this->form->telefono; ?>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <div id="lista">
+                                                
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td align="right" valign="bottom" colspan="3">
+                                            <?php echo $this->form->submit ?>
+                                            <input type="button" onclick="location.href='/admin/index/collections/idMenu/3';" value="Annuler" name="cancel">    
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </form>                    </div>
+                    <div class="table_admin_foot"></div>
+                </div>
+
+
+                <!-- jQuery -->
+            </div>
+        </div>
+
+        <!-- <div id="options" class="column" >
+                             </div>-->
+
+    </div>
+</td>
