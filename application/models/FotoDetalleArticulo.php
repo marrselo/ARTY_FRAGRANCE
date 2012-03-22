@@ -23,6 +23,18 @@ class Application_Model_FotoDetalleArticulo extends ZExtraLib_Model {
         return $result;
     }
     
+    function imagesProducto() {
+        $db = $this->_fotodetalle
+                ->getAdapter()
+                ->select()
+                ->from(array('det' => $this->_fotodetalle->getName()))
+                ->join(array('f' => 'foto'), 'det.idFoto = f.idFoto', array('nombreFoto'));
+                
+        $result = $db->query()->fetchAll();
+        
+        return $result;
+    }
+    
     function buscaArticulo($id) {
         $db = $this->_fotodetalle
                 ->getAdapter()->select()

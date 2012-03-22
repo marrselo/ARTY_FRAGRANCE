@@ -38,10 +38,11 @@
                                                                     }?>                                                             
                                                             <ul class="lst_aside">
                                                                 <li><a href="<?php echo "/collections/index/info1/".$col["idArticulo"] ?>"><h2><?php echo $col["titulo"]?></h2></a></li>
-                                                                        <?php foreach ($this->producto as $prod): 
+                                                                <li><a href="<?php echo "/collections/index/info1/".$col["idArticulo"] ?>">Presentacion</a></li>
+                                                                        <?php foreach ($this->categoria as $prod): 
                                                                           if($col["idArticulo"] == $prod["idArticulo"]){
                                                                         ?>                                                                        
-                                                                        <li><a class="" href="<?php echo "/collections/index/info2/".$prod["idDetalleArticulo"] ?>"><?php echo $prod["titulo"]?></a></li>
+                                                                        <li><a class="" href="<?php echo "/collections/index/info2/".$prod["idCat"] ?>"><?php echo $prod["nombre"]?></a></li>
                                                                         <?php } ?>
                                                                         <?php endforeach; ?>
 							    </ul>
@@ -54,21 +55,30 @@
 									<li><a class="" href="#">Délice des Libertins </a></li>									
 									<li><a class="" href="#">Alcôve Royale </a></li>
 								</ul>-->
-							</aside>                                                    
-                                                    <?php if($this->idProd) { ?>
-                                                    
+							</aside>
+                                                    <?php if($this->idCat) { ?>
                                                     <section id="" class="wrapp_content">
                                                             <div class="wrapp_content_inner">
                                                                 <!--<h2>La Fleur du Roy
                                                                     <span><em>Bougies</em> - Savons - Huiles essentielles</span>
                                                                 </h2>-->
-                                                                <h2><?php echo $this->detaprod["titulo"]?>
-                                                                    <span><?php echo $this->detaprod["tituloDetalle"]?></span>
+                                                                <h2><?php echo $this->detaprod["nombre"]?>
+                                                                    <span>
+                                                                        <?php $con =0;
+                                                                        foreach ($this->prod as $p):
+                                                                            if($con ==0){
+                                                                                $produ = $p;$con++;}
+                                                                            ?>
+                                                                        <a  class="" href="<?php echo "/collections/index/info3/".$p["idDetalleArticulo"] ?>"><?php echo $p["titulo"];?></a> | 
+                                                                        <?php 
+                                                                        endforeach;
+                                                                        ?></span>
                                                                 </h2>
                                                                 <div class="slide_collection">
                                                                     <div class="mainphoto">
                                                                         <div class="photo">
-                                                                            <?php foreach ($this->foto as $foto): 
+                                                                            <?php foreach ($this->foto as $foto):
+                                                                                
                                                                                 $foto = "/imagen-producto/".$foto["nombreFoto"];
                                                                                 ?>
                                                                             <div class="item">                                                                                
@@ -90,7 +100,59 @@
                                                                                         
                                                                     <div class="description">
                                                                         <div class="description_l">                                                                            
-                                                                            <?php echo $this->detaprod["parrafoDetalle"]?>                                                                            
+                                                                            <?php echo $produ["parrafoDetalle"]?>                                                                            
+                                                                        </div>
+                                                                    </div>						
+                                                                </div>	
+                                                            </div>	
+                                                        </section>          
+                                                    
+                                                    <?php } else if($this->idProd) { ?>
+                                                    
+                                                    <section id="" class="wrapp_content">
+                                                            <div class="wrapp_content_inner">
+                                                                <!--<h2>La Fleur du Roy
+                                                                    <span><em>Bougies</em> - Savons - Huiles essentielles</span>
+                                                                </h2>-->
+                                                                <h2><?php echo $this->detaprod["nombre"]?>
+                                                                    <span>
+                                                                        <?php $con =0;
+                                                                        foreach ($this->prod as $p):
+                                                                            if($con ==0){
+                                                                                $produ = $p;$con++;}
+                                                                            ?>
+                                                                        <a  class="" href="<?php echo "/collections/index/info3/".$p["idDetalleArticulo"] ?>"><?php echo $p["titulo"];?></a> | 
+                                                                        <?php 
+                                                                        endforeach;
+                                                                        ?></span>
+                                                                </h2>
+                                                                <div class="slide_collection">
+                                                                    <div class="mainphoto">
+                                                                        <div class="photo">
+                                                                            <?php foreach ($this->foto as $foto):
+                                                                                if($foto["idDetalleArticulo"] == $produ["idDetalleArticulo"]):
+                                                                                $foto = "/imagen-producto/".$foto["nombreFoto"];
+                                                                                ?>
+                                                                            <div class="item">                                                                                
+                                                                                <img class="" src="<?php echo $foto;?>" width="808" height="500"/>
+                                                                                                                
+                                                                                <div class="box_slide">
+                                                                                    <a href="#" class="slideC slideUp"></a>
+                                                                                    <div class="inner">
+                                                                                    <?php echo $foto["descripcionFoto"] ?>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <?php endif; endforeach;?>                                                                            
+                                                                          							
+                                                                        </div>                                                                        
+                                                                        <div id="pager" class=""></div>
+                                                                    </div>
+                                                                    
+                                                                                        
+                                                                    <div class="description">
+                                                                        <div class="description_l">                                                                            
+                                                                            <?php echo $produ["parrafoDetalle"]?>                                                                            
                                                                         </div>
                                                                     </div>						
                                                                 </div>	

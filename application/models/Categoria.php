@@ -75,7 +75,7 @@ class Application_Model_Categoria extends ZExtraLib_Model {
         $db->update($this->_categoria->getName(), $data,$where);
         return true;
     }
-    function listProductos() {
+    function listCategoria() {
         $db = $this->_categoria
                 ->getAdapter()->select()
                 ->from(array($this->_categoria->getName()));
