@@ -7,18 +7,21 @@ class Application_Form_FormRealisations extends Zend_Form {
         $this->setMethod('post')->setAttrib('id', 'frmDevenir');
         $fc = Zend_Controller_Front::getInstance();
         $confUpload = $fc->getParam('bootstrap')->getOption('upload');
+        
+        //exit; 
         $e = new Zend_Form_Element_Text('title');
         $e->setRequired(true);
         $this->addElement($e);
         $e = new Zend_Form_Element_Text('link');
-        $e->setRequired(true);
+        $e->addValidator(new ZExtraLib_Validate_Url());
+       // $e->setRequired(true);
         $this->addElement($e);
         $e = new Zend_Form_Element_Textarea('contenido');
         $e->setRequired(true);
         $this->addElement($e);
         $element = new Zend_Form_Element_File('imagen');
         $element->setLabel('Cargar Imagen:')
-                ->setRequired()
+          //      ->setRequired()
                 ->setDestination($confUpload["rutaRealisations"]);
         $element->addValidator('Count', false, 1);
         $element->addValidator('Size', false, 409600);

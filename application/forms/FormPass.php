@@ -1,33 +1,15 @@
 <?php
 
-class Application_Form_FormUsuario extends Zend_Form {
+class Application_Form_FormPass extends Zend_Form {
     
     public function init(){
         
         $this->setMethod('post')->setAttrib('id', 'frmDevenir');
-        $e = new Zend_Form_Element_Text('nombre');
-        $e->setRequired(true);
-        $this->addElement($e);
-        $e = new Zend_Form_Element_Text('apellidopaterno');
-        $e->setRequired(true);
-        $this->addElement($e);
-        $e = new Zend_Form_Element_Text('apellidomaterno');
-        $e->setRequired(true);
-        $this->addElement($e);
         $e = new Zend_Form_Element_Text('login');
         $v = new Zend_Validate_EmailAddress();
         $e->addValidator($v);
         $e->setRequired(true);
         $this->addElement($e);
-        $e = new Zend_Form_Element_Password('password');
-        $e->setRequired(true);
-        $this->addElement($e);
-        $e = new Zend_Form_Element_Text('telefono');
-        $e->setRequired(true);
-        $this->addElement($e);
-        $e = new Zend_Form_Element_Hidden('FlagSuperUsuario');
-        $e->setValue(1);        
-        $this->addElement($e);        
         $e = new Zend_Form_Element_Submit('submit');
         $e->setLabel('Grabar');
         $this->addElement($e);

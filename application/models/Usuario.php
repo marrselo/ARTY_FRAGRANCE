@@ -101,4 +101,11 @@ class Application_Model_Usuario  extends Zend_Db_Table {
                     ->query()->fetchAll();
         }
     }
+    public function listarUnUsuarioPorMail($idUsuario) {
+        return  $this->getAdapter()
+                ->select()->from('usuario')
+                ->where('login = ?', $idUsuario)
+                ->query()
+                ->fetch();
+    }
 }
