@@ -92,6 +92,7 @@ class Application_Model_Articulo extends ZExtraLib_Model {
             'fotoPrincipal' => $values["fotoPrincipal"],
             'idMenu' => $men["idMenu"],
             'idEstadoarticulo' => 1,
+            'ididArticulo' => $values["ididArticulo"],
             'flagPublicar' => 1,
             'slugArticulo' => 1,            
             );
@@ -117,18 +118,32 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         }
         
     }
+    function buscaCol($id) {
+        $db = $this->_articulo
+                ->getAdapter()->select()
+                ->from(array($this->_articulo->getName()))
+                ->where('ididArticulo = ? ', $id);
+        $result = $db->query()->fetchAll();        
+        return $result;
+    }
     
     function deleteArticulo($id) {
         $db = $this->_articulo->getAdapter();
-        $where = $db->quoteInto('idArticulo = ?', $id);        
-        //$db->delete('articulo', $where);
         $cat = new Application_Model_Categoria();
-        $list = $cat->listarCategoria($id);        
-        $db->delete('category', $where);
-        foreach ($list as $l):
-            $where = $db->quoteInto('idCat = ?', $l['idCat']);        
-            $db->delete('detallearticulo', $where);
-        endforeach;
+        $col = $this->buscaCol($id);
+        foreach ($col as $c):
+            
+            $where = $db->quoteInto('idArticulo = ?', $c["idArticulo"]);
+            $db->delete('articulo', $where);            
+            $list = $cat->listarCategoria($id);        
+            $db->delete('category', $where);
+            
+            foreach ($list as $l):
+                $where = $db->quoteInto('idCat = ?', $l['idCat']);        
+                $db->delete('detallearticulo', $where);
+            endforeach;
+            
+        endforeach;        
         
         return true;
     }
@@ -165,6 +180,17 @@ class Application_Model_Articulo extends ZExtraLib_Model {
         $select = "SELECT AUTO_INCREMENT FROM information_schema.TABLES 
             WHERE TABLE_SCHEMA = 'artyfrag_fragance' AND TABLE_NAME = 'articulo'";
         
+        $result = $db->fetchOne($select);
+        
+        return $result;
+        
+        }
+        function maxIdTable($tab) {
+        $db = $this->_articulo
+                ->getAdapter();        
+        $select = "SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+            WHERE TABLE_SCHEMA = 'artyfrag_fragance' AND TABLE_NAME = '".$tab."'";
+        //echo $select;exit;
         $result = $db->fetchOne($select);
         
         return $result;

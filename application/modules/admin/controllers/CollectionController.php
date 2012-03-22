@@ -148,7 +148,7 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
 
         if ($this->_request->isPost()) {
             $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
-            $idArticulo = $this->_articulo->maxId();
+            $idArticulo = $this->_articulo->maxId();            
             $form->fotoPrincipal->addFilter(new Zend_Filter_File_Rename(
                             array('target' => 'collection-' . $idArticulo . '.' . $extn))
             );
@@ -161,6 +161,7 @@ class Admin_CollectionController extends ZExtraLib_Controller_Action {
                 $extn = pathinfo($form->fotoPrincipal->getFileName(), PATHINFO_EXTENSION);
                 $values["fotoPrincipal"] = 'collection-' . $idArticulo . '.' . $extn;
                 $values["idMenu"] = $idMenu["idMenu"];
+                $values["ididArticulo"] = $idArticulo;                
 
                 $form->fotoPrincipal->receive();
                 if ($this->_articulo->insertArticulo($values))
